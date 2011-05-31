@@ -8,43 +8,45 @@ title: Simple Hadoop Clusters
 
 <p class="meta">31 May 2011 - Washington, DC</p>
 
-# Pallet and Hadoop #
+# Introducing Pallet-Hadoop #
 
-Over the past few months, I've grown increasingly frustrated with the complexity of cluster configuration tools for Apache's [Hadoop](http://hadoop.apache.org/). For those of you not in the know, Hadoop is an Apache java framework that allows for distributed processing of enormous datasets across large clusters. It combines a computation engine based on [MapReduce](http://en.wikipedia.org/wiki/MapReduce) with [HDFS](http://hadoop.apache.org/hdfs/docs/current/hdfs_design.html), a distributed filesystem based on the [Google File System](http://en.wikipedia.org/wiki/Google_File_System).
+I'm very excited to announce [Pallet-Hadoop](https://github.com/pallet/pallet-hadoop), a configuration library for Apache's [Hadoop](http://hadoop.apache.org/), written in Clojure. For simple, quick instructions on getting your first Hadoop cluster running on EC2, head over to the [Pallet-Hadoop Example Project](https://github.com/pallet/pallet-hadoop-example) and follow along with the README. For a more in-depth discussion, read on.
+
+## Background ##
+
+For those of you not in the know, Hadoop is an Apache java framework that allows for distributed processing of enormous datasets across large clusters. It combines a computation engine based on [MapReduce](http://en.wikipedia.org/wiki/MapReduce) with [HDFS](http://hadoop.apache.org/hdfs/docs/current/hdfs_design.html), a distributed filesystem based on the [Google File System](http://en.wikipedia.org/wiki/Google_File_System).
 
 Abstraction layers such as [Cascading](https://github.com/cwensel/cascading) (for Java) and [Cascalog](https://github.com/nathanmarz/cascalog) (for [Clojure](http://clojure.org/)) make writing MapReduce queries quite nice. Indeed, running hadoop locally with cascalog [couldn't be easier](http://nathanmarz.com/blog/introducing-cascalog-a-clojure-based-query-language-for-hado.html).
 
-Unfortunately, graduating one's MapReduce jobs to the cluster level isn't so easy. Amazon's [Elastic MapReduce](http://aws.amazon.com/elasticmapreduce/) is a great option; but what to do if you want to configure your own cluster?
+Unfortunately, graduating one's MapReduce jobs to the cluster level isn't so easy. Amazon's [Elastic MapReduce](http://aws.amazon.com/elasticmapreduce/) is a great option for getting up and running fast; but what to do if you want to configure your own cluster?
 
-Current solutions include [crane](https://github.com/getwoven/crane/tree/), which I found to be poorly documented, and [Cluster Chef](https://github.com/infochimps/cluster_chef/tree/version_2), which actually looks quite nice. Cluster Chef allows the user to supply a data driven description of a cluster, and boot it up using a command line utility written in Ruby.
+After surveying existing tools, I decided to write my own layer over [Pallet](https://github.com/pallet/pallet), a wonderful cloud provisioning library written in Clojure. Pallet runs on top of [jclouds](https://github.com/jclouds/jclouds), which allows pallet to define its operations independent of any one cloud provider. Switching between clouds involves a change of login credentials, nothing more.
 
-I decided to forgo these options in favor of writing my own layer over [Pallet](https://github.com/pallet/pallet), a wonderful cloud provisioning library written in Clojure. Pallet runs on top of [jclouds](https://github.com/jclouds/jclouds), which allows pallet to define its operations independent of any one cloud provider. Switching between clouds involves a change of login credentials, nothing more.
-
-## Goals ##
+## Cluster Description ##
 
 The goal of this project was to write an abstraction layer capable of converting a data-driven representation of a Hadoop cluster into the real thing, running on one of the many clouds.
 
 Let's think of a cluster as a data structure composed of a number of groups of identically configured machines -- *node groups*. A node group has four properties:
 
-1. **server spec**: a description of the software payload installed on each node
-2. **machine spec**: The hardware configuration of each node
-3. **property map**: Hadoop configuration properties unique to the node group
-3. **count**: the number of nodes within the group.
+1. *server spec*: a description of the software payload installed on each node.
+2. *machine spec*: The hardware configuration of each node.
+3. *property map*: Hadoop configuration properties unique to the node group.
+3. *count*: the number of nodes within the group.
 
-#### Server Spec ####
+(Machine spec and property map are also defined at the cluster level; node group values are merged in, knocking out cluster-wide options where defined.)
 
-A node group's server spec can be described by some combination of the following four roles:
+##### Server Spec ####
 
-* Jobtracker:  This is the king of mapreduce.
-* Tasktracker: Jobtracker parcels out tasks to the tasktrackers.
-* Namenode:    The king of HDFS.
-* Datanode:    Datanodes hold HDFS chunks; they're coordinated by the namenode.
+A node group's server spec can be described by some combination of the following four roles (ignoring secondary namenode for now):
 
-(I'll expand this to cover the secondary namenode soon.)
+* *Jobtracker*:  This is the king of mapreduce.
+* *Tasktracker*: Jobtracker parcels out tasks to the tasktrackers.
+* *Namenode*:    The king of HDFS.
+* *Datanode*:    Datanodes hold HDFS chunks; they're coordinated by the namenode.
 
 Tasktrackers and datanodes are slave nodes, and are usually assigned together to some node group. The jobtracker and namenode are master nodes; they act as coordinators for MapReduce and HDFS, respectively, and no more than one of each should exist. (A single node may share both responsibilities.)
 
-#### Machine Spec ####
+##### Machine Spec ####
 
 Pallet and jclouds give us the tools to describe a node group's machine-spec in a very high level way. For example, a 64-bit machine running Ubuntu Linux 10.10 with at least 4 gigs of ram can be described by this Clojure map:
        
@@ -57,53 +59,79 @@ Pallet and jclouds give us the tools to describe a node group's machine-spec in 
 
 A whole host of options are supported; all valid map keys can be found [here](https://github.com/jclouds/jclouds/blob/master/compute/src/main/clojure/org/jclouds/compute.clj#L446).
 
-#### Property Map ####
+##### Property Map ####
 
 Hadoop allows for a rather bewildering number of configuration options, each of which are dependent in some way on the power of the machines composing each cluster. (Because this is probably the most confusing part of Hadoop configuration, one of the main goals of this project is to provide intelligent defaults that modify themselves based on the machine specs of the nodes in each node group.)
 
-Hadoop has four configuration files of note:
+Hadoop has four configuration files of note: mapred-site.xml, hdfs-site.xml, core-site.xml and hadoop-env.sh. Properties for each of these files are defined using a clojure map:
 
-1. mapred-site.xml: 
-2. hdfs-site.xml:
-3. core-site.xml:
-4. hadoop-env.sh:
+{% highlight clojure %}
+{:hdfs-site {:dfs.data.dir "/mnt/dfs/data"
+             :dfs.name.dir "/mnt/dfs/name"}
+ :mapred-site {:mapred.task.timeout 300000
+               :mapred.reduce.tasks 60
+               :mapred.tasktracker.map.tasks.maximum 15
+               :mapred.tasktracker.reduce.tasks.maximum 15
+               :mapred.child.java.opts "-Xms1024m -Xmx1024m"
+ :hadoop-env {:JAVA_LIBRARY_PATH "/path/to/libs"}}}
+{% endhighlight %}
+
+K-v  pairs for each of the three XML files are processed into XML, while k-v pairs under `:hadoop-env` are expanded like so:
+
+     {:JAVA_LIBRARY_PATH "/path/to/libs"}
+     => export JAVA_LIBRARY_PATH=/path/to/libs
 
 TODO: Add resources for understanding hadoop properties.
 
-(The number of reduce tasks per machine, for example, tends to scale directly with the processing power of the machine and the number of child JVM tasks that can be launched, which the total number of reduce tasks allowed per job scales with some factor of this number. Lots of little rules. (At the end, I'll provide some of the resources I've found to be most helpful in navigating the Hadoop jungle.)
-
-#### Cluster Level Properties ####
-
-While it's important to have properties common to an entire cluster, each group of nodes should be able to maintain its own set of hadoop properties, tailored for its specific hardware configuration. Same goes for the machine spec.
-
 TODO:
-machine spec and property map are supported at the cluster level, as well -- the other two properties must be defined at the node group level.
+(The number of reduce tasks per machine, for example, tends to scale directly with the processing power of the machine and the number of child JVM tasks that can be launched, which the total number of reduce tasks allowed per job scales with some factor of this number. Lots of little rules. (At the end, I'll provide some of the resources I've found to be most helpful in navigating the Hadoop jungle.)
 
 ## Setting Up ##
 
-To boot up a hadoop cluster properly, you'll need to [create an AWS account](https://aws-portal.amazon.com/gp/aws/developer/registration/index.html). Once you've done this, navigate to [your account page](http://aws.amazon.com/account/) and follow the "Security Credentials" link. Under "Access Credentials", you should see a tab called "Access Keys". Note down your Access Key ID and Secret Access Key for future reference.
+To get your first cluster running, you'll need to [create an AWS account](https://aws-portal.amazon.com/gp/aws/developer/registration/index.html). Once you've done this, navigate to [your account page](http://aws.amazon.com/account/) and follow the "Security Credentials" link. Under "Access Credentials", you should see a tab called "Access Keys". Note down your Access Key ID and Secret Access Key for future reference.
 
-I'm going to assume that you have some basic knowledge of how to create a clojure project using [leiningen](https://github.com/technomancy/leiningen) or [cake](https://github.com/ninjudd/cake). Go ahead and download [this example project](https://github.com/pallet/pallet-hadoop-example) to follow along:
+I'm going to assume that you have some basic knowledge of clojure, and know how to get a project running using [leiningen](https://github.com/technomancy/leiningen) or [cake](https://github.com/ninjudd/cake). Go ahead and download [this example project](https://github.com/pallet/pallet-hadoop-example) to follow along:
 
     $ git clone git://github.com/pallet/pallet-hadoop-example.git
     $ cd pallet-hadoop-example
     $ lein deps
     $ lein repl
 
-This should get you to the `pallet-hadoop-example.core` REPL. This namespace has a few helper functions defined for us; let's go through it quickly.
+This will get you to a REPL in `pallet-hadoop-example.core`.
 
-The namespace declaration brings in `pallet-hadoop.node`, where all of the cluster forming magic lies.
+### Compute Service ###
+
+Pallet abstracts away details about specific cloud providers through the idea of a "compute service". The combination of our cluster definition and our compute service will be enough to get our cluster running. We define a compute service at our REPL like so:
 
 {% highlight clojure %}
-
-(ns pallet-hadoop-example.core
-  (:use pallet-hadoop.node
-        [pallet.crate.hadoop :only (hadoop-user)]
-        [pallet.extensions :only (def-phase-fn)])
-  (:require [pallet.core :as core]
-            [pallet.resource.directory :as d]))
-
+=> (use 'pallet.compute)
+nil
+=> (def ec2-service
+       (compute-service "aws-ec2"
+                        :identity "ec2-access-key-id"
+                        :credential "ec2-secret-access-key"))
+#'pallet-hadoop-example.core/ec2-service
 {% endhighlight %}
+
+Alternatively, if you want to keep these out of your code base, save the following to `~/.pallet/config.clj`:
+
+{% highlight clojure %}
+(defpallet
+  :services {:aws {:provider "aws-ec2"
+                   :identity "ec2-access-key-id"
+                   :credential "ec2-secret-access-key"}})
+{% endhighlight %}
+
+and define `ec2-service` with:
+
+{% highlight clojure %}
+=> (def ec2-service (compute-service-from-config-file :aws))
+#'pallet-hadoop-example.core/ec2-service
+{% endhighlight %}
+<br/>
+### Helper Functions ###
+
+The `pallet-hadoop-example.core` namespace has a few helper functions defined for us; let's go through it quickly.
 
 *Phases* are a key concept in pallet. A phase is a group of operations meant to be applied to some set of nodes. EC2 instances have the property that the bulk of their allotted [ephemeral storage](http://goo.gl/ZplJg) is mounted as `mnt/`. To use our distributed file system effectively, we must change the permissions on this drive to allow the default hadoop user to gain access.
 
@@ -124,8 +152,6 @@ The following phase function, when applied to all nodes in the cluster, will ens
 {% endhighlight %}
 
 `create-cluster` accepts a data description of a hadoop cluster and a compute service, starts all nodes, runs our `authorize-mnt` phase, and starts up all appropriate hadoop services for each group of nodes. `destroy-cluster` (surprise!) shuts everything down.
-
-(Don't worry about `remote-env`, here. We're making sure pallet knows to deal with all nodes in parallel, rather than configuring each node in sequence.)
 
 {% highlight clojure %}
 
@@ -151,42 +177,11 @@ The following phase function, when applied to all nodes in the cluster, will ens
   (kill-cluster cluster
                 :compute compute-service
                 :environment remote-env))
-
 {% endhighlight %}
-
-### Compute Service ###
-
-Pallet abstracts away details about specific cloud providers through the idea of a "compute service". The combination of our cluster definition and our compute service will be enough to get our cluster running. We define a compute service like so:
-
-{% highlight clojure %}
-=> (use 'pallet.compute)
-nil
-=> (def ec2-service
-       (compute-service "aws-ec2"
-                        :identity "ec2-access-key-id"
-                        :credential "ec2-secret-access-key"))
-#'pallet-hadoop-example.core/ec2-service
-{% endhighlight %}
-
-Alternatively, you could place the following in `~/.pallet/config.clj`:
-
-{% highlight clojure %}
-(defpallet
-  :services {:aws {:provider "aws-ec2"
-                   :identity "ec2-access-key-id"
-                   :credential "ec2-secret-access-key"}})
-{% endhighlight %}
-
-and define the compute service with
-
-{% highlight clojure %}
-=> (def ec2-service (compute-service-from-config-file :aws))
-#'pallet-hadoop-example.core/ec2-servic
-{% endhighlight %}
-
+<br/>
 ### Cluster Definition ###
 
-Here's how we define a node group containing a single jobtracker node, with a custom value of `"val"` for the `some-prop` key in `mapred-site.xml`:
+Here's how we define a node group containing a single jobtracker node with a single, node-group-specific customization of `mapred-site.xml`:
 
     (node-group [:jobtracker] 1 :props {:mapred-site {:some-prop "val"}})
 
@@ -194,27 +189,31 @@ And the same node, with an additional `namenode` role and no customizations:
 
     (node-group [:jobtracker :namenode])
 
-`node-group` knows that this is a master node group, so the count defaults to 1. Currently, `:props` and `:spec` are supported as keyword arguments to `node-group`, and define group-specific customizations of, respectively, the hadoop properties map and the machine spec for all nodes in the group.
+`node-group` knows that this is a master node group, and defaults the count to 1. Currently, `:props` and `:spec` are supported as keyword arguments, and define group-specific customizations of, respectively, the hadoop property map and the machine spec for all nodes in the group.
 
-Let's define a cluster for EC2, with four nodes -- one's a jobtracker and namenode, the other three will be slavenodes. We'll need the following definitions:
+Let's define a cluster on EC2, with two node groups: The first will contain one node that functions as jobtracker and namenode, while the second will contain three slave nodes. We'll need the following definitions:
 
 {% highlight clojure %}
-
    (node-group [:jobtracker :namenode])
    (slave-group 3)
-
 {% endhighlight %}
 
-`slave-group` is shorthand for `(node-group [:datanode :tasktracker] ...)`.
+(`slave-group` is shorthand for `(node-group [:datanode :tasktracker] ...)`.)
 
-This brings us most of the way to a full cluster. The only remaining pieces are the cluster-level hadoop properties, and the base machine spec for all nodes in the cluster. `cluster-spec` accepts these as optional keyworded arguments, after the two required arguments of `ip-type` and a map of node tags to node group definitions. (The tags must be unique, but can be arbitrary.)
+Pallet required that each node group be paired with some unique, arbitrary key identifier. Let's wrap our node group definitions like so:
+
+{% highlight clojure %}
+{:jobtracker (node-group [:jobtracker :namenode])
+ :slaves (slave-group 3)}
+{% endhighlight %}
+
+This brings us most of the way to a full cluster. The only remaining pieces are the cluster-level hadoop properties, and the base machine spec for all nodes in the cluster. `cluster-spec` accepts these as optional keyworded arguments, after the two required arguments of `ip-type` and the node group map, shown above.
 
 *ip-type* can be either `:public` or `:private`, and determines what type of IP address the cluster nodes use to communicate with one another. EC2 instances require private IP addresses; if one were setting up a cluster of virtual machines, `:public` would be necessary.
 
-Here, we define a cluster with private IP addresses, the two node groups referenced above (keyed to `:jobtracker` and `:slaves`), and a number of customizations to the default hadoop settings. Our machine spec declares that all nodes in the cluster will be the fastest 64 bit machines Amazon has to offer, all running Ubuntu 10.10.
+Here, we define a cluster with private IP addresses, the two node groups referenced above, and a number of customizations to the default hadoop settings. Our machine spec declares that all nodes in the cluster should be the fastest 64 bit machines Amazon has to offer, all running Ubuntu 10.10.
 
 {% highlight clojure %}
-
 (def test-cluster
     (cluster-spec
      :private
@@ -231,10 +230,9 @@ Here, we define a cluster with private IP addresses, the two node groups referen
                                 :mapred.tasktracker.map.tasks.maximum 15
                                 :mapred.tasktracker.reduce.tasks.maximum 15
                                 :mapred.child.java.opts "-Xms1024m -Xmx1024m"}}))
-
 {% endhighlight %}
 
-And that's all there is to it! Type that in at the REPL, and let's boot this thing.
+And that's all there is to it! Type that in at the REPL, and let's get this this running.
 
 ### Booting the Cluster ###
 
@@ -244,11 +242,22 @@ Now that we have our compute service and our cluster defined, booting the cluste
 => (create-cluster test-cluster ec2-service)
 {% endhighlight %}
 
-The logs you see flying by are Pallet's communications with the nodes in the cluster. After startup, Pallet uses your local SSH key to gain passwordless access to each node. 
+The logs you see flying by are Pallet's SSH communications with the nodes in the cluster. After startup, Pallet uses your local SSH key to gain passwordless access to each node. 
 
-### Testing ###
+### Running Word Count ###
 
-Go to EC2 console, get the public DNS address of the jobtracker. Go to address:50030, you'll see hadoop running.
+Once `create-cluster` returns, it's time to log in and run a MapReduce job. Head over to the [EC2 Console](https://console.aws.amazon.com/ec2/), log in, and click "Instances" on the left. You should see four nodes running; click on the node whose security group contains "jobtracker", and scroll the lower pane down to retrieve the public DNS address for the node. It'll look something like
+
+    ec2-50-17-103-174.compute-1.amazonaws.com
+
+I'll refer to this address as `jobtracker.com`. Point your browser to `jobtracker.com:50030`, and you'll see jobtracker console for mapreduce jobs. `jobtracker.com:50070` points to the namenode console, with information about HDFS.
+
+Head into a terminal and run the following commands:
+
+     $ ssh jobtracker.com (insert actual address, enter yes to continue connecting)
+     $ sudo su - hadoop
+
+(That's as far as I am for now!)
 
 Download a text file. Show how to run a sample word count in MapReduce, as shown in [this blog post](http://www.michael-noll.com/tutorials/running-hadoop-on-ubuntu-linux-multi-node-cluster/#running-a-mapreduce-job). Get it back [like this](http://www.michael-noll.com/tutorials/running-hadoop-on-ubuntu-linux-single-node-cluster/#retrieve-the-job-result-from-hdfs).
 
@@ -259,6 +268,7 @@ When we're all finished, we can kill our cluster with this command:
 {% highlight clojure %}
 => (destroy-cluster test-cluster ec2-service)
 {% endhighlight %}
+<br/>
 
 ### Future Plans ###
 
