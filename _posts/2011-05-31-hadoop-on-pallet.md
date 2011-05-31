@@ -10,7 +10,7 @@ title: Simple Hadoop Clusters
 
 # Introducing Pallet-Hadoop #
 
-I'm very excited to announce [Pallet-Hadoop](https://github.com/pallet/pallet-hadoop), a configuration library for Apache's [Hadoop](http://hadoop.apache.org/), written in Clojure. For simple, quick instructions on getting your first Hadoop cluster running on EC2, head over to the [Pallet-Hadoop Example Project](https://github.com/pallet/pallet-hadoop-example) and follow along with the README. For a more in-depth discussion, read on.
+I'm very excited to announce [Pallet-Hadoop](https://github.com/pallet/pallet-hadoop), a configuration library written in Clojure for Apache's [Hadoop](http://hadoop.apache.org/). For simple, quick instructions on getting your first Hadoop cluster running on EC2, head over to the [Pallet-Hadoop Example Project](https://github.com/pallet/pallet-hadoop-example) and follow along with the README. For a more in-depth discussion, read on.
 
 ## Background ##
 
@@ -44,7 +44,7 @@ A node group's server spec can be described by some combination of the following
 * *Namenode*:    The king of HDFS.
 * *Datanode*:    Datanodes hold HDFS chunks; they're coordinated by the namenode.
 
-Tasktrackers and datanodes are slave nodes, and are usually assigned together to some node group. The jobtracker and namenode are master nodes; they act as coordinators for MapReduce and HDFS, respectively, and no more than one of each should exist. (A single node may share both responsibilities.)
+Tasktrackers and datanodes are slave nodes, and are usually assigned together to some node group. The jobtracker and namenode are master nodes; they act as coordinators for MapReduce and HDFS, respectively, and only one of each should exist. (A single node may share both responsibilities.)
 
 ##### Machine Spec ####
 
@@ -61,9 +61,10 @@ A whole host of options are supported; all valid map keys can be found [here](ht
 
 ##### Property Map ####
 
-Hadoop allows for a rather bewildering number of configuration options, each of which are dependent in some way on the power of the machines composing each cluster. (Because this is probably the most confusing part of Hadoop configuration, one of the main goals of this project is to provide intelligent defaults that modify themselves based on the machine specs of the nodes in each node group.)
 
-Hadoop has four configuration files of note: mapred-site.xml, hdfs-site.xml, core-site.xml and hadoop-env.sh. Properties for each of these files are defined using a clojure map:
+Tom White (said it best)[http://goo.gl/Sq2lM]: "Hadoop has a bewildering number of configuration properties", each of which are dependent in some way on the power of the machines composing each cluster. As this is probably the most confusing part of Hadoop, the next main gloal of this project will be to provide intelligent defaults that modify themselves based on the machine specs of the nodes in each node group.
+
+Hadoop has four configuration files of note: `mapred-site.xml`, `hdfs-site.xml`, `core-site.xml` and `hadoop-env.sh`. Properties for each of these files are defined with a clojure map:
 
 {% highlight clojure %}
 {:hdfs-site {:dfs.data.dir "/mnt/dfs/data"
@@ -76,15 +77,12 @@ Hadoop has four configuration files of note: mapred-site.xml, hdfs-site.xml, cor
  :hadoop-env {:JAVA_LIBRARY_PATH "/path/to/libs"}}}
 {% endhighlight %}
 
-K-v  pairs for each of the three XML files are processed into XML, while k-v pairs under `:hadoop-env` are expanded like so:
+k-v  pairs for each of the three XML files are processed into XML, while k-v pairs under `:hadoop-env` are expanded as lines in `hadoop-env.sh`, formatted like so:
 
      {:JAVA_LIBRARY_PATH "/path/to/libs"}
      => export JAVA_LIBRARY_PATH=/path/to/libs
 
 TODO: Add resources for understanding hadoop properties.
-
-TODO:
-(The number of reduce tasks per machine, for example, tends to scale directly with the processing power of the machine and the number of child JVM tasks that can be launched, which the total number of reduce tasks allowed per job scales with some factor of this number. Lots of little rules. (At the end, I'll provide some of the resources I've found to be most helpful in navigating the Hadoop jungle.)
 
 ## Setting Up ##
 
@@ -131,7 +129,7 @@ and define `ec2-service` with:
 <br/>
 ### Helper Functions ###
 
-The `pallet-hadoop-example.core` namespace has a few helper functions defined for us; let's go through it quickly.
+The `pallet-hadoop-example.core` namespace has a few helper functions defined for us. Let's go through it quickly.
 
 *Phases* are a key concept in pallet. A phase is a group of operations meant to be applied to some set of nodes. EC2 instances have the property that the bulk of their allotted [ephemeral storage](http://goo.gl/ZplJg) is mounted as `mnt/`. To use our distributed file system effectively, we must change the permissions on this drive to allow the default hadoop user to gain access.
 
