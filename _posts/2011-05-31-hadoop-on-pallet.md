@@ -62,7 +62,7 @@ A whole host of options are supported; all valid map keys can be found [here](ht
 ##### Property Map ####
 
 
-Tom White (said it best)[http://goo.gl/Sq2lM]: "Hadoop has a bewildering number of configuration properties", each of which are dependent in some way on the power of the machines composing each cluster. As this is probably the most confusing part of Hadoop, the next main gloal of this project will be to provide intelligent defaults that modify themselves based on the machine specs of the nodes in each node group.
+Tom White [said it best](http://goo.gl/Sq2lM): "Hadoop has a bewildering number of configuration properties", each of which are dependent in some way on the power of the machines composing each cluster. As this is probably the most confusing part of Hadoop, the next main gloal of this project will be to provide intelligent defaults that modify themselves based on the machine specs of the nodes in each node group.
 
 Hadoop has four configuration files of note: `mapred-site.xml`, `hdfs-site.xml`, `core-site.xml` and `hadoop-env.sh`. Properties for each of these files are defined with a clojure map:
 
@@ -86,7 +86,7 @@ TODO: Add resources for understanding hadoop properties.
 
 ## Setting Up ##
 
-To get your first cluster running, you'll need to [create an AWS account](https://aws-portal.amazon.com/gp/aws/developer/registration/index.html). Once you've done this, navigate to [your account page](http://aws.amazon.com/account/) and follow the "Security Credentials" link. Under "Access Credentials", you should see a tab called "Access Keys". Note down your Access Key ID and Secret Access Key for future reference.
+Before you get your first cluster running, you'll need to [create an AWS account](https://aws-portal.amazon.com/gp/aws/developer/registration/index.html). Once you've done this, navigate to [your account page](http://aws.amazon.com/account/) and follow the "Security Credentials" link. Under "Access Credentials", you should see a tab called "Access Keys". Note down your Access Key ID and Secret Access Key for future reference.
 
 I'm going to assume that you have some basic knowledge of clojure, and know how to get a project running using [leiningen](https://github.com/technomancy/leiningen) or [cake](https://github.com/ninjudd/cake). Go ahead and download [this example project](https://github.com/pallet/pallet-hadoop-example) to follow along:
 
@@ -212,22 +212,21 @@ This brings us most of the way to a full cluster. The only remaining pieces are 
 Here, we define a cluster with private IP addresses, the two node groups referenced above, and a number of customizations to the default hadoop settings. Our machine spec declares that all nodes in the cluster should be the fastest 64 bit machines Amazon has to offer, all running Ubuntu 10.10.
 
 {% highlight clojure %}
-(def test-cluster
-    (cluster-spec
-     :private
-     {:jobtracker (node-group [:jobtracker :namenode])
-      :slaves (slave-group 3)}
-     :base-machine-spec {:os-family :ubuntu
-                         :os-version-matches "10.10"
-                         :os-64-bit true
-                         :fastest true}
-     :base-props {:hdfs-site {:dfs.data.dir "/mnt/dfs/data"
-                              :dfs.name.dir "/mnt/dfs/name"}
-                  :mapred-site {:mapred.task.timeout 300000
-                                :mapred.reduce.tasks 60
-                                :mapred.tasktracker.map.tasks.maximum 15
-                                :mapred.tasktracker.reduce.tasks.maximum 15
-                                :mapred.child.java.opts "-Xms1024m -Xmx1024m"}}))
+(def example-cluster
+    (cluster-spec :private
+                  {:jobtracker (node-group [:jobtracker :namenode])
+                   :slaves (slave-group 3)}
+                  :base-machine-spec {:os-family :ubuntu
+                                      :os-version-matches "10.10"
+                                      :os-64-bit true
+                                      :fastest true}
+                  :base-props {:hdfs-site {:dfs.data.dir "/mnt/dfs/data"
+                                           :dfs.name.dir "/mnt/dfs/name"}
+                               :mapred-site {:mapred.task.timeout 300000
+                                             :mapred.reduce.tasks 60
+                                             :mapred.tasktracker.map.tasks.maximum 15
+                                             :mapred.tasktracker.reduce.tasks.maximum 15
+                                             :mapred.child.java.opts "-Xms1024m -Xmx1024m"}}))
 {% endhighlight %}
 
 And that's all there is to it! Type that in at the REPL, and let's get this this running.
@@ -237,47 +236,90 @@ And that's all there is to it! Type that in at the REPL, and let's get this this
 Now that we have our compute service and our cluster defined, booting the cluster is as simple as the following:
 
 {% highlight clojure %}
-=> (create-cluster test-cluster ec2-service)
+=> (create-cluster example-cluster ec2-service)
 {% endhighlight %}
 
 The logs you see flying by are Pallet's SSH communications with the nodes in the cluster. After startup, Pallet uses your local SSH key to gain passwordless access to each node. 
 
 ### Running Word Count ###
 
-Once `create-cluster` returns, it's time to log in and run a MapReduce job. Head over to the [EC2 Console](https://console.aws.amazon.com/ec2/), log in, and click "Instances" on the left. You should see four nodes running; click on the node whose security group contains "jobtracker", and scroll the lower pane down to retrieve the public DNS address for the node. It'll look something like
+Once `create-cluster` returns, it's time to log in and run a MapReduce job. We're going to mirror Michael Noll's [excellent Hadoop tutorial](http://goo.gl/aALr9).
+
+Head over to the [EC2 Console](https://console.aws.amazon.com/ec2/), log in, and click "Instances" on the left.
+
+You should see four nodes running; click on the node whose security group contains "jobtracker". Scroll the lower pane down to retrieve the public DNS address for the node. It'll look something like
 
     ec2-50-17-103-174.compute-1.amazonaws.com
 
-I'll refer to this address as `jobtracker.com`. Point your browser to `jobtracker.com:50030`, and you'll see jobtracker console for mapreduce jobs. `jobtracker.com:50070` points to the namenode console, with information about HDFS.
+I'll refer to this address as `jobtracker.com`.
 
-Head into a terminal and run the following commands:
+Point your browser to `jobtracker.com:50030`, and you'll see jobtracker console for mapreduce jobs. `jobtracker.com:50070` points to the namenode console, with information about HDFS.
+
+Now, we're going to SSH into the jobtracker, and operate as the hadoop user. Head to your terminal and run the following commands:
 
      $ ssh jobtracker.com (insert actual address, enter yes to continue connecting)
      $ sudo su - hadoop
 
-(That's as far as I am for now!)
+### Copy Data to HDFS ###
 
-Download a text file. Show how to run a sample word count in MapReduce, as shown in [this blog post](http://www.michael-noll.com/tutorials/running-hadoop-on-ubuntu-linux-multi-node-cluster/#running-a-mapreduce-job). Get it back [like this](http://www.michael-noll.com/tutorials/running-hadoop-on-ubuntu-linux-single-node-cluster/#retrieve-the-job-result-from-hdfs).
+At this point, we're ready to join Michael Noll's [tutorial](http://goo.gl/aALr9). (I'm going to cover the same ground for clarity.) Start by downloading the seven books he references to a temp directory:
+
+* [The Outline of Science, Vol. 1 (of 4) by J. Arthur Thomson](http://www.gutenberg.org/ebooks/20417.txt.utf8)
+* [The Notebooks of Leonardo Da Vinci](http://www.gutenberg.org/ebooks/5000.txt.utf8)
+* [Ulysses by James Joyce](http://www.gutenberg.org/cache/epub/4300/pg4300.txt)
+* [The Art of War by 6th cent. B.C. Sunzi](http://www.gutenberg.org/ebooks/132.txt.utf8)
+* [The Adventures of Sherlock Holmes by Sir Arthur Conan Doyle](http://www.gutenberg.org/ebooks/1661.txt.utf8)
+* [The Devil’s Dictionary by Ambrose Bierce](http://www.gutenberg.org/ebooks/972.txt.utf8)
+* [Encyclopaedia Britannica, 11th Edition, Volume 4, Part 3](http://www.gutenberg.org/ebooks/19699.txt.utf8)
+
+Running the following commands at the remote shell should do the trick:
+
+    mkdir /tmp/books;
+    cd /tmp/books;
+    wget http://www.gutenberg.org/ebooks/20417.txt.utf8;
+    wget http://www.gutenberg.org/ebooks/5000.txt.utf8;
+    wget http://www.gutenberg.org/cache/epub/4300/pg4300.txt;
+    wget http://www.gutenberg.org/ebooks/132.txt.utf8;
+    wget http://www.gutenberg.org/ebooks/1661.txt.utf8;
+    wget http://www.gutenberg.org/ebooks/972.txt.utf8;
+    wget http://www.gutenberg.org/ebooks/19699.txt.utf8
+
+Then, let's navigate to the Hadoop directory to prepare for the job:
+
+    $ cd /usr/local/hadoop-0.20.2/
+
+Copy the books over to the distributed filesystem:
+
+    $ hadoop dfs -copyFromLocal /tmp/books books
+    $ hadoop dfs -ls
+
+TODO: Fill in response.
+
+### Running MapReduce ###
+
+Now, Let's run the MapReduce job:
+
+    $ hadoop jar hadoop-*-examples.jar wordcount books books-output
+
+`wordcount` takes an input path within HDFS, processes all items within, and saves the output to the output path -- `books-output`, in this case.
+
+### Retrieving Output ###
+
+TODO: Update these!
+
+    hadoop@ubuntu:/usr/local/hadoop$ mkdir /tmp/books-output
+    hadoop@ubuntu:/usr/local/hadoop$ bin/hadoop dfs -getmerge books-output /tmp/books-output
+    hadoop@ubuntu:/usr/local/hadoop$ head /tmp/books-output/books-output
 
 ### Killing the Cluster ###
 
-When we're all finished, we can kill our cluster with this command:
+When we're all finished, we can kill our cluster with this command, back at the REPL:
 
 {% highlight clojure %}
-=> (destroy-cluster test-cluster ec2-service)
+=> (destroy-cluster example-cluster ec2-service)
 {% endhighlight %}
 <br/>
 
-### Future Plans ###
-
-Where can this go? Clean up all of the stuff in the pallet-hadoop README.
-
-### More Reading ###
-
-Links to further reading.
-
 ### Next Installment ###
 
-Let's talk about how to test these sorts of clusters in a local virtual machine environment.
-
-Then, we'll talk about how to get a cascalog query working on Hadoop.
+That's it for now! In my next post, I'll talk about how to test hadoop clusters using pallet-hadoop with [vmfest](https://github.com/tbatchelli/vmfest) to create a virtual machine cluster identical to your production cluster on the cloud.
