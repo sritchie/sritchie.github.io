@@ -10,7 +10,7 @@ title: Simple Hadoop Clusters
 
 # Introducing Pallet-Hadoop #
 
-I'm very excited to announce [Pallet-Hadoop](https://github.com/pallet/pallet-hadoop), a configuration library written in Clojure for Apache's [Hadoop](http://hadoop.apache.org/). For simple, quick instructions on getting your first Hadoop cluster running on EC2, head over to the [Pallet-Hadoop Example Project](https://github.com/pallet/pallet-hadoop-example) and follow along with the README. For a more in-depth discussion, read on.
+I'm excited to announce [Pallet-Hadoop](https://github.com/pallet/pallet-hadoop), a configuration library written in Clojure for Apache's [Hadoop](http://hadoop.apache.org/). For simple, quick instructions on getting your first Hadoop cluster running on EC2, head over to the [Pallet-Hadoop Example Project](https://github.com/pallet/pallet-hadoop-example) and follow along with the README. For a more in-depth discussion, read on.
 
 ## Background ##
 
@@ -163,7 +163,7 @@ The following phase function, when applied to all nodes in the cluster, will ens
                     :compute compute-service
                     :environment remote-env)
       (lift-cluster cluster
-                    authorize-mnt
+                    :phase authorize-mnt
                     :compute compute-service
                     :environment remote-env)
       (start-cluster cluster
@@ -209,17 +209,16 @@ This brings us most of the way to a full cluster. The only remaining pieces are 
 
 *ip-type* can be either `:public` or `:private`, and determines what type of IP address the cluster nodes use to communicate with one another. EC2 instances require private IP addresses; if one were setting up a cluster of virtual machines, `:public` would be necessary.
 
-Here, we define a cluster with private IP addresses, the two node groups referenced above, and a number of customizations to the default hadoop settings. Our machine spec declares that all nodes in the cluster should be the fastest 64 bit machines Amazon has to offer, all running Ubuntu 10.10.
+Here, we define a cluster with private IP addresses, the two node groups referenced above, and a number of customizations to the default hadoop settings. Our machine spec declares that all nodes in the cluster should be 64 bit machines running Ubuntu 10.10.
 
 {% highlight clojure %}
 (def example-cluster
     (cluster-spec :private
                   {:jobtracker (node-group [:jobtracker :namenode])
-                   :slaves (slave-group 3)}
+                   :slaves (slave-group 2)}
                   :base-machine-spec {:os-family :ubuntu
                                       :os-version-matches "10.10"
-                                      :os-64-bit true
-                                      :fastest true}
+                                      :os-64-bit true}
                   :base-props {:hdfs-site {:dfs.data.dir "/mnt/dfs/data"
                                            :dfs.name.dir "/mnt/dfs/name"}
                                :mapred-site {:mapred.task.timeout 300000
@@ -264,25 +263,25 @@ Now, we're going to SSH into the jobtracker, and operate as the hadoop user. Hea
 
 At this point, we're ready to join Michael Noll's [tutorial](http://goo.gl/aALr9). (I'm going to cover the same ground for clarity.) Start by downloading the seven books he references to a temp directory:
 
-* [The Outline of Science, Vol. 1 (of 4) by J. Arthur Thomson](http://www.gutenberg.org/ebooks/20417.txt.utf8)
-* [The Notebooks of Leonardo Da Vinci](http://www.gutenberg.org/ebooks/5000.txt.utf8)
+* [The Outline of Science, Vol. 1 (of 4) by J. Arthur Thomson](http://www.gutenberg.org/cache/epub/20417/pg20417.txt)
+* [The Notebooks of Leonardo Da Vinci](http://www.gutenberg.org/cache/epub/5000/pg5000.txt)
 * [Ulysses by James Joyce](http://www.gutenberg.org/cache/epub/4300/pg4300.txt)
-* [The Art of War by 6th cent. B.C. Sunzi](http://www.gutenberg.org/ebooks/132.txt.utf8)
-* [The Adventures of Sherlock Holmes by Sir Arthur Conan Doyle](http://www.gutenberg.org/ebooks/1661.txt.utf8)
-* [The Devil’s Dictionary by Ambrose Bierce](http://www.gutenberg.org/ebooks/972.txt.utf8)
-* [Encyclopaedia Britannica, 11th Edition, Volume 4, Part 3](http://www.gutenberg.org/ebooks/19699.txt.utf8)
+* [The Art of War by 6th cent. B.C. Sunzi](http://www.gutenberg.org/cache/epub/132/pg132.txt)
+* [The Adventures of Sherlock Holmes by Sir Arthur Conan Doyle](http://www.gutenberg.org/cache/epub/1661/pg1661.txt)
+* [The Devil’s Dictionary by Ambrose Bierce](http://www.gutenberg.org/cache/epub/972/pg972.txt)
+* [Encyclopaedia Britannica, 11th Edition, Volume 4, Part 3](http://www.gutenberg.org/cache/epub/19699/pg19699.txt)
 
-Running the following commands at the remote shell should do the trick:
+Running the following commands at the remote shell should do the trick. 
 
-    mkdir /tmp/books;
-    cd /tmp/books;
-    wget http://www.gutenberg.org/ebooks/20417.txt.utf8;
-    wget http://www.gutenberg.org/ebooks/5000.txt.utf8;
-    wget http://www.gutenberg.org/cache/epub/4300/pg4300.txt;
-    wget http://www.gutenberg.org/ebooks/132.txt.utf8;
-    wget http://www.gutenberg.org/ebooks/1661.txt.utf8;
-    wget http://www.gutenberg.org/ebooks/972.txt.utf8;
-    wget http://www.gutenberg.org/ebooks/19699.txt.utf8
+    $ mkdir /tmp/books
+    $ cd /tmp/books
+    $ curl -O http://www.gutenberg.org/cache/epub/20417/pg20417.txt
+    $ curl -O http://www.gutenberg.org/cache/epub/5000/pg5000.txt
+    $ curl -O http://www.gutenberg.org/cache/epub/4300/pg4300.txt
+    $ curl -O http://www.gutenberg.org/cache/epub/132/pg132.txt
+    $ curl -O http://www.gutenberg.org/cache/epub/1661/pg1661.txt
+    $ curl -O http://www.gutenberg.org/cache/epub/972/pg972.txt
+    $ curl -O http://www.gutenberg.org/cache/epub/19699/pg19699.txt
 
 Then, let's navigate to the Hadoop directory to prepare for the job:
 
@@ -290,26 +289,76 @@ Then, let's navigate to the Hadoop directory to prepare for the job:
 
 Copy the books over to the distributed filesystem:
 
-    $ hadoop dfs -copyFromLocal /tmp/books books
-    $ hadoop dfs -ls
-
-TODO: Fill in response.
+    /usr/local/hadoop-0.20.2$ hadoop dfs -copyFromLocal /tmp/books books
+    /usr/local/hadoop-0.20.2$ hadoop dfs -ls
+    Found 1 items
+    drwxr-xr-x   - hadoop supergroup          0 2011-06-01 05:35 /user/hadoop/books
+    /usr/local/hadoop-0.20.2$ 
 
 ### Running MapReduce ###
 
-Now, Let's run the MapReduce job:
+Now, Let's run the MapReduce job. `wordcount` takes an input path within HDFS, processes all items within, and saves the output to the output path within HDFS -- `books-output`, in this case.
 
-    $ hadoop jar hadoop-*-examples.jar wordcount books books-output
-
-`wordcount` takes an input path within HDFS, processes all items within, and saves the output to the output path -- `books-output`, in this case.
+    /usr/local/hadoop-0.20.2$ hadoop jar hadoop-examples-0.20.2-cdh3u0.jar wordcount books/ books-output/
+    11/06/01 06:14:30 INFO input.FileInputFormat: Total input paths to process : 7
+    11/06/01 06:14:30 INFO mapred.JobClient: Running job: job_201106010554_0002
+    11/06/01 06:14:31 INFO mapred.JobClient:  map 0% reduce 0%
+    11/06/01 06:14:44 INFO mapred.JobClient:  map 57% reduce 0%
+    11/06/01 06:14:45 INFO mapred.JobClient:  map 71% reduce 0%
+    11/06/01 06:14:46 INFO mapred.JobClient:  map 85% reduce 0%
+    11/06/01 06:14:48 INFO mapred.JobClient:  map 100% reduce 0%
+    11/06/01 06:14:57 INFO mapred.JobClient:  map 100% reduce 33%
+    11/06/01 06:15:00 INFO mapred.JobClient:  map 100% reduce 66%
+    11/06/01 06:15:01 INFO mapred.JobClient:  map 100% reduce 100%
+    11/06/01 06:15:02 INFO mapred.JobClient: Job complete: job_201106010554_0002
+    11/06/01 06:15:02 INFO mapred.JobClient: Counters: 22
+    11/06/01 06:15:02 INFO mapred.JobClient:   Job Counters 
+    11/06/01 06:15:02 INFO mapred.JobClient:     Launched reduce tasks=3
+    11/06/01 06:15:02 INFO mapred.JobClient:     SLOTS_MILLIS_MAPS=74992
+    11/06/01 06:15:02 INFO mapred.JobClient:     Total time spent by all reduces waiting after reserving slots (ms)=0
+    11/06/01 06:15:02 INFO mapred.JobClient:     Total time spent by all maps waiting after reserving slots (ms)=0
+    11/06/01 06:15:02 INFO mapred.JobClient:     Launched map tasks=7
+    11/06/01 06:15:02 INFO mapred.JobClient:     Data-local map tasks=7
+    11/06/01 06:15:02 INFO mapred.JobClient:     SLOTS_MILLIS_REDUCES=46600
+    11/06/01 06:15:02 INFO mapred.JobClient:   FileSystemCounters
+    11/06/01 06:15:02 INFO mapred.JobClient:     FILE_BYTES_READ=1610042
+    11/06/01 06:15:02 INFO mapred.JobClient:     HDFS_BYTES_READ=6557336
+    11/06/01 06:15:02 INFO mapred.JobClient:     FILE_BYTES_WRITTEN=2753014
+    11/06/01 06:15:02 INFO mapred.JobClient:     HDFS_BYTES_WRITTEN=1334919
+    11/06/01 06:15:02 INFO mapred.JobClient:   Map-Reduce Framework
+    11/06/01 06:15:02 INFO mapred.JobClient:     Reduce input groups=121791
+    11/06/01 06:15:02 INFO mapred.JobClient:     Combine output records=183601
+    11/06/01 06:15:02 INFO mapred.JobClient:     Map input records=127602
+    11/06/01 06:15:02 INFO mapred.JobClient:     Reduce shuffle bytes=958780
+    11/06/01 06:15:02 INFO mapred.JobClient:     Reduce output records=121791
+    11/06/01 06:15:02 INFO mapred.JobClient:     Spilled Records=473035
+    11/06/01 06:15:02 INFO mapred.JobClient:     Map output bytes=10812590
+    11/06/01 06:15:02 INFO mapred.JobClient:     Combine input records=1111905
+    11/06/01 06:15:02 INFO mapred.JobClient:     Map output records=1111905
+    11/06/01 06:15:02 INFO mapred.JobClient:     SPLIT_RAW_BYTES=931
+    11/06/01 06:15:02 INFO mapred.JobClient:     Reduce input records=183601
+    /usr/local/hadoop-0.20.2$ 
+<br/>
 
 ### Retrieving Output ###
 
 TODO: Update these!
 
-    hadoop@ubuntu:/usr/local/hadoop$ mkdir /tmp/books-output
-    hadoop@ubuntu:/usr/local/hadoop$ bin/hadoop dfs -getmerge books-output /tmp/books-output
-    hadoop@ubuntu:/usr/local/hadoop$ head /tmp/books-output/books-output
+    $ mkdir /tmp/books-output
+    $ hadoop dfs -getmerge books-output /tmp/books-output
+    $ head /tmp/books-output/books-output
+    "'Ah!'	2
+    "'Ample.'	1
+    "'At	1
+    "'But,	1
+    "'But,'	1
+    "'Come!	1
+    "'December	1
+    "'For	1
+    "'Hampshire.	1
+    "'Have	1
+
+Success!
 
 ### Killing the Cluster ###
 
