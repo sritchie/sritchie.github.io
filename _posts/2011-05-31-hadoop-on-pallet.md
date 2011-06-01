@@ -6,7 +6,7 @@ title: Simple Hadoop Clusters
 {{ page.title }}
 ================
 
-<p class="meta">31 May 2011 - Washington, DC</p>
+<p class="meta">1 June 2011 - Washington, DC</p>
 
 # Introducing Pallet-Hadoop #
 
@@ -70,10 +70,10 @@ Hadoop has four configuration files of note: `mapred-site.xml`, `hdfs-site.xml`,
 {:hdfs-site {:dfs.data.dir "/mnt/dfs/data"
              :dfs.name.dir "/mnt/dfs/name"}
  :mapred-site {:mapred.task.timeout 300000
-               :mapred.reduce.tasks 60
-               :mapred.tasktracker.map.tasks.maximum 15
-               :mapred.tasktracker.reduce.tasks.maximum 15
-               :mapred.child.java.opts "-Xms1024m -Xmx1024m"
+               :mapred.reduce.tasks 3
+               :mapred.tasktracker.map.tasks.maximum 3
+               :mapred.tasktracker.reduce.tasks.maximum 3
+               :mapred.child.java.opts "-Xms1024m"
  :hadoop-env {:JAVA_LIBRARY_PATH "/path/to/libs"}}}
 {% endhighlight %}
 
@@ -189,11 +189,11 @@ And the same node, with an additional `namenode` role and no customizations:
 
 `node-group` knows that this is a master node group, and defaults the count to 1. Currently, `:props` and `:spec` are supported as keyword arguments, and define group-specific customizations of, respectively, the hadoop property map and the machine spec for all nodes in the group.
 
-Let's define a cluster on EC2, with two node groups: The first will contain one node that functions as jobtracker and namenode, while the second will contain three slave nodes. We'll need the following definitions:
+Let's define a cluster on EC2, with two node groups: The first will contain one node that functions as jobtracker and namenode, while the second will contain two slave nodes. We'll need the following definitions:
 
 {% highlight clojure %}
    (node-group [:jobtracker :namenode])
-   (slave-group 3)
+   (slave-group 2)
 {% endhighlight %}
 
 (`slave-group` is shorthand for `(node-group [:datanode :tasktracker] ...)`.)
@@ -202,14 +202,14 @@ Pallet required that each node group be paired with some unique, arbitrary key i
 
 {% highlight clojure %}
 {:jobtracker (node-group [:jobtracker :namenode])
- :slaves (slave-group 3)}
+ :slaves (slave-group 2)}
 {% endhighlight %}
 
 This brings us most of the way to a full cluster. The only remaining pieces are the cluster-level hadoop properties, and the base machine spec for all nodes in the cluster. `cluster-spec` accepts these as optional keyworded arguments, after the two required arguments of `ip-type` and the node group map, shown above.
 
 *ip-type* can be either `:public` or `:private`, and determines what type of IP address the cluster nodes use to communicate with one another. EC2 instances require private IP addresses; if one were setting up a cluster of virtual machines, `:public` would be necessary.
 
-Here, we define a cluster with private IP addresses, the two node groups referenced above, and a number of customizations to the default hadoop settings. Our machine spec declares that all nodes in the cluster should be 64 bit machines running Ubuntu 10.10.
+Here, we define a cluster with private IP addresses, the two node groups referenced above, and a number of customizations to the default hadoop settings. Our machine spec declares that all nodes in the cluster should be 64 bit machines with at least 4 gigs of RAM, each running Ubuntu 10.10.
 
 {% highlight clojure %}
 (def example-cluster
@@ -218,14 +218,15 @@ Here, we define a cluster with private IP addresses, the two node groups referen
                    :slaves (slave-group 2)}
                   :base-machine-spec {:os-family :ubuntu
                                       :os-version-matches "10.10"
-                                      :os-64-bit true}
+                                      :os-64-bit true
+                                      :min-ram (* 4 1024)}
                   :base-props {:hdfs-site {:dfs.data.dir "/mnt/dfs/data"
                                            :dfs.name.dir "/mnt/dfs/name"}
                                :mapred-site {:mapred.task.timeout 300000
-                                             :mapred.reduce.tasks 60
-                                             :mapred.tasktracker.map.tasks.maximum 15
-                                             :mapred.tasktracker.reduce.tasks.maximum 15
-                                             :mapred.child.java.opts "-Xms1024m -Xmx1024m"}}))
+                                             :mapred.reduce.tasks 3
+                                             :mapred.tasktracker.map.tasks.maximum 3
+                                             :mapred.tasktracker.reduce.tasks.maximum 3
+                                             :mapred.child.java.opts "-Xms1024m"}}))
 {% endhighlight %}
 
 And that's all there is to it! Type that in at the REPL, and let's get this this running.
@@ -292,7 +293,7 @@ Copy the books over to the distributed filesystem:
     /usr/local/hadoop-0.20.2$ hadoop dfs -copyFromLocal /tmp/books books
     /usr/local/hadoop-0.20.2$ hadoop dfs -ls
     Found 1 items
-    drwxr-xr-x   - hadoop supergroup          0 2011-06-01 05:35 /user/hadoop/books
+    drwxr-xr-x   - hadoop supergroup          0 2011-06-01 06:12:21 /user/hadoop/books
     /usr/local/hadoop-0.20.2$ 
 
 ### Running MapReduce ###
@@ -342,7 +343,7 @@ Now, Let's run the MapReduce job. `wordcount` takes an input path within HDFS, p
 
 ### Retrieving Output ###
 
-TODO: Update these!
+Now that the MapReduce job has completed successfully, all that remains is to extract the result from HDFS and take a look.
 
     $ mkdir /tmp/books-output
     $ hadoop dfs -getmerge books-output /tmp/books-output
@@ -362,7 +363,7 @@ Success!
 
 ### Killing the Cluster ###
 
-When we're all finished, we can kill our cluster with this command, back at the REPL:
+When we're finished, we can kill our cluster with this command, back at the REPL:
 
 {% highlight clojure %}
 => (destroy-cluster example-cluster ec2-service)
