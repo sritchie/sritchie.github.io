@@ -101,7 +101,7 @@ ul.posts {
 .site {
   font-size: 110%;
   text-align: justify;
-  width: 60em;
+  width: 50em;
   margin: 3em auto 2em auto;
   line-height: 1.5em;
 }
@@ -176,7 +176,7 @@ ul.posts {
 
   #post pre {
     border: 1px solid #ddd;
-    background-color: #eef;
+    background-color: #f0f0f0;
     padding: 0 .4em;
   }
 
@@ -187,7 +187,7 @@ ul.posts {
 
   #post code {
     border: 1px solid #ddd;
-    background-color: #eef;
+    background-color: #f0f0f0;
     font-size: 85%;
     padding: 0 .2em;
   }

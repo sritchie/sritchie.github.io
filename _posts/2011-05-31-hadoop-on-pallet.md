@@ -6,7 +6,7 @@ title: Simple Hadoop Clusters
 {{ page.title }}
 ================
 
-<p class="meta">1 June 2011 - Washington, DC</p>
+<p class="meta">31 May 2011 - Washington, DC</p>
 
 # Introducing Pallet-Hadoop #
 
