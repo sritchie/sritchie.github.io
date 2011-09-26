@@ -139,7 +139,6 @@ Now, let's add autocompletion. (TODO: Instructions for installing autocomplete.e
 - Add the following to your =.emacs= file:
 
 #+begin_src emacs-lisp
-  
   (require 'hs-lint)    ;; https://gist.github.com/1241059
   (require 'haskell-ac) ;; https://gist.github.com/1241063
   
