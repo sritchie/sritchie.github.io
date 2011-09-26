@@ -4,4 +4,3 @@ permalink:   pretty
 pygments:    true
 markdown:    maruku
 permalink:   date
-source:      jekyll
