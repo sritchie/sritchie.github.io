@@ -4,8 +4,8 @@ layout: nil
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
  
- <title>Sam Ritchie</title>
- <link href="http://sritchie.github.com/atom.xml" rel="self"/>
+ <title>Recursive</title>
+ <link href="http://sritchie.github.com/feed/" rel="self"/>
  <link href="http://sritchie.github.com/"/>
  <updated>{{ site.time | date_to_xmlschema }}</updated>
  <id>http://sritchie.github.com/</id>
