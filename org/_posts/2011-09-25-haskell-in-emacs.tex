@@ -1,31 +1,55 @@
----
-layout: post
-title: Haskell in Emacs
----
+% Created 2011-09-25 Sun 21:13
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{fixltx2e}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{float}
+\usepackage{wrapfig}
+\usepackage{soul}
+\usepackage{textcomp}
+\usepackage{marvosym}
+\usepackage{wasysym}
+\usepackage{latexsym}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\tolerance=1000
+\providecommand{\alert}[1]{\textbf{#1}}
 
-{{ page.title }}
-================
+\title{---}
+\author{Sam Ritchie}
+\date{\today}
 
-<p class="meta">Sept 25 - San Francisco</p>
+\begin{document}
+
+\maketitle
+
+\setcounter{tocdepth}{3}
+\tableofcontents
+\vspace*{1cm}
+
+\section{Haskell in Emacs}
+\label{sec-1}
+
 
 I spent some time today getting my emacs config set up to learn Haskell, and ran into a few issues; I figured I'd go ahead and document the process here for everyone's enjoyment. We're going to install and configure Haskell mode, then add a few extensions that'll make learning Haskell fun and easy!
+\subsection{Haskell!}
+\label{sec-1-1}
 
-## Haskell!
 
-Before any of this Emacs jazz, we have to get Haskell, of course. The easiest way to do is to download the [Haskell Platform](http://hackage.haskell.org/platform/), a "Batteries Included" package of the Glasgow Haskell Compiler.
+Before any of this Emacs jazz, we have to get Haskell, of course. The easiest way to do is to download the \href{http://hackage.haskell.org/platform/}{Haskell Platform}, a ``Batteries Included'' package of the Glasgow Haskell Compiler.
 
-## Emacs Haskell Mode
 
-The [Haskell Mode for Emacs](http://www.haskell.org/haskellwiki/Haskell_mode_for_Emacs) page at the Haskell wiki is the logical place to start, and describes how to install [haskell-mode](http://projects.haskell.org/haskellmode-emacs/). I found it easier to use ELPA, the Emacs Lisp Package Archive (install instructions [here](http://tromey.com/elpa/install.html)). If you're using the [Emacs starter kit](https://github.com/technomancy/emacs-starter-kit), you've already got ELPA.
+The \href{http://www.haskell.org/haskellwiki/Haskell_mode_for_Emacs}{Haskell Mode for Emacs} page at the Haskell wiki is the logical place to start, and describes how to install \href{http://projects.haskell.org/haskellmode-emacs/}{haskell-mode}. I found it easier to use ELPA, the Emacs Lisp Package Archive (install instructions \href{http://tromey.com/elpa/install.html}{here}). If you're using the \href{https://github.com/technomancy/emacs-starter-kit}{Emacs starter kit}, you've already got ELPA.
 
-Once elpa's all set, run `M-x package-list-packages` in Emacs, tap `i` by `haskell-mode`, and hit `x` to the start the install.
+Once elpa's all set, run \texttt{M-x package-list-packages} in Emacs, tap \texttt{i} by \texttt{haskell-mode}, and hit \texttt{x} to the start the install.
 
-## Emacs Config
 
-First, the basics. Add the following to your emacs config (`~/.emacs`, or `~/.emacs.d/init.el`, if you're using the Starter kit):
+First, the basics. Add the following to your emacs config (\texttt{\textasciitilde{}/.emacs}, or \texttt{\textasciitilde{}/.emacs.d/init.el}, if you're using the Starter kit):
 
-{% highlight scm %}
 
+\begin{verbatim}
 (add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
 
 ;; hslint on the command line only likes this indentation mode;
@@ -36,50 +60,50 @@ First, the basics. Add the following to your emacs config (`~/.emacs`, or `~/.em
 
 ;; Ignore compiled Haskell files in filename completions
 (add-to-list 'completion-ignored-extensions ".hi")
+\end{verbatim}
 
-{% endhighlight %}
+At this point, you should be able to start using Haskell. Create a file called \texttt{test.hs} somewhere, and type \texttt{C-c C-z} to get to the Haskell REPL, supplied by \href{http://www.haskell.org/haskellwiki/Haskell_mode_for_Emacs#inf-haskell.el:_the_best_thing_since_the_breadknife}{inf-haskell mode}. Now, add the following to \texttt{test.hs}:
 
-At this point, you should be able to start using Haskell. Create a file called `test.hs` somewhere, and type `C-c C-z` to get to the Haskell REPL, supplied by [inf-haskell mode](http://www.haskell.org/haskellwiki/Haskell_mode_for_Emacs#inf-haskell.el:_the_best_thing_since_the_breadknife). Now, add the following to `test.hs`:
 
-{% highlight haskell %}
-
+\begin{verbatim}
 square :: Integral a => a -> a
 square x = x * x
+\end{verbatim}
 
-{% endhighlight %}
+And type \texttt{C-c C-l} in that buffer to load the file's contents into the REPL. \texttt{C-c C-z} over the repl, and try it out:
 
-And type `C-c C-l` in that buffer to load the file's contents into the REPL. `C-c C-z` over the repl, and try it out:
 
-{% highlight haskell %}
-
+\begin{verbatim}
 *Main> square 10
 100
 *Main> square 34
 1156
-
-{% endhighlight %}
+\end{verbatim}
 
 Nice.
+\subsection{Hs-Lint}
+\label{sec-1-2}
 
-## Hs-Lint
 
 Next, we're going to add support for Flymake. This is a piece of Emacs functionality that'll run our Haskell files through the compiler every few seconds and associate any warnings and errors with a specific line in our file.
 
-While we're at it, we'll configure hs-lint, which we can run periodically on our Haskell files for a list of hints as to how to structure code better. For example, running `hs-lint` on a Haskell file containing `times2 x = (*) 2 x` yields a buffer with:
+While we're at it, we'll configure \texttt{hs-lint}, which we can run periodically on our Haskell files for a list of hints as to how to structure code better. For example, running \texttt{hs-lint} on a Haskell file containing \texttt{times2 x = (*) 2 x} yields a buffer with:
 
-    hlint /Users/sritchie/test.hs
-    /Users/sritchie/test.hs:1:1: Error: Eta reduce
-    Found:
-      times2 x = (*) 2 x
-    Why not:
-      times2 = (*) 2
 
-    1 suggestion
+\begin{verbatim}
+hlint /Users/sritchie/test.hs
+/Users/sritchie/test.hs:1:1: Error: Eta reduce
+Found:
+  times2 x = (*) 2 x
+Why not:
+  times2 = (*) 2
+ 1 suggestion
+\end{verbatim}
 
 Definitely helpful in the learning process.
 
-{% highlight scm %}
 
+\begin{verbatim}
 (require 'hs-lint)    ;; https://gist.github.com/1241059
 
 (defun flymake-haskell-init
@@ -109,13 +133,12 @@ to show current error."
 (custom-set-faces
  '(flymake-errline ((((class color)) (:underline "red"))))
  '(flymake-warnline ((((class color)) (:underline "yellow")))))
-
-{% endhighlight %}
+\end{verbatim}
 
 Now, let's add autocompletion.
 
-{% highlight scm %}
 
+\begin{verbatim}
 (require 'haskell-ac) ;; https://gist.github.com/1241063
 
 (defun my-haskell-mode-hook
@@ -140,7 +163,8 @@ Now, let's add autocompletion.
      (push '("\\.l?hs\\'" flymake-haskell-init) flymake-allowed-file-name-masks)
      (add-hook 'haskell-mode-hook 'flymake-haskell-enable)
      (add-hook 'haskell-mode-hook 'my-haskell-mode-hook)))
+\end{verbatim}
 
-{% endhighlight %}
+You can find a copy of all of these extensions here\ldots{} (provide a link to a gist of the elisp file.)
 
-You can find a copy of all of these extensions here... (provide a link to a gist of the elisp file.)
+\end{document}

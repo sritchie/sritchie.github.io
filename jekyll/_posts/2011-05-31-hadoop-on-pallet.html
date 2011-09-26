@@ -1,0 +1,407 @@
+---
+layout: post
+title: Simple Hadoop Clusters
+---
+<p class="meta">31 May 2011 - Washington, DC</p>
+
+
+
+<div id="outline-container-1" class="outline-2">
+<h2 id="sec-1">Introducing Pallet-Hadoop </h2>
+<div class="outline-text-2" id="text-1">
+
+
+<p>
+I'm excited to announce <a href="https://github.com/pallet/pallet-hadoop">Pallet-Hadoop</a>, a configuration library written in Clojure for Apache's <a href="http://hadoop.apache.org/">Hadoop</a>.
+</p>
+<p>
+In the tutorial, we're going to see how to create a three node Hadoop cluster on EC2, and run a word count on MapReduce. We'll be following along with <a href="https://github.com/pallet/pallet-hadoop-example">Pallet-Hadoop example project</a> for the introduction; for a more in-depth discussion of the design of pallet-hadoop, see the <a href="https://github.com/pallet/pallet-hadoop/wiki">project wiki</a>.
+</p>
+
+</div>
+
+<div id="outline-container-1-1" class="outline-3">
+<h3 id="sec-1-1">Background </h3>
+<div class="outline-text-3" id="text-1-1">
+
+
+<p>
+Hadoop is an Apache java framework that allows for distributed processing of enormous datasets across large clusters. It combines a computation engine based on <a href="http://en.wikipedia.org/wiki/MapReduce">MapReduce</a> with <a href="http://hadoop.apache.org/hdfs/docs/current/hdfs_design.html">HDFS</a>, a distributed filesystem based on the <a href="http://en.wikipedia.org/wiki/Google_File_System">Google File System</a>.
+</p>
+<p>
+Abstraction layers such as <a href="https://github.com/cwensel/cascading">Cascading</a> (for Java) and <a href="https://github.com/nathanmarz/cascalog">Cascalog</a> (for <a href="http://clojure.org/">Clojure</a>) make writing MapReduce queries quite nice. Indeed, running hadoop locally with cascalog <a href="http://nathanmarz.com/blog/introducing-cascalog-a-clojure-based-query-language-for-hado.html">couldn't be easier</a>.
+</p>
+<p>
+Unfortunately, graduating one's MapReduce jobs to the cluster level isn't so easy. Amazon's <a href="http://aws.amazon.com/elasticmapreduce/">Elastic MapReduce</a> is a great option for getting up and running fast; but what to do if you want to configure your own cluster?
+</p>
+<p>
+After surveying existing tools, I decided to write my own layer over <a href="https://github.com/pallet/pallet">Pallet</a>, a wonderful cloud provisioning library written in Clojure. Pallet runs on top of <a href="https://github.com/jclouds/jclouds">jclouds</a>, which allows pallet to define its operations independent of any one cloud provider. Switching between clouds involves a change of login credentials, nothing more.
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-1-2" class="outline-3">
+<h3 id="sec-1-2">Setting Up </h3>
+<div class="outline-text-3" id="text-1-2">
+
+
+<p>
+Before you get your first cluster running, you'll need to <a href="https://aws-portal.amazon.com/gp/aws/developer/registration/index.html">create an AWS account</a>. Once you've done this, navigate to <a href="http://aws.amazon.com/account/">your account page</a> and follow the "Security Credentials" link. Under "Access Credentials", you should see a tab called "Access Keys". Note down your Access Key ID and Secret Access Key for future reference.
+</p>
+<p>
+I'm going to assume that you have some basic knowledge of clojure, and know how to get a project running using <a href="https://github.com/technomancy/leiningen">leiningen</a> or <a href="https://github.com/ninjudd/cake">cake</a>. Go ahead and clone <a href="https://github.com/pallet/pallet-hadoop-example">the example project</a> to follow along:
+</p>
+
+
+
+<pre class="src src-sh">$ git clone git://github.com/pallet/pallet-hadoop-example.git
+$ cd pallet-hadoop-example  
+</pre>
+
+
+
+<p>
+Open up <code>./src/pallet-hadoop-example/core.clj</code> with your favorite text editor. <code>example-cluster</code> contains a data description of a full hadoop cluster with:
+</p>
+<ul>
+<li>One master node functioning as jobtracker and namenode
+</li>
+<li>Two slave nodes (<code>(slave-group 2)</code>), each acting as datanode and tasktracker.
+</li>
+</ul>
+
+
+<p>
+Start a repl:
+</p>
+
+
+
+<pre class="src src-sh">$ lein repl
+ <span style="color: #a0522d;">user</span>=&gt; (use <span style="color: #8b2252;">'pallet-hadoop-example.core) (bootstrap)</span>
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-1-3" class="outline-3">
+<h3 id="sec-1-3">Compute Service </h3>
+<div class="outline-text-3" id="text-1-3">
+
+
+<p>
+Pallet abstracts away details about specific cloud providers through the idea of a "compute service". The combination of our cluster definition and our compute service will be enough to get our cluster running. We define a compute service at our REPL like so:
+</p>
+
+
+
+<pre class="src src-clojure">user=&gt; <span style="color: #8c8c8c;">(</span><span style="color: #7f007f;">def</span> <span style="color: #0000ff;">ec2-service</span>
+         <span style="color: #8c8c8c;">(</span>compute-service <span style="color: #8b2252;">"aws-ec2"</span>
+                          <span style="color: #008b8b;">:identity</span> <span style="color: #8b2252;">"ec2-access-key-id"</span> <span style="color: #b22222;">;; </span><span style="color: #b22222;">Swap in your access key ID</span>
+                          <span style="color: #008b8b;">:credential</span> <span style="color: #8b2252;">"ec2-secret-access-key"</span><span style="color: #8c8c8c;">))</span> <span style="color: #b22222;">;; </span><span style="color: #b22222;">Swap in your secret key</span>
+#'pallet-hadoop-example.core/ec2-service
+</pre>
+
+
+<p>
+Alternatively, if you want to keep these out of your code base, save the following to <code>~/.pallet/config.clj</code>:
+</p>
+
+
+
+
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span>defpallet
+  <span style="color: #008b8b;">:services</span> {<span style="color: #008b8b;">:aws</span> {<span style="color: #008b8b;">:provider</span> <span style="color: #8b2252;">"aws-ec2"</span>
+                   <span style="color: #008b8b;">:identity</span> <span style="color: #8b2252;">"your-ec2-access-key-id"</span>
+                   <span style="color: #008b8b;">:credential</span> <span style="color: #8b2252;">"your-ec2-secret-access-key"</span>}}<span style="color: #8c8c8c;">)</span>
+</pre>
+
+
+<p>
+and define <code>ec2-service</code> with:
+</p>
+
+
+
+<pre class="src src-clojure">user=&gt; <span style="color: #8c8c8c;">(</span><span style="color: #7f007f;">def</span> <span style="color: #0000ff;">ec2-service</span> <span style="color: #8c8c8c;">(</span>compute-service-from-config-file <span style="color: #008b8b;">:aws</span><span style="color: #8c8c8c;">))</span>
+#'user/ec2-service
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-1-4" class="outline-3">
+<h3 id="sec-1-4">Booting the Cluster </h3>
+<div class="outline-text-3" id="text-1-4">
+
+
+<p>
+Now that we have our compute service and our cluster defined, booting the cluster is as simple as the following:
+</p>
+
+
+
+<pre class="src src-clojure">user=&gt; <span style="color: #8c8c8c;">(</span>create-cluster example-cluster ec2-service<span style="color: #8c8c8c;">)</span>
+</pre>
+
+
+<p>
+The logs you see flying by are Pallet's SSH communications with the nodes in the cluster. On node startup, Pallet uses your local SSH key to gain passwordless access to each node, and coordinates all configuration using streams of SSH commands.
+</p>
+<p>
+Once <code>create-cluster</code> returns, we're done! We now have a fully configured, multi-node Hadoop cluster at our disposal.
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-1-5" class="outline-3">
+<h3 id="sec-1-5">Running Word Count </h3>
+<div class="outline-text-3" id="text-1-5">
+
+
+<p>
+To test our new cluster, we're going log in and run a word counting MapReduce job on a number of books from <a href="http://www.gutenberg.org/wiki/Main_Page">Project Gutenberg</a>.
+</p>
+<p>
+Point your browser to the <a href="https://console.aws.amazon.com/ec2/">EC2 Console</a>, log in, and click "Instances" on the left.
+</p>
+<p>
+You should see three nodes running; click on the node whose security group contains "jobtracker", and scroll the lower pane down to retrieve the public DNS address for the node. It'll look something like <code>ec2-50-17-103-174.compute-1.amazonaws.com</code>. I'll refer to this address as <code>jobtracker.com</code>.
+</p>
+<p>
+Point your browser to <code>jobtracker.com:50030</code>, and you'll see the JobTracker web console. (Keep this open, as it will allow us to watch our MapReduce job in action.).=jobtracker.com:50070= points to the NameNode console, with information about HDFS.
+</p>
+<p>
+Next, we'll SSH into the jobtracker, and operate as the <code>hadoop</code> user. Head to your terminal and run the following commands:
+</p>
+
+
+
+<pre class="src src-sh">$ ssh jobtracker.com <span style="color: #b22222;"># </span><span style="color: #b22222;">insert actual address, enter yes to continue connecting</span>
+$ sudo su - hadoop
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-1-6" class="outline-3">
+<h3 id="sec-1-6">Copy Data to HDFS </h3>
+<div class="outline-text-3" id="text-1-6">
+
+
+<p>
+At this point, we're ready to begin following along with Michael Noll's excellent <a href="http://goo.gl/aALr9">Hadoop configuration tutorial</a>. (I'll cover some of the same ground for clarity.)
+</p>
+<p>
+Our first step will be to collect a bunch of text to process. We start by downloading the following seven books to a temp directory:
+</p>
+<ul>
+<li><a href="http://www.gutenberg.org/cache/epub/20417/pg20417.txt">The Outline of Science, Vol. 1 (of 4) by J. Arthur Thomson</a>
+</li>
+<li><a href="http://www.gutenberg.org/cache/epub/5000/pg5000.txt">The Notebooks of Leonardo Da Vinci</a>
+</li>
+<li><a href="http://www.gutenberg.org/cache/epub/4300/pg4300.txt">Ulysses by James Joyce</a>
+</li>
+<li><a href="http://www.gutenberg.org/cache/epub/132/pg132.txt">The Art of War by 6th cent. B.C. Sunzi</a>
+</li>
+<li><a href="http://www.gutenberg.org/cache/epub/1661/pg1661.txt">The Adventures of Sherlock Holmes by Sir Arthur Conan Doyle</a>
+</li>
+<li><a href="http://www.gutenberg.org/cache/epub/972/pg972.txt">The Devil’s Dictionary by Ambrose Bierce</a>
+</li>
+<li><a href="http://www.gutenberg.org/cache/epub/19699/pg19699.txt">Encyclopaedia Britannica, 11th Edition, Volume 4, Part 3</a>
+</li>
+</ul>
+
+
+<p>
+Running the following commands at the remote shell should do the trick.
+</p>
+
+
+
+<pre class="src src-sh">$ mkdir /tmp/books
+$ cd /tmp/books
+$ curl -O http://www.gutenberg.org/cache/epub/20417/pg20417.txt
+$ curl -O http://www.gutenberg.org/cache/epub/5000/pg5000.txt
+$ curl -O http://www.gutenberg.org/cache/epub/4300/pg4300.txt
+$ curl -O http://www.gutenberg.org/cache/epub/132/pg132.txt
+$ curl -O http://www.gutenberg.org/cache/epub/1661/pg1661.txt
+$ curl -O http://www.gutenberg.org/cache/epub/972/pg972.txt
+$ curl -O http://www.gutenberg.org/cache/epub/19699/pg19699.txt
+</pre>
+
+
+<p>
+Next, navigate to the Hadoop directory:
+</p>
+
+
+
+<pre class="src src-sh">$ cd /usr/local/hadoop-0.20.2/
+</pre>
+
+
+<p>
+And copy the books over to the distributed filesystem:
+</p>
+
+
+
+<pre class="src src-sh">/usr/local/hadoop-0.20.2$ hadoop dfs -copyFromLocal /tmp/books books
+/usr/local/hadoop-0.20.2$ hadoop dfs -ls
+Found 1 items
+drwxr-xr-x   - hadoop supergroup          0 2011-06-01 06:12:21 /user/hadoop/books
+/usr/local/hadoop-0.20.2$ 
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-1-7" class="outline-3">
+<h3 id="sec-1-7">Running MapReduce </h3>
+<div class="outline-text-3" id="text-1-7">
+
+
+<p>
+We're ready to run the MapReduce job. <code>wordcount</code> takes an input path within HDFS, processes all items within, and saves the output to HDFS &ndash; to <code>books-output</code>, in this case. Run this command:
+</p>
+
+
+
+<pre class="src src-sh">/usr/local/hadoop-0.20.2$ hadoop jar hadoop-examples-0.20.2-cdh3u0.jar wordcount books/ books-output/
+</pre>
+
+
+<p>
+And you should see something very similar to this:
+</p>
+
+
+
+<pre class="src src-sh">11/06/01 06:14:30 INFO input.FileInputFormat: Total input paths to process : 7
+11/06/01 06:14:30 INFO mapred.JobClient: Running job: job_201106010554_0002
+11/06/01 06:14:31 INFO mapred.JobClient:  map 0% reduce 0%
+11/06/01 06:14:44 INFO mapred.JobClient:  map 57% reduce 0%
+11/06/01 06:14:45 INFO mapred.JobClient:  map 71% reduce 0%
+11/06/01 06:14:46 INFO mapred.JobClient:  map 85% reduce 0%
+11/06/01 06:14:48 INFO mapred.JobClient:  map 100% reduce 0%
+11/06/01 06:14:57 INFO mapred.JobClient:  map 100% reduce 33%
+11/06/01 06:15:00 INFO mapred.JobClient:  map 100% reduce 66%
+11/06/01 06:15:01 INFO mapred.JobClient:  map 100% reduce 100%
+11/06/01 06:15:02 INFO mapred.JobClient: Job complete: job_201106010554_0002
+11/06/01 06:15:02 INFO mapred.JobClient: Counters: 22
+11/06/01 06:15:02 INFO mapred.JobClient:   Job Counters 
+11/06/01 06:15:02 INFO mapred.JobClient:     Launched reduce <span style="color: #a0522d;">tasks</span>=3
+11/06/01 06:15:02 INFO mapred.JobClient:     <span style="color: #a0522d;">SLOTS_MILLIS_MAPS</span>=74992
+11/06/01 06:15:02 INFO mapred.JobClient:     Total time spent by all reduces waiting after reserving slots (ms)=0
+11/06/01 06:15:02 INFO mapred.JobClient:     Total time spent by all maps waiting after reserving slots (ms)=0
+11/06/01 06:15:02 INFO mapred.JobClient:     Launched map <span style="color: #a0522d;">tasks</span>=7
+11/06/01 06:15:02 INFO mapred.JobClient:     Data-local map <span style="color: #a0522d;">tasks</span>=7
+11/06/01 06:15:02 INFO mapred.JobClient:     <span style="color: #a0522d;">SLOTS_MILLIS_REDUCES</span>=46600
+11/06/01 06:15:02 INFO mapred.JobClient:   FileSystemCounters
+11/06/01 06:15:02 INFO mapred.JobClient:     <span style="color: #a0522d;">FILE_BYTES_READ</span>=1610042
+11/06/01 06:15:02 INFO mapred.JobClient:     <span style="color: #a0522d;">HDFS_BYTES_READ</span>=6557336
+11/06/01 06:15:02 INFO mapred.JobClient:     <span style="color: #a0522d;">FILE_BYTES_WRITTEN</span>=2753014
+11/06/01 06:15:02 INFO mapred.JobClient:     <span style="color: #a0522d;">HDFS_BYTES_WRITTEN</span>=1334919
+11/06/01 06:15:02 INFO mapred.JobClient:   Map-Reduce Framework
+11/06/01 06:15:02 INFO mapred.JobClient:     Reduce input <span style="color: #a0522d;">groups</span>=121791
+11/06/01 06:15:02 INFO mapred.JobClient:     Combine output <span style="color: #a0522d;">records</span>=183601
+11/06/01 06:15:02 INFO mapred.JobClient:     Map input <span style="color: #a0522d;">records</span>=127602
+11/06/01 06:15:02 INFO mapred.JobClient:     Reduce shuffle <span style="color: #a0522d;">bytes</span>=958780
+11/06/01 06:15:02 INFO mapred.JobClient:     Reduce output <span style="color: #a0522d;">records</span>=121791
+11/06/01 06:15:02 INFO mapred.JobClient:     Spilled <span style="color: #a0522d;">Records</span>=473035
+11/06/01 06:15:02 INFO mapred.JobClient:     Map output <span style="color: #a0522d;">bytes</span>=10812590
+11/06/01 06:15:02 INFO mapred.JobClient:     Combine input <span style="color: #a0522d;">records</span>=1111905
+11/06/01 06:15:02 INFO mapred.JobClient:     Map output <span style="color: #a0522d;">records</span>=1111905
+11/06/01 06:15:02 INFO mapred.JobClient:     <span style="color: #a0522d;">SPLIT_RAW_BYTES</span>=931
+11/06/01 06:15:02 INFO mapred.JobClient:     Reduce input <span style="color: #a0522d;">records</span>=183601
+/usr/local/hadoop-0.20.2$ 
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-1-8" class="outline-3">
+<h3 id="sec-1-8">Retrieving Output </h3>
+<div class="outline-text-3" id="text-1-8">
+
+
+<p>
+Now that the MapReduce job has completed successfully, all that remains is to extract the results from HDFS and take a look.
+</p>
+
+
+
+<pre class="src src-sh">$ mkdir /tmp/books-output
+$ hadoop dfs -getmerge books-output /tmp/books-output
+$ head /tmp/books-output/books-output
+</pre>
+
+
+<p>
+You should see something very close to:
+</p>
+
+
+
+<pre class="src src-text">"'Ah!'   2
+"'Ample.'   1
+"'At  1
+"'But,   1
+"'But,'  1
+"'Come!  1
+"'December  1
+"'For 1
+"'Hampshire.   1
+"'Have   1
+</pre>
+
+
+<p>
+Success!
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-1-9" class="outline-3">
+<h3 id="sec-1-9">Killing the Cluster </h3>
+<div class="outline-text-3" id="text-1-9">
+
+
+<p>
+When we're finished, we can kill our cluster with this command, back at the REPL:
+</p>
+
+
+
+<pre class="src src-clojure">user=&gt; <span style="color: #8c8c8c;">(</span>destroy-cluster example-cluster ec2-service<span style="color: #8c8c8c;">)</span>
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-1-10" class="outline-3">
+<h3 id="sec-1-10">Next Installment </h3>
+<div class="outline-text-3" id="text-1-10">
+
+
+<p>
+That's it for now! Next, we'll talk about how to test hadoop clusters using pallet-hadoop with <a href="https://github.com/tbatchelli/vmfest">vmfest</a> to create a virtual machine cluster identical to your production cluster on the cloud.
+</p></div>
+</div>
+</div>

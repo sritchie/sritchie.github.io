@@ -1,2 +1,7 @@
-markdown: rdiscount
-pygments: true
+auto:        false
+destination: _site
+permalink:   pretty
+pygments:    true
+markdown:    maruku
+permalink:   date
+source:      jekyll

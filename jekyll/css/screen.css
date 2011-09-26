@@ -13,37 +13,35 @@
 
 html, body {
   height: 100%;
+  margin-top: auto;
+  padding-top: auto;
 }
 
 body {
   background-color: white;
   font: 13.34px helvetica, arial, clean, sans-serif;
-  *font-size: small;
+  font-size: 14px;
   text-align: center;
 }
 
 h1 {
-  font-size: 170%;
+  font-size: 16pt;
+  padding-top: 10px;
 }
 
 h2 {
-  font-size: 160%;
+  font-size: 14pt;
+  padding-top: 10px;
 }
 
 h3 {
-  font-size: 150%;
+  font-size: 13pt;
+  padding-top: 10px;
 }
 
 h4 {
-  font-size: 140%;
-}
-
-h5 {
-  font-size: 130%;
-}
-
-h6 {
-  font-size: 120%;
+  font-size: 11pt;
+  padding-top: 10px;
 }
 
 h1 {
@@ -101,7 +99,7 @@ ul.posts {
 .site {
   font-size: 110%;
   text-align: justify;
-  width: 50em;
+  width: 55em;
   margin: 3em auto 2em auto;
   line-height: 1.5em;
 }
@@ -177,7 +175,8 @@ ul.posts {
   #post pre {
     border: 1px solid #ddd;
     background-color: #f0f0f0;
-    padding: 0 .4em;
+    font-size: 86%;
+    padding: 0.8em;
   }
 
   #post ul,
@@ -188,7 +187,7 @@ ul.posts {
   #post code {
     border: 1px solid #ddd;
     background-color: #f0f0f0;
-    font-size: 85%;
+    font-size: 86%;
     padding: 0 .2em;
   }
 
