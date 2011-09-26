@@ -131,12 +131,23 @@ Flymake depends on an external perl script, =hslint=, to pass the contents of th
    '(flymake-warnline ((((class color)) (:underline "yellow")))))
 #+end_src
 
-** Autocompletion and HS-Lint
+** Haskell Extensions
 
-Now, let's add autocompletion. (TODO: Instructions for installing autocomplete.el.)
+*** Auto Complete Mode
 
-- Download [[https://gist.github.com/1241059][hs-lint.el]] and [[https://gist.github.com/1241063][haskell-ac.el]] and place each file inside of =~/.emacs.d=.
-- Add the following to your =.emacs= file:
+Now, let's add autocompletion. Autocomplete mode is awesome; it provides IDE-like word tab completion of words based on info in open buffers, and some knowledge of the modes of the emacs buffer you're currently working in. In Haskell, we'll get autocompletion of every function we define, plus help with core language constructs. Head over to [[http://cx4a.org/software/auto-complete/index.html][Auto Complete Mode]] to download the package, and install with the following:
+
+1. Download and unpack Autocomplete mode
+2. Open emacs, and run =M-x load-file=
+3. Point the minibuffer to =<autocomplete-root>/etc/install.el=
+4. Follow the remaining [[http://cx4a.org/software/auto-complete/manual.html#Installation][AC install instructions]].
+
+That should get you all set for the next step.
+
+*** Linting!
+
+1. Download [[https://gist.github.com/1241059][hs-lint.el]] and [[https://gist.github.com/1241063][haskell-ac.el]] and place each file inside of =~/.emacs.d=. (=hs-lint= is our linter, of course, and =haskell-ac.el= provides autocomplete mode with some knowledge of a few core Haskell constructs.
+2. Add the following to your =.emacs= file:
 
 #+begin_src emacs-lisp
   (require 'hs-lint)    ;; https://gist.github.com/1241059
