@@ -4,3 +4,7 @@ permalink:   pretty
 pygments:    true
 markdown:    maruku
 permalink:   date
+exclude:
+- README.md
+- CNAME
+- org
