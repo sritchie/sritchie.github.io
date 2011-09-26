@@ -213,19 +213,51 @@ Flymake depends on an external perl script, <code>hslint</code>, to pass the con
 </div>
 
 <div id="outline-container-1-5" class="outline-3">
-<h3 id="sec-1-5">Autocompletion and HS-Lint </h3>
+<h3 id="sec-1-5">Haskell Extensions </h3>
 <div class="outline-text-3" id="text-1-5">
 
 
+
+</div>
+
+<div id="outline-container-1-5-1" class="outline-4">
+<h4 id="sec-1-5-1">Auto Complete Mode </h4>
+<div class="outline-text-4" id="text-1-5-1">
+
+
 <p>
-Now, let's add autocompletion. (TODO: Instructions for installing autocomplete.el.)
+Now, let's add autocompletion. Autocomplete mode is awesome; it provides IDE-like word tab completion of words based on info in open buffers, and some knowledge of the modes of the emacs buffer you're currently working in. In Haskell, we'll get autocompletion of every function we define, plus help with core language constructs. Head over to <a href="http://cx4a.org/software/auto-complete/index.html">Auto Complete Mode</a> to download the package, and install with the following:
 </p>
-<ul>
-<li>Download <a href="https://gist.github.com/1241059">hs-lint.el</a> and <a href="https://gist.github.com/1241063">haskell-ac.el</a> and place each file inside of <code>~/.emacs.d</code>.
+<ol>
+<li>Download and unpack Autocomplete mode
+</li>
+<li>Open emacs, and run <code>M-x load-file</code>
+</li>
+<li>Point the minibuffer to <code>&lt;autocomplete-root&gt;/etc/install.el</code>
+</li>
+<li>Follow the remaining <a href="http://cx4a.org/software/auto-complete/manual.html#Installation">AC install instructions</a>.
+</li>
+</ol>
+
+
+<p>
+That should get you all set for the next step.
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-1-5-2" class="outline-4">
+<h4 id="sec-1-5-2">Linting! </h4>
+<div class="outline-text-4" id="text-1-5-2">
+
+
+<ol>
+<li>Download <a href="https://gist.github.com/1241059">hs-lint.el</a> and <a href="https://gist.github.com/1241063">haskell-ac.el</a> and place each file inside of <code>~/.emacs.d</code>. (<code>hs-lint</code> is our linter, of course, and <code>haskell-ac.el</code> provides autocomplete mode with some knowledge of a few core Haskell constructs.
 </li>
 <li>Add the following to your <code>.emacs</code> file:
 </li>
-</ul>
+</ol>
 
 
 
@@ -291,6 +323,7 @@ Adding this will clear things up:
 </pre>
 
 
+</div>
 </div>
 
 </div>
