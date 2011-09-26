@@ -5,8 +5,8 @@ layout: nil
 <feed xmlns="http://www.w3.org/2005/Atom">
  
  <title>Sam Ritchie</title>
- <link href="http://tom.preston-werner.com/atom.xml" rel="self"/>
- <link href="http://tom.preston-werner.com/"/>
+ <link href="http://sritchie.github.com/atom.xml" rel="self"/>
+ <link href="http://sritchie.github.com/"/>
  <updated>{{ site.time | date_to_xmlschema }}</updated>
  <id>http://sritchie.github.com/</id>
  <author>
