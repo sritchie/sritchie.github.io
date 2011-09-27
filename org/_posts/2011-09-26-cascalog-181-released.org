@@ -43,7 +43,7 @@ RESULTS
 
 ** defmain
 
-When running a cascalog query on a cluster, usual practice is to include =(:gen-class)= in the namespace form, and write a =-main= method that gets AOT-compiled and called by hadoop. This can be a little annoying, if you have a bunch of small queries you want to run.
+When running a cascalog query on a cluster, usual practice is to include =(:gen-class)= in the namespace form, and write a =-main= method that gets AOT-compiled and called by Hadoop. This can be a little annoying, if you have a bunch of small queries you want to run.
 
 =defmain= lets you skip the =:gen-class= form and write something like:
 
@@ -60,7 +60,7 @@ When running a cascalog query on a cluster, usual practice is to include =(:gen-
 
 Each =defmain= will compile to a class with the supplied name, prefixed by the namespace. (=myproject.jobs.FirstQuery= and =myproject.jobs.SecondQuery=, in this example.)
 
-(As always, make sure to include =:aot [myproject.jobs]=, with each namespace containing a =defmain=, inside of =project.clj=. If you want to call the defmain function directly for some reason, =(defmain Query ...)= can be called from the REPL with =(Query-main ...)=.)
+(As always, make sure to add the =:aot [myproject.jobs]=, kv-pair to =project.clj=, including each namespace containing a =defmain= or =(:gen-class)= in the vector. If you want to call some =defmain= function directly, =(defmain Query ...)= can be called from the REPL with =(Query-main ...)=.) I recommend keeping your =defmain= functions skinny, and testing the components it calls.
 
 ** with-serializations
 

@@ -67,7 +67,7 @@ This results in the following on <code>stdout</code>:
 
 
 <p>
-When running a cascalog query on a cluster, usual practice is to include <code>(:gen-class)</code> in the namespace form, and write a <code>-main</code> method that gets AOT-compiled and called by hadoop. This can be a little annoying, if you have a bunch of small queries you want to run.
+When running a cascalog query on a cluster, usual practice is to include <code>(:gen-class)</code> in the namespace form, and write a <code>-main</code> method that gets AOT-compiled and called by Hadoop. This can be a little annoying, if you have a bunch of small queries you want to run.
 </p>
 <p>
 <code>defmain</code> lets you skip the <code>:gen-class</code> form and write something like:
@@ -90,7 +90,7 @@ When running a cascalog query on a cluster, usual practice is to include <code>(
 Each <code>defmain</code> will compile to a class with the supplied name, prefixed by the namespace. (<code>myproject.jobs.FirstQuery</code> and <code>myproject.jobs.SecondQuery</code>, in this example.)
 </p>
 <p>
-(As always, make sure to include <code>:aot [myproject.jobs]</code>, with each namespace containing a <code>defmain</code>, inside of <code>project.clj</code>. If you want to call the defmain function directly for some reason, <code>(defmain Query ...)</code> can be called from the REPL with <code>(Query-main ...)</code>.)
+(As always, make sure to add the <code>:aot [myproject.jobs]</code>, kv-pair to <code>project.clj</code>, including each namespace containing a <code>defmain</code> or <code>(:gen-class)</code> in the vector. If you want to call some <code>defmain</code> function directly, <code>(defmain Query ...)</code> can be called from the REPL with <code>(Query-main ...)</code>.) I recommend keeping your <code>defmain</code> functions skinny, and testing the components it calls.
 </p>
 </div>
 
