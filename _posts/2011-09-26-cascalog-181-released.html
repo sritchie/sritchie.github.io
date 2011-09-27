@@ -57,6 +57,20 @@ This results in the following on <code>stdout</code>:
 </pre>
 
 
+<p>
+If you're interested, here's the implementation:
+</p>
+
+
+
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span><span style="color: #7f007f;">def</span> <span style="color: #0000ff;">cross-join</span>
+  <span style="color: #8c8c8c;">(</span>&lt;- [<span style="color: #008b8b;">:&gt;</span>] <span style="color: #8c8c8c;">(</span><span style="color: #a0522d;">identity</span> 1 <span style="color: #008b8b;">:&gt;</span> _<span style="color: #8c8c8c;">)))</span>
+</pre>
+
+
+<p>
+This is the only predicate macro I know of that can get away with no input OR output vars.
+</p>
 </div>
 
 </div>
@@ -182,7 +196,7 @@ Just a few bugfixes to note:
 </li>
 <li>Fixed bug preventing keywords as static arguments (as <a href="https://github.com/nathanmarz/cascalog/blob/master/test/cascalog/api_test.clj#L439">demonstrated here</a>).
 </li>
-<li>We now throw an error when a Cascading flow completes, but unsuccessfully.
+<li>Failed cascading flows now always throw errors. (This is a workaround to a Cascading bug that allows some flows to fail silently.)
 </li>
 </ul>
 

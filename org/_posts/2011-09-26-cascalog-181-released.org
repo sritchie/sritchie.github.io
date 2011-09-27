@@ -41,6 +41,15 @@ RESULTS
 -----------------------
 #+end_src
 
+If you're interested, here's the implementation:
+
+#+begin_src clojure
+  (def cross-join
+    (<- [:>] (identity 1 :> _)))
+#+end_src
+
+This is the only predicate macro I know of that can get away with no input OR output vars.
+
 ** defmain
 
 When running a cascalog query on a cluster, usual practice is to include =(:gen-class)= in the namespace form, and write a =-main= method that gets AOT-compiled and called by Hadoop. This can be a little annoying, if you have a bunch of small queries you want to run.
@@ -117,4 +126,4 @@ Just a few bugfixes to note:
 
 - Fixed a bug preventing cascalog-taps in =(:trap (some-tap ...))= option predicates.
 - Fixed bug preventing keywords as static arguments (as [[https://github.com/nathanmarz/cascalog/blob/master/test/cascalog/api_test.clj#L439][demonstrated here]]).
-- We now throw an error when a Cascading flow completes, but unsuccessfully.
+- Failed cascading flows now always throw errors. (This is a workaround to a Cascading bug that allows some flows to fail silently.)
