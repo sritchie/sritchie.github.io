@@ -37,7 +37,8 @@ Let's say we have a query that counts words:
 #+begin_src clojure
   (ns cascalog.example.wordcount
     (:use cascalog.api)
-    (:require [cascalog.ops :as c]))
+    (:require [cascalog.ops :as c])
+    (:gen-class))
   
   (defn wc-query
     "Returns a subquery that generates wordcounts for every word in the

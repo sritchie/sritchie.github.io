@@ -58,7 +58,7 @@ At this point, you should be able to start using Haskell in emacs. Let's write o
 
 #+begin_src haskell
   module Examples where
-    
+  
   square :: Integral a => a -> a
   square x = x * x
   

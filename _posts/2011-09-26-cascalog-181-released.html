@@ -1,0 +1,191 @@
+---
+layout: post
+title: Cascalog 1.8.1 Released
+---
+
+<p class="meta">26 Sept 2011 - San Francisco</p>
+
+
+<div id="outline-container-1" class="outline-2">
+<h2 id="sec-1">Cascalog 1.8.1 Released </h2>
+<div class="outline-text-2" id="text-1">
+
+
+<p>
+<a href="http://nathanmarz.com/">Nathan Marz</a> and I are releasing Cascalog 1.8.1 today! We've added a few interesting features, and I thought I'd provide a bit more detail here for anyone interested.
+</p>
+
+</div>
+
+<div id="outline-container-1-1" class="outline-3">
+<h3 id="sec-1-1">Cross Join </h3>
+<div class="outline-text-3" id="text-1-1">
+
+
+<p>
+<code>cascalog.api</code> now includes support for <a href="http://en.wikipedia.org/wiki/Join_(SQL)#Cross_join">cross-joins</a>; just add <code>(cross-join)</code> to your query as its own predicate.
+</p>
+<p>
+Think of a cross-join as a "tuple comprehension", or cartesian product, with similar results to <code>clojure.core/for</code>; it's not very efficient, as it forces all tuples through a single reducer (and causes a massive blowup in the number of tuples!). Here's an example:
+</p>
+
+
+
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span><span style="color: #7a378b;">let</span> [a-src [[1] [2]]
+      b-src [[3] [4]]]
+  <span style="color: #8c8c8c;">(</span>?&lt;- <span style="color: #8c8c8c;">(</span>stdout<span style="color: #8c8c8c;">)</span>
+       [?a ?b]
+       <span style="color: #8c8c8c;">(</span>a-src ?a<span style="color: #8c8c8c;">)</span>
+       <span style="color: #8c8c8c;">(</span>b-src ?b<span style="color: #8c8c8c;">)</span>
+       <span style="color: #8c8c8c;">(</span>cross-join<span style="color: #8c8c8c;">)))</span>  
+</pre>
+
+
+<p>
+This results in the following on <code>stdout</code>:
+</p>
+
+
+
+<pre class="src src-text">RESULTS
+-----------------------
+1  3
+1  4
+2  3
+2  4
+-----------------------
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-1-2" class="outline-3">
+<h3 id="sec-1-2">defmain </h3>
+<div class="outline-text-3" id="text-1-2">
+
+
+<p>
+When running a cascalog query on a cluster, usual practice is to include <code>(:gen-class)</code> in the namespace form, and write a <code>-main</code> method that gets AOT-compiled and called by hadoop. This can be a little annoying, if you have a bunch of small queries you want to run.
+</p>
+<p>
+<code>defmain</code> lets you skip the <code>:gen-class</code> form and write something like:
+</p>
+
+
+
+<pre class="src src-clojure"><span style="color: #b22222;">;; </span><span style="color: #b22222;">inside myproject.jobs...  </span>
+<span style="color: #8c8c8c;">(</span>defmain <span style="color: #7a378b;">FirstQuery</span> [in-path out-path]
+  <span style="color: #8c8c8c;">(</span>?- <span style="color: #8c8c8c;">(</span>hfs-textline out-path<span style="color: #8c8c8c;">)</span>
+      <span style="color: #8c8c8c;">(</span>some-query in-path<span style="color: #8c8c8c;">)))</span>
+
+<span style="color: #8c8c8c;">(</span>defmain <span style="color: #7a378b;">SecondQuery</span> [out-path]
+  <span style="color: #8c8c8c;">(</span>?&lt;- <span style="color: #8c8c8c;">(</span>hfs-textline out-path<span style="color: #8c8c8c;">)</span>
+       [?a ?b] ...<span style="color: #8c8c8c;">))</span>
+</pre>
+
+
+<p>
+Each <code>defmain</code> will compile to a class with the supplied name, prefixed by the namespace. (<code>myproject.jobs.FirstQuery</code> and <code>myproject.jobs.SecondQuery</code>, in this example.)
+</p>
+<p>
+(As always, make sure to include <code>:aot [myproject.jobs]</code>, with each namespace containing a <code>defmain</code>, inside of <code>project.clj</code>. If you want to call the defmain function directly for some reason, <code>(defmain Query ...)</code> can be called from the REPL with <code>(Query-main ...)</code>.)
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-1-3" class="outline-3">
+<h3 id="sec-1-3">with-serializations </h3>
+<div class="outline-text-3" id="text-1-3">
+
+
+<p>
+Damn you, serializations. This one JobConf entry, "io.serializations", has caused me much pain. We've added <code>with-serializations</code>, which makes the supplied Hadoop serializations available to all queries enclosed within the form. These forms nest, and play well with the existing <code>with-job-conf</code>. For example:
+</p>
+
+
+
+<pre class="src src-clojure"><span style="color: #b22222;">;; </span><span style="color: #b22222;">You can specify serializations in string form...</span>
+<span style="color: #8c8c8c;">(</span>with-serializations [<span style="color: #8b2252;">"org.apache.hadoop.io.serializer.JavaSerialization"</span>]
+  <span style="color: #8c8c8c;">(</span>&lt;- [?a] ...<span style="color: #8c8c8c;">))</span>
+
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">... or directly, with the class.</span>
+<span style="color: #8c8c8c;">(</span><span style="color: #7a378b;">import</span> '<span style="color: #7a378b;">org.apache.hadoop.io.serializer.JavaSerialization</span><span style="color: #8c8c8c;">)</span>
+
+<span style="color: #8c8c8c;">(</span>with-serializations [<span style="color: #7a378b;">JavaSerialization</span>]
+  <span style="color: #8c8c8c;">(</span>&lt;- [?a] ...<span style="color: #8c8c8c;">))</span>
+
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">Serializations nest and unique against each other!</span>
+<span style="color: #8c8c8c;">(</span>with-job-conf {<span style="color: #8b2252;">"io.serializations"</span> <span style="color: #8b2252;">"my.ns.SomeSerialization"</span>}
+  <span style="color: #8c8c8c;">(</span>with-serializations [<span style="color: #7a378b;">JavaSerialization</span> <span style="color: #7a378b;">OtherSerialization</span>]
+    <span style="color: #8c8c8c;">(</span>with-serializations [<span style="color: #8b2252;">"my.ns.SomeSerialization"</span> <span style="color: #7a378b;">ThirdSerialization</span>]
+      <span style="color: #8c8c8c;">(</span>&lt;- [?a] ...<span style="color: #8c8c8c;">))))</span>
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-1-4" class="outline-3">
+<h3 id="sec-1-4">cascalog.ops/first-n </h3>
+<div class="outline-text-3" id="text-1-4">
+
+
+<p>
+<code>first-n</code> can now handle straight-up vectors, lists, and cascading taps, in addition to queries.
+</p>
+<p>
+Say we've previously run a wordcount job that output <code>[?word ?count]</code> 2-tuples to a sequencefile, and we want to pull the top 100 words by count. Here's how we do that with first-n:
+</p>
+
+
+
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span><span style="color: #a0522d;">use</span> 'cascalog.api<span style="color: #8c8c8c;">)</span>
+<span style="color: #8c8c8c;">(</span><span style="color: #a0522d;">require</span> '[cascalog.ops <span style="color: #008b8b;">:as</span> c]<span style="color: #8c8c8c;">)</span>
+
+<span style="color: #8c8c8c;">(</span><span style="color: #7f007f;">defn</span> <span style="color: #0000ff;">wordcount-tap</span> [path]
+  <span style="color: #8c8c8c;">(</span><span style="color: #7a378b;">-&gt;</span> <span style="color: #8c8c8c;">(</span>hfs-seqfile path<span style="color: #8c8c8c;">)</span>
+      <span style="color: #8c8c8c;">(</span>name-vars [<span style="color: #8b2252;">"?word"</span> <span style="color: #8b2252;">"?count"</span>]<span style="color: #8c8c8c;">)))</span>
+
+<span style="color: #8c8c8c;">(</span><span style="color: #7f007f;">defn</span> <span style="color: #0000ff;">top-100</span> [file-path]
+  <span style="color: #8c8c8c;">(</span>c/first-n <span style="color: #8c8c8c;">(</span>wordcount-tap path<span style="color: #8c8c8c;">)</span>
+             100
+             <span style="color: #008b8b;">:sort</span> [<span style="color: #8b2252;">"?count"</span>]
+             <span style="color: #008b8b;">:reverse</span> true<span style="color: #8c8c8c;">))</span>
+
+<span style="color: #8c8c8c;">(</span>defmain <span style="color: #7a378b;">Top100</span> [tuple-path results-path]
+  <span style="color: #8c8c8c;">(</span>?- <span style="color: #8c8c8c;">(</span>hfs-textline results-path<span style="color: #8c8c8c;">)</span>
+      <span style="color: #8c8c8c;">(</span>top-100 tuple-path<span style="color: #8c8c8c;">)))</span>
+</pre>
+
+
+<p>
+<code>first-n</code> with vectors and lists is mostly interesting for testing purposes.
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-1-5" class="outline-3">
+<h3 id="sec-1-5">Other Bugfixes </h3>
+<div class="outline-text-3" id="text-1-5">
+
+
+<p>
+Just a few bugfixes to note:
+</p>
+<ul>
+<li>Fixed a bug preventing cascalog-taps in <code>(:trap (some-tap ...))</code> option predicates.
+</li>
+<li>Fixed bug preventing keywords as static arguments (as <a href="https://github.com/nathanmarz/cascalog/blob/master/test/cascalog/api_test.clj#L439">demonstrated here</a>).
+</li>
+<li>We now throw an error when a Cascading flow completes, but unsuccessfully.
+</li>
+</ul>
+
+</div>
+</div>
+</div>
