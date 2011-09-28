@@ -1,0 +1,617 @@
+---
+layout: post
+title: Testing Cascalog with Midje
+---
+
+<p class="meta">27 Sept 2011 - San Francisco</p>
+
+
+<div id="outline-container-1" class="outline-2">
+<h2 id="sec-1">Testing Cascalog with Midje </h2>
+<div class="outline-text-2" id="text-1">
+
+
+<p>
+One of the most exciting advantages Cascalog holds over Pig and Hive is its expressive power; Clojure is truly a wonder in that regard. One particular problem with other current MapReduce abstraction layers is the utter difficulty of testing queries and workflows. End-to-end tests are maddening to craft in pure MapReduce and frustrating at best in Pig and Hive.
+</p>
+<p>
+I've been working on a Cascalog testing suite these past few weeks, an extension to Brian Marick's Midje, that solves the problems of testing MapReduce workflows.
+</p>
+
+</div>
+
+<div id="outline-container-1-1" class="outline-3">
+<h3 id="sec-1-1">Functional MapReduce Testing </h3>
+<div class="outline-text-3" id="text-1-1">
+
+
+<p>
+I'll start with an example cascalog query:
+</p>
+
+
+
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span><span style="color: #7f007f;">defn</span> <span style="color: #0000ff;">max-followers-query</span> [datastore-path]
+  <span style="color: #8c8c8c;">(</span><span style="color: #7a378b;">let</span> [src <span style="color: #8c8c8c;">(</span>name-vars <span style="color: #8c8c8c;">(</span>complex-subquery datastore-path<span style="color: #8c8c8c;">)</span>
+                       [<span style="color: #8b2252;">"?user"</span> <span style="color: #8b2252;">"?followers"</span>]<span style="color: #8c8c8c;">)</span>]
+    <span style="color: #8c8c8c;">(</span>c/first-n src 1 <span style="color: #008b8b;">:sort</span> [<span style="color: #8b2252;">"?followers"</span>] <span style="color: #008b8b;">:reverse</span> true<span style="color: #8c8c8c;">)))</span>
+</pre>
+
+
+<p>
+<code>complex-subquery</code> generates 2-tuples of the form <code>[user, follower-count]</code>. <code>max-followers-query</code> is only responsible for pulling the tuples with the most <code>?followers</code>.
+</p>
+<p>
+Let's pretend that you were writing this in MapReduce. How would you run tests against this job?
+</p>
+<ul>
+<li>MapReduce jobs require a specific FileInputFormat, so you'd start by creating a temporary directory, serializing some test data and passing it into a tempfile in the proper InputFormat.
+</li>
+<li>Next, execute the job on that tempfile and funnel its results into another temp directory.
+</li>
+<li>Extract each k-v pair, deserialize and run the results through your test code
+</li>
+<li>destroy temporary files and directories.
+</li>
+</ul>
+
+
+<p>
+Any test of application logic is dwarfed by the maintenance required. Most real world MapReduce applications involved chained jobs, a nightmare to test using the above methods. Perhaps for this reason, <a href="http://www.cloudera.com/blog/2009/07/debugging-mapreduce-programs-with-mrunit/">Cloudera</a> recommends testing mappers and reducers separately, one tuple at a time:
+</p>
+<blockquote>
+
+<p><i>many errors can be quickly identified with small tests involving a single, well-chosen input record.</i>
+</p>
+</blockquote>
+
+
+<p>
+This is insane. Imagine writing a complex function responsible for heavy IO, and testing an internal for-loop with one well-chosen integer.
+</p>
+<p>
+A well designed testing suite will test each MapReduce query against a range of input data, in addition to testing full flows and compositions of queries.
+</p>
+<p>
+With Midje (and my extension, <a href="https://github.com/sritchie/midje-cascalog">midje-cascalog</a>), you can obliterate the complexity of testing <code>max-followers-query</code> by mocking out the result of <code>complex-subquery</code>  to return a Clojure data structure:
+</p>
+
+
+
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span>fact?- <span style="color: #8b2252;">"Query should return 1 tuple with the most popular user +</span>
+<span style="color: #8b2252;">        follower count."</span>
+        [[<span style="color: #8b2252;">"richhickey"</span> 2961]]
+        <span style="color: #8c8c8c;">(</span>max-followers-query <span style="color: #008b8b;">:path</span><span style="color: #8c8c8c;">)</span>
+        <span style="color: #8c8c8c;">(</span>provided
+          <span style="color: #8c8c8c;">(</span>complex-subquery <span style="color: #008b8b;">:path</span><span style="color: #8c8c8c;">)</span> =&gt; [[<span style="color: #8b2252;">"sritchie09"</span> 180]
+                                       [<span style="color: #8b2252;">"rickhickey"</span> 2961]]<span style="color: #8c8c8c;">))</span>
+
+</pre>
+
+
+<p>
+This test, or "fact", states that
+</p>
+<ul>
+<li>when <code>max-followers-query</code> is called with the argument <code>:path</code>,
+</li>
+<li>it will produce <code>[ [ richhickey" 2961] ]</code>,
+</li>
+<li>Provided <code>(complex-subquery :path)</code> produces <code>[["sritchie09" 180] ["rickhickey" 2961]]</code>.
+</li>
+</ul>
+
+
+<p>
+The application logic here is completely separate from filesystem IO. The test examines a single query, and proves it to be correct for all expected inputs. Tests like this are the building blocks of rock-solid production apps.
+</p>
+<p>
+Midje gives you the power to test logical units of MapReduce code with full freedom from filesystem details, a feat unprecedented in the big data world. Let's get an example project set up and do some testing.
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-1-2" class="outline-3">
+<h3 id="sec-1-2">Setting Up your Environment </h3>
+<div class="outline-text-3" id="text-1-2">
+
+
+
+</div>
+
+<div id="outline-container-1-2-1" class="outline-4">
+<h4 id="sec-1-2-1">Midje </h4>
+<div class="outline-text-4" id="text-1-2-1">
+
+
+<p>
+Midje is an incredible testing framework by Brian Marick. It supports a number of <a href="https://github.com/marick/Midje/wiki/Checkers-for-collections-and-strings">collection checkers</a>, and allows for intuitive mocking of clojure functions and vars. I've extended Midje with <a href="https://github.com/sritchie/midje-cascalog">a few macros</a> that mirror cascalog's query execution syntax: <code>fact?-</code> vs <code>?-</code>, <code>fact?&lt;-</code> vs <code>?&lt;-</code>.
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-1-2-2" class="outline-4">
+<h4 id="sec-1-2-2">Example Project </h4>
+<div class="outline-text-4" id="text-1-2-2">
+
+
+<p>
+You can find all source code from this post <a href="https://github.com/sritchie/cascalog-testing-demo">on github</a>. To add <code>midje-cascalog</code> support to your own project, add these entries to <code>:dev-dependencies</code>:
+</p>
+
+
+
+<pre class="src src-clojure">[lein-midje <span style="color: #8b2252;">"1.0.3"</span>]
+[midje-cascalog <span style="color: #8b2252;">"0.2.0"</span>]
+</pre>
+
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-1-3" class="outline-3">
+<h3 id="sec-1-3">Cascalog Queries </h3>
+<div class="outline-text-3" id="text-1-3">
+
+
+<p>
+Let's start by fleshing out word counting in Cascalog.
+</p>
+
+
+
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span><span style="color: #7a378b;">ns</span> cascalog.testing-demo.core
+  <span style="color: #8c8c8c;">(</span><span style="color: #008b8b;">:use</span> cascalog.api<span style="color: #8c8c8c;">)</span>
+  <span style="color: #8c8c8c;">(</span><span style="color: #008b8b;">:require</span> [cascalog.ops <span style="color: #008b8b;">:as</span> c]<span style="color: #8c8c8c;">)</span>
+  <span style="color: #8c8c8c;">(</span><span style="color: #008b8b;">:gen-class</span><span style="color: #8c8c8c;">))</span>
+
+<span style="color: #8c8c8c;">(</span>defmapcatop split
+  <span style="color: #8b2252;">"Accepts a sentence, splits on whitespace, and emits a single</span>
+<span style="color: #8b2252;">  1-tuple for each word."</span>
+  [<span style="color: #228b22;">^String</span> sentence]
+  <span style="color: #8c8c8c;">(</span><span style="color: #a0522d;">seq</span> <span style="color: #8c8c8c;">(</span><span style="color: #7a378b;">.split</span> sentence <span style="color: #8b2252;">"\\s+"</span><span style="color: #8c8c8c;">)))</span>
+
+<span style="color: #8c8c8c;">(</span><span style="color: #7f007f;">defn</span> <span style="color: #0000ff;">wc-query</span>
+  <span style="color: #8b2252;">"Returns a subquery that generates wordcounts for every word in</span>
+<span style="color: #8b2252;">    the textfiles located at `text-path`."</span>
+  [text-path]
+  <span style="color: #8c8c8c;">(</span><span style="color: #7a378b;">let</span> [src <span style="color: #8c8c8c;">(</span>hfs-textline text-path<span style="color: #8c8c8c;">)</span>]
+    <span style="color: #8c8c8c;">(</span>&lt;- [?word ?count]
+        <span style="color: #8c8c8c;">(</span>src ?textline<span style="color: #8c8c8c;">)</span>
+        <span style="color: #8c8c8c;">(</span>split ?textline <span style="color: #008b8b;">:&gt;</span> ?word<span style="color: #8c8c8c;">)</span>
+        <span style="color: #8c8c8c;">(</span>c/count ?count<span style="color: #8c8c8c;">))))</span>
+
+<span style="color: #8c8c8c;">(</span><span style="color: #7f007f;">defn</span> <span style="color: #0000ff;">-main</span>
+  <span style="color: #8b2252;">"Accepts a path to a number of text files and a results path, and</span>
+<span style="color: #8b2252;">   prints each distinct word along with its count to an `hfs-textline`</span>
+<span style="color: #8b2252;">   tap at `results-path`."</span>
+  [text-path results-path]
+  <span style="color: #8c8c8c;">(</span>?- <span style="color: #8c8c8c;">(</span>hfs-textline results-path<span style="color: #8c8c8c;">)</span>
+      <span style="color: #8c8c8c;">(</span>wc-query text-path<span style="color: #8c8c8c;">)))</span>
+</pre>
+
+
+<p>
+<code>wc-query</code> takes a path to some directory containing textfiles, and returns a query that produces <code>[word count]</code> pairs. <code>-main</code> executes this query into another textfile.
+</p>
+<p>
+The project's application logic lies in <code>wc-query</code>. Testing <code>wc-query</code> in isolation is difficult, as <code>wc-query</code> takes a path meant for <code>hfs-textline</code>, rather than accepting a tuple source directly. How can we test this, without rewriting the query?
+</p>
+<p>
+The solution lies in Midje's mocking support. Let's build up to this by going over some basic fact-based cascalog tests.
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-1-4" class="outline-3">
+<h3 id="sec-1-4">Basic Cascalog Testing </h3>
+<div class="outline-text-3" id="text-1-4">
+
+
+<p>
+Let's put our tests in <code>./test/cascalog/testing_demo/core_test.clj</code> (mirroring the <code>core.clj</code>, with <code>_test</code> tacked on):
+</p>
+
+
+
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span><span style="color: #7a378b;">ns</span> cascalog.testing-demo.core-test
+  <span style="color: #8c8c8c;">(</span><span style="color: #008b8b;">:use</span> cascalog.testing-demo.core
+        cascalog.api
+        [midje sweet cascalog]<span style="color: #8c8c8c;">)</span>
+  <span style="color: #8c8c8c;">(</span><span style="color: #008b8b;">:require</span> [cascalog.ops <span style="color: #008b8b;">:as</span> c]<span style="color: #8c8c8c;">))</span>
+</pre>
+
+
+
+</div>
+
+<div id="outline-container-1-4-1" class="outline-4">
+<h4 id="sec-1-4-1">fact?- </h4>
+<div class="outline-text-4" id="text-1-4-1">
+
+
+<p>
+<code>fact?-</code> accepts pairs of result-tuple-sequences and queries:
+</p>
+
+
+
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span>fact?- [[1 2]] <span style="color: #8c8c8c;">(</span>&lt;- [?a ?b]
+                    <span style="color: #8c8c8c;">(</span>[[1]] ?a<span style="color: #8c8c8c;">)</span>
+                    <span style="color: #8c8c8c;">(</span><span style="color: #a0522d;">inc</span> ?a <span style="color: #008b8b;">:&gt;</span> ?b<span style="color: #8c8c8c;">))</span>
+
+        [[3 4]] <span style="color: #8c8c8c;">(</span>&lt;- [?a ?b]
+                    <span style="color: #8c8c8c;">(</span>[[4]] ?b<span style="color: #8c8c8c;">)</span>
+                    <span style="color: #8c8c8c;">(</span><span style="color: #a0522d;">dec</span> ?b <span style="color: #008b8b;">:&gt;</span> ?a<span style="color: #8c8c8c;">)))</span>
+</pre>
+
+
+<p>
+The above code states two distinct "facts" about our data. Each query (on the right), when executed, produces the sequence of tuples (to its left). Ordering of result tuples doesn't matter.
+</p>
+<p>
+The following form is also valid:
+</p>
+
+
+
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span><span style="color: #7f007f;">defn</span> <span style="color: #0000ff;">some-query</span> [src]
+  <span style="color: #8c8c8c;">(</span>&lt;- [?a ?b]
+      <span style="color: #8c8c8c;">(</span>src ?a<span style="color: #8c8c8c;">)</span>
+      <span style="color: #8c8c8c;">(</span><span style="color: #a0522d;">inc</span> ?a <span style="color: #008b8b;">:&gt;</span> ?b<span style="color: #8c8c8c;">)))</span>
+
+<span style="color: #8c8c8c;">(</span>fact?- <span style="color: #008b8b;">:info</span>
+        <span style="color: #8b2252;">"Strings are fine anywhere!"</span>
+        [[1 2]] <span style="color: #8c8c8c;">(</span>some-query [[1]]<span style="color: #8c8c8c;">))</span>
+</pre>
+
+
+<p>
+The first keyword sets a custom log level; in the absence of this keyword. The log level defaults to <code>:fatal</code>. (See <a href="https://github.com/nathanmarz/cascalog/blob/master/src/clj/cascalog/io.clj#L59">cascalog.util</a> for all other options).
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-1-4-2" class="outline-4">
+<h4 id="sec-1-4-2">fact?&lt;- </h4>
+<div class="outline-text-4" id="text-1-4-2">
+
+
+<p>
+<code>fact?&lt;-</code> is analogous to <code>?&lt;-</code>, in that it defines single query and tests it within the same form.
+</p>
+
+
+
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span>fact?&lt;- [[1 2]]
+         [?a ?b]
+         <span style="color: #8c8c8c;">(</span>[[1]] ?a<span style="color: #8c8c8c;">)</span>
+         <span style="color: #8c8c8c;">(</span><span style="color: #a0522d;">inc</span> ?a <span style="color: #008b8b;">:&gt;</span> ?b<span style="color: #8c8c8c;">))</span>
+</pre>
+
+
+<p>
+This fact defines a query that produces 2-tuples of the form <code>[?a ?b]</code>, and tests that it generates <code>[ [1 2] ]</code> on execution.
+</p>
+<p>
+I find <code>fact?&lt;-</code> useful mostly for testing how <code>def*op</code> functions behave inside of queries. <code>fact?-</code> is broadly useful for testing full queries and workflows, and shows up in far more tests.
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-1-4-3" class="outline-4">
+<h4 id="sec-1-4-3">future-fact?- and future-fact?&lt;- </h4>
+<div class="outline-text-4" id="text-1-4-3">
+
+
+<p>
+If you want to stub out an unfinished test, use any of the following in place of the two macros above:
+</p>
+<ul>
+<li><code>future-fact?-</code> and <code>future-fact?&lt;-</code>
+</li>
+<li><code>pending-fact?-</code> and <code>pending-fact?&lt;-</code>
+</li>
+</ul>
+
+
+<p>
+This will prevent the body of the fact from being evaluated. (The <code>future-fact</code> and <code>pending-fact</code> forms are identical. Midje provides <a href="https://github.com/marick/Midje/wiki/Future-facts">more information here</a>.)
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-1-4-4" class="outline-4">
+<h4 id="sec-1-4-4">lein-midje </h4>
+<div class="outline-text-4" id="text-1-4-4">
+
+
+<p>
+Once you write all these tests, how to run them? If you're using leiningen, add <code>[lein-midje "1.0.3"]</code> to your <code>project.clj</code>, and run <code>lein midje</code> in your project directory. This will run all facts and tests in the project and print a summary of results to stdout. (Here's the <a href="https://github.com/marick/Midje/wiki/Lein-midje">github page</a> for lein-midje.)
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-1-4-5" class="outline-4">
+<h4 id="sec-1-4-5">Interaction with clojure.test </h4>
+<div class="outline-text-4" id="text-1-4-5">
+
+
+<p>
+If you're currently using clojure.test, check out <a href="https://github.com/marick/Midje/wiki/Migrating-from-clojure.test">Midje's tips</a> on integration. The two modes work very well together. <code>lein midje</code> will evaulate all <code>deftest</code> forms inside of a project, and include the results in its report.
+</p>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-1-5" class="outline-3">
+<h3 id="sec-1-5">Mocking </h3>
+<div class="outline-text-3" id="text-1-5">
+
+
+<p>
+Let's revisit <code>wc-query</code> from <code>cascalog.testing-demo.core</code>. Here's an initial test, mocked out with <code>fact?-</code>:
+</p>
+
+
+
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span>fact?- <span style="color: #8b2252;">"wc-query should count words from all lines of text at</span>
+<span style="color: #8b2252;">        /path/to/textfile."</span>
+        result-vec <span style="color: #8c8c8c;">(</span>wc-query <span style="color: #8b2252;">"/path/to/textfile"</span><span style="color: #8c8c8c;">))</span>
+</pre>
+
+
+<p>
+<code>wc-query</code>, as written, performs an internal call to <code>hfs-textline</code>. <code>hfs-textline</code> provides with tuples from the filesystem, and as such has no direct place in our logic tests.
+</p>
+
+</div>
+
+<div id="outline-container-1-5-1" class="outline-4">
+<h4 id="sec-1-5-1">provided </h4>
+<div class="outline-text-4" id="text-1-5-1">
+
+
+<p>
+Mocking allows us to intercept all calls to <code>hfs-textline</code> and insert our own tuples. Using midje's <code>provided</code> form, this looks like:
+</p>
+
+
+
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span><span style="color: #7f007f;">def</span> <span style="color: #0000ff;">short-sentences</span>
+  [[<span style="color: #8b2252;">"this is a sentence sentence"</span>]
+   [<span style="color: #8b2252;">"sentence with this is repeated"</span>]]<span style="color: #8c8c8c;">)</span>
+
+<span style="color: #8c8c8c;">(</span><span style="color: #7f007f;">def</span> <span style="color: #0000ff;">short-wordcounts</span>
+  [[<span style="color: #8b2252;">"sentence"</span> 3]
+   [<span style="color: #8b2252;">"repeated"</span> 1]
+   [<span style="color: #8b2252;">"is"</span> 2]
+   [<span style="color: #8b2252;">"a"</span> 1]
+   [<span style="color: #8b2252;">"this"</span> 2]
+   [<span style="color: #8b2252;">"with"</span> 1]]<span style="color: #8c8c8c;">)</span>
+
+<span style="color: #8c8c8c;">(</span>fact?- <span style="color: #8b2252;">"fact?- accepts `result-vec, query` pairs."</span>
+        short-wordcounts <span style="color: #8c8c8c;">(</span>wc-query <span style="color: #008b8b;">:text-path</span><span style="color: #8c8c8c;">)</span>
+        <span style="color: #8c8c8c;">(</span>provided
+          <span style="color: #8c8c8c;">(</span>hfs-textline <span style="color: #008b8b;">:text-path</span><span style="color: #8c8c8c;">)</span> =&gt; short-sentences<span style="color: #8c8c8c;">))</span>
+</pre>
+
+
+<p>
+This fact states that 
+</p>
+<ul>
+<li>when <code>wc-query</code> is called with <code>:text-path</code>
+</li>
+<li>it will produce <code>short-sentences</code>,
+</li>
+<li>Provided <code>(hfs-textline :text-path)</code> produces <code>short-wordcounts</code>.
+</li>
+</ul>
+
+
+<p>
+<code>provided</code> forms only apply to the queries directly above. This won't work, as the first pair can't access the second pair's <code>provided</code> block:
+</p>
+
+
+
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span>fact?- results <span style="color: #8c8c8c;">(</span>some-query <span style="color: #008b8b;">:a</span><span style="color: #8c8c8c;">)</span> <span style="color: #b22222;">;; </span><span style="color: #b22222;">provided call won't apply here!</span>
+
+        results-2 <span style="color: #8c8c8c;">(</span>another-query <span style="color: #008b8b;">:a</span><span style="color: #8c8c8c;">)</span> <span style="color: #b22222;">;; </span><span style="color: #b22222;">only here.</span>
+        <span style="color: #8c8c8c;">(</span>provided
+          <span style="color: #8c8c8c;">(</span>inner-func <span style="color: #008b8b;">:a</span><span style="color: #8c8c8c;">)</span> =&gt; 10<span style="color: #8c8c8c;">))</span>
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-1-5-2" class="outline-4">
+<h4 id="sec-1-5-2">Nested Mocking </h4>
+<div class="outline-text-4" id="text-1-5-2">
+
+
+<p>
+<code>(provided ... )</code> can also mock nested calls, as discussed <a href="https://github.com/marick/Midje/wiki/Folded-prerequisites">here</a>. For example:
+</p>
+
+
+
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span>fact?- results <span style="color: #8c8c8c;">(</span>query <span style="color: #008b8b;">:arg</span> <span style="color: #008b8b;">:arg2</span><span style="color: #8c8c8c;">)</span>
+        <span style="color: #8c8c8c;">(</span>provided <span style="color: #8c8c8c;">(</span>f1 <span style="color: #8c8c8c;">(</span>f2 <span style="color: #008b8b;">:arg</span><span style="color: #8c8c8c;">))</span> =&gt; source-tuples
+                  <span style="color: #8c8c8c;">(</span>f3 <span style="color: #008b8b;">:arg2</span><span style="color: #8c8c8c;">)</span> =&gt; other-src<span style="color: #8c8c8c;">))</span>
+</pre>
+
+
+<p>
+This fact mocks out calls to <code>(f3 :arg2)</code> and <code>(f1 (f2 :arg1))</code>, and expects that both will show up somewhere within the body of <code>(query :arg :arg2)</code>.
+</p>
+<p>
+I prefer keywords as mocking arguments, but strings, numbers, and any symbol surrounded by dots (like <code>..this..</code>) are all valid.
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-1-5-3" class="outline-4">
+<h4 id="sec-1-5-3">against-background </h4>
+<div class="outline-text-4" id="text-1-5-3">
+
+
+<p>
+As discussed, the <code>provided</code> keyword only applies to the fact-pair directly above. it. As <code>fact?-</code> takes multiple forms, this can be limiting; What if you want to mock a function's results for all forms?
+</p>
+<p>
+Midje solves this with <code>against-background</code>. Functions mocked within this form have lower precedence than <code>provided</code> mocking, but apply to all queries, as shown here:
+</p>
+
+
+
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span>fact?- <span style="color: #8b2252;">"Same test as before, pulling mocking from against-background</span>
+<span style="color: #8b2252;">        below."</span>
+        short-wordcounts
+        <span style="color: #8c8c8c;">(</span>wc-query <span style="color: #008b8b;">:text-path</span><span style="color: #8c8c8c;">)</span>
+
+        <span style="color: #8b2252;">"provided overrides against-background for the query directly</span>
+<span style="color: #8b2252;">        above it."</span>
+        [[<span style="color: #8b2252;">"what"</span> 1] [<span style="color: #8b2252;">"a"</span> 1] [<span style="color: #8b2252;">"world!"</span> 1]]
+        <span style="color: #8c8c8c;">(</span>wc-query <span style="color: #008b8b;">:text-path</span><span style="color: #8c8c8c;">)</span>
+        <span style="color: #8c8c8c;">(</span>provided
+          <span style="color: #8c8c8c;">(</span>hfs-textline <span style="color: #008b8b;">:text-path</span><span style="color: #8c8c8c;">)</span> =&gt; [[<span style="color: #8b2252;">"what a world!"</span>]]<span style="color: #8c8c8c;">)</span>
+
+        <span style="color: #8c8c8c;">(</span>against-background
+          <span style="color: #8c8c8c;">(</span>hfs-textline <span style="color: #008b8b;">:text-path</span><span style="color: #8c8c8c;">)</span> =&gt; short-sentences<span style="color: #8c8c8c;">))</span>
+</pre>
+
+
+<p>
+This power allows you to explore a range of query edge cases with a single mock.
+</p>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-1-6" class="outline-3">
+<h3 id="sec-1-6">Collection Checkers </h3>
+<div class="outline-text-3" id="text-1-6">
+
+
+<p>
+Executed queries return collections of data. <code>wc-query</code> will produce a rather large sequence of <code>&lt;word, count&gt;</code> pairs for a small number of input sentences. This is no reason to limit tests to small sentences!
+</p>
+<p>
+Midje provides a range of collection checkers that provide you with finer control. (All collection checker options are documented <a href="https://github.com/marick/Midje/wiki/Checkers-for-collections-and-strings">here</a>.)
+</p>
+<p>
+For the next set of facts, let's introduce a larger set of input sentences:
+</p>
+
+
+
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span><span style="color: #7f007f;">def</span> <span style="color: #0000ff;">longer-sentences</span>
+  [[<span style="color: #8b2252;">"Call me Ishmael. Some years ago -- never mind how long"</span>]
+   [<span style="color: #8b2252;">"precisely -- having little or no money in my purse, and"</span>]
+   [<span style="color: #8b2252;">"nothing particular to interest me on shore, I thought I"</span>]
+   [<span style="color: #8b2252;">"would sail about a little and see the watery part of the world."</span>]]<span style="color: #8c8c8c;">)</span>
+</pre>
+
+
+
+</div>
+
+<div id="outline-container-1-6-1" class="outline-4">
+<h4 id="sec-1-6-1">just </h4>
+<div class="outline-text-4" id="text-1-6-1">
+
+
+<p>
+This is the default checker for <code>midje-cascalog</code>. Bare result vectors resolve to <code>(just result-vec :in-any-order)</code>. The following two facts are eqivalent:
+</p>
+
+
+
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span>fact?- <span style="color: #8c8c8c;">(</span>just [[2 3] [1 2]] <span style="color: #008b8b;">:in-any-order</span><span style="color: #8c8c8c;">)</span>
+        <span style="color: #8c8c8c;">(</span>&lt;- [?a ?b]
+            <span style="color: #8c8c8c;">(</span>[[1] [2]] ?a<span style="color: #8c8c8c;">)</span>
+            <span style="color: #8c8c8c;">(</span><span style="color: #a0522d;">inc</span> ?a <span style="color: #008b8b;">:&gt;</span> ?b<span style="color: #8c8c8c;">))</span>
+
+        [[2 3] [1 2]]
+        <span style="color: #8c8c8c;">(</span>&lt;- [?a ?b]
+            <span style="color: #8c8c8c;">(</span>[[1] [2]] ?a<span style="color: #8c8c8c;">)</span>
+            <span style="color: #8c8c8c;">(</span><span style="color: #a0522d;">inc</span> ?a <span style="color: #008b8b;">:&gt;</span> ?b<span style="color: #8c8c8c;">)))</span>
+</pre>
+
+
+<p>
+Each of these facts checks that its subquery returns <code>[2 3]</code> <code>[1 2]</code> exclusively, in any order.
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-1-6-2" class="outline-4">
+<h4 id="sec-1-6-2">contains </h4>
+<div class="outline-text-4" id="text-1-6-2">
+
+
+<p>
+The <code>contains</code> form, used as <code>(contains result-vec)</code>, tests that <code>result-vec</code> occurs, in order, somewhere within a query's results. The tuples in <code>result-vec</code> must be contiguous. (Using <code>contains</code> by itself really only make sense when querying for the top-n on some field, where the ordering is what's important.)
+</p>
+<p>
+Adding the <code>:gaps-ok</code> keyword at the end of the form relaxes the contiguous requirement. Adding <code>:in-any-order</code>, or using a set for <code>result-vec</code>, relaxes the ordering restriction. For example:
+</p>
+
+
+
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span>fact?- <span style="color: #8c8c8c;">(</span>contains #{[<span style="color: #8b2252;">"sail"</span> 1] [<span style="color: #8b2252;">"Ishmael."</span> 1]} <span style="color: #008b8b;">:gaps-ok</span><span style="color: #8c8c8c;">)</span>
+        <span style="color: #8c8c8c;">(</span>wc-query <span style="color: #008b8b;">:text-path</span><span style="color: #8c8c8c;">)</span>
+        <span style="color: #8c8c8c;">(</span>provided
+          <span style="color: #8c8c8c;">(</span>hfs-textline <span style="color: #008b8b;">:text-path</span><span style="color: #8c8c8c;">)</span> =&gt; longer-sentences<span style="color: #8c8c8c;">))</span>
+</pre>
+
+
+<p>
+The above fact tests that both <code>["sail" 1]</code> and <code>["Ishmael." 1]</code> appear somewhere in the results, in any order. (Note the set wrapping the result tuples.)
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-1-6-3" class="outline-4">
+<h4 id="sec-1-6-3">has-prefix </h4>
+<div class="outline-text-4" id="text-1-6-3">
+
+
+<p>
+<code>has-prefix</code> checks that the supplied result vector occurs at the very beginning of the query's results. Like <code>contains</code> when used without keyword arguments, <code>has-prefix</code> only makes sense with queries that return sorted tuples.
+</p>
+<p>
+The following fact checks that <code>["--" 2]</code>, <code>["I" 2]</code> and <code>["and" 2]</code> are the top three words (by count) across all words in <code>longer-sentences</code>:
+</p>
+
+
+
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span>fact?- <span style="color: #8c8c8c;">(</span>has-prefix [[<span style="color: #8b2252;">"--"</span> 2] [<span style="color: #8b2252;">"I"</span> 2] [<span style="color: #8b2252;">"and"</span> 2]]<span style="color: #8c8c8c;">)</span>
+        <span style="color: #8c8c8c;">(</span><span style="color: #7a378b;">-&gt;</span> <span style="color: #8c8c8c;">(</span>wc-query <span style="color: #008b8b;">:text-path</span><span style="color: #8c8c8c;">)</span>
+            <span style="color: #8c8c8c;">(</span>c/first-n 10 <span style="color: #008b8b;">:sort</span> [<span style="color: #8b2252;">"?count"</span>] <span style="color: #008b8b;">:reverse</span> true<span style="color: #8c8c8c;">))</span>
+        <span style="color: #8c8c8c;">(</span>provided
+          <span style="color: #8c8c8c;">(</span>hfs-textline <span style="color: #008b8b;">:text-path</span><span style="color: #8c8c8c;">)</span> =&gt; longer-sentences<span style="color: #8c8c8c;">))</span>
+</pre>
+
+</div>
+</div>
+</div>
+</div>
