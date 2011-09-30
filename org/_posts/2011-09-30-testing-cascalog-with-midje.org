@@ -21,7 +21,7 @@ I'll start by introducing midje-cascalog's testing operators, then move on to a 
 
 ** Testing Operators
 
-In this section, I'll discuss midje-cascalog's testing operators: =fact?-= and =fact?<-=. (The syntax mirrors =?-= and =?<-=, Cascalog's [[http://www.assembla.com/spaces/cascalog/wiki/Defining_and_executing_queries][query execution operators]].) These operators provide the abstractions necessary for testing complex Cascalog workflows.
+In this section, I'll discuss midje-cascalog's testing operators: =fact?-= and =fact?<-=. (The syntax mirrors =?-= and =?<-=, Cascalog's [[http://www.assembla.com/spaces/cascalog/wiki/Defining_and_executing_queries][query execution operators]].) These operators provide the abstractions necessary for testing complex Cascalog workflows. Add them to your namespace by including =(:use midje.cascalog)= in the namespace header.
 
 *** fact?- 
 
@@ -177,6 +177,8 @@ To add =midje-cascalog= support to your own project, add these entries to to the
   [lein-midje "1.0.3"]
   [midje-cascalog "0.2.1"]
 #+end_src
+
+And add =(:use [midje sweet cascalog])= to the namespace declaration of each of your testing namespaces.
 
 *** Implementing Word Count
 

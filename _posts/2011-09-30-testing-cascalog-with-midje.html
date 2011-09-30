@@ -32,7 +32,7 @@ I'll start by introducing midje-cascalog's testing operators, then move on to a 
 
 
 <p>
-In this section, I'll discuss midje-cascalog's testing operators: <code>fact?-</code> and <code>fact?&lt;-</code>. (The syntax mirrors <code>?-</code> and <code>?&lt;-</code>, Cascalog's <a href="http://www.assembla.com/spaces/cascalog/wiki/Defining_and_executing_queries">query execution operators</a>.) These operators provide the abstractions necessary for testing complex Cascalog workflows.
+In this section, I'll discuss midje-cascalog's testing operators: <code>fact?-</code> and <code>fact?&lt;-</code>. (The syntax mirrors <code>?-</code> and <code>?&lt;-</code>, Cascalog's <a href="http://www.assembla.com/spaces/cascalog/wiki/Defining_and_executing_queries">query execution operators</a>.) These operators provide the abstractions necessary for testing complex Cascalog workflows. Add them to your namespace by including <code>(:use midje.cascalog)</code> in the namespace header.
 </p>
 
 </div>
@@ -289,6 +289,9 @@ To add <code>midje-cascalog</code> support to your own project, add these entrie
 </pre>
 
 
+<p>
+And add <code>(:use [midje sweet cascalog])</code> to the namespace declaration of each of your testing namespaces.
+</p>
 </div>
 
 </div>
