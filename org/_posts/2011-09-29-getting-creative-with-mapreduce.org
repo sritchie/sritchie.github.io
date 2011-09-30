@@ -1,0 +1,114 @@
+#+STARTUP: showall indent
+#+STARTUP: hidestars
+#+BEGIN_HTML
+---
+layout: post
+title: Getting Creative with MapReduce
+---
+
+<p class="meta">29 Sept 2011 - San Francisco</p>
+#+END_HTML
+
+* Getting Creative with MapReduce
+
+One problem with many existing MapReduce abstraction layers is the utter difficulty of testing queries and workflows. End-to-end tests are maddening to craft in vanilla Hadoop and frustrating at best in Pig and Hive. The difficulty of testing MapReduce workflows makes it scary to change code, and *destroys your desire to be creative*. A proper testing suite is an absolute prerequisite to doing creative work in big data.
+
+In this blog post, I aim to show how most of the difficulty of writing and testing MapReduce queries stems from the fact that Hadoop confounds application logic with decisions about data storage. These problems are the result of poorly implemented abstractions over the primitives of MapReduce, not problems with the core MapReduce algorithms.
+
+The [[https://github.com/nathanmarz/cascalog][Cascalog]] abstraction layer fixes this issue by separating logic from data, allowing you to play creatively at massive scale. (If you're not familiar with Cascalog, know that it's by far the most expressive MapReduce DSL in existence. We make heavy use of Cascalog here at Twitter. I recommend getting started with [[http://nathanmarz.com/blog/introducing-cascalog-a-clojure-based-query-language-for-hado.html][this introduction]], then moving on to [[http://www.assembla.com/wiki/show/d9Z8_q-Omr35zteJe5cbLr][the wiki]].)
+
+Cascalog and its testing suite, [[https://github.com/sritchie/midje-cascalog][midje-cascalog]], allow us to test application logic in isolation; the resulting tests are truly beautiful.
+
+** Current Approaches to MR Testing
+
+Say you've implemented [[http://hadoop.apache.org/common/docs/current/mapred_tutorial.html#Example%253A%2BWordCount%2Bv1.0][wordcount in MapReduce]], and are looking to write unit tests against your workflow. The Hadoop consulting giant [[http://www.cloudera.com/][Cloudera]] defines current best practices [[http://www.cloudera.com/blog/2009/07/debugging-mapreduce-programs-with-mrunit/][in this article]]:
+
+#+begin_quote
+The current state of the art often involves writing a set of tests that each create a JobConf object, which is configured to use a mapper and reducer, and then set to use the LocalJobRunner (via =JobConf.set(”mapred.job.tracker”, “local”)=). A MapReduce job will then run in a single thread, reading its input from test files stored on the local filesystem and writing its output to another local directory.
+
+This process provides a solid mechanism for end-to-end testing, but has several drawbacks. Developing new tests requires adding test inputs to files that are stored alongside one’s program. Validating correct output also requires filesystem access and parsing of the emitted data files. This involves writing a great deal of test harness code, which itself may contain subtle bugs. Finally, this process is slow. Each test requires several seconds to run. Users often find themselves aggregating several unrelated inputs into a single test (violating a unit testing principle of isolating unrelated tests) or performing less exhaustive testing due to the high barriers to test authorship.
+#+end_quote
+
+This is insane. Written this way, unit tests meant to target application logic are dwarfed by the maintenance they impose.
+
+Most real world MapReduce applications involve chained sequences of many queries; these flows are a nightmare to coordinate and test using the above methods. Perhaps for this reason, [[http://www.cloudera.com/blog/2009/07/debugging-mapreduce-programs-with-mrunit/][Cloudera]] recommends testing mappers and reducers separately:
+
+#+begin_quote
+your =map()= and =reduce()= calls should still be tested individually, as the composition of separate classes may cause unintended bugs to surface.
+#+end_quote
+
+Again, this is totally batshit crazy. MapReduce queries are functions that operate on datasets. Imagine writing a Clojure function and testing its lines one at a time, in isolation; the approach makes no sense.
+
+A well designed testing suite will examine each MapReduce query as the function that it is. Queries should be tested against a range of inputs, both in isolation and as components of more complicated workflows. It shouldn't matter how one's data is stored; query logic is independent of data storage, and should be tested as such.
+
+I'd like to offer a more sane approach to MapReduce testing. In the following example, I'll write MapReduce query with Cascalog and test it using [[https://github.com/sritchie/midje-cascalog][midje-cascalog]], a thin wrapper I wrote over the Midje testing DSL.
+
+** Functional MapReduce Testing
+
+Let's say you want to test a Cascalog workflow that examines your user datastore and returns the user with the greatest number of followers. Your workflow's top level query will generate a single tuple containing that user's name and follower-count. Here's the code:
+
+#+begin_src clojure
+  (defn max-followers-query [datastore-path]
+    (let [src (name-vars (complex-subquery datastore-path)
+                         ["?user" "?follower-count"])]
+      (cascalog.ops/first-n src 1 :sort ["?follower-count"] :reverse true)))
+#+end_src
+
+=max-followers-query= is a function that returns a Cascalog subquery. It works like this: 
+
+- The function accepts a path, (=datastore-path=) and passes it into a function called =complex-subquery=.
+- =complex-subquery= returns a subquery that generates 2-tuples; this subquery is passed into =name-vars=.
+  - =name-vars= binds this subquery to =src= after naming its output variables =?user= and =?follower-count=.
+- =first-n= returns a subquery that
+  - sorts tuples from =src= in reverse order by follower count, and
+  - returns a single 2-tuple with the name and follower-count of our most popular user.
+
+At a high level, the subquery returned by =max-followers-query= is responsible for a single piece of application logic:
+
+- extracting the tuple with max =?follower-count= from the tuples returned by =(complex-subquery datastore-path)=.
+
+A correct test of =max-followers-query= will test this piece of logic in isolation.
+
+*** Cloudera's "State of the Art"
+
+If you were to follow Cloudera's advice on how to test this query, you would have to:
+
+- Dig through the code of =complex-subquery=, and figure out what data it depends on to produce its tuples;
+- Set up temporary directories and SequenceFiles with appropriate starting tuples;
+- Execute the subquery returned by =max-followers-query= into a temporary SequenceFile;
+- Read tuples out of this SequenceFile and test them against expected values;
+- Clean up all temporary paths and directories.
+
+This series of steps adds tremendous friction to the testing process, and obscures the purpose of the test. Moreover, the results of any test of =max-followers-query= depend on any number of subqueries invoked the call to =complex-subquery=.
+
+If your tests are this difficult to write, you're not going to write very many tests. You need tests to be creative; without tests, you won't change production queries in fear of introducing some bug you don't understand.
+
+*** Fact-Based Testing
+
+Midje circumvents all of this complexity by mocking out the result of =(complex-subquery datastore-path)= and forcing it to return a specific Clojure sequence of =[?user ?follower-count]= tuples.
+
+The following form is a Midje test, or "fact":
+
+#+begin_src clojure
+  (fact?- "Query should return a single tuple containing
+          [most-popular-user, follower-count]."
+          [["richhickey" 2961]]
+          (max-followers-query :path)
+          (provided
+            (complex-subquery :path) => [["sritchie09" 180]
+                                         ["richhickey" 2961]]))
+#+end_src
+
+Facts make statements about queries. The fact passes if these statements are true and fails otherwise. The above fact states that
+
+- when =max-followers-query= is called with the argument =:path=,
+- it will produce =[ [ richhickey" 2961] ]=,
+- provided =(complex-subquery :path)= produces =[["sritchie09" 180] ["richhickey" 2961]]=.
+
+Fact-based testing separates application logic from the way data is stored. By mocking out =complex-subquery=, our fact tests =max-followers-query= in isolation and proves it correct for all expected inputs.
+
+This approach is not just better than the "state of the art" of MapReduce testing, as defined by Cloudera; it completely obliterates the old way of thinking, and makes it possible to build very complex workflows with a minimum of uncertainty.
+
+Fact-based tests are the building blocks of rock-solid production workflows.
+
+/If you're interested in how to construct fact-based tests with midje-cascalog, I go into great detail on functional MapReduce testing idioms and methods in/ [[http://sritchie.github.com/2011/09/30/testing-cascalog-with-midje.html][Testing Cascalog with Midje]].

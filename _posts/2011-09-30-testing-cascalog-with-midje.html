@@ -1,0 +1,988 @@
+---
+layout: post
+title: Testing Cascalog with Midje
+---
+
+<p class="meta">30 Sept 2011 - San Francisco</p>
+
+
+<div id="outline-container-1" class="outline-2">
+<h2 id="sec-1">Testing Cascalog with Midje </h2>
+<div class="outline-text-2" id="text-1">
+
+
+<p>
+I've been working on a Cascalog testing suite these past few weeks, an extension to Brian Marick's <a href="https://github.com/marick/Midje">Midje</a>, that eases much of the pain of testing MapReduce workflows. I think a lot of the dull work we see in the Hadoop community is a direct result of fear. Without proper tests, Hadoop developers can't help but be scared of making changes to production code. When creativity might bring down a workflow, it's easiest to get it working once and leave it alone.
+</p>
+<p>
+The antidote to all of this fear is a functional testing suite. As I discussed in a <a href="http://sritchie.github.com/2011/09/29/getting-creative-with-mapreduce.html">Getting Creative with MapReduce</a>, Hadoop workflows are difficult to test at all; testing application logic in isolation of data storage is impossible.
+</p>
+<p>
+Cascalog is free of this weakness. <a href="https://github.com/sritchie/midje-cascalog">midje-cascalog</a> allows you to test Cascalog queries as pure functions, both in isolation and as components of more complicated workflows. the resulting tests are truly beautiful.
+</p>
+<p>
+I'll start by introducing midje-cascalog's testing operators, then move on to a Cascalog implementation of Word Count, tests included. You can find all source code from this post <a href="https://github.com/sritchie/cascalog-testing-demo">on github</a>.
+</p>
+
+</div>
+
+<div id="outline-container-1-1" class="outline-3">
+<h3 id="sec-1-1">Testing Operators </h3>
+<div class="outline-text-3" id="text-1-1">
+
+
+<p>
+In this section, I'll discuss midje-cascalog's testing operators: <code>fact?-</code> and <code>fact?&lt;-</code>. (The syntax mirrors <code>?-</code> and <code>?&lt;-</code>, Cascalog's <a href="http://www.assembla.com/spaces/cascalog/wiki/Defining_and_executing_queries">query execution operators</a>.) These operators provide the abstractions necessary for testing complex Cascalog workflows.
+</p>
+
+</div>
+
+<div id="outline-container-1-1-1" class="outline-4">
+<h4 id="sec-1-1-1">fact?- </h4>
+<div class="outline-text-4" id="text-1-1-1">
+
+
+<p>
+Let's begin by defining a function to test:
+</p>
+
+
+
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span><span style="color: #7f007f;">defn</span> <span style="color: #0000ff;">mk-inc-query</span> [src]
+  <span style="color: #8c8c8c;">(</span>&lt;- [?a ?b]
+      <span style="color: #8c8c8c;">(</span>src ?a<span style="color: #8c8c8c;">)</span>
+      <span style="color: #8c8c8c;">(</span><span style="color: #a0522d;">inc</span> ?a <span style="color: #008b8b;">:&gt;</span> ?b<span style="color: #8c8c8c;">)))</span>
+</pre>
+
+
+<p>
+<code>mk-inc-query</code> accepts a source of 1-tuples and returns a query that generates 2-tuples. To test that <code>mk-inc-query</code> actually does this, you need to:
+</p>
+<ul>
+<li>supply <code>mk-inc-query</code> with tuples and
+</li>
+<li>check that it produces an expected set of result tuples.
+</li>
+</ul>
+
+
+<p>
+Each of the following forms uses the <code>fact?-</code> operator to state a distinct "fact" about our query. <code>fact?-</code> expects a sequence of result tuples followed by the query tasked with producing them.
+</p>
+<p>
+These two facts about <code>mk-inc-query</code> are true, and pass:
+</p>
+
+
+
+<pre class="src src-clojure"><span style="color: #b22222;">;; </span><span style="color: #b22222;">The query returned by (mk-inc-query [[1]]),</span>
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">when executed,</span>
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">returns a single tuple: [1 2]</span>
+<span style="color: #8c8c8c;">(</span>fact?- [[1 2]]
+        <span style="color: #8c8c8c;">(</span>mk-inc-query [[1]]<span style="color: #8c8c8c;">))</span> <span style="color: #b22222;">;; </span><span style="color: #b22222;">fact is true!</span>
+
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">The query returned by (mk-inc-query [[1] [10]]),</span>
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">When executed,</span>
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">returns two tuples: [10 11] and [1 2]</span>
+<span style="color: #8c8c8c;">(</span>fact?- [[10 11]
+         [1 2]]
+        <span style="color: #8c8c8c;">(</span>mk-inc-query [[1] [10]]<span style="color: #8c8c8c;">))</span> <span style="color: #b22222;">;; </span><span style="color: #b22222;">fact is true!</span>
+</pre>
+
+
+<p>
+This fact is false, and fails:
+</p>
+
+
+
+<pre class="src src-clojure"><span style="color: #b22222;">;; </span><span style="color: #b22222;">The query returned by (mk-inc-query [[1]]),</span>
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">when executed,</span>
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">returns a single tuple: ["fail!" 10].</span>
+<span style="color: #8c8c8c;">(</span>fact?- [[<span style="color: #8b2252;">"fail!"</span> 10]]
+        <span style="color: #8c8c8c;">(</span>mk-inc-query [[1]]<span style="color: #8c8c8c;">))</span> <span style="color: #b22222;">;; </span><span style="color: #b22222;">fact is FALSE!  </span>
+</pre>
+
+
+<p>
+<code>fact?-</code> can take multiples pairs of result-tuples and queries:
+</p>
+
+
+
+<pre class="src src-clojure"><span style="color: #b22222;">;; </span><span style="color: #b22222;">Same as two true facts above.</span>
+<span style="color: #8c8c8c;">(</span>fact?- [[1 2]]
+        <span style="color: #8c8c8c;">(</span>mk-inc-query [[1]]<span style="color: #8c8c8c;">)</span>
+
+        [[10 11] [1 2]]
+        <span style="color: #8c8c8c;">(</span>mk-inc-query [[1] [10]]<span style="color: #8c8c8c;">))</span> <span style="color: #b22222;">;; </span><span style="color: #b22222;">both facts are true!</span>
+</pre>
+
+
+<p>
+Strings are ignored wherever they appear, so feel free to pepper your facts with comments.
+</p>
+
+
+
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span>fact?- <span style="color: #8b2252;">"These results:"</span>
+        [[1 2]]
+
+        <span style="color: #8b2252;">"Are produced by this query:"</span>
+        <span style="color: #8c8c8c;">(</span>mk-inc-query [[1]]<span style="color: #8c8c8c;">))</span> <span style="color: #b22222;">;; </span><span style="color: #b22222;">true  </span>
+</pre>
+
+
+<p>
+Note that facts don't have to be top level forms. It's perfectly acceptable to wrap facts in <code>let</code>, if it makes the test clearer:
+</p>
+
+
+
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span><span style="color: #7a378b;">let</span> [src     [[1]]
+      results [[1 2]]]
+  <span style="color: #8c8c8c;">(</span>fact?- results <span style="color: #8c8c8c;">(</span>mk-inc-query src<span style="color: #8c8c8c;">)))</span> <span style="color: #b22222;">;; </span><span style="color: #b22222;">true</span>
+</pre>
+
+
+
+</div>
+
+<div id="outline-container-1-1-1-1" class="outline-5">
+<h5 id="sec-1-1-1-1">Custom Log Levels </h5>
+<div class="outline-text-5" id="text-1-1-1-1">
+
+
+<p>
+Cascalog pipes quite a bit of logging to <code>stdout</code>. Facts suppress this logging by default, only showing entries with a FATAL log level.
+</p>
+<p>
+If you want to see more information on fact execution, you customize the log level by placing a keyword at the beginning of your fact:
+</p>
+
+
+
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span>fact?- <span style="color: #008b8b;">:info</span>
+        [[1 2]] <span style="color: #8c8c8c;">(</span>mk-inc-query [[1]]<span style="color: #8c8c8c;">))</span> <span style="color: #b22222;">;; </span><span style="color: #b22222;">true</span>
+</pre>
+
+
+<p>
+As of version 0.2.1, <code>midje-cascalog</code> supports the following log-level keywords, and defaults to <code>:fatal</code>:
+</p>
+
+
+
+<pre class="src src-clojure"><span style="color: #008b8b;">:off</span>
+<span style="color: #008b8b;">:fatal</span>
+<span style="color: #008b8b;">:warn</span>
+<span style="color: #008b8b;">:info</span>
+<span style="color: #008b8b;">:debug</span>
+</pre>
+
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-1-1-2" class="outline-4">
+<h4 id="sec-1-1-2">fact?&lt;- </h4>
+<div class="outline-text-4" id="text-1-1-2">
+
+
+<p>
+The <code>fact?&lt;-</code> operator allows you to define a test a query within the same form. The following two facts are equivalent:
+</p>
+
+
+
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span><span style="color: #7a378b;">let</span> [src [[1]]]
+  <span style="color: #8c8c8c;">(</span>fact?- [[1 2]]
+          <span style="color: #8c8c8c;">(</span>&lt;- [?a ?b]
+              <span style="color: #8c8c8c;">(</span>src ?a<span style="color: #8c8c8c;">)</span>
+              <span style="color: #8c8c8c;">(</span><span style="color: #a0522d;">inc</span> ?a <span style="color: #008b8b;">:&gt;</span> ?b<span style="color: #8c8c8c;">))))</span> <span style="color: #b22222;">;; </span><span style="color: #b22222;">true</span>
+
+<span style="color: #8c8c8c;">(</span><span style="color: #7a378b;">let</span> [src [[1]]]
+  <span style="color: #8c8c8c;">(</span>fact?&lt;- [[1 2]]
+           [?a ?b]
+           <span style="color: #8c8c8c;">(</span>src ?a<span style="color: #8c8c8c;">)</span>
+           <span style="color: #8c8c8c;">(</span><span style="color: #a0522d;">inc</span> ?a <span style="color: #008b8b;">:&gt;</span> ?b<span style="color: #8c8c8c;">)))</span> <span style="color: #b22222;">;; </span><span style="color: #b22222;">true</span>
+</pre>
+
+
+<p>
+Where <code>fact?-</code> is useful for testing full queries and workflows, I find <code>fact?&lt;-</code> useful mostly for testing how <code>def*op</code> functions behave inside of queries.
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-1-1-3" class="outline-4">
+<h4 id="sec-1-1-3">future-fact?- and future-fact?&lt;- </h4>
+<div class="outline-text-4" id="text-1-1-3">
+
+
+<p>
+If you want to stub out an unfinished test and prevent it from throwing errors, you can use <code>future-fact?-</code>, like so:
+</p>
+
+
+
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span>future-fact?- <span style="color: #8b2252;">"unwritten-query will convert input integer tuples to</span>
+<span style="color: #8b2252;">               strings."</span>
+               [[<span style="color: #8b2252;">"one"</span>] [<span style="color: #8b2252;">"two"</span>]]
+               <span style="color: #8c8c8c;">(</span>unwritten-query [[1] [2]]<span style="color: #8c8c8c;">))</span>
+
+<span style="color: #8c8c8c;">(</span><span style="color: #7a378b;">let</span> [src [[1] [2]]]
+  <span style="color: #8c8c8c;">(</span>future-fact?&lt;- <span style="color: #8b2252;">"num-&gt;string is unwritten."</span>
+                  [[<span style="color: #8b2252;">"one"</span>] [<span style="color: #8b2252;">"two"</span>]]
+                  [?string]
+                  <span style="color: #8c8c8c;">(</span>src ?num<span style="color: #8c8c8c;">)</span>
+                  <span style="color: #8c8c8c;">(</span>num-&gt;string ?string<span style="color: #8c8c8c;">)))</span>
+</pre>
+
+
+<p>
+<code>future-fact?-</code> and <code>future-fact?&lt;-</code> prevent their forms from being evaluated.
+</p>
+<p>
+If you include a string at the beginning of a stubbed fact, it shows up in Midje's test report looking like this:
+</p>
+
+
+
+<pre class="src src-text">WORK TO DO: unwritten-query will convert input integer tuples to strings.
+WORK TO DO: num-&gt;string is unwritten.
+</pre>
+
+
+<p>
+The <code>fact?-</code> and <code>fact?&lt;-</code> operators provide the tools necessary to test complex MapReduce workflows as pure functions. Let's expand on these concepts by creating a small project with Cascalog code we'd like to test.
+</p>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-1-2" class="outline-3">
+<h3 id="sec-1-2">Example Project </h3>
+<div class="outline-text-3" id="text-1-2">
+
+
+
+</div>
+
+<div id="outline-container-1-2-1" class="outline-4">
+<h4 id="sec-1-2-1">Dependencies </h4>
+<div class="outline-text-4" id="text-1-2-1">
+
+
+<p>
+To add <code>midje-cascalog</code> support to your own project, add these entries to to the <code>:dev-dependencies</code> vector within <code>project.clj</code>:
+</p>
+
+
+
+<pre class="src src-clojure">[lein-midje <span style="color: #8b2252;">"1.0.3"</span>]
+[midje-cascalog <span style="color: #8b2252;">"0.2.1"</span>]
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-1-2-2" class="outline-4">
+<h4 id="sec-1-2-2">Implementing Word Count </h4>
+<div class="outline-text-4" id="text-1-2-2">
+
+
+<p>
+Let's begin with an implementation of word count, the typical "Hello World!" of MapReduce. A word counting application must be able to read in any number of textfiles and generate tuples of the form <code>[word, count]</code> for each distinct word across all files.
+</p>
+<p>
+The following code accomplishes this nicely. (Bear with me! a detailed discussion follows the code block.)
+</p>
+
+
+
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span><span style="color: #7a378b;">ns</span> cascalog.testing-demo.core
+  <span style="color: #8c8c8c;">(</span><span style="color: #008b8b;">:use</span> cascalog.api<span style="color: #8c8c8c;">)</span>
+  <span style="color: #8c8c8c;">(</span><span style="color: #008b8b;">:require</span> [cascalog.ops <span style="color: #008b8b;">:as</span> c]<span style="color: #8c8c8c;">)</span>
+  <span style="color: #8c8c8c;">(</span><span style="color: #008b8b;">:gen-class</span><span style="color: #8c8c8c;">))</span>
+
+<span style="color: #8c8c8c;">(</span>defmapcatop split
+  <span style="color: #8b2252;">"Accepts a sentence 1-tuple, splits that sentence on whitespace, and</span>
+<span style="color: #8b2252;">  emits a single 1-tuple for each word."</span>
+  [<span style="color: #228b22;">^String</span> sentence]
+  <span style="color: #8c8c8c;">(</span><span style="color: #a0522d;">seq</span> <span style="color: #8c8c8c;">(</span><span style="color: #7a378b;">.split</span> sentence <span style="color: #8b2252;">"\\s+"</span><span style="color: #8c8c8c;">)))</span>
+
+<span style="color: #8c8c8c;">(</span><span style="color: #7f007f;">defn</span> <span style="color: #0000ff;">wc-query</span>
+  <span style="color: #8b2252;">"Returns a subquery that generates counts for every word in</span>
+<span style="color: #8b2252;">    the text-files located at `text-path`."</span>
+  [text-path]
+  <span style="color: #8c8c8c;">(</span><span style="color: #7a378b;">let</span> [src <span style="color: #8c8c8c;">(</span>hfs-textline text-path<span style="color: #8c8c8c;">)</span>]
+    <span style="color: #8c8c8c;">(</span>&lt;- [?word ?count]
+        <span style="color: #8c8c8c;">(</span>src ?textline<span style="color: #8c8c8c;">)</span>
+        <span style="color: #8c8c8c;">(</span>split ?textline <span style="color: #008b8b;">:&gt;</span> ?word<span style="color: #8c8c8c;">)</span>
+        <span style="color: #8c8c8c;">(</span>c/count ?count<span style="color: #8c8c8c;">))))</span>
+
+<span style="color: #8c8c8c;">(</span><span style="color: #7f007f;">defn</span> <span style="color: #0000ff;">-main</span>
+  <span style="color: #8b2252;">"Accepts the following arguments:</span>
+
+<span style="color: #8b2252;">   - text-path (path to a textfile, or directory with textfiles)</span>
+<span style="color: #8b2252;">   - results-path (location of textfile containing results)</span>
+
+<span style="color: #8b2252;">     And prints lines of the form \"word count\" to a textfile at</span>
+<span style="color: #8b2252;">     results-path. Each distinct word in the textfiles at text-path</span>
+<span style="color: #8b2252;">     gets a count."</span>
+  [text-path results-path]
+  <span style="color: #8c8c8c;">(</span>?- <span style="color: #8c8c8c;">(</span>hfs-textline results-path<span style="color: #8c8c8c;">)</span>
+      <span style="color: #8c8c8c;">(</span>wc-query text-path<span style="color: #8c8c8c;">)))</span>
+</pre>
+
+
+<p>
+The <code>-main</code> function is the entry point to the word counting program. <code>-main</code> passes <code>text-path</code> on to <code>wc-query</code>, and writes all tuples generated by the returned query to a text file at <code>results-path</code>.
+</p>
+<p>
+All of our program's application logic occurs in the query returned by <code>wc-query</code>; this is the most important function to test. Let's discuss how <code>wc-query</code> works:
+</p>
+<ul>
+<li><code>wc-query</code> is a function that returns a subquery.
+</li>
+<li>The function calls <code>hfs-textline</code> internally to generate a source of <code>?sentence</code> tuples. 
+</li>
+<li>These sentences are passed into <code>split</code>, a Cascalog function that creates words from sentences, like this:
+</li>
+</ul>
+
+
+
+
+
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span><span style="color: #7a378b;">let</span> [sentence [[<span style="color: #8b2252;">"two words"</span>]]
+      words    [[<span style="color: #8b2252;">"two"</span>] [<span style="color: #8b2252;">"words"</span>]]]
+  <span style="color: #8c8c8c;">(</span>fact?&lt;- <span style="color: #8b2252;">"split converts a sentence into words."</span>
+           words
+           [?word]
+           <span style="color: #8c8c8c;">(</span>sentence ?sentence<span style="color: #8c8c8c;">)</span>
+           <span style="color: #8c8c8c;">(</span>split ?sentence <span style="color: #008b8b;">:&gt;</span> ?word<span style="color: #8c8c8c;">)))</span>
+</pre>
+
+
+<ul>
+<li>Each word gets a count via the <code>cascalog.ops/count</code> function
+</li>
+<li>The subquery returns each <code>[?word ?count]</code> pair.
+</li>
+</ul>
+
+
+<p>
+This logic looks right, but the only way to tell is to write a series of facts and see if they're true.
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-1-2-3" class="outline-4">
+<h4 id="sec-1-2-3">Testing Wordcount </h4>
+<div class="outline-text-4" id="text-1-2-3">
+
+
+<p>
+Let's put our tests in <code>./test/cascalog/testing_demo/core_test.clj</code> (mirroring the <code>core.clj</code>, with <code>_test</code> tacked on):
+</p>
+
+
+
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span><span style="color: #7a378b;">ns</span> cascalog.testing-demo.core-test
+  <span style="color: #8c8c8c;">(</span><span style="color: #008b8b;">:use</span> cascalog.testing-demo.core
+        cascalog.api
+        [midje sweet cascalog]<span style="color: #8c8c8c;">)</span>
+  <span style="color: #8c8c8c;">(</span><span style="color: #008b8b;">:require</span> [cascalog.ops <span style="color: #008b8b;">:as</span> c]<span style="color: #8c8c8c;">))</span>
+</pre>
+
+
+<p>
+Here's an initial try at a test of <code>wc-query</code> using <code>fact?-</code>:
+</p>
+
+
+
+<pre class="src src-clojure"><span style="color: #b22222;">;; </span><span style="color: #b22222;">/path/to/textfile points to a textfile with a single line:</span>
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">"another another word"</span>
+<span style="color: #8c8c8c;">(</span>fact?- <span style="color: #8b2252;">"wc-query should count words from all lines of text at</span>
+<span style="color: #8b2252;">        /path/to/textfile."</span>
+        [[<span style="color: #8b2252;">"word"</span> 1] [<span style="color: #8b2252;">"another"</span> 2]]
+        <span style="color: #8c8c8c;">(</span>wc-query <span style="color: #8b2252;">"/path/to/textfile"</span><span style="color: #8c8c8c;">))</span> <span style="color: #b22222;">;; </span><span style="color: #b22222;">FALSE!</span>
+</pre>
+
+
+<p>
+This fact fails. Here are a few of its problems:
+</p>
+<ul>
+<li>The fact depends on the way tuples are stored; it depends on an outside textfile located at a hard-coded path. If the textfile disappears, the fact will fail whether or not the logic of <code>wc-query</code> is correct.
+</li>
+<li>The fact depends on the correctness of <code>hfs-textline</code>. if <code>hfs-textline</code> fails, our fact fails.
+</li>
+</ul>
+
+
+<p>
+<b>Testing wc-query in isolation is difficult!</b> How can one test the logic of <code>wc-query-</code> without regard to how lines of text are stored?
+</p>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-1-3" class="outline-3">
+<h3 id="sec-1-3">Mocking with Midje </h3>
+<div class="outline-text-3" id="text-1-3">
+
+
+<p>
+The solution lies in Midje's ability to mock out a function's return values. Midje can hijack <code>hfs-textline</code> and force it to return anything you choose inside the body of a fact.
+</p>
+
+</div>
+
+<div id="outline-container-1-3-1" class="outline-4">
+<h4 id="sec-1-3-1">provided </h4>
+<div class="outline-text-4" id="text-1-3-1">
+
+
+<p>
+Using Midje's <code>provided</code> form, the above fact passes:
+</p>
+
+
+
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span>fact?- <span style="color: #8b2252;">"wc-query should count words from all input sentences."</span>
+        [[<span style="color: #8b2252;">"word"</span> 1] [<span style="color: #8b2252;">"another"</span> 2]]
+        <span style="color: #8c8c8c;">(</span>wc-query <span style="color: #008b8b;">:path</span><span style="color: #8c8c8c;">)</span>
+        <span style="color: #8c8c8c;">(</span>provided
+          <span style="color: #8c8c8c;">(</span>hfs-textline <span style="color: #008b8b;">:path</span><span style="color: #8c8c8c;">)</span> =&gt; [[<span style="color: #8b2252;">"another another word"</span>]]<span style="color: #8c8c8c;">))</span> <span style="color: #b22222;">;; </span><span style="color: #b22222;">true</span>
+</pre>
+
+
+<p>
+This fact states 
+</p>
+<ul>
+<li>when <code>wc-query</code> is called with <code>:path</code>,
+</li>
+<li>it will produce two tuples: <code>["word" 1]</code> and <code>["another" 2]</code>,
+</li>
+<li>provided <code>(hfs-textline :path)</code> produces a single tuple: <code>["another another word"]</code>.
+</li>
+</ul>
+
+
+<p>
+Here's another true fact about <code>wc-query</code> that uses multiple input sentences:
+</p>
+
+
+
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span><span style="color: #7f007f;">def</span> <span style="color: #0000ff;">short-sentences</span>
+  [[<span style="color: #8b2252;">"this is a sentence sentence"</span>]
+   [<span style="color: #8b2252;">"sentence with this is repeated"</span>]]<span style="color: #8c8c8c;">)</span>
+
+<span style="color: #8c8c8c;">(</span><span style="color: #7f007f;">def</span> <span style="color: #0000ff;">short-wordcounts</span>
+  [[<span style="color: #8b2252;">"sentence"</span> 3]
+   [<span style="color: #8b2252;">"repeated"</span> 1]
+   [<span style="color: #8b2252;">"is"</span> 2]
+   [<span style="color: #8b2252;">"a"</span> 1]
+   [<span style="color: #8b2252;">"this"</span> 2]
+   [<span style="color: #8b2252;">"with"</span> 1]]<span style="color: #8c8c8c;">)</span>
+
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">when =wc-query= is called with =:text-path=</span>
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">it will produce =short-sentences=,</span>
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">provided =(hfs-textline :text-path)= produces =short-wordcounts=.</span>
+<span style="color: #8c8c8c;">(</span>fact?- short-wordcounts <span style="color: #8c8c8c;">(</span>wc-query <span style="color: #008b8b;">:text-path</span><span style="color: #8c8c8c;">)</span>
+        <span style="color: #8c8c8c;">(</span>provided
+          <span style="color: #8c8c8c;">(</span>hfs-textline <span style="color: #008b8b;">:text-path</span><span style="color: #8c8c8c;">)</span> =&gt; short-sentences<span style="color: #8c8c8c;">))</span> <span style="color: #b22222;">;; </span><span style="color: #b22222;">true</span>
+</pre>
+
+
+<p>
+A <code>provided</code> form only applies to the result-query pair directly above. The first fact is false, while the second fact is true:
+</p>
+
+
+
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span><span style="color: #7a378b;">let</span> [sentence [[<span style="color: #8b2252;">"two words"</span>]]
+      results  [[<span style="color: #8b2252;">"two"</span> 1] [<span style="color: #8b2252;">"words"</span> 1]]]
+  <span style="color: #8c8c8c;">(</span>fact?- <span style="color: #8b2252;">"provided form won't apply here!"</span>
+          results <span style="color: #8c8c8c;">(</span>wc-query <span style="color: #008b8b;">:path</span><span style="color: #8c8c8c;">)</span> <span style="color: #b22222;">;; </span><span style="color: #b22222;">false</span>
+
+          <span style="color: #8b2252;">"provided applies here."</span>
+          results <span style="color: #8c8c8c;">(</span>wc-query <span style="color: #008b8b;">:path</span><span style="color: #8c8c8c;">)</span> <span style="color: #b22222;">;; </span><span style="color: #b22222;">true</span>
+          <span style="color: #8c8c8c;">(</span>provided
+            <span style="color: #8c8c8c;">(</span>hfs-textline <span style="color: #008b8b;">:path</span><span style="color: #8c8c8c;">)</span> =&gt; sentence<span style="color: #8c8c8c;">)))</span>
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-1-3-2" class="outline-4">
+<h4 id="sec-1-3-2">Mocking Arguments </h4>
+<div class="outline-text-4" id="text-1-3-2">
+
+
+<p>
+In the above facts, I used keywords (<code>:path</code>) as mocking arguments. Any form that evaluates to itself can be used as a mocking argument. In vanilla Clojure, this includes strings, numbers and keywords. Midje adds any symbol surrounded by dots (<code>..path..</code>, <code>.path.</code>, etc.) to this mix.
+</p>
+<p>
+These facts about <code>wc-query</code> from above are all true, and identical:
+</p>
+
+
+
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span>fact?- <span style="color: #8b2252;">"Mocking with keywords,"</span>
+        [[<span style="color: #8b2252;">"one"</span> 1]] <span style="color: #8c8c8c;">(</span>wc-query <span style="color: #008b8b;">:path</span><span style="color: #8c8c8c;">)</span>
+        <span style="color: #8c8c8c;">(</span>provided <span style="color: #8c8c8c;">(</span>hfs-textline <span style="color: #008b8b;">:path</span><span style="color: #8c8c8c;">)</span> =&gt; [[<span style="color: #8b2252;">"one"</span>]]<span style="color: #8c8c8c;">)</span>
+
+        <span style="color: #8b2252;">"strings,"</span>
+        [[<span style="color: #8b2252;">"one"</span> 1]] <span style="color: #8c8c8c;">(</span>wc-query <span style="color: #8b2252;">"path"</span><span style="color: #8c8c8c;">)</span>
+        <span style="color: #8c8c8c;">(</span>provided <span style="color: #8c8c8c;">(</span>hfs-textline <span style="color: #8b2252;">"path"</span><span style="color: #8c8c8c;">)</span> =&gt; [[<span style="color: #8b2252;">"one"</span>]]<span style="color: #8c8c8c;">)</span>
+
+        <span style="color: #8b2252;">"numbers,"</span>
+        [[<span style="color: #8b2252;">"one"</span> 1]] <span style="color: #8c8c8c;">(</span>wc-query 100<span style="color: #8c8c8c;">)</span>
+        <span style="color: #8c8c8c;">(</span>provided <span style="color: #8c8c8c;">(</span>hfs-textline 100<span style="color: #8c8c8c;">)</span> =&gt; [[<span style="color: #8b2252;">"one"</span>]]<span style="color: #8c8c8c;">)</span>
+
+        <span style="color: #8b2252;">"and Midje dotted symbols."</span>
+        [[<span style="color: #8b2252;">"one"</span> 1]] <span style="color: #8c8c8c;">(</span>wc-query ..path..<span style="color: #8c8c8c;">)</span>
+        <span style="color: #8c8c8c;">(</span>provided <span style="color: #8c8c8c;">(</span>hfs-textline ..path..<span style="color: #8c8c8c;">)</span> =&gt; [[<span style="color: #8b2252;">"one"</span>]]<span style="color: #8c8c8c;">))</span>
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-1-3-3" class="outline-4">
+<h4 id="sec-1-3-3">against-background </h4>
+<div class="outline-text-4" id="text-1-3-3">
+
+
+<p>
+As discussed, the <code>provided</code> form only applies to the result-query pair directly above. This limitation can make for repetitive facts, when each fact depends on a mocked result:
+</p>
+
+
+
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span><span style="color: #7f007f;">defn</span> <span style="color: #0000ff;">text-&gt;words</span> [path]
+  <span style="color: #8c8c8c;">(</span><span style="color: #7a378b;">let</span> [src <span style="color: #8c8c8c;">(</span>hfs-textline path<span style="color: #8c8c8c;">)</span>]
+    <span style="color: #8c8c8c;">(</span>&lt;- [?word]
+        <span style="color: #8c8c8c;">(</span>src ?sentence<span style="color: #8c8c8c;">)</span>
+        <span style="color: #8c8c8c;">(</span>split ?sentence <span style="color: #008b8b;">:&gt;</span> ?word<span style="color: #8c8c8c;">)</span>
+        <span style="color: #8c8c8c;">(</span><span style="color: #008b8b;">:distinct</span> false<span style="color: #8c8c8c;">))))</span>
+
+<span style="color: #8c8c8c;">(</span><span style="color: #7a378b;">let</span> [sentence [[<span style="color: #8b2252;">"two two"</span>]]]
+  <span style="color: #8c8c8c;">(</span>fact?- <span style="color: #8b2252;">"text-&gt;words cuts text into words."</span>
+          [[<span style="color: #8b2252;">"two"</span>] [<span style="color: #8b2252;">"two"</span>]] <span style="color: #8c8c8c;">(</span>text-&gt;words <span style="color: #008b8b;">:path</span><span style="color: #8c8c8c;">)</span>
+          <span style="color: #8c8c8c;">(</span>provided
+            <span style="color: #8c8c8c;">(</span>hfs-textline <span style="color: #008b8b;">:path</span><span style="color: #8c8c8c;">)</span> =&gt; sentence<span style="color: #8c8c8c;">)</span>
+
+          <span style="color: #8b2252;">"wc-query converts a sentence into words."</span>
+          [[<span style="color: #8b2252;">"two"</span> 2]] <span style="color: #8c8c8c;">(</span>wc-query <span style="color: #008b8b;">:path</span><span style="color: #8c8c8c;">)</span>
+          <span style="color: #8c8c8c;">(</span>provided
+            <span style="color: #8c8c8c;">(</span>hfs-textline <span style="color: #008b8b;">:path</span><span style="color: #8c8c8c;">)</span> =&gt; sentence<span style="color: #8c8c8c;">)))</span>
+
+</pre>
+
+
+<p>
+Midje allows facts to share mocked functions with <code>against-background</code>. An <code>against-background</code> form placed anywhere inside the body of <code>fact?-</code> will apply to all facts inside the form:
+</p>
+
+
+
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span><span style="color: #7a378b;">let</span> [sentence [[<span style="color: #8b2252;">"two two"</span>]]]
+  <span style="color: #8c8c8c;">(</span>fact?- <span style="color: #8b2252;">"text-&gt;words cuts text into words."</span>
+          [[<span style="color: #8b2252;">"two"</span>] [<span style="color: #8b2252;">"two"</span>]] <span style="color: #8c8c8c;">(</span>text-&gt;words <span style="color: #008b8b;">:path</span><span style="color: #8c8c8c;">)</span>
+
+          <span style="color: #8b2252;">"wc-query converts a sentence into words."</span>
+          [[<span style="color: #8b2252;">"two"</span> 2]]
+          <span style="color: #8c8c8c;">(</span>wc-query <span style="color: #008b8b;">:path</span><span style="color: #8c8c8c;">)</span>
+
+          <span style="color: #8b2252;">"wc-query fact with difference inputs."</span>
+          [[<span style="color: #8b2252;">"what"</span> 1] [<span style="color: #8b2252;">"a"</span> 1] [<span style="color: #8b2252;">"world!"</span> 1]]
+          <span style="color: #8c8c8c;">(</span>wc-query <span style="color: #008b8b;">:path</span><span style="color: #8c8c8c;">)</span>
+          <span style="color: #8c8c8c;">(</span>provided
+            <span style="color: #8c8c8c;">(</span>hfs-textline <span style="color: #008b8b;">:path</span><span style="color: #8c8c8c;">)</span> =&gt; [[<span style="color: #8b2252;">"what a world!"</span>]]<span style="color: #8c8c8c;">)</span>
+
+          <span style="color: #8c8c8c;">(</span>against-background
+            <span style="color: #8c8c8c;">(</span>hfs-textline <span style="color: #008b8b;">:path</span><span style="color: #8c8c8c;">)</span> =&gt; sentence<span style="color: #8c8c8c;">)))</span>
+</pre>
+
+
+<p>
+Note that the third of the three above facts used its own <code>provided</code> form. When the two forms are mixed, <code>provided</code> takes precedence, shadowing <code>against-background</code> if need be (as above).
+</p>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-1-4" class="outline-3">
+<h3 id="sec-1-4">Collection Checkers </h3>
+<div class="outline-text-3" id="text-1-4">
+
+
+<p>
+For the next set of facts, let's introduce a larger set of input sentences:
+</p>
+
+
+
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span><span style="color: #7f007f;">def</span> <span style="color: #0000ff;">longer-sentences</span>
+  [[<span style="color: #8b2252;">"Call me Ishmael. Some years ago -- never mind how long"</span>]
+   [<span style="color: #8b2252;">"precisely -- having little or no money in my purse, and"</span>]
+   [<span style="color: #8b2252;">"nothing particular to interest me on shore, I thought I"</span>]
+   [<span style="color: #8b2252;">"would sail about a little and see the watery part of the world."</span>]]<span style="color: #8c8c8c;">)</span>
+</pre>
+
+
+<p>
+One issue with the above facts is that they use very small input sentences. <code>wc-query</code> will produce a rather large sequence of <code>&lt;word, count&gt;</code> pairs for a moderate number of input sentences. Facts like this are overwhelming:
+</p>
+
+
+
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span>fact?- [[<span style="color: #8b2252;">"Ishmael."</span> 1]
+         [<span style="color: #8b2252;">"Some"</span> 1]
+         [<span style="color: #8b2252;">"a"</span> 1]
+         [<span style="color: #8b2252;">"about"</span> 1]
+         [<span style="color: #8b2252;">"ago"</span> 1]
+         <span style="color: #b22222;">;; </span><span style="color: #b22222;">and on and on...</span>
+         ]
+        <span style="color: #8c8c8c;">(</span>wc-query <span style="color: #008b8b;">:path</span><span style="color: #8c8c8c;">)</span>
+        <span style="color: #8c8c8c;">(</span>provided <span style="color: #8c8c8c;">(</span>hfs-textline <span style="color: #008b8b;">:path</span><span style="color: #8c8c8c;">)</span> =&gt; longer-sentences<span style="color: #8c8c8c;">))</span>
+</pre>
+
+
+<p>
+To solve this, Midje provides a number of collection checkers that provide you with finer control over how queries are compared with result sequences.
+</p>
+
+</div>
+
+<div id="outline-container-1-4-1" class="outline-4">
+<h4 id="sec-1-4-1">just </h4>
+<div class="outline-text-4" id="text-1-4-1">
+
+
+<p>
+<code>just</code> is the default checker for <code>fact?-</code> and <code>fact?&lt;-</code>; bare vectors of tuples resolve to <code>(just result-vec :in-any-order)</code>. The following three facts are equivalent:
+</p>
+
+
+
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span><span style="color: #7a378b;">let</span> [src   [[1] [2]]
+      query <span style="color: #8c8c8c;">(</span>&lt;- [?a ?b]
+                <span style="color: #8c8c8c;">(</span>src ?a<span style="color: #8c8c8c;">)</span>
+                <span style="color: #8c8c8c;">(</span><span style="color: #a0522d;">inc</span> ?a <span style="color: #008b8b;">:&gt;</span> ?b<span style="color: #8c8c8c;">))</span>]
+  <span style="color: #8c8c8c;">(</span>fact?- <span style="color: #8b2252;">"Just form, fully qualified."</span>
+          <span style="color: #8c8c8c;">(</span>just [[2 3] [1 2]] <span style="color: #008b8b;">:in-any-order</span><span style="color: #8c8c8c;">)</span> query <span style="color: #b22222;">;;</span><span style="color: #b22222;">true</span>
+
+          <span style="color: #8b2252;">"Wrapping tuples in a set is indentical to including</span>
+<span style="color: #8b2252;">           the :in-any-order modifier."</span>
+          <span style="color: #8c8c8c;">(</span>just #{[2 3] [1 2]}<span style="color: #8c8c8c;">)</span> query <span style="color: #b22222;">;; </span><span style="color: #b22222;">true</span>
+
+          <span style="color: #8b2252;">"midje-cascalog lets us drop these wrappers."</span>
+          [[2 3] [1 2]] query<span style="color: #8c8c8c;">))</span> <span style="color: #b22222;">;; </span><span style="color: #b22222;">true</span>
+</pre>
+
+
+<p>
+Each of these facts checks that its subquery returns <code>[2 3]</code> <code>[1 2]</code> exclusively, in any order. Any missing or extra tuples in the result vector will cause a failure.
+</p>
+<p>
+Note that dropping the <code>:in-any-order</code> modifier (or the set wrapper) will cause facts to fail if ordering doesn't match. This makes sense sometimes when checking against top-n queries, as noted in the discussion below on <a href="#sec-1-4-3">has-prefix</a>.
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-1-4-2" class="outline-4">
+<h4 id="sec-1-4-2">contains </h4>
+<div class="outline-text-4" id="text-1-4-2">
+
+
+<p>
+The <code>contains</code> form allows facts to check against a subset of query tuples. By default, <code>contains</code> requires result tuples to be contiguous and ordered: <code>[1 2]</code> within <code>[3 4 1 2 1]</code>, for example.
+</p>
+<p>
+These restrictions are quite limiting for most Cascalog queries. The following two facts avoid both restrictions:
+</p>
+
+
+
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span>fact?- <span style="color: #8c8c8c;">(</span>contains #{[<span style="color: #8b2252;">"sail"</span> 1] [<span style="color: #8b2252;">"Ishmael."</span> 1]} <span style="color: #008b8b;">:gaps-ok</span><span style="color: #8c8c8c;">)</span>
+        <span style="color: #8c8c8c;">(</span>wc-query <span style="color: #008b8b;">:path</span><span style="color: #8c8c8c;">)</span> <span style="color: #b22222;">;; </span><span style="color: #b22222;">true</span>
+
+        <span style="color: #8c8c8c;">(</span>contains [[<span style="color: #8b2252;">"sail"</span> 1] [<span style="color: #8b2252;">"Ishmael."</span> 1]] <span style="color: #008b8b;">:gaps-ok</span> <span style="color: #008b8b;">:in-any-order</span><span style="color: #8c8c8c;">)</span>
+        <span style="color: #8c8c8c;">(</span>wc-query <span style="color: #008b8b;">:path</span><span style="color: #8c8c8c;">)</span> <span style="color: #b22222;">;; </span><span style="color: #b22222;">true</span>
+
+        <span style="color: #8c8c8c;">(</span>against-background
+          <span style="color: #8c8c8c;">(</span>hfs-textline <span style="color: #008b8b;">:path</span><span style="color: #8c8c8c;">)</span> =&gt; longer-sentences<span style="color: #8c8c8c;">))</span>
+</pre>
+
+
+<p>
+The above facts test that both <code>["sail" 1]</code> and <code>["Ishmael." 1]</code> appear somewhere in the results, in any order. 
+</p>
+<ul>
+<li>Wrapping the result tuples in a set (vs. a vector), or adding the <code>:in-any-order</code> keyword, relaxes the ordering restriction.
+</li>
+<li>The <code>:gaps-ok</code> keyword relaxes the restriction that tuples must contiguous.
+</li>
+</ul>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-1-4-3" class="outline-4">
+<h4 id="sec-1-4-3">has-prefix </h4>
+<div class="outline-text-4" id="text-1-4-3">
+
+
+<p>
+<code>has-prefix</code> checks that the supplied tuple sequence appears at the beginning of the query's results. <code>has-prefix</code> only makes sense with queries that return sorted tuples.
+</p>
+<p>
+The following fact states that <code>["--" 2]</code>, <code>["I" 2]</code> and <code>["and" 2]</code>, in order, are the three most common words across all words in <code>longer-sentences</code>:
+</p>
+
+
+
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span>fact?- <span style="color: #8c8c8c;">(</span>has-prefix [[<span style="color: #8b2252;">"--"</span> 2] [<span style="color: #8b2252;">"I"</span> 2] [<span style="color: #8b2252;">"and"</span> 2]]<span style="color: #8c8c8c;">)</span>
+        <span style="color: #8c8c8c;">(</span><span style="color: #7a378b;">-&gt;</span> <span style="color: #8c8c8c;">(</span>wc-query <span style="color: #008b8b;">:path</span><span style="color: #8c8c8c;">)</span>
+            <span style="color: #8c8c8c;">(</span>c/first-n 10 <span style="color: #008b8b;">:sort</span> [<span style="color: #8b2252;">"?count"</span>] <span style="color: #008b8b;">:reverse</span> true<span style="color: #8c8c8c;">))</span>
+        <span style="color: #8c8c8c;">(</span>provided
+          <span style="color: #8c8c8c;">(</span>hfs-textline <span style="color: #008b8b;">:path</span><span style="color: #8c8c8c;">)</span> =&gt; longer-sentences<span style="color: #8c8c8c;">))</span> <span style="color: #b22222;">;; </span><span style="color: #b22222;">true</span>
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-1-4-4" class="outline-4">
+<h4 id="sec-1-4-4">has-suffix </h4>
+<div class="outline-text-4" id="text-1-4-4">
+
+
+<p>
+<code>has-suffix</code> checks that the supplied tuple sequence appears at the end of the query's results.
+</p>
+<p>
+The following fact states that <code>["world." 1]</code>, <code>["would" 1]</code> and <code>["years" 2]</code>, in order, are the last three words (by alphabetical order) across all words in <code>longer-sentences</code>:
+</p>
+
+
+
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span>fact?- <span style="color: #8c8c8c;">(</span>has-suffix [[<span style="color: #8b2252;">"world."</span> 1] [<span style="color: #8b2252;">"would"</span> 1] [<span style="color: #8b2252;">"years"</span> 1]]<span style="color: #8c8c8c;">)</span>
+        <span style="color: #8c8c8c;">(</span><span style="color: #7a378b;">-&gt;</span> <span style="color: #8c8c8c;">(</span>wc-query <span style="color: #008b8b;">:text-path</span><span style="color: #8c8c8c;">)</span>
+            <span style="color: #8c8c8c;">(</span>c/first-n 100 <span style="color: #008b8b;">:sort</span> [<span style="color: #8b2252;">"?word"</span>]<span style="color: #8c8c8c;">))</span>
+        <span style="color: #8c8c8c;">(</span>provided
+          <span style="color: #8c8c8c;">(</span>hfs-textline <span style="color: #008b8b;">:text-path</span><span style="color: #8c8c8c;">)</span> =&gt; longer-sentences<span style="color: #8c8c8c;">))</span> <span style="color: #b22222;">;; </span><span style="color: #b22222;">true</span>
+</pre>
+
+
+<p>
+As with <code>has-prefix</code>, facts making use of <code>has-suffix</code> only make sense when specifically testing tuple ordering.
+</p>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-1-5" class="outline-3">
+<h3 id="sec-1-5">Tabular </h3>
+<div class="outline-text-3" id="text-1-5">
+
+
+<p>
+In certain cases, you might like to test a single query against a wide range of inputs and outputs. This quickly grows repetitive:
+</p>
+
+
+
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span>fact?- [[<span style="color: #8b2252;">"mock"</span> 1] [<span style="color: #8b2252;">"it"</span> 1] [<span style="color: #8b2252;">"out!"</span> 1]]
+        <span style="color: #8c8c8c;">(</span>wc-query <span style="color: #008b8b;">:path</span><span style="color: #8c8c8c;">)</span>
+        <span style="color: #8c8c8c;">(</span>provided
+          <span style="color: #8c8c8c;">(</span>hfs-textline <span style="color: #008b8b;">:path</span><span style="color: #8c8c8c;">)</span> =&gt; [[<span style="color: #8b2252;">"mock it out!"</span>]]<span style="color: #8c8c8c;">)</span> <span style="color: #b22222;">;;</span><span style="color: #b22222;">true</span>
+
+        [[<span style="color: #8b2252;">"two"</span> 3]]
+        <span style="color: #8c8c8c;">(</span>wc-query <span style="color: #008b8b;">:path</span><span style="color: #8c8c8c;">)</span>
+        <span style="color: #8c8c8c;">(</span>provided
+          <span style="color: #8c8c8c;">(</span>hfs-textline <span style="color: #008b8b;">:path</span><span style="color: #8c8c8c;">)</span> =&gt; [[<span style="color: #8b2252;">"two two two"</span>]]<span style="color: #8c8c8c;">)</span> <span style="color: #b22222;">;;</span><span style="color: #b22222;">true</span>
+
+        [[<span style="color: #8b2252;">"M.M"</span> 1] [<span style="color: #8b2252;">"nathan"</span> 1]]
+        <span style="color: #8c8c8c;">(</span>wc-query <span style="color: #008b8b;">:path</span><span style="color: #8c8c8c;">)</span>
+        <span style="color: #8c8c8c;">(</span>provided
+          <span style="color: #8c8c8c;">(</span>hfs-textline <span style="color: #008b8b;">:path</span><span style="color: #8c8c8c;">)</span> =&gt; [[<span style="color: #8b2252;">"nathan M.M"</span>]]<span style="color: #8c8c8c;">))</span> <span style="color: #b22222;">;; </span><span style="color: #b22222;">true</span>
+</pre>
+
+
+<p>
+Gah! <code>against-background</code> doesn't work here, since these facts mock against different sentences each time.
+</p>
+<p>
+Midje's <code>tabular</code> form provides an elegant way to collapse this repetition:
+</p>
+
+
+
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span>tabular
+ <span style="color: #8c8c8c;">(</span>fact?- <span style="color: #8b2252;">"Tabular generates lots of facts, one for each set of</span>
+<span style="color: #8b2252;">         substitutions in the table below."</span>
+         ?results
+         <span style="color: #8c8c8c;">(</span>wc-query <span style="color: #008b8b;">:path</span><span style="color: #8c8c8c;">)</span>
+         <span style="color: #8c8c8c;">(</span>provided
+           <span style="color: #8c8c8c;">(</span>hfs-textline <span style="color: #008b8b;">:path</span><span style="color: #8c8c8c;">)</span> =&gt; [[?sentence]]<span style="color: #8c8c8c;">))</span>
+ ?sentence       ?results
+ <span style="color: #8b2252;">"mock it out!"</span>  [[<span style="color: #8b2252;">"mock"</span> 1] [<span style="color: #8b2252;">"it"</span> 1] [<span style="color: #8b2252;">"out!"</span> 1]]
+ <span style="color: #8b2252;">"two two two"</span>   [[<span style="color: #8b2252;">"two"</span> 3]]
+ <span style="color: #8b2252;">"nathan M.M"</span>    [[<span style="color: #8b2252;">"M.M"</span> 1] [<span style="color: #8b2252;">"nathan"</span> 1]]<span style="color: #8c8c8c;">)</span> <span style="color: #b22222;">;; </span><span style="color: #b22222;">3 true facts</span>
+</pre>
+
+
+<p>
+(This one's a little involved, but the results are really beautiful.)
+</p>
+<p>
+<code>tabular</code> accepts three types of arguments:
+</p>
+<ul>
+<li>a single <code>fact?-</code> or <code>fact?&lt;-</code> templating form
+</li>
+<li>a number of "templating variables" that start with <code>?</code> (<code>?sentence</code> and <code>?results</code>, in the above fact)
+</li>
+<li>any number of rows of substitutions (the above fact has three)
+</li>
+</ul>
+
+
+<p>
+and generates a separate fact for every substitution row. It does this by substituting each value into the templating form in place of the header variable at the top of column.
+</p>
+<p>
+The first fact generated by the above tabular fact looks like this:
+</p>
+
+
+
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span>tabular
+ <span style="color: #b22222;">;; </span><span style="color: #b22222;">Tabular takes this templating form:</span>
+ <span style="color: #8c8c8c;">(</span>fact?- <span style="color: #8b2252;">"Tabular generates lots of facts, one for each set of</span>
+<span style="color: #8b2252;">           substitutions in the table below."</span>
+         ?results
+         <span style="color: #8c8c8c;">(</span>wc-query <span style="color: #008b8b;">:path</span><span style="color: #8c8c8c;">)</span>
+         <span style="color: #8c8c8c;">(</span>provided
+           <span style="color: #8c8c8c;">(</span>hfs-textline <span style="color: #008b8b;">:path</span><span style="color: #8c8c8c;">)</span> =&gt; [[?sentence]]<span style="color: #8c8c8c;">))</span>
+
+ <span style="color: #b22222;">;; </span><span style="color: #b22222;">and substitutes these variables:</span>
+ ?sentence       ?results
+ <span style="color: #8b2252;">"mock it out!"</span>  [[<span style="color: #8b2252;">"mock"</span> 1] [<span style="color: #8b2252;">"it"</span> 1] [<span style="color: #8b2252;">"out!"</span> 1]]<span style="color: #8c8c8c;">)</span> <span style="color: #b22222;">;; </span><span style="color: #b22222;">true</span>
+
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">to produce this fact:</span>
+<span style="color: #8c8c8c;">(</span>fact?- [[<span style="color: #8b2252;">"mock"</span> 1] [<span style="color: #8b2252;">"it"</span> 1] [<span style="color: #8b2252;">"out!"</span> 1]]
+        <span style="color: #8c8c8c;">(</span>wc-query <span style="color: #008b8b;">:path</span><span style="color: #8c8c8c;">)</span>
+        <span style="color: #8c8c8c;">(</span>provided
+          <span style="color: #8c8c8c;">(</span>hfs-textline <span style="color: #008b8b;">:path</span><span style="color: #8c8c8c;">)</span> =&gt; [[<span style="color: #8b2252;">"mock it out!"</span>]]<span style="color: #8c8c8c;">))</span> <span style="color: #b22222;">;; </span><span style="color: #b22222;">true</span>
+</pre>
+
+
+<p>
+Any variable prefixed by <code>?</code> that appears inside both the fact template AND the header variables row is earmarked for substitution. This means that cascalog dynamic variables are totally safe, and play well with tabular.
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-1-6" class="outline-3">
+<h3 id="sec-1-6">Running Tests </h3>
+<div class="outline-text-3" id="text-1-6">
+
+
+
+</div>
+
+<div id="outline-container-1-6-1" class="outline-4">
+<h4 id="sec-1-6-1">lein-midje </h4>
+<div class="outline-text-4" id="text-1-6-1">
+
+
+<p>
+Once you write facts within a project, you can use <a href="https://github.com/marick/Midje/wiki/Lein-midje">lein-midje</a> to run them all and generate a summary like this:
+</p>
+
+
+
+<pre class="src src-text">Checking function: (midje.sweet/just [["Ishmael." 1] ["Some" 1] ["a" 1] ["about" 1] ["ago" 1]] :in-any-order)
+The checker said this about the reason:
+    Expected five elements. There were thirty-nine.
+FAILURE: 6 facts were not confirmed. (But 37 were.)
+</pre>
+
+
+<p>
+If you're using the leiningen build manager, follow these steps:
+</p>
+<ul>
+<li>Add  <code>[lein-midje "1.0.3"]</code> to the <code>:dev-dependencies</code> entry in your <code>project.clj</code>
+</li>
+<li>Run <code>lein midje</code> at the command line in your project's root directory.
+</li>
+</ul>
+
+
+<p>
+This command runs all facts and tests in the project and prints a summary of all results to stdout.
+</p>
+<p>
+If you're using Cake, follow the steps on the <a href="https://github.com/marick/Midje/wiki/Cake-midje">Midje wiki</a> for installing and running <code>cake midje</code>.
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-1-6-2" class="outline-4">
+<h4 id="sec-1-6-2">Interaction with clojure.test </h4>
+<div class="outline-text-4" id="text-1-6-2">
+
+
+<p>
+If you currently write <code>deftest</code> style tests using clojure.test, check out <a href="https://github.com/marick/Midje/wiki/Migrating-from-clojure.test">Midje's tips</a> on integration. The two modes work very well together. <code>lein midje</code> and <code>cake midje</code> will evaluate all <code>deftest</code> forms inside of a project and include the results in its report.
+</p>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-1-7" class="outline-3">
+<h3 id="sec-1-7">In Conclusion </h3>
+<div class="outline-text-3" id="text-1-7">
+
+
+<p>
+I believe that midje-cascalog is the most advanced MapReduce testing suite available today. The primitives discussed here make testing Cascalog queries a joy; the confidence that comes from fully tested components is a prerequisitive for creative work at large scale.
+</p>
+<p>
+Please let me know what you think of the project! I'm happy to extend midje-cascalog in any way that helps the cause. Have fun testing!
+</p></div>
+</div>
+</div>
