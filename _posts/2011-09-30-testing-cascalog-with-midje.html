@@ -15,7 +15,7 @@ title: Testing Cascalog with Midje
 I've been working on a Cascalog testing suite these past few weeks, an extension to Brian Marick's <a href="https://github.com/marick/Midje">Midje</a>, that eases much of the pain of testing MapReduce workflows. I think a lot of the dull work we see in the Hadoop community is a direct result of fear. Without proper tests, Hadoop developers can't help but be scared of making changes to production code. When creativity might bring down a workflow, it's easiest to get it working once and leave it alone.
 </p>
 <p>
-The antidote to all of this fear is a functional testing suite. As I discussed in a <a href="http://sritchie.github.com/2011/09/29/getting-creative-with-mapreduce.html">Getting Creative with MapReduce</a>, Hadoop workflows are difficult to test at all; testing application logic in isolation of data storage is impossible.
+The antidote to all of this fear is a functional testing suite. As I discussed in <a href="http://sritchie.github.com/2011/09/29/getting-creative-with-mapreduce.html">Getting Creative with MapReduce</a>, Hadoop workflows are difficult to test at all; testing application logic in isolation of data storage is impossible.
 </p>
 <p>
 Cascalog is free of this weakness. <a href="https://github.com/sritchie/midje-cascalog">midje-cascalog</a> allows you to test Cascalog queries as pure functions, both in isolation and as components of more complicated workflows. the resulting tests are truly beautiful.

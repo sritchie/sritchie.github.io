@@ -12,7 +12,7 @@ title: Getting Creative with MapReduce
 
 
 <p>
-One problem with many existing MapReduce abstraction layers is the utter difficulty of testing queries and workflows. End-to-end tests are maddening to craft in vanilla Hadoop and frustrating at best in Pig and Hive. The difficulty of testing MapReduce workflows makes it scary to change code, and <b>destroys your desire to be creative</b>. Proper testing suites are an absolute prerequisite to doing creative work in big data.
+One problem with many existing MapReduce abstraction layers is the utter difficulty of testing queries and workflows. End-to-end tests are maddening to craft in vanilla Hadoop and frustrating at best in Pig and Hive. The difficulty of testing MapReduce workflows makes it scary to change code, and <b>destroys your desire to be creative</b>. A proper testing suite is an absolute prerequisite to doing creative work in big data.
 </p>
 <p>
 In this blog post, I aim to show how most of the difficulty of writing and testing MapReduce queries stems from the fact that Hadoop confounds application logic with decisions about data storage. These problems are the result of poorly implemented abstractions over the primitives of MapReduce, not problems with the core MapReduce algorithms.
