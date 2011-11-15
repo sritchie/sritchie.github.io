@@ -11,7 +11,7 @@ title: Introducing Cascalog-Contrib
 
 * Cascalog-Contrib
 
-I've had the pleasure of working with [[https://github.com/nathanmarz/cascalog][Cascalog]] for about ten months now, and have seen the community produce some fantastic work. A [[http://techcrunch.com/2011/09/13/twitter-analytics/][number of businesses]] are using Cascalog in production; I use Cascalog at Twitter every day to write MapReduce queries for the new [[http://techcrunch.com/2011/09/13/twitter-analytics/][Twitter Web Analytics]] product.
+I've had the pleasure of working with [[https://github.com/nathanmarz/cascalog][Cascalog]] for about ten months now, and have seen the community produce some fantastic work. A [[https://www.assembla.com/spaces/cascalog/wiki/Who's_using_Cascalog][number of businesses]] are using Cascalog in production; I use Cascalog at Twitter every day to write MapReduce queries for the new [[http://techcrunch.com/2011/09/13/twitter-analytics/][Twitter Web Analytics]] product.
 
 One thing Cascalog doesn't yet have is a community repository for generic queries and operations. To fill this gap we've created [[https://github.com/nathanmarz/cascalog-contrib][cascalog-contrib]].
 
