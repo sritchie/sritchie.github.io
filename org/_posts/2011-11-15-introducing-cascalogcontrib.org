@@ -17,13 +17,15 @@ One thing Cascalog doesn't yet have is a community repository for generic querie
 
 Cascalog-contrib will be home to any higher-level abstractions over Cascalog that the community is willing to submit. If you have an idea for a module, file a pull request on GitHub or bring it up on the [[http://groups.google.com/group/cascalog-user][mailing list]] for discussion.
 
-Cascalog-contrib is now live on [[http://clojars.org/cascalog-contrib][clojars]]. To include it in your leiningen or cake project, add the following to =project.clj=:
+The first cascalog-contrib modules are now live on [[http://clojars.org/cascalog-contrib][clojars]]. To include them in your leiningen or cake project, add any of the following to =project.clj=:
 
 #+begin_src clojure
-[cascalog-contrib "1.0.0-SNAPSHOT"]
+[cascalog-checkpoint "0.1.0"]
+[cascalog-incanter "0.1.0"]
+[cascalog-math "0.1.0"]
 #+end_src
 
-Contrib currently has three modules: =cascalog.contrib.stats=, =cascalog.contrib.incanter= and =cascalog.contrib.checkpoint=. =stats= and =incanter= are still fairly sparse, but =checkpoint= is quite interesting and battle-tested at Twitter. Read on if you're interested in the details of the =checkpoint= module; otherwise, I'll see you on the mailing list!
+Contrib currently has three modules: =cascalog.math=, =cascalog.incanter= and =cascalog.checkpoint=. =math= and =incanter= are still fairly sparse, but =checkpoint= is quite interesting and battle-tested at Twitter. Read on if you're interested in the details of the =checkpoint= module; otherwise, I'll see you on the mailing list!
 
 ** cascalog.contrib.checkpoint
 
@@ -114,4 +116,4 @@ final-step ([:deps :all]
 
 ** In Conclusion
 
-I'm quite excited about the Cascalog-contrib project and hope you all make heavy use of it as its functionality grows. In the short-term, I'm planning on hooking Cascalog in to [[http://incanter.org/][Incanter's]] amazing visualization suite through the =cascalog.contrib.incanter= module.
+I'm quite excited about the Cascalog-contrib project and hope you all make heavy use of it as its functionality grows. In the short-term, I'm planning on hooking Cascalog in to [[http://incanter.org/][Incanter's]] amazing visualization suite through the =cascalog.incanter= module.
