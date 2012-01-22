@@ -9,7 +9,7 @@ title: Cascalog Testing 2.0
 <p class="meta">22 Jan 2012 - San Francisco</p>
 #+END_HTML
 
-A few months ago I announced [[http://sritchie.github.com/2011/09/30/testing-cascalog-with-midje.html][Midje-Cascalog]], my layer of Midje testing macros over the [[www.cascalog.org][Cascalog]] MapReduce DSL. These allowed you to write tests for your Cascalog jobs that mimicked Cascalog's own query execution syntax. In this post I discuss midje-cascalog's 0.4.0 release, bringing tighter Midje integration and a number of new ways to write tests. I'll start with a refresher on the old syntax before debuting the new. If you're eager, add the following to your project.clj:
+A few months ago I announced [[http://sritchie.github.com/2011/09/30/testing-cascalog-with-midje.html][Midje-Cascalog]], my layer of Midje testing macros over the [[www.cascalog.org][Cascalog]] MapReduce DSL. These allow you to write tests for your Cascalog jobs in a style that mimics Cascalog's own query execution syntax. In this post I discuss midje-cascalog's 0.4.0 release, which brings tighter Midje integration and a number of new ways to write tests. I'll start with a refresher on the old syntax before debuting the new. If you're eager, add the following to your project.clj:
 
 #+begin_src clojure
 [midje-cascalog "0.4.0"]
@@ -29,7 +29,7 @@ Take the following Cascalog query:
          (str ?word " up!" :> ?out-word)))
 #+end_src
 
-Executing this code at the repl prints a single tuple with the string ="word up!"= to standard out.
+Executing this code at the repl prints a single tuple with the string =word up!= to standard out.
 
 How would you go about testing that this is true? With midje-cascalog, you would swap out the =?<-= form for its testing equivalent: =fact?<-=. Here's the same test, along with a non-Cascalog Midje test:
 
@@ -48,7 +48,7 @@ I find that =fact?<-= and =fact?-= macros can be a bit confusing when you start 
 
 ** The "produces" checker
 
-Let's define a source of tuples and a midje-cascalog 0.4.0 introduces the =produces= function, mirroring Midje's =just=. Let's define a source of tuples and a query to test.
+Midje-cascalog 0.4.0 introduces the =produces= function, mirroring Midje's =just=. Let's define a source of tuples and a query to test.
 
 #+begin_src clojure
   (use 'cascalog.api)
@@ -69,7 +69,7 @@ Let's define a source of tuples and a midje-cascalog 0.4.0 introduces the =produ
         (c/sum ?y :> ?sum)))  
 #+end_src
 
-A query is really just a collection of tuples waiting to be created. With Midje, you test collections using the =just= checker:
+You can think of a query a a collection of tuples waiting to be generated (through query execution). With Midje, you test collections using the =just= checker:
 
 #+begin_src clojure
   (facts
@@ -77,7 +77,7 @@ A query is really just a collection of tuples waiting to be created. With Midje,
     [1 2 3] => (just [1 2 3 4])) ;; false
 #+end_src
 
-Midje-cascalog introduces the =produces= checker. =produces= works like =just=, but against queries instead of bare collections. Executing the following test shows that the query produces the expected pairs, in any order:
+The cascalog analog to =just= is the =produces= checker. =produces= works like =just=, but against queries instead of bare collections. Executing the following test shows that the query produces the expected pairs, in any order:
 
 #+begin_src clojure
   (facts
@@ -92,7 +92,7 @@ You can read this test as saying "query, when executed, produces [3 10], [1 5] a
     query =not=> (produces [["string!" 11] [1 5] [5 11]])) ;; true
 #+end_src
 
-Using the =:in-order= after the expected tuple sequence forces the test to respect ordering:
+Using the =:in-order= keyword after the expected tuple sequence forces the test to respect ordering:
 
 #+begin_src clojure
   (facts    
@@ -100,7 +100,7 @@ Using the =:in-order= after the expected tuple sequence forces the test to respe
     query => (produces [[1 5] [3 10] [5 11]] :in-order))    ;; true
 #+end_src
 
-=:in-order= is really only helpful in cases where output is sorted, like our query above.
+(=:in-order= is really only helpful in cases where output is sorted, like our query above.)
 
 ** produces-some
 
@@ -111,9 +111,9 @@ The =produces-some= checker tests that a query's output contains a subset of tup
     query => (produces-some [[5 11] [1 5]])) ;; true
 #+end_src
 
-(This is similar to the behavior of Midje's =contains= collection checker.)
+Note that the behaviour of =produces-some= is similar to the behavior of Midje's =contains= collection checker.
 
-As with produces, you can use the =:in-order= keyword to force =produces-some= to respect ordering. Note that gaps between tuples are okay.
+As with produces, you can use the =:in-order= keyword to force =produces-some= to respect ordering. Gaps between tuples are okay.
 
 #+begin_src clojure    
   (facts
@@ -131,16 +131,15 @@ Adding the =:no-gaps= keyword introduces the constraint that tuples must also be
 
 ** produces-prefix and produces-suffix
 
-=produce-prefix= mimics the =has-prefix= collection checker by checking that some set of tuples is produced at the beginning of the query's output. =produces-prefix= implicitly assumes that tuples are in order with no gaps:
+=produce-prefix= mimics the =has-prefix= collection checker by checking that some set of tuples is produced at the beginning of the query's output. =produces-prefix= implicitly assumes that tuples will be produced in order with no gaps:
 
 #+begin_src clojure    
-  (facts
-    
+  (facts    
     query => (produces-prefix [[1 5]])         ;; true
     query => (produces-prefix [[1 5] [3 10]])) ;; true
 #+end_src
 
-Similarly, =produce-suffix= mimics the =has-suffix= collection checker for tuples produced at the tail end of a query:
+Similarly, =produce-suffix= mimics the =has-suffix= collection checker by checking that the supplied set of tuples is produced at the tail end of a query:
 
 #+begin_src clojure    
   (facts
@@ -157,7 +156,7 @@ In addition to the keyword options supported above, every one of these checkers 
     query => (produces-suffix [[5 11]] :info)) ;; true
 #+end_src
 
-Log level keywords can be useful when debugging tests, as errors will often only appear in the logging output. Currently supported keywords are =:off= (the default), =:fatal=, =:warn=, =:info= and =:debug=.
+Log level keywords can be useful when debugging tests, as errors will often only appear in the logging output. Currently supported keywords are =:off= (the default), =:fatal=, =:warn=, =:info= and =:debug=. The log level needs to be the first keyword argument if you supply multiple.
 
 ** wrap-checker
 
@@ -232,4 +231,4 @@ All of the collection checkers discussed above can be used with the =fact?<-= an
 
 Midje is an astonishingly good testing framework; I'm continually surprised by how well its idioms and conventions satisfy Cascalog's needs. In my next post here I'll go over some of the more subtle details of the =wrap-checker= function. For the curious, [[https://github.com/sritchie/midje-cascalog/blob/develop/src/midje/cascalog.clj#L39][here's the code]].
 
-If you'd like more information or additional features, please add your thoughts to the [[https://github.com/sritchie/midje-cascalog/issues][midje-cascalog github issues page]], or let me know in the comments below.
+If you'd like more information or additional features, please add your thoughts to the [[https://github.com/sritchie/midje-cascalog/issues][midje-cascalog github issues page]], or let me know in the comments below (or on twitter! I'm [[www.twitter.com/sritchie09][@sritchie09]].)

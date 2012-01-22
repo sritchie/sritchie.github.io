@@ -6,7 +6,7 @@ title: Cascalog Testing 2.0
 <p class="meta">22 Jan 2012 - San Francisco</p>
 
 <p>
-A few months ago I announced <a href="http://sritchie.github.com/2011/09/30/testing-cascalog-with-midje.html">Midje-Cascalog</a>, my layer of Midje testing macros over the <a href="#www.cascalog.org">Cascalog</a> MapReduce DSL. These allowed you to write tests for your Cascalog jobs that mimicked Cascalog's own query execution syntax. In this post I discuss midje-cascalog's 0.4.0 release, bringing tighter Midje integration and a number of new ways to write tests. I'll start with a refresher on the old syntax before debuting the new. If you're eager, add the following to your project.clj:
+A few months ago I announced <a href="http://sritchie.github.com/2011/09/30/testing-cascalog-with-midje.html">Midje-Cascalog</a>, my layer of Midje testing macros over the <a href="#www.cascalog.org">Cascalog</a> MapReduce DSL. These allow you to write tests for your Cascalog jobs in a style that mimics Cascalog's own query execution syntax. In this post I discuss midje-cascalog's 0.4.0 release, which brings tighter Midje integration and a number of new ways to write tests. I'll start with a refresher on the old syntax before debuting the new. If you're eager, add the following to your project.clj:
 </p>
 
 
@@ -38,7 +38,7 @@ Take the following Cascalog query:
 
 
 <p>
-Executing this code at the repl prints a single tuple with the string ="word up!"= to standard out.
+Executing this code at the repl prints a single tuple with the string <code>word up!</code> to standard out.
 </p>
 <p>
 How would you go about testing that this is true? With midje-cascalog, you would swap out the <code>?&lt;-</code> form for its testing equivalent: <code>fact?&lt;-</code>. Here's the same test, along with a non-Cascalog Midje test:
@@ -70,7 +70,7 @@ I find that <code>fact?&lt;-</code> and <code>fact?-</code> macros can be a bit 
 
 
 <p>
-Let's define a source of tuples and a midje-cascalog 0.4.0 introduces the <code>produces</code> function, mirroring Midje's <code>just</code>. Let's define a source of tuples and a query to test.
+Midje-cascalog 0.4.0 introduces the <code>produces</code> function, mirroring Midje's <code>just</code>. Let's define a source of tuples and a query to test.
 </p>
 
 
@@ -95,7 +95,7 @@ Let's define a source of tuples and a midje-cascalog 0.4.0 introduces the <code>
 
 
 <p>
-A query is really just a collection of tuples waiting to be created. With Midje, you test collections using the <code>just</code> checker:
+You can think of a query a a collection of tuples waiting to be generated (through query execution). With Midje, you test collections using the <code>just</code> checker:
 </p>
 
 
@@ -107,7 +107,7 @@ A query is really just a collection of tuples waiting to be created. With Midje,
 
 
 <p>
-Midje-cascalog introduces the <code>produces</code> checker. <code>produces</code> works like <code>just</code>, but against queries instead of bare collections. Executing the following test shows that the query produces the expected pairs, in any order:
+The cascalog analog to <code>just</code> is the <code>produces</code> checker. <code>produces</code> works like <code>just</code>, but against queries instead of bare collections. Executing the following test shows that the query produces the expected pairs, in any order:
 </p>
 
 
@@ -130,7 +130,7 @@ You can read this test as saying "query, when executed, produces [3 10], [1 5] a
 
 
 <p>
-Using the <code>:in-order</code> after the expected tuple sequence forces the test to respect ordering:
+Using the <code>:in-order</code> keyword after the expected tuple sequence forces the test to respect ordering:
 </p>
 
 
@@ -142,7 +142,7 @@ Using the <code>:in-order</code> after the expected tuple sequence forces the te
 
 
 <p>
-<code>:in-order</code> is really only helpful in cases where output is sorted, like our query above.
+(<code>:in-order</code> is really only helpful in cases where output is sorted, like our query above.)
 </p>
 </div>
 
@@ -165,10 +165,10 @@ The <code>produces-some</code> checker tests that a query's output contains a su
 
 
 <p>
-(This is similar to the behavior of Midje's <code>contains</code> collection checker.)
+Note that the behaviour of <code>produces-some</code> is similar to the behavior of Midje's <code>contains</code> collection checker.
 </p>
 <p>
-As with produces, you can use the <code>:in-order</code> keyword to force <code>produces-some</code> to respect ordering. Note that gaps between tuples are okay.
+As with produces, you can use the <code>:in-order</code> keyword to force <code>produces-some</code> to respect ordering. Gaps between tuples are okay.
 </p>
 
 
@@ -201,20 +201,19 @@ Adding the <code>:no-gaps</code> keyword introduces the constraint that tuples m
 
 
 <p>
-<code>produce-prefix</code> mimics the <code>has-prefix</code> collection checker by checking that some set of tuples is produced at the beginning of the query's output. <code>produces-prefix</code> implicitly assumes that tuples are in order with no gaps:
+<code>produce-prefix</code> mimics the <code>has-prefix</code> collection checker by checking that some set of tuples is produced at the beginning of the query's output. <code>produces-prefix</code> implicitly assumes that tuples will be produced in order with no gaps:
 </p>
 
 
 
-<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span>facts
-
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span>facts    
   query =&gt; <span style="color: #8c8c8c;">(</span>produces-prefix [[1 5]]<span style="color: #8c8c8c;">)</span>         <span style="color: #b22222;">;; </span><span style="color: #b22222;">true</span>
   query =&gt; <span style="color: #8c8c8c;">(</span>produces-prefix [[1 5] [3 10]]<span style="color: #8c8c8c;">))</span> <span style="color: #b22222;">;; </span><span style="color: #b22222;">true</span>
 </pre>
 
 
 <p>
-Similarly, <code>produce-suffix</code> mimics the <code>has-suffix</code> collection checker for tuples produced at the tail end of a query:
+Similarly, <code>produce-suffix</code> mimics the <code>has-suffix</code> collection checker by checking that the supplied set of tuples is produced at the tail end of a query:
 </p>
 
 
@@ -246,7 +245,7 @@ In addition to the keyword options supported above, every one of these checkers 
 
 
 <p>
-Log level keywords can be useful when debugging tests, as errors will often only appear in the logging output. Currently supported keywords are <code>:off</code> (the default), <code>:fatal</code>, <code>:warn</code>, <code>:info</code> and <code>:debug</code>.
+Log level keywords can be useful when debugging tests, as errors will often only appear in the logging output. Currently supported keywords are <code>:off</code> (the default), <code>:fatal</code>, <code>:warn</code>, <code>:info</code> and <code>:debug</code>. The log level needs to be the first keyword argument if you supply multiple.
 </p>
 </div>
 
@@ -364,6 +363,6 @@ All of the collection checkers discussed above can be used with the <code>fact?&
 Midje is an astonishingly good testing framework; I'm continually surprised by how well its idioms and conventions satisfy Cascalog's needs. In my next post here I'll go over some of the more subtle details of the <code>wrap-checker</code> function. For the curious, <a href="https://github.com/sritchie/midje-cascalog/blob/develop/src/midje/cascalog.clj#L39">here's the code</a>.
 </p>
 <p>
-If you'd like more information or additional features, please add your thoughts to the <a href="https://github.com/sritchie/midje-cascalog/issues">midje-cascalog github issues page</a>, or let me know in the comments below.
+If you'd like more information or additional features, please add your thoughts to the <a href="https://github.com/sritchie/midje-cascalog/issues">midje-cascalog github issues page</a>, or let me know in the comments below (or on twitter! I'm <a href="#www.twitter.com-sritchie09">@sritchie09</a>.)
 </p></div>
 </div>
