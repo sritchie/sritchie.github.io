@@ -446,7 +446,7 @@ To solve this, Midje provides a number of collection checkers that provide you w
     (fact?- "Just form, fully qualified."
             (just [[2 3] [1 2]] :in-any-order) query ;;true
   
-            "Wrapping tuples in a set is indentical to including
+            "Wrapping tuples in a set is identical to including
              the :in-any-order modifier."
             (just #{[2 3] [1 2]}) query ;; true
             
@@ -599,7 +599,7 @@ Once you write facts within a project, you can use [[https://github.com/marick/M
 
 If you're using the leiningen build manager, follow these steps:
 
-- Add  =[lein-midje "1.0.3"]= to the =:dev-dependencies= entry in your =project.clj=
+- Add  =[lein-midje "1.0.7"]= to the =:dev-dependencies= entry in your =project.clj=
 - Run =lein midje= at the command line in your project's root directory.
 
 This command runs all facts and tests in the project and prints a summary of all results to stdout.
