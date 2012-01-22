@@ -203,7 +203,7 @@ A few more examples:
     (<- [?x] (src ?x)))
   
   (let [one-of-tuples (wrap-checker one-of)
-        two-of-tuples (wrap-checker one-of)
+        two-of-tuples (wrap-checker two-of)
         src [[1] [3] [4]]]
     (facts
       src            => (two-of odd-tuple?)           ;; true
