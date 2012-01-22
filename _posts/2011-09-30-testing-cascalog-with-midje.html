@@ -697,7 +697,7 @@ To solve this, Midje provides a number of collection checkers that provide you w
   <span style="color: #8c8c8c;">(</span>fact?- <span style="color: #8b2252;">"Just form, fully qualified."</span>
           <span style="color: #8c8c8c;">(</span>just [[2 3] [1 2]] <span style="color: #008b8b;">:in-any-order</span><span style="color: #8c8c8c;">)</span> query <span style="color: #b22222;">;;</span><span style="color: #b22222;">true</span>
 
-          <span style="color: #8b2252;">"Wrapping tuples in a set is indentical to including</span>
+          <span style="color: #8b2252;">"Wrapping tuples in a set is identical to including</span>
 <span style="color: #8b2252;">           the :in-any-order modifier."</span>
           <span style="color: #8c8c8c;">(</span>just #{[2 3] [1 2]}<span style="color: #8c8c8c;">)</span> query <span style="color: #b22222;">;; </span><span style="color: #b22222;">true</span>
 
@@ -946,7 +946,7 @@ FAILURE: 6 facts were not confirmed. (But 37 were.)
 If you're using the leiningen build manager, follow these steps:
 </p>
 <ul>
-<li>Add  <code>[lein-midje "1.0.3"]</code> to the <code>:dev-dependencies</code> entry in your <code>project.clj</code>
+<li>Add  <code>[lein-midje "1.0.7"]</code> to the <code>:dev-dependencies</code> entry in your <code>project.clj</code>
 </li>
 <li>Run <code>lein midje</code> at the command line in your project's root directory.
 </li>

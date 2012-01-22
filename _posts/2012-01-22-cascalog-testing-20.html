@@ -1,0 +1,369 @@
+---
+layout: post
+title: Cascalog Testing 2.0
+---
+
+<p class="meta">22 Jan 2012 - San Francisco</p>
+
+<p>
+A few months ago I announced <a href="http://sritchie.github.com/2011/09/30/testing-cascalog-with-midje.html">Midje-Cascalog</a>, my layer of Midje testing macros over the <a href="#www.cascalog.org">Cascalog</a> MapReduce DSL. These allowed you to write tests for your Cascalog jobs that mimicked Cascalog's own query execution syntax. In this post I discuss midje-cascalog's 0.4.0 release, bringing tighter Midje integration and a number of new ways to write tests. I'll start with a refresher on the old syntax before debuting the new. If you're eager, add the following to your project.clj:
+</p>
+
+
+
+<pre class="src src-clojure">[midje-cascalog <span style="color: #8b2252;">"0.4.0"</span>]
+</pre>
+
+
+
+<div id="outline-container-1" class="outline-3">
+<h3 id="sec-1">Midje-Cascalog Refresher </h3>
+<div class="outline-text-3" id="text-1">
+
+
+<p>
+Take the following Cascalog query:
+</p>
+
+
+
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span><span style="color: #a0522d;">use</span> 'cascalog.api<span style="color: #8c8c8c;">)</span>
+
+<span style="color: #8c8c8c;">(</span><span style="color: #7a378b;">let</span> [src [[<span style="color: #8b2252;">"word"</span>]]]
+  <span style="color: #8c8c8c;">(</span>?&lt;- <span style="color: #8c8c8c;">(</span>stdout<span style="color: #8c8c8c;">)</span>
+       [?out-word]
+       <span style="color: #8c8c8c;">(</span>src ?word<span style="color: #8c8c8c;">)</span>
+       <span style="color: #8c8c8c;">(</span><span style="color: #a0522d;">str</span> ?word <span style="color: #8b2252;">" up!"</span> <span style="color: #008b8b;">:&gt;</span> ?out-word<span style="color: #8c8c8c;">)))</span>
+</pre>
+
+
+<p>
+Executing this code at the repl prints a single tuple with the string ="word up!"= to standard out.
+</p>
+<p>
+How would you go about testing that this is true? With midje-cascalog, you would swap out the <code>?&lt;-</code> form for its testing equivalent: <code>fact?&lt;-</code>. Here's the same test, along with a non-Cascalog Midje test:
+</p>
+
+
+
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span><span style="color: #7a378b;">let</span> [src [[<span style="color: #8b2252;">"word"</span>]]]
+  <span style="color: #8c8c8c;">(</span>fact?&lt;- [[<span style="color: #8b2252;">"word up!"</span>]]
+           [?out-word]
+           <span style="color: #8c8c8c;">(</span>src ?word<span style="color: #8c8c8c;">)</span>
+           <span style="color: #8c8c8c;">(</span><span style="color: #a0522d;">str</span> ?word <span style="color: #8b2252;">" up!"</span> <span style="color: #008b8b;">:&gt;</span> ?out-word<span style="color: #8c8c8c;">)))</span>
+
+<span style="color: #8c8c8c;">(</span>fact <span style="color: #8b2252;">"+ should add two numbers."</span>
+  <span style="color: #8c8c8c;">(</span><span style="color: #a0522d;">+</span> 2 2<span style="color: #8c8c8c;">)</span> =&gt; 4<span style="color: #8c8c8c;">)</span>
+</pre>
+
+
+<p>
+I find that <code>fact?&lt;-</code> and <code>fact?-</code> macros can be a bit confusing when you start mixing Cascalog and Midje tests, as they break the Midje pattern of <code>&lt;thing-to-test&gt; =&gt; &lt;expected-thing&gt;</code>. The syntax updates fix all of this with a set of checker functions that mimic Midje's excellent <a href="https://github.com/marick/Midje/wiki/Checkers-for-collections-and-strings">set of collection checkers</a>.
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-2" class="outline-3">
+<h3 id="sec-2">The "produces" checker </h3>
+<div class="outline-text-3" id="text-2">
+
+
+<p>
+Let's define a source of tuples and a midje-cascalog 0.4.0 introduces the <code>produces</code> function, mirroring Midje's <code>just</code>. Let's define a source of tuples and a query to test.
+</p>
+
+
+
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span><span style="color: #a0522d;">use</span> 'cascalog.api<span style="color: #8c8c8c;">)</span>
+<span style="color: #8c8c8c;">(</span><span style="color: #a0522d;">require</span> ['cascalog.ops <span style="color: #008b8b;">:as</span> c]<span style="color: #8c8c8c;">)</span>
+
+<span style="color: #8c8c8c;">(</span><span style="color: #7f007f;">def</span> <span style="color: #0000ff;">src</span>
+  [[1 2] [1 3]
+   [3 4] [3 6]
+   [5 2] [5 9]]<span style="color: #8c8c8c;">)</span>
+
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">adds the values in each input tuple, sorts the output and returns</span>
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">2-tuples of the first number and the sum. [1 2] becomes [1 3], for</span>
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">example.</span>
+<span style="color: #8c8c8c;">(</span><span style="color: #7f007f;">def</span> <span style="color: #0000ff;">query</span>
+  <span style="color: #8c8c8c;">(</span>&lt;- [?x ?sum]
+      <span style="color: #8c8c8c;">(</span>src ?x ?y<span style="color: #8c8c8c;">)</span>
+      <span style="color: #8c8c8c;">(</span><span style="color: #008b8b;">:sort</span> ?x<span style="color: #8c8c8c;">)</span>
+      <span style="color: #8c8c8c;">(</span>c/sum ?y <span style="color: #008b8b;">:&gt;</span> ?sum<span style="color: #8c8c8c;">)))</span>  
+</pre>
+
+
+<p>
+A query is really just a collection of tuples waiting to be created. With Midje, you test collections using the <code>just</code> checker:
+</p>
+
+
+
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span>facts
+  [1 2 3] =&gt; <span style="color: #8c8c8c;">(</span>just [1 2 3]<span style="color: #8c8c8c;">)</span>    <span style="color: #b22222;">;; </span><span style="color: #b22222;">true</span>
+  [1 2 3] =&gt; <span style="color: #8c8c8c;">(</span>just [1 2 3 4]<span style="color: #8c8c8c;">))</span> <span style="color: #b22222;">;; </span><span style="color: #b22222;">false</span>
+</pre>
+
+
+<p>
+Midje-cascalog introduces the <code>produces</code> checker. <code>produces</code> works like <code>just</code>, but against queries instead of bare collections. Executing the following test shows that the query produces the expected pairs, in any order:
+</p>
+
+
+
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span>facts
+  query =&gt; <span style="color: #8c8c8c;">(</span>produces [[3 10] [1 5] [5 11]]<span style="color: #8c8c8c;">)</span>  <span style="color: #b22222;">;; </span><span style="color: #b22222;">true</span>
+  query =&gt; <span style="color: #8c8c8c;">(</span>produces [[1 5] [3 10] [5 11]]<span style="color: #8c8c8c;">))</span> <span style="color: #b22222;">;; </span><span style="color: #b22222;">true  </span>
+</pre>
+
+
+<p>
+You can read this test as saying "query, when executed, produces [3 10], [1 5] and [5 11]. You can also check that a query <b>doesn't</b> produce a set of tuples by swapping out =not=&gt; for =&gt;:
+</p>
+
+
+
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span>fact
+  query =not=&gt; <span style="color: #8c8c8c;">(</span>produces [[<span style="color: #8b2252;">"string!"</span> 11] [1 5] [5 11]]<span style="color: #8c8c8c;">))</span> <span style="color: #b22222;">;; </span><span style="color: #b22222;">true</span>
+</pre>
+
+
+<p>
+Using the <code>:in-order</code> after the expected tuple sequence forces the test to respect ordering:
+</p>
+
+
+
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span>facts    
+  query =not=&gt; <span style="color: #8c8c8c;">(</span>produces [[3 10] [5 11] [1 5]] <span style="color: #008b8b;">:in-order</span><span style="color: #8c8c8c;">)</span> <span style="color: #b22222;">;; </span><span style="color: #b22222;">true</span>
+  query =&gt; <span style="color: #8c8c8c;">(</span>produces [[1 5] [3 10] [5 11]] <span style="color: #008b8b;">:in-order</span><span style="color: #8c8c8c;">))</span>    <span style="color: #b22222;">;; </span><span style="color: #b22222;">true</span>
+</pre>
+
+
+<p>
+<code>:in-order</code> is really only helpful in cases where output is sorted, like our query above.
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-3" class="outline-3">
+<h3 id="sec-3">produces-some </h3>
+<div class="outline-text-3" id="text-3">
+
+
+<p>
+The <code>produces-some</code> checker tests that a query's output contains a subset of tuples:
+</p>
+
+
+
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span>fact
+  query =&gt; <span style="color: #8c8c8c;">(</span>produces-some [[5 11] [1 5]]<span style="color: #8c8c8c;">))</span> <span style="color: #b22222;">;; </span><span style="color: #b22222;">true</span>
+</pre>
+
+
+<p>
+(This is similar to the behavior of Midje's <code>contains</code> collection checker.)
+</p>
+<p>
+As with produces, you can use the <code>:in-order</code> keyword to force <code>produces-some</code> to respect ordering. Note that gaps between tuples are okay.
+</p>
+
+
+
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span>facts
+  query =not=&gt; <span style="color: #8c8c8c;">(</span>produces-some [[5 11] [1 5]] <span style="color: #008b8b;">:in-order</span><span style="color: #8c8c8c;">)</span> <span style="color: #b22222;">;; </span><span style="color: #b22222;">true</span>
+  query =&gt; <span style="color: #8c8c8c;">(</span>produces-some [[1 5] [5 11]] <span style="color: #008b8b;">:in-order</span><span style="color: #8c8c8c;">))</span>    <span style="color: #b22222;">;; </span><span style="color: #b22222;">true</span>
+</pre>
+
+
+<p>
+Adding the <code>:no-gaps</code> keyword introduces the constraint that tuples must also be contiguous:
+</p>
+
+
+
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span>facts    
+  query =not=&gt; <span style="color: #8c8c8c;">(</span>produces-some [[1 5] [5 11]] <span style="color: #008b8b;">:in-order</span> <span style="color: #008b8b;">:no-gaps</span><span style="color: #8c8c8c;">)</span> <span style="color: #b22222;">;; </span><span style="color: #b22222;">true</span>
+  query =&gt; <span style="color: #8c8c8c;">(</span>produces-some [[1 5] [3 10]] <span style="color: #008b8b;">:in-order</span> <span style="color: #008b8b;">:no-gaps</span><span style="color: #8c8c8c;">))</span>    <span style="color: #b22222;">;; </span><span style="color: #b22222;">true</span>
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-4" class="outline-3">
+<h3 id="sec-4">produces-prefix and produces-suffix </h3>
+<div class="outline-text-3" id="text-4">
+
+
+<p>
+<code>produce-prefix</code> mimics the <code>has-prefix</code> collection checker by checking that some set of tuples is produced at the beginning of the query's output. <code>produces-prefix</code> implicitly assumes that tuples are in order with no gaps:
+</p>
+
+
+
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span>facts
+
+  query =&gt; <span style="color: #8c8c8c;">(</span>produces-prefix [[1 5]]<span style="color: #8c8c8c;">)</span>         <span style="color: #b22222;">;; </span><span style="color: #b22222;">true</span>
+  query =&gt; <span style="color: #8c8c8c;">(</span>produces-prefix [[1 5] [3 10]]<span style="color: #8c8c8c;">))</span> <span style="color: #b22222;">;; </span><span style="color: #b22222;">true</span>
+</pre>
+
+
+<p>
+Similarly, <code>produce-suffix</code> mimics the <code>has-suffix</code> collection checker for tuples produced at the tail end of a query:
+</p>
+
+
+
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span>facts
+  query =&gt; <span style="color: #8c8c8c;">(</span>produces-suffix [[5 11]]<span style="color: #8c8c8c;">))</span> <span style="color: #b22222;">;; </span><span style="color: #b22222;">true</span>
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-5" class="outline-3">
+<h3 id="sec-5">log-level keywords </h3>
+<div class="outline-text-3" id="text-5">
+
+
+<p>
+In addition to the keyword options supported above, every one of these checkers supports on optional logging-level keyword. For example, the following two facts are equivalent, but the second one produces <code>:info</code> level logging when it runs:
+</p>
+
+
+
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span>facts
+  query =&gt; <span style="color: #8c8c8c;">(</span>produces-suffix [[5 11]]<span style="color: #8c8c8c;">)</span>        <span style="color: #b22222;">;; </span><span style="color: #b22222;">true</span>
+  query =&gt; <span style="color: #8c8c8c;">(</span>produces-suffix [[5 11]] <span style="color: #008b8b;">:info</span><span style="color: #8c8c8c;">))</span> <span style="color: #b22222;">;; </span><span style="color: #b22222;">true</span>
+</pre>
+
+
+<p>
+Log level keywords can be useful when debugging tests, as errors will often only appear in the logging output. Currently supported keywords are <code>:off</code> (the default), <code>:fatal</code>, <code>:warn</code>, <code>:info</code> and <code>:debug</code>.
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-6" class="outline-3">
+<h3 id="sec-6">wrap-checker </h3>
+<div class="outline-text-3" id="text-6">
+
+
+<p>
+The real power of the <code>0.4.0</code> update is the way in which the previous query checkers were defined. Each of the above checkers mimics the behavior of one of Midje's built-in collection checkers with slightly different keyword arguments. This makes sense if you think of a query as a collection of tuples waiting to be produced (by query execution). The above checkers will get you quite a ways, but what if you want to test a query against some other Midje collection checker?
+</p>
+<p>
+The answer is <code>wrap-checker</code>. <code>wrap-checker</code> is a higher-order function that accepts a midje collection checker and wraps it up, turning it into a Cascalog query checker. I'll demonstrate the power of this function by wrapping  Midje's <code>has</code> checker.
+</p>
+<p>
+<code>has</code> is a powerful way to run functions across every value in some sequence:
+</p>
+
+
+
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span>fact
+  [1 3 5 7 9] =&gt; <span style="color: #8c8c8c;">(</span>has every? odd?<span style="color: #8c8c8c;">)</span> <span style="color: #b22222;">;; </span><span style="color: #b22222;">true</span>
+  [1 3 5 6] =&gt; <span style="color: #8c8c8c;">(</span>has some even?<span style="color: #8c8c8c;">))</span>   <span style="color: #b22222;">;; </span><span style="color: #b22222;">true</span>
+</pre>
+
+
+<p>
+If you try to use <code>has</code> against a query it will fail, as it expects to be tested against a sequence, not an unexecuted query. Here's how to get around this:
+</p>
+
+
+
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span><span style="color: #7f007f;">def</span> <span style="color: #0000ff;">has-tuples</span>
+  <span style="color: #8c8c8c;">(</span>wrap-checker has<span style="color: #8c8c8c;">))</span>
+
+<span style="color: #8c8c8c;">(</span><span style="color: #7f007f;">def</span> <span style="color: #0000ff;">new-query</span>
+  <span style="color: #8c8c8c;">(</span><span style="color: #7a378b;">let</span> [src [[1] [3] [5]]]
+    <span style="color: #8c8c8c;">(</span>&lt;- [?x] <span style="color: #8c8c8c;">(</span>src ?x<span style="color: #8c8c8c;">))))</span>
+
+<span style="color: #8c8c8c;">(</span><span style="color: #7a378b;">letfn</span> [<span style="color: #8c8c8c;">(</span>odd-tuple? [tuple] <span style="color: #8c8c8c;">(</span><span style="color: #a0522d;">odd?</span> <span style="color: #8c8c8c;">(</span><span style="color: #a0522d;">first</span> tuple<span style="color: #8c8c8c;">)))</span>]
+  <span style="color: #8c8c8c;">(</span>fact
+    new-query     =&gt; <span style="color: #8c8c8c;">(</span>has-tuples every? odd?<span style="color: #8c8c8c;">)</span>  <span style="color: #b22222;">;; </span><span style="color: #b22222;">true</span>
+    [1 3 5 6] =not=&gt; <span style="color: #8c8c8c;">(</span>has-tuples some even?<span style="color: #8c8c8c;">)))</span> <span style="color: #b22222;">;; </span><span style="color: #b22222;">true  </span>
+
+</pre>
+
+
+<p>
+<code>has-tuples</code> will support log-level keywords like any of the predefined query collection checkers.
+</p>
+<p>
+A few more examples:
+</p>
+
+
+
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span><span style="color: #7f007f;">defn</span> <span style="color: #0000ff;">odd-tuple?</span> [tuple]
+  <span style="color: #8c8c8c;">(</span><span style="color: #a0522d;">odd?</span> <span style="color: #8c8c8c;">(</span><span style="color: #a0522d;">first</span> tuple<span style="color: #8c8c8c;">)))</span>
+
+<span style="color: #8c8c8c;">(</span><span style="color: #7f007f;">defn</span> <span style="color: #0000ff;">even-tuple?</span> [tuple]
+  <span style="color: #8c8c8c;">(</span><span style="color: #a0522d;">even?</span> <span style="color: #8c8c8c;">(</span><span style="color: #a0522d;">first</span> tuple<span style="color: #8c8c8c;">)))</span>
+
+<span style="color: #8c8c8c;">(</span><span style="color: #7f007f;">defn</span> <span style="color: #0000ff;">id-query</span> [src]
+  <span style="color: #8c8c8c;">(</span>&lt;- [?x] <span style="color: #8c8c8c;">(</span>src ?x<span style="color: #8c8c8c;">)))</span>
+
+<span style="color: #8c8c8c;">(</span><span style="color: #7a378b;">let</span> [one-of-tuples <span style="color: #8c8c8c;">(</span>wrap-checker one-of<span style="color: #8c8c8c;">)</span>
+      two-of-tuples <span style="color: #8c8c8c;">(</span>wrap-checker one-of<span style="color: #8c8c8c;">)</span>
+      src [[1] [3] [4]]]
+  <span style="color: #8c8c8c;">(</span>facts
+    src            =&gt; <span style="color: #8c8c8c;">(</span>two-of odd-tuple?<span style="color: #8c8c8c;">)</span>           <span style="color: #b22222;">;; </span><span style="color: #b22222;">true</span>
+    src            =&gt; <span style="color: #8c8c8c;">(</span>one-of even-tuple?<span style="color: #8c8c8c;">)</span>          <span style="color: #b22222;">;; </span><span style="color: #b22222;">true</span>
+    <span style="color: #8c8c8c;">(</span>id-query src<span style="color: #8c8c8c;">)</span> =&gt; <span style="color: #8c8c8c;">(</span>two-of-tuples odd-tuple?<span style="color: #8c8c8c;">)</span>    <span style="color: #b22222;">;; </span><span style="color: #b22222;">true</span>
+    <span style="color: #8c8c8c;">(</span>id-query src<span style="color: #8c8c8c;">)</span> =&gt; <span style="color: #8c8c8c;">(</span>one-of-tuples even-tuple?<span style="color: #8c8c8c;">)))</span> <span style="color: #b22222;">;; </span><span style="color: #b22222;">true  </span>
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-7" class="outline-3">
+<h3 id="sec-7">Backwards Compatibility </h3>
+<div class="outline-text-3" id="text-7">
+
+
+<p>
+All of the collection checkers discussed above can be used with the <code>fact?&lt;-</code> and <code>fact?-</code> macros:
+</p>
+
+
+
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span>fact&lt;- <span style="color: #8c8c8c;">(</span>produces-some [[5 11] [1 5]] <span style="color: #008b8b;">:in-order</span><span style="color: #8c8c8c;">)</span>
+        [?x ?sum]
+        <span style="color: #8c8c8c;">(</span>src ?x ?y<span style="color: #8c8c8c;">)</span>
+        <span style="color: #8c8c8c;">(</span><span style="color: #008b8b;">:sort</span> ?x<span style="color: #8c8c8c;">)</span>
+        <span style="color: #8c8c8c;">(</span>c/sum ?y <span style="color: #008b8b;">:&gt;</span> ?sum<span style="color: #8c8c8c;">))</span> <span style="color: #b22222;">;; </span><span style="color: #b22222;">true</span>
+</pre>
+
+
+<p>
+<code>fact?&lt;-</code> and <code>fact?-</code> are also compatible with all of Midje's unwrapped collection checkers, as discussed <a href="http://sritchie.github.com/2011/09/30/testing-cascalog-with-midje.html">here</a>.
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-8" class="outline-3">
+<h3 id="sec-8">Conclusion </h3>
+<div class="outline-text-3" id="text-8">
+
+
+<p>
+Midje is an astonishingly good testing framework; I'm continually surprised by how well its idioms and conventions satisfy Cascalog's needs. In my next post here I'll go over some of the more subtle details of the <code>wrap-checker</code> function. For the curious, <a href="https://github.com/sritchie/midje-cascalog/blob/develop/src/midje/cascalog.clj#L39">here's the code</a>.
+</p>
+<p>
+If you'd like more information or additional features, please add your thoughts to the <a href="https://github.com/sritchie/midje-cascalog/issues">midje-cascalog github issues page</a>, or let me know in the comments below.
+</p></div>
+</div>
