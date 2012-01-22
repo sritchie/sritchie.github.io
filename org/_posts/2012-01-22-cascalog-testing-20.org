@@ -175,6 +175,12 @@ The answer is =wrap-checker=. =wrap-checker= is a higher-order function that acc
 If you try to use =has= against a query it will fail, as it expects to be tested against a sequence, not an unexecuted query. Here's how to get around this:
 
 #+begin_src clojure
+  (defn odd-tuple? [tuple]
+    (odd? (first tuple)))
+  
+  (defn even-tuple? [tuple]
+    (even? (first tuple)))
+
   (def has-tuples
     (wrap-checker has))
   
@@ -182,10 +188,9 @@ If you try to use =has= against a query it will fail, as it expects to be tested
     (let [src [[1] [3] [5]]]
       (<- [?x] (src ?x))))
   
-  (letfn [(odd-tuple? [tuple] (odd? (first tuple)))]
-    (fact
-      new-query     => (has-tuples every? odd?)  ;; true
-      [1 3 5 6] =not=> (has-tuples some even?))) ;; true  
+  (fact
+    new-query     => (has-tuples every? odd-tuple?) ;; true
+    new-query =not=> (has-tuples some even-tuple?)) ;; true  
   
 #+end_src
 
@@ -193,13 +198,7 @@ If you try to use =has= against a query it will fail, as it expects to be tested
 
 A few more examples:
 
-#+begin_src clojure
-  (defn odd-tuple? [tuple]
-    (odd? (first tuple)))
-  
-  (defn even-tuple? [tuple]
-    (even? (first tuple)))
-  
+#+begin_src clojure  
   (defn id-query [src]
     (<- [?x] (src ?x)))
   
