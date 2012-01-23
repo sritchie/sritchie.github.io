@@ -9,6 +9,8 @@ title: Cascalog Testing 2.0
 <p class="meta">22 Jan 2012 - San Francisco</p>
 #+END_HTML
 
+* Cascalog Testing 2.0
+
 A few months ago I announced [[http://sritchie.github.com/2011/09/30/testing-cascalog-with-midje.html][Midje-Cascalog]], my layer of Midje testing macros over the [[www.cascalog.org][Cascalog]] MapReduce DSL. These allow you to write tests for your Cascalog jobs in a style that mimics Cascalog's own query execution syntax. In this post I discuss midje-cascalog's 0.4.0 release, which brings tighter Midje integration and a number of new ways to write tests. I'll start with a refresher on the old syntax before debuting the new. If you're eager, add the following to your project.clj:
 
 #+begin_src clojure
