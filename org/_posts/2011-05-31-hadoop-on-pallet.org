@@ -54,11 +54,11 @@ $ lein repl
 Pallet abstracts away details about specific cloud providers through the idea of a "compute service". The combination of our cluster definition and our compute service will be enough to get our cluster running. We define a compute service at our REPL like so:
 
 #+begin_src clojure
-user=> (def ec2-service
-         (compute-service "aws-ec2"
-                          :identity "ec2-access-key-id" ;; Swap in your access key ID
-                          :credential "ec2-secret-access-key")) ;; Swap in your secret key
-#'pallet-hadoop-example.core/ec2-service
+  user=> (def ec2-service
+           (compute-service "aws-ec2"
+                            :identity "ec2-access-key-id" ;; Swap in your access key ID
+                            :credential "ec2-secret-access-key")) ;; Swap in your secret key
+  #'pallet-hadoop-example.core/ec2-service
 #+end_src
 
 Alternatively, if you want to keep these out of your code base, save the following to =~/.pallet/config.clj=:

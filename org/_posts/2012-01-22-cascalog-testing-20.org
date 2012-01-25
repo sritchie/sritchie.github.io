@@ -33,7 +33,7 @@ Take the following Cascalog query:
 
 Executing this code at the repl prints a single tuple with the string =word up!= to standard out.
 
-How would you go about testing that this is true? With midje-cascalog, you would swap out the =?<-= form for its testing equivalent: =fact?<-=. Here's the same test, along with a non-Cascalog Midje test:
+How would you go about testing that this is true? With midje-cascalog, you would swap out the =?<-= form for its testing equivalent: =fact?<-=. Here's the same Cascalog test alongside a typical Midje test:
 
 #+begin_src clojure
   (let [src [["word"]]]
@@ -54,7 +54,7 @@ Midje-cascalog 0.4.0 introduces the =produces= function, mirroring Midje's =just
 
 #+begin_src clojure
   (use 'cascalog.api)
-  (require ['cascalog.ops :as c])
+  (require '[cascalog.ops :as c])
   
   (def src
     [[1 2] [1 3]
@@ -71,7 +71,7 @@ Midje-cascalog 0.4.0 introduces the =produces= function, mirroring Midje's =just
         (c/sum ?y :> ?sum)))  
 #+end_src
 
-You can think of a query a a collection of tuples waiting to be generated (through query execution). With Midje, you test collections using the =just= checker:
+You can think of a query as a set of tuples waiting to be generated (through query execution). With Midje, you test sets using the =just= checker:
 
 #+begin_src clojure
   (facts
@@ -79,7 +79,7 @@ You can think of a query a a collection of tuples waiting to be generated (throu
     [1 2 3] => (just [1 2 3 4])) ;; false
 #+end_src
 
-The cascalog analog to =just= is the =produces= checker. =produces= works like =just=, but against queries instead of bare collections. Executing the following test shows that the query produces the expected pairs, in any order:
+The cascalog analog to =just= is the =produces= checker. =produces= works like =just=, but against queries instead of bare collections. Executing the following test shows that the query produces the expected set of pairs, in any order:
 
 #+begin_src clojure
   (facts

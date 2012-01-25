@@ -26,9 +26,9 @@ The first cascalog-contrib modules are now live on <a href="http://clojars.org/c
 
 
 
-<pre class="src src-clojure">[cascalog-checkpoint <span style="color: #8b2252;">"0.1.0"</span>]
-[cascalog-incanter <span style="color: #8b2252;">"0.1.0"</span>]
-[cascalog-math <span style="color: #8b2252;">"0.1.0"</span>]
+<pre class="src src-clojure">[cascalog-checkpoint <span style="color: #cc9393;">"0.1.0"</span>]
+[cascalog-incanter <span style="color: #cc9393;">"0.1.0"</span>]
+[cascalog-math <span style="color: #cc9393;">"0.1.0"</span>]
 </pre>
 
 
@@ -52,27 +52,27 @@ Let's look at the workflow macro in action. The following function takes an inpu
 
 
 
-<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span><span style="color: #7f007f;">defn</span> <span style="color: #0000ff;">-main</span>
+<pre class="src src-clojure"><span style="color: #7f7f7f;">(</span><span style="color: #f0dfaf; font-weight: bold;">defn</span> <span style="color: #f0dfaf;">-main</span>
   [input-path output-path]
-  <span style="color: #8c8c8c;">(</span>workflow [<span style="color: #8b2252;">"/tmp/example-checkpoint"</span>]          
-            step-1     <span style="color: #8c8c8c;">(</span>[<span style="color: #008b8b;">:tmp-dirs</span> [staging-path]]
-                          <span style="color: #8c8c8c;">(</span>transfer-tweets input-path staging-path<span style="color: #8c8c8c;">))</span>
+  <span style="color: #7f7f7f;">(</span>workflow [<span style="color: #cc9393;">"/tmp/example-checkpoint"</span>]          
+            step-1     <span style="color: #7f7f7f;">(</span>[<span style="color: #dca3a3; font-weight: bold;">:tmp-dirs</span> [staging-path]]
+                          <span style="color: #7f7f7f;">(</span>transfer-tweets input-path staging-path<span style="color: #7f7f7f;">))</span>
 
-            step-2     <span style="color: #8c8c8c;">(</span>[<span style="color: #008b8b;">:deps</span> <span style="color: #008b8b;">:last</span> <span style="color: #008b8b;">:tmp-dirs</span> user-path]
-                          <span style="color: #8c8c8c;">(</span>harvest-users staging-path user-path<span style="color: #8c8c8c;">))</span>
+            step-2     <span style="color: #7f7f7f;">(</span>[<span style="color: #dca3a3; font-weight: bold;">:deps</span> <span style="color: #dca3a3; font-weight: bold;">:last</span> <span style="color: #dca3a3; font-weight: bold;">:tmp-dirs</span> user-path]
+                          <span style="color: #7f7f7f;">(</span>harvest-users staging-path user-path<span style="color: #7f7f7f;">))</span>
 
-            step-3a    <span style="color: #8c8c8c;">(</span>[<span style="color: #008b8b;">:deps</span> step-2 <span style="color: #008b8b;">:tmp-dirs</span> [cluster-path friend-path]]
-                          <span style="color: #8c8c8c;">(</span>cluster-users user-path cluster-path<span style="color: #8c8c8c;">)</span>
-                          <span style="color: #8c8c8c;">(</span>count-friends user-path friend-path<span style="color: #8c8c8c;">))</span>
+            step-3a    <span style="color: #7f7f7f;">(</span>[<span style="color: #dca3a3; font-weight: bold;">:deps</span> step-2 <span style="color: #dca3a3; font-weight: bold;">:tmp-dirs</span> [cluster-path friend-path]]
+                          <span style="color: #7f7f7f;">(</span>cluster-users user-path cluster-path<span style="color: #7f7f7f;">)</span>
+                          <span style="color: #7f7f7f;">(</span>count-friends user-path friend-path<span style="color: #7f7f7f;">))</span>
 
-            step-3b    <span style="color: #8c8c8c;">(</span>[<span style="color: #008b8b;">:deps</span> step-2 <span style="color: #008b8b;">:tmp-dirs</span> age-path]
-                          <span style="color: #8c8c8c;">(</span>examine-ages user-path age-path<span style="color: #8c8c8c;">))</span>
+            step-3b    <span style="color: #7f7f7f;">(</span>[<span style="color: #dca3a3; font-weight: bold;">:deps</span> step-2 <span style="color: #dca3a3; font-weight: bold;">:tmp-dirs</span> age-path]
+                          <span style="color: #7f7f7f;">(</span>examine-ages user-path age-path<span style="color: #7f7f7f;">))</span>
 
-            final-step <span style="color: #8c8c8c;">(</span>[<span style="color: #008b8b;">:deps</span> <span style="color: #008b8b;">:all</span>]
-                          <span style="color: #8c8c8c;">(</span>big-analysis cluster-path
+            final-step <span style="color: #7f7f7f;">(</span>[<span style="color: #dca3a3; font-weight: bold;">:deps</span> <span style="color: #dca3a3; font-weight: bold;">:all</span>]
+                          <span style="color: #7f7f7f;">(</span>big-analysis cluster-path
                                         friend-path
                                         age-path
-                                        output-path<span style="color: #8c8c8c;">))))</span>
+                                        output-path<span style="color: #7f7f7f;">))))</span>
 </pre>
 
 
@@ -82,7 +82,7 @@ Let's look at this one piece at a time. The first argument to <code>workflow</co
 
 
 
-<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span>workflow [<span style="color: #8b2252;">"/tmp/example-checkpoint"</span>] ...<span style="color: #8c8c8c;">)</span>
+<pre class="src src-clojure"><span style="color: #7f7f7f;">(</span>workflow [<span style="color: #cc9393;">"/tmp/example-checkpoint"</span>] ...<span style="color: #7f7f7f;">)</span>
 </pre>
 
 
@@ -95,9 +95,9 @@ Following this vector, <code>workflow</code> expects pairs of the form
 
 
 
-<pre class="src src-clojure">step-name <span style="color: #8c8c8c;">(</span>[<span style="color: #008b8b;">:deps</span> &lt;optional-deps, defaults to <span style="color: #008b8b;">:last&gt;</span>]
-             <span style="color: #008b8b;">:tmp-dirs</span> [&lt;optional, creates temp-dirs if supplied&gt;]
-             ...&lt;body, same as inside let&gt;...<span style="color: #8c8c8c;">)</span>
+<pre class="src src-clojure">step-name <span style="color: #7f7f7f;">(</span>[<span style="color: #dca3a3; font-weight: bold;">:deps</span> &lt;optional-deps, defaults to <span style="color: #dca3a3; font-weight: bold;">:last&gt;</span>]
+             <span style="color: #dca3a3; font-weight: bold;">:tmp-dirs</span> [&lt;optional, creates temp-dirs if supplied&gt;]
+             ...&lt;body, same as inside let&gt;...<span style="color: #7f7f7f;">)</span>
 </pre>
 
 
@@ -110,8 +110,8 @@ The first step creates a temporary directory by supplying the symbol <code>stagi
 
 
 
-<pre class="src src-clojure">step-1 <span style="color: #8c8c8c;">(</span>[<span style="color: #008b8b;">:tmp-dirs</span> [staging-path]]
-          <span style="color: #8c8c8c;">(</span>transfer-tweets input-path staging-path<span style="color: #8c8c8c;">))</span>
+<pre class="src src-clojure">step-1 <span style="color: #7f7f7f;">(</span>[<span style="color: #dca3a3; font-weight: bold;">:tmp-dirs</span> [staging-path]]
+          <span style="color: #7f7f7f;">(</span>transfer-tweets input-path staging-path<span style="color: #7f7f7f;">))</span>
 </pre>
 
 
@@ -127,8 +127,8 @@ If <code>step-2</code> fails for any reason and you restart the workflow, the wo
 
 
 
-<pre class="src src-clojure">step-2 <span style="color: #8c8c8c;">(</span>[<span style="color: #008b8b;">:deps</span> <span style="color: #008b8b;">:last</span> <span style="color: #008b8b;">:tmp-dirs</span> user-path]
-          <span style="color: #8c8c8c;">(</span>harvest-users staging-path user-path<span style="color: #8c8c8c;">))</span>
+<pre class="src src-clojure">step-2 <span style="color: #7f7f7f;">(</span>[<span style="color: #dca3a3; font-weight: bold;">:deps</span> <span style="color: #dca3a3; font-weight: bold;">:last</span> <span style="color: #dca3a3; font-weight: bold;">:tmp-dirs</span> user-path]
+          <span style="color: #7f7f7f;">(</span>harvest-users staging-path user-path<span style="color: #7f7f7f;">))</span>
 </pre>
 
 
@@ -138,12 +138,12 @@ The next two steps, <code>step-3a</code> and <code>step-3b</code>, each mark <co
 
 
 
-<pre class="src src-clojure">step-3a <span style="color: #8c8c8c;">(</span>[<span style="color: #008b8b;">:deps</span> step-2 <span style="color: #008b8b;">:tmp-dirs</span> [cluster-path friend-path]]
-           <span style="color: #8c8c8c;">(</span>cluster-users user-path cluster-path<span style="color: #8c8c8c;">)</span>
-           <span style="color: #8c8c8c;">(</span>count-friends user-path friend-path<span style="color: #8c8c8c;">))</span>
+<pre class="src src-clojure">step-3a <span style="color: #7f7f7f;">(</span>[<span style="color: #dca3a3; font-weight: bold;">:deps</span> step-2 <span style="color: #dca3a3; font-weight: bold;">:tmp-dirs</span> [cluster-path friend-path]]
+           <span style="color: #7f7f7f;">(</span>cluster-users user-path cluster-path<span style="color: #7f7f7f;">)</span>
+           <span style="color: #7f7f7f;">(</span>count-friends user-path friend-path<span style="color: #7f7f7f;">))</span>
 
-step-3b <span style="color: #8c8c8c;">(</span>[<span style="color: #008b8b;">:deps</span> step-2 <span style="color: #008b8b;">:tmp-dirs</span> age-path]
-           <span style="color: #8c8c8c;">(</span>examine-ages user-path age-path<span style="color: #8c8c8c;">))</span>
+step-3b <span style="color: #7f7f7f;">(</span>[<span style="color: #dca3a3; font-weight: bold;">:deps</span> step-2 <span style="color: #dca3a3; font-weight: bold;">:tmp-dirs</span> age-path]
+           <span style="color: #7f7f7f;">(</span>examine-ages user-path age-path<span style="color: #7f7f7f;">))</span>
 </pre>
 
 
@@ -153,11 +153,11 @@ The final step marks its dependencies as <code>:all</code>. This signifies that 
 
 
 
-<pre class="src src-clojure">final-step <span style="color: #8c8c8c;">(</span>[<span style="color: #008b8b;">:deps</span> <span style="color: #008b8b;">:all</span>]
-              <span style="color: #8c8c8c;">(</span>big-analysis cluster-path
+<pre class="src src-clojure">final-step <span style="color: #7f7f7f;">(</span>[<span style="color: #dca3a3; font-weight: bold;">:deps</span> <span style="color: #dca3a3; font-weight: bold;">:all</span>]
+              <span style="color: #7f7f7f;">(</span>big-analysis cluster-path
                             friend-path
                             age-path
-                            output-path<span style="color: #8c8c8c;">))</span>
+                            output-path<span style="color: #7f7f7f;">))</span>
 </pre>
 
 

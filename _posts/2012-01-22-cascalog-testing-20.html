@@ -49,7 +49,7 @@ Take the following Cascalog query:
 Executing this code at the repl prints a single tuple with the string <code>word up!</code> to standard out.
 </p>
 <p>
-How would you go about testing that this is true? With midje-cascalog, you would swap out the <code>?&lt;-</code> form for its testing equivalent: <code>fact?&lt;-</code>. Here's the same test, along with a non-Cascalog Midje test:
+How would you go about testing that this is true? With midje-cascalog, you would swap out the <code>?&lt;-</code> form for its testing equivalent: <code>fact?&lt;-</code>. Here's the same Cascalog test alongside a typical Midje test:
 </p>
 
 
@@ -84,7 +84,7 @@ Midje-cascalog 0.4.0 introduces the <code>produces</code> function, mirroring Mi
 
 
 <pre class="src src-clojure"><span style="color: #8c8c8c;">(</span><span style="color: #a0522d;">use</span> 'cascalog.api<span style="color: #8c8c8c;">)</span>
-<span style="color: #8c8c8c;">(</span><span style="color: #a0522d;">require</span> ['cascalog.ops <span style="color: #008b8b;">:as</span> c]<span style="color: #8c8c8c;">)</span>
+<span style="color: #8c8c8c;">(</span><span style="color: #a0522d;">require</span> '[cascalog.ops <span style="color: #008b8b;">:as</span> c]<span style="color: #8c8c8c;">)</span>
 
 <span style="color: #8c8c8c;">(</span><span style="color: #7f007f;">def</span> <span style="color: #0000ff;">src</span>
   [[1 2] [1 3]
@@ -103,7 +103,7 @@ Midje-cascalog 0.4.0 introduces the <code>produces</code> function, mirroring Mi
 
 
 <p>
-You can think of a query a a collection of tuples waiting to be generated (through query execution). With Midje, you test collections using the <code>just</code> checker:
+You can think of a query as a set of tuples waiting to be generated (through query execution). With Midje, you test sets using the <code>just</code> checker:
 </p>
 
 
@@ -115,7 +115,7 @@ You can think of a query a a collection of tuples waiting to be generated (throu
 
 
 <p>
-The cascalog analog to <code>just</code> is the <code>produces</code> checker. <code>produces</code> works like <code>just</code>, but against queries instead of bare collections. Executing the following test shows that the query produces the expected pairs, in any order:
+The cascalog analog to <code>just</code> is the <code>produces</code> checker. <code>produces</code> works like <code>just</code>, but against queries instead of bare collections. Executing the following test shows that the query produces the expected set of pairs, in any order:
 </p>
 
 
