@@ -219,11 +219,11 @@ A few more examples:
 All of the collection checkers discussed above can be used with the =fact?<-= and =fact?-= macros:
 
 #+begin_src clojure
-  (fact<- (produces-some [[5 11] [1 5]] :in-order)
-          [?x ?sum]
-          (src ?x ?y)
-          (:sort ?x)
-          (c/sum ?y :> ?sum)) ;; true
+  (fact?<- (produces-some [[1 5] [5 11]] :in-order)
+           [?x ?sum]
+           (src ?x ?y)
+           (:sort ?x)
+           (c/sum ?y :> ?sum)) ;; true
 #+end_src
 
 =fact?<-= and =fact?-= are also compatible with all of Midje's unwrapped collection checkers, as discussed [[http://sritchie.github.com/2011/09/30/testing-cascalog-with-midje.html][here]].
