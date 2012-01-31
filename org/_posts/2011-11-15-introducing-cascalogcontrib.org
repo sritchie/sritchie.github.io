@@ -20,7 +20,7 @@ Cascalog-contrib will be home to any higher-level abstractions over Cascalog tha
 The first cascalog-contrib modules are now live on [[http://clojars.org/cascalog-contrib][clojars]]. To include them in your leiningen or cake project, add any of the following to =project.clj=:
 
 #+begin_src clojure
-[cascalog-checkpoint "0.1.0"]
+[cascalog-checkpoint "0.1.1"]
 [cascalog-incanter "0.1.0"]
 [cascalog-math "0.1.0"]
 #+end_src
