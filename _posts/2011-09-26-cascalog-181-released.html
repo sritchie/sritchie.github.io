@@ -7,7 +7,7 @@ title: Cascalog 1.8.1 Released
 
 
 <div id="outline-container-1" class="outline-2">
-<h2 id="sec-1">Cascalog 1.8.1 Released </h2>
+<h2 id="sec-1">Cascalog 1.8.1 Released</h2>
 <div class="outline-text-2" id="text-1">
 
 
@@ -18,7 +18,7 @@ title: Cascalog 1.8.1 Released
 </div>
 
 <div id="outline-container-1-1" class="outline-3">
-<h3 id="sec-1-1">Cross Join </h3>
+<h3 id="sec-1-1">Cross Join</h3>
 <div class="outline-text-3" id="text-1-1">
 
 
@@ -31,13 +31,13 @@ Think of a cross-join as a "tuple comprehension", or cartesian product, with sim
 
 
 
-<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span><span style="color: #7a378b;">let</span> [a-src [[1] [2]]
+<pre class="src src-clojure"><span style="color: #7f7f7f;">(</span><span style="color: #728a05; font-weight: bold;">let</span> [a-src [[1] [2]]
       b-src [[3] [4]]]
-  <span style="color: #8c8c8c;">(</span>?&lt;- <span style="color: #8c8c8c;">(</span>stdout<span style="color: #8c8c8c;">)</span>
+  <span style="color: #7f7f7f;">(</span>?&lt;- <span style="color: #7f7f7f;">(</span>stdout<span style="color: #7f7f7f;">)</span>
        [?a ?b]
-       <span style="color: #8c8c8c;">(</span>a-src ?a<span style="color: #8c8c8c;">)</span>
-       <span style="color: #8c8c8c;">(</span>b-src ?b<span style="color: #8c8c8c;">)</span>
-       <span style="color: #8c8c8c;">(</span>cross-join<span style="color: #8c8c8c;">)))</span>  
+       <span style="color: #7f7f7f;">(</span>a-src ?a<span style="color: #7f7f7f;">)</span>
+       <span style="color: #7f7f7f;">(</span>b-src ?b<span style="color: #7f7f7f;">)</span>
+       <span style="color: #7f7f7f;">(</span>cross-join<span style="color: #7f7f7f;">)))</span>
 </pre>
 
 
@@ -63,8 +63,8 @@ If you're interested, here's the implementation:
 
 
 
-<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span><span style="color: #7f007f;">def</span> <span style="color: #0000ff;">cross-join</span>
-  <span style="color: #8c8c8c;">(</span>&lt;- [<span style="color: #008b8b;">:&gt;</span>] <span style="color: #8c8c8c;">(</span><span style="color: #a0522d;">identity</span> 1 <span style="color: #008b8b;">:&gt;</span> _<span style="color: #8c8c8c;">)))</span>
+<pre class="src src-clojure"><span style="color: #7f7f7f;">(</span><span style="color: #728a05; font-weight: bold;">def</span> <span style="color: #2075c7;">cross-join</span>
+  <span style="color: #7f7f7f;">(</span>&lt;- [<span style="color: #259185; font-weight: bold;">:&gt;</span>] <span style="color: #7f7f7f;">(</span><span style="color: #728a05;">identity</span> 1 <span style="color: #259185; font-weight: bold;">:&gt;</span> _<span style="color: #7f7f7f;">)))</span>
 </pre>
 
 
@@ -76,7 +76,7 @@ This is the only predicate macro I know of that can get away with no input OR ou
 </div>
 
 <div id="outline-container-1-2" class="outline-3">
-<h3 id="sec-1-2">defmain </h3>
+<h3 id="sec-1-2">defmain</h3>
 <div class="outline-text-3" id="text-1-2">
 
 
@@ -89,14 +89,14 @@ When running a cascalog query on a cluster, usual practice is to include <code>(
 
 
 
-<pre class="src src-clojure"><span style="color: #b22222;">;; </span><span style="color: #b22222;">inside myproject.jobs...  </span>
-<span style="color: #8c8c8c;">(</span>defmain <span style="color: #7a378b;">FirstQuery</span> [in-path out-path]
-  <span style="color: #8c8c8c;">(</span>?- <span style="color: #8c8c8c;">(</span>hfs-textline out-path<span style="color: #8c8c8c;">)</span>
-      <span style="color: #8c8c8c;">(</span>some-query in-path<span style="color: #8c8c8c;">)))</span>
+<pre class="src src-clojure"><span style="color: #465a61; font-weight: bold;">;; </span><span style="color: #465a61; font-style: italic;">inside myproject.jobs...  </span>
+<span style="color: #7f7f7f;">(</span><span style="color: #728a05; font-weight: bold;">defmain</span> <span style="color: #2075c7;">FirstQuery</span> [in-path out-path]
+  <span style="color: #7f7f7f;">(</span>?- <span style="color: #7f7f7f;">(</span>hfs-textline out-path<span style="color: #7f7f7f;">)</span>
+      <span style="color: #7f7f7f;">(</span>some-query in-path<span style="color: #7f7f7f;">)))</span>
 
-<span style="color: #8c8c8c;">(</span>defmain <span style="color: #7a378b;">SecondQuery</span> [out-path]
-  <span style="color: #8c8c8c;">(</span>?&lt;- <span style="color: #8c8c8c;">(</span>hfs-textline out-path<span style="color: #8c8c8c;">)</span>
-       [?a ?b] ...<span style="color: #8c8c8c;">))</span>
+<span style="color: #7f7f7f;">(</span><span style="color: #728a05; font-weight: bold;">defmain</span> <span style="color: #2075c7;">SecondQuery</span> [out-path]
+  <span style="color: #7f7f7f;">(</span>?&lt;- <span style="color: #7f7f7f;">(</span>hfs-textline out-path<span style="color: #7f7f7f;">)</span>
+       [?a ?b] ...<span style="color: #7f7f7f;">))</span>
 </pre>
 
 
@@ -111,7 +111,7 @@ Each <code>defmain</code> will compile to a class with the supplied name, prefix
 </div>
 
 <div id="outline-container-1-3" class="outline-3">
-<h3 id="sec-1-3">with-serializations </h3>
+<h3 id="sec-1-3">with-serializations</h3>
 <div class="outline-text-3" id="text-1-3">
 
 
@@ -121,21 +121,21 @@ Damn you, serializations. This one JobConf entry, "io.serializations", has cause
 
 
 
-<pre class="src src-clojure"><span style="color: #b22222;">;; </span><span style="color: #b22222;">You can specify serializations in string form...</span>
-<span style="color: #8c8c8c;">(</span>with-serializations [<span style="color: #8b2252;">"org.apache.hadoop.io.serializer.JavaSerialization"</span>]
-  <span style="color: #8c8c8c;">(</span>&lt;- [?a] ...<span style="color: #8c8c8c;">))</span>
+<pre class="src src-clojure"><span style="color: #465a61; font-weight: bold;">;; </span><span style="color: #465a61; font-style: italic;">You can specify serializations in string form...</span>
+<span style="color: #7f7f7f;">(</span>with-serializations [<span style="color: #259185;">"org.apache.hadoop.io.serializer.JavaSerialization"</span>]
+  <span style="color: #7f7f7f;">(</span>&lt;- [?a] ...<span style="color: #7f7f7f;">))</span>
 
-<span style="color: #b22222;">;; </span><span style="color: #b22222;">... or directly, with the class.</span>
-<span style="color: #8c8c8c;">(</span><span style="color: #7a378b;">import</span> '<span style="color: #7a378b;">org.apache.hadoop.io.serializer.JavaSerialization</span><span style="color: #8c8c8c;">)</span>
+<span style="color: #465a61; font-weight: bold;">;; </span><span style="color: #465a61; font-style: italic;">... or directly, with the class.</span>
+<span style="color: #7f7f7f;">(</span><span style="color: #728a05; font-weight: bold;">import</span> '<span style="color: #bd3612;">org.apache.hadoop.io.serializer.JavaSerialization</span><span style="color: #7f7f7f;">)</span>
 
-<span style="color: #8c8c8c;">(</span>with-serializations [<span style="color: #7a378b;">JavaSerialization</span>]
-  <span style="color: #8c8c8c;">(</span>&lt;- [?a] ...<span style="color: #8c8c8c;">))</span>
+<span style="color: #7f7f7f;">(</span>with-serializations [<span style="color: #bd3612;">JavaSerialization</span>]
+  <span style="color: #7f7f7f;">(</span>&lt;- [?a] ...<span style="color: #7f7f7f;">))</span>
 
-<span style="color: #b22222;">;; </span><span style="color: #b22222;">Serializations nest and unique against each other!</span>
-<span style="color: #8c8c8c;">(</span>with-job-conf {<span style="color: #8b2252;">"io.serializations"</span> <span style="color: #8b2252;">"my.ns.SomeSerialization"</span>}
-  <span style="color: #8c8c8c;">(</span>with-serializations [<span style="color: #7a378b;">JavaSerialization</span> <span style="color: #7a378b;">OtherSerialization</span>]
-    <span style="color: #8c8c8c;">(</span>with-serializations [<span style="color: #8b2252;">"my.ns.SomeSerialization"</span> <span style="color: #7a378b;">ThirdSerialization</span>]
-      <span style="color: #8c8c8c;">(</span>&lt;- [?a] ...<span style="color: #8c8c8c;">))))</span>
+<span style="color: #465a61; font-weight: bold;">;; </span><span style="color: #465a61; font-style: italic;">Serializations nest and unique against each other!</span>
+<span style="color: #7f7f7f;">(</span>with-job-conf {<span style="color: #259185;">"io.serializations"</span> <span style="color: #259185;">"my.ns.SomeSerialization"</span>}
+  <span style="color: #7f7f7f;">(</span>with-serializations [<span style="color: #bd3612;">JavaSerialization</span> <span style="color: #bd3612;">OtherSerialization</span>]
+    <span style="color: #7f7f7f;">(</span>with-serializations [<span style="color: #259185;">"my.ns.SomeSerialization"</span> <span style="color: #bd3612;">ThirdSerialization</span>]
+      <span style="color: #7f7f7f;">(</span>&lt;- [?a] ...<span style="color: #7f7f7f;">))))</span>
 </pre>
 
 
@@ -144,7 +144,7 @@ Damn you, serializations. This one JobConf entry, "io.serializations", has cause
 </div>
 
 <div id="outline-container-1-4" class="outline-3">
-<h3 id="sec-1-4">cascalog.ops/first-n </h3>
+<h3 id="sec-1-4">cascalog.ops/first-n</h3>
 <div class="outline-text-3" id="text-1-4">
 
 
@@ -157,22 +157,22 @@ Say we've previously run a wordcount job that output <code>[?word ?count]</code>
 
 
 
-<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span><span style="color: #a0522d;">use</span> 'cascalog.api<span style="color: #8c8c8c;">)</span>
-<span style="color: #8c8c8c;">(</span><span style="color: #a0522d;">require</span> '[cascalog.ops <span style="color: #008b8b;">:as</span> c]<span style="color: #8c8c8c;">)</span>
+<pre class="src src-clojure"><span style="color: #7f7f7f;">(</span><span style="color: #728a05;">use</span> 'cascalog.api<span style="color: #7f7f7f;">)</span>
+<span style="color: #7f7f7f;">(</span><span style="color: #728a05;">require</span> '[cascalog.ops <span style="color: #259185; font-weight: bold;">:as</span> c]<span style="color: #7f7f7f;">)</span>
 
-<span style="color: #8c8c8c;">(</span><span style="color: #7f007f;">defn</span> <span style="color: #0000ff;">wordcount-tap</span> [path]
-  <span style="color: #8c8c8c;">(</span><span style="color: #7a378b;">-&gt;</span> <span style="color: #8c8c8c;">(</span>hfs-seqfile path<span style="color: #8c8c8c;">)</span>
-      <span style="color: #8c8c8c;">(</span>name-vars [<span style="color: #8b2252;">"?word"</span> <span style="color: #8b2252;">"?count"</span>]<span style="color: #8c8c8c;">)))</span>
+<span style="color: #7f7f7f;">(</span><span style="color: #728a05; font-weight: bold;">defn</span> <span style="color: #2075c7;">wordcount-tap</span> [path]
+  <span style="color: #7f7f7f;">(</span><span style="color: #728a05; font-weight: bold;">-&gt;</span> <span style="color: #7f7f7f;">(</span>hfs-seqfile path<span style="color: #7f7f7f;">)</span>
+      <span style="color: #7f7f7f;">(</span>name-vars [<span style="color: #259185;">"?word"</span> <span style="color: #259185;">"?count"</span>]<span style="color: #7f7f7f;">)))</span>
 
-<span style="color: #8c8c8c;">(</span><span style="color: #7f007f;">defn</span> <span style="color: #0000ff;">top-100</span> [file-path]
-  <span style="color: #8c8c8c;">(</span>c/first-n <span style="color: #8c8c8c;">(</span>wordcount-tap path<span style="color: #8c8c8c;">)</span>
+<span style="color: #7f7f7f;">(</span><span style="color: #728a05; font-weight: bold;">defn</span> <span style="color: #2075c7;">top-100</span> [file-path]
+  <span style="color: #7f7f7f;">(</span>c/first-n <span style="color: #7f7f7f;">(</span>wordcount-tap path<span style="color: #7f7f7f;">)</span>
              100
-             <span style="color: #008b8b;">:sort</span> [<span style="color: #8b2252;">"?count"</span>]
-             <span style="color: #008b8b;">:reverse</span> true<span style="color: #8c8c8c;">))</span>
+             <span style="color: #259185; font-weight: bold;">:sort</span> [<span style="color: #259185;">"?count"</span>]
+             <span style="color: #259185; font-weight: bold;">:reverse</span> true<span style="color: #7f7f7f;">))</span>
 
-<span style="color: #8c8c8c;">(</span>defmain <span style="color: #7a378b;">Top100</span> [tuple-path results-path]
-  <span style="color: #8c8c8c;">(</span>?- <span style="color: #8c8c8c;">(</span>hfs-textline results-path<span style="color: #8c8c8c;">)</span>
-      <span style="color: #8c8c8c;">(</span>top-100 tuple-path<span style="color: #8c8c8c;">)))</span>
+<span style="color: #7f7f7f;">(</span><span style="color: #728a05; font-weight: bold;">defmain</span> <span style="color: #2075c7;">Top100</span> [tuple-path results-path]
+  <span style="color: #7f7f7f;">(</span>?- <span style="color: #7f7f7f;">(</span>hfs-textline results-path<span style="color: #7f7f7f;">)</span>
+      <span style="color: #7f7f7f;">(</span>top-100 tuple-path<span style="color: #7f7f7f;">)))</span>
 </pre>
 
 
@@ -184,7 +184,7 @@ Say we've previously run a wordcount job that output <code>[?word ?count]</code>
 </div>
 
 <div id="outline-container-1-5" class="outline-3">
-<h3 id="sec-1-5">Other Bugfixes </h3>
+<h3 id="sec-1-5">Other Bugfixes</h3>
 <div class="outline-text-3" id="text-1-5">
 
 

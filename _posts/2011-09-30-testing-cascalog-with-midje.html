@@ -7,7 +7,7 @@ title: Testing Cascalog with Midje
 
 
 <div id="outline-container-1" class="outline-2">
-<h2 id="sec-1">Testing Cascalog with Midje </h2>
+<h2 id="sec-1">Testing Cascalog with Midje</h2>
 <div class="outline-text-2" id="text-1">
 
 
@@ -27,7 +27,7 @@ I'll start by introducing midje-cascalog's testing operators, then move on to a 
 </div>
 
 <div id="outline-container-1-1" class="outline-3">
-<h3 id="sec-1-1">Testing Operators </h3>
+<h3 id="sec-1-1">Testing Operators</h3>
 <div class="outline-text-3" id="text-1-1">
 
 
@@ -38,7 +38,7 @@ In this section, I'll discuss midje-cascalog's testing operators: <code>fact?-</
 </div>
 
 <div id="outline-container-1-1-1" class="outline-4">
-<h4 id="sec-1-1-1">fact?- </h4>
+<h4 id="sec-1-1-1">fact?-</h4>
 <div class="outline-text-4" id="text-1-1-1">
 
 
@@ -48,10 +48,10 @@ Let's begin by defining a function to test:
 
 
 
-<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span><span style="color: #7f007f;">defn</span> <span style="color: #0000ff;">mk-inc-query</span> [src]
-  <span style="color: #8c8c8c;">(</span>&lt;- [?a ?b]
-      <span style="color: #8c8c8c;">(</span>src ?a<span style="color: #8c8c8c;">)</span>
-      <span style="color: #8c8c8c;">(</span><span style="color: #a0522d;">inc</span> ?a <span style="color: #008b8b;">:&gt;</span> ?b<span style="color: #8c8c8c;">)))</span>
+<pre class="src src-clojure"><span style="color: #7f7f7f;">(</span><span style="color: #728a05; font-weight: bold;">defn</span> <span style="color: #2075c7;">mk-inc-query</span> [src]
+  <span style="color: #7f7f7f;">(</span>&lt;- [?a ?b]
+      <span style="color: #7f7f7f;">(</span>src ?a<span style="color: #7f7f7f;">)</span>
+      <span style="color: #7f7f7f;">(</span><span style="color: #728a05;">inc</span> ?a <span style="color: #259185; font-weight: bold;">:&gt;</span> ?b<span style="color: #7f7f7f;">)))</span>
 </pre>
 
 
@@ -75,18 +75,18 @@ These two facts about <code>mk-inc-query</code> are true, and pass:
 
 
 
-<pre class="src src-clojure"><span style="color: #b22222;">;; </span><span style="color: #b22222;">The query returned by (mk-inc-query [[1]]),</span>
-<span style="color: #b22222;">;; </span><span style="color: #b22222;">when executed,</span>
-<span style="color: #b22222;">;; </span><span style="color: #b22222;">returns a single tuple: [1 2]</span>
-<span style="color: #8c8c8c;">(</span>fact?- [[1 2]]
-        <span style="color: #8c8c8c;">(</span>mk-inc-query [[1]]<span style="color: #8c8c8c;">))</span> <span style="color: #b22222;">;; </span><span style="color: #b22222;">fact is true!</span>
+<pre class="src src-clojure"><span style="color: #465a61; font-weight: bold;">;; </span><span style="color: #465a61; font-style: italic;">The query returned by (mk-inc-query [[1]]),</span>
+<span style="color: #465a61; font-weight: bold;">;; </span><span style="color: #465a61; font-style: italic;">when executed,</span>
+<span style="color: #465a61; font-weight: bold;">;; </span><span style="color: #465a61; font-style: italic;">returns a single tuple: [1 2]</span>
+<span style="color: #7f7f7f;">(</span>fact?- [[1 2]]
+        <span style="color: #7f7f7f;">(</span>mk-inc-query [[1]]<span style="color: #7f7f7f;">))</span> <span style="color: #465a61; font-weight: bold;">;; </span><span style="color: #465a61; font-style: italic;">fact is true!</span>
 
-<span style="color: #b22222;">;; </span><span style="color: #b22222;">The query returned by (mk-inc-query [[1] [10]]),</span>
-<span style="color: #b22222;">;; </span><span style="color: #b22222;">When executed,</span>
-<span style="color: #b22222;">;; </span><span style="color: #b22222;">returns two tuples: [10 11] and [1 2]</span>
-<span style="color: #8c8c8c;">(</span>fact?- [[10 11]
+<span style="color: #465a61; font-weight: bold;">;; </span><span style="color: #465a61; font-style: italic;">The query returned by (mk-inc-query [[1] [10]]),</span>
+<span style="color: #465a61; font-weight: bold;">;; </span><span style="color: #465a61; font-style: italic;">When executed,</span>
+<span style="color: #465a61; font-weight: bold;">;; </span><span style="color: #465a61; font-style: italic;">returns two tuples: [10 11] and [1 2]</span>
+<span style="color: #7f7f7f;">(</span>fact?- [[10 11]
          [1 2]]
-        <span style="color: #8c8c8c;">(</span>mk-inc-query [[1] [10]]<span style="color: #8c8c8c;">))</span> <span style="color: #b22222;">;; </span><span style="color: #b22222;">fact is true!</span>
+        <span style="color: #7f7f7f;">(</span>mk-inc-query [[1] [10]]<span style="color: #7f7f7f;">))</span> <span style="color: #465a61; font-weight: bold;">;; </span><span style="color: #465a61; font-style: italic;">fact is true!</span>
 </pre>
 
 
@@ -96,11 +96,11 @@ This fact is false, and fails:
 
 
 
-<pre class="src src-clojure"><span style="color: #b22222;">;; </span><span style="color: #b22222;">The query returned by (mk-inc-query [[1]]),</span>
-<span style="color: #b22222;">;; </span><span style="color: #b22222;">when executed,</span>
-<span style="color: #b22222;">;; </span><span style="color: #b22222;">returns a single tuple: ["fail!" 10].</span>
-<span style="color: #8c8c8c;">(</span>fact?- [[<span style="color: #8b2252;">"fail!"</span> 10]]
-        <span style="color: #8c8c8c;">(</span>mk-inc-query [[1]]<span style="color: #8c8c8c;">))</span> <span style="color: #b22222;">;; </span><span style="color: #b22222;">fact is FALSE!  </span>
+<pre class="src src-clojure"><span style="color: #465a61; font-weight: bold;">;; </span><span style="color: #465a61; font-style: italic;">The query returned by (mk-inc-query [[1]]),</span>
+<span style="color: #465a61; font-weight: bold;">;; </span><span style="color: #465a61; font-style: italic;">when executed,</span>
+<span style="color: #465a61; font-weight: bold;">;; </span><span style="color: #465a61; font-style: italic;">returns a single tuple: ["fail!" 10].</span>
+<span style="color: #7f7f7f;">(</span>fact?- [[<span style="color: #259185;">"fail!"</span> 10]]
+        <span style="color: #7f7f7f;">(</span>mk-inc-query [[1]]<span style="color: #7f7f7f;">))</span> <span style="color: #465a61; font-weight: bold;">;; </span><span style="color: #465a61; font-style: italic;">fact is FALSE!  </span>
 </pre>
 
 
@@ -110,12 +110,12 @@ This fact is false, and fails:
 
 
 
-<pre class="src src-clojure"><span style="color: #b22222;">;; </span><span style="color: #b22222;">Same as two true facts above.</span>
-<span style="color: #8c8c8c;">(</span>fact?- [[1 2]]
-        <span style="color: #8c8c8c;">(</span>mk-inc-query [[1]]<span style="color: #8c8c8c;">)</span>
+<pre class="src src-clojure"><span style="color: #465a61; font-weight: bold;">;; </span><span style="color: #465a61; font-style: italic;">Same as two true facts above.</span>
+<span style="color: #7f7f7f;">(</span>fact?- [[1 2]]
+        <span style="color: #7f7f7f;">(</span>mk-inc-query [[1]]<span style="color: #7f7f7f;">)</span>
 
         [[10 11] [1 2]]
-        <span style="color: #8c8c8c;">(</span>mk-inc-query [[1] [10]]<span style="color: #8c8c8c;">))</span> <span style="color: #b22222;">;; </span><span style="color: #b22222;">both facts are true!</span>
+        <span style="color: #7f7f7f;">(</span>mk-inc-query [[1] [10]]<span style="color: #7f7f7f;">))</span> <span style="color: #465a61; font-weight: bold;">;; </span><span style="color: #465a61; font-style: italic;">both facts are true!</span>
 </pre>
 
 
@@ -125,11 +125,11 @@ Strings are ignored wherever they appear, so feel free to pepper your facts with
 
 
 
-<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span>fact?- <span style="color: #8b2252;">"These results:"</span>
+<pre class="src src-clojure"><span style="color: #7f7f7f;">(</span>fact?- <span style="color: #259185;">"These results:"</span>
         [[1 2]]
 
-        <span style="color: #8b2252;">"Are produced by this query:"</span>
-        <span style="color: #8c8c8c;">(</span>mk-inc-query [[1]]<span style="color: #8c8c8c;">))</span> <span style="color: #b22222;">;; </span><span style="color: #b22222;">true  </span>
+        <span style="color: #259185;">"Are produced by this query:"</span>
+        <span style="color: #7f7f7f;">(</span>mk-inc-query [[1]]<span style="color: #7f7f7f;">))</span> <span style="color: #465a61; font-weight: bold;">;; </span><span style="color: #465a61; font-style: italic;">true  </span>
 </pre>
 
 
@@ -139,9 +139,9 @@ Note that facts don't have to be top level forms. It's perfectly acceptable to w
 
 
 
-<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span><span style="color: #7a378b;">let</span> [src     [[1]]
+<pre class="src src-clojure"><span style="color: #7f7f7f;">(</span><span style="color: #728a05; font-weight: bold;">let</span> [src     [[1]]
       results [[1 2]]]
-  <span style="color: #8c8c8c;">(</span>fact?- results <span style="color: #8c8c8c;">(</span>mk-inc-query src<span style="color: #8c8c8c;">)))</span> <span style="color: #b22222;">;; </span><span style="color: #b22222;">true</span>
+  <span style="color: #7f7f7f;">(</span>fact?- results <span style="color: #7f7f7f;">(</span>mk-inc-query src<span style="color: #7f7f7f;">)))</span> <span style="color: #465a61; font-weight: bold;">;; </span><span style="color: #465a61; font-style: italic;">true</span>
 </pre>
 
 
@@ -149,7 +149,7 @@ Note that facts don't have to be top level forms. It's perfectly acceptable to w
 </div>
 
 <div id="outline-container-1-1-1-1" class="outline-5">
-<h5 id="sec-1-1-1-1">Custom Log Levels </h5>
+<h5 id="sec-1-1-1-1">Custom Log Levels</h5>
 <div class="outline-text-5" id="text-1-1-1-1">
 
 
@@ -162,8 +162,8 @@ If you want to see more information on fact execution, you customize the log lev
 
 
 
-<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span>fact?- <span style="color: #008b8b;">:info</span>
-        [[1 2]] <span style="color: #8c8c8c;">(</span>mk-inc-query [[1]]<span style="color: #8c8c8c;">))</span> <span style="color: #b22222;">;; </span><span style="color: #b22222;">true</span>
+<pre class="src src-clojure"><span style="color: #7f7f7f;">(</span>fact?- <span style="color: #259185; font-weight: bold;">:info</span>
+        [[1 2]] <span style="color: #7f7f7f;">(</span>mk-inc-query [[1]]<span style="color: #7f7f7f;">))</span> <span style="color: #465a61; font-weight: bold;">;; </span><span style="color: #465a61; font-style: italic;">true</span>
 </pre>
 
 
@@ -173,11 +173,11 @@ As of version 0.2.1, <code>midje-cascalog</code> supports the following log-leve
 
 
 
-<pre class="src src-clojure"><span style="color: #008b8b;">:off</span>
-<span style="color: #008b8b;">:fatal</span>
-<span style="color: #008b8b;">:warn</span>
-<span style="color: #008b8b;">:info</span>
-<span style="color: #008b8b;">:debug</span>
+<pre class="src src-clojure"><span style="color: #259185; font-weight: bold;">:off</span>
+<span style="color: #259185; font-weight: bold;">:fatal</span>
+<span style="color: #259185; font-weight: bold;">:warn</span>
+<span style="color: #259185; font-weight: bold;">:info</span>
+<span style="color: #259185; font-weight: bold;">:debug</span>
 </pre>
 
 
@@ -187,7 +187,7 @@ As of version 0.2.1, <code>midje-cascalog</code> supports the following log-leve
 </div>
 
 <div id="outline-container-1-1-2" class="outline-4">
-<h4 id="sec-1-1-2">fact?&lt;- </h4>
+<h4 id="sec-1-1-2">fact?&lt;-</h4>
 <div class="outline-text-4" id="text-1-1-2">
 
 
@@ -197,17 +197,17 @@ The <code>fact?&lt;-</code> operator allows you to define a test a query within 
 
 
 
-<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span><span style="color: #7a378b;">let</span> [src [[1]]]
-  <span style="color: #8c8c8c;">(</span>fact?- [[1 2]]
-          <span style="color: #8c8c8c;">(</span>&lt;- [?a ?b]
-              <span style="color: #8c8c8c;">(</span>src ?a<span style="color: #8c8c8c;">)</span>
-              <span style="color: #8c8c8c;">(</span><span style="color: #a0522d;">inc</span> ?a <span style="color: #008b8b;">:&gt;</span> ?b<span style="color: #8c8c8c;">))))</span> <span style="color: #b22222;">;; </span><span style="color: #b22222;">true</span>
+<pre class="src src-clojure"><span style="color: #7f7f7f;">(</span><span style="color: #728a05; font-weight: bold;">let</span> [src [[1]]]
+  <span style="color: #7f7f7f;">(</span>fact?- [[1 2]]
+          <span style="color: #7f7f7f;">(</span>&lt;- [?a ?b]
+              <span style="color: #7f7f7f;">(</span>src ?a<span style="color: #7f7f7f;">)</span>
+              <span style="color: #7f7f7f;">(</span><span style="color: #728a05;">inc</span> ?a <span style="color: #259185; font-weight: bold;">:&gt;</span> ?b<span style="color: #7f7f7f;">))))</span> <span style="color: #465a61; font-weight: bold;">;; </span><span style="color: #465a61; font-style: italic;">true</span>
 
-<span style="color: #8c8c8c;">(</span><span style="color: #7a378b;">let</span> [src [[1]]]
-  <span style="color: #8c8c8c;">(</span>fact?&lt;- [[1 2]]
+<span style="color: #7f7f7f;">(</span><span style="color: #728a05; font-weight: bold;">let</span> [src [[1]]]
+  <span style="color: #7f7f7f;">(</span>fact?&lt;- [[1 2]]
            [?a ?b]
-           <span style="color: #8c8c8c;">(</span>src ?a<span style="color: #8c8c8c;">)</span>
-           <span style="color: #8c8c8c;">(</span><span style="color: #a0522d;">inc</span> ?a <span style="color: #008b8b;">:&gt;</span> ?b<span style="color: #8c8c8c;">)))</span> <span style="color: #b22222;">;; </span><span style="color: #b22222;">true</span>
+           <span style="color: #7f7f7f;">(</span>src ?a<span style="color: #7f7f7f;">)</span>
+           <span style="color: #7f7f7f;">(</span><span style="color: #728a05;">inc</span> ?a <span style="color: #259185; font-weight: bold;">:&gt;</span> ?b<span style="color: #7f7f7f;">)))</span> <span style="color: #465a61; font-weight: bold;">;; </span><span style="color: #465a61; font-style: italic;">true</span>
 </pre>
 
 
@@ -219,7 +219,7 @@ Where <code>fact?-</code> is useful for testing full queries and workflows, I fi
 </div>
 
 <div id="outline-container-1-1-3" class="outline-4">
-<h4 id="sec-1-1-3">future-fact?- and future-fact?&lt;- </h4>
+<h4 id="sec-1-1-3">future-fact?- and future-fact?&lt;-</h4>
 <div class="outline-text-4" id="text-1-1-3">
 
 
@@ -229,17 +229,17 @@ If you want to stub out an unfinished test and prevent it from throwing errors, 
 
 
 
-<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span>future-fact?- <span style="color: #8b2252;">"unwritten-query will convert input integer tuples to</span>
-<span style="color: #8b2252;">               strings."</span>
-               [[<span style="color: #8b2252;">"one"</span>] [<span style="color: #8b2252;">"two"</span>]]
-               <span style="color: #8c8c8c;">(</span>unwritten-query [[1] [2]]<span style="color: #8c8c8c;">))</span>
+<pre class="src src-clojure"><span style="color: #7f7f7f;">(</span>future-fact?- <span style="color: #259185;">"unwritten-query will convert input integer tuples to</span>
+<span style="color: #259185;">               strings."</span>
+               [[<span style="color: #259185;">"one"</span>] [<span style="color: #259185;">"two"</span>]]
+               <span style="color: #7f7f7f;">(</span>unwritten-query [[1] [2]]<span style="color: #7f7f7f;">))</span>
 
-<span style="color: #8c8c8c;">(</span><span style="color: #7a378b;">let</span> [src [[1] [2]]]
-  <span style="color: #8c8c8c;">(</span>future-fact?&lt;- <span style="color: #8b2252;">"num-&gt;string is unwritten."</span>
-                  [[<span style="color: #8b2252;">"one"</span>] [<span style="color: #8b2252;">"two"</span>]]
+<span style="color: #7f7f7f;">(</span><span style="color: #728a05; font-weight: bold;">let</span> [src [[1] [2]]]
+  <span style="color: #7f7f7f;">(</span>future-fact?&lt;- <span style="color: #259185;">"num-&gt;string is unwritten."</span>
+                  [[<span style="color: #259185;">"one"</span>] [<span style="color: #259185;">"two"</span>]]
                   [?string]
-                  <span style="color: #8c8c8c;">(</span>src ?num<span style="color: #8c8c8c;">)</span>
-                  <span style="color: #8c8c8c;">(</span>num-&gt;string ?string<span style="color: #8c8c8c;">)))</span>
+                  <span style="color: #7f7f7f;">(</span>src ?num<span style="color: #7f7f7f;">)</span>
+                  <span style="color: #7f7f7f;">(</span>num-&gt;string ?string<span style="color: #7f7f7f;">)))</span>
 </pre>
 
 
@@ -266,7 +266,7 @@ The <code>fact?-</code> and <code>fact?&lt;-</code> operators provide the tools 
 </div>
 
 <div id="outline-container-1-2" class="outline-3">
-<h3 id="sec-1-2">Example Project </h3>
+<h3 id="sec-1-2">Example Project</h3>
 <div class="outline-text-3" id="text-1-2">
 
 
@@ -274,7 +274,7 @@ The <code>fact?-</code> and <code>fact?&lt;-</code> operators provide the tools 
 </div>
 
 <div id="outline-container-1-2-1" class="outline-4">
-<h4 id="sec-1-2-1">Dependencies </h4>
+<h4 id="sec-1-2-1">Dependencies</h4>
 <div class="outline-text-4" id="text-1-2-1">
 
 
@@ -284,8 +284,8 @@ To add <code>midje-cascalog</code> support to your own project, add these entrie
 
 
 
-<pre class="src src-clojure">[lein-midje <span style="color: #8b2252;">"1.0.3"</span>]
-[midje-cascalog <span style="color: #8b2252;">"0.2.1"</span>]
+<pre class="src src-clojure">[lein-midje <span style="color: #259185;">"1.0.3"</span>]
+[midje-cascalog <span style="color: #259185;">"0.2.1"</span>]
 </pre>
 
 
@@ -297,7 +297,7 @@ And add <code>(:use [midje sweet cascalog])</code> to the namespace declaration 
 </div>
 
 <div id="outline-container-1-2-2" class="outline-4">
-<h4 id="sec-1-2-2">Implementing Word Count </h4>
+<h4 id="sec-1-2-2">Implementing Word Count</h4>
 <div class="outline-text-4" id="text-1-2-2">
 
 
@@ -310,39 +310,39 @@ The following code accomplishes this nicely. (Bear with me! a detailed discussio
 
 
 
-<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span><span style="color: #7a378b;">ns</span> cascalog.testing-demo.core
-  <span style="color: #8c8c8c;">(</span><span style="color: #008b8b;">:use</span> cascalog.api<span style="color: #8c8c8c;">)</span>
-  <span style="color: #8c8c8c;">(</span><span style="color: #008b8b;">:require</span> [cascalog.ops <span style="color: #008b8b;">:as</span> c]<span style="color: #8c8c8c;">)</span>
-  <span style="color: #8c8c8c;">(</span><span style="color: #008b8b;">:gen-class</span><span style="color: #8c8c8c;">))</span>
+<pre class="src src-clojure"><span style="color: #7f7f7f;">(</span><span style="color: #728a05; font-weight: bold;">ns</span> cascalog.testing-demo.core
+  <span style="color: #7f7f7f;">(</span><span style="color: #259185; font-weight: bold;">:use</span> cascalog.api<span style="color: #7f7f7f;">)</span>
+  <span style="color: #7f7f7f;">(</span><span style="color: #259185; font-weight: bold;">:require</span> [cascalog.ops <span style="color: #259185; font-weight: bold;">:as</span> c]<span style="color: #7f7f7f;">)</span>
+  <span style="color: #7f7f7f;">(</span><span style="color: #259185; font-weight: bold;">:gen-class</span><span style="color: #7f7f7f;">))</span>
 
-<span style="color: #8c8c8c;">(</span>defmapcatop split
-  <span style="color: #8b2252;">"Accepts a sentence 1-tuple, splits that sentence on whitespace, and</span>
-<span style="color: #8b2252;">  emits a single 1-tuple for each word."</span>
-  [<span style="color: #228b22;">^String</span> sentence]
-  <span style="color: #8c8c8c;">(</span><span style="color: #a0522d;">seq</span> <span style="color: #8c8c8c;">(</span><span style="color: #7a378b;">.split</span> sentence <span style="color: #8b2252;">"\\s+"</span><span style="color: #8c8c8c;">)))</span>
+<span style="color: #7f7f7f;">(</span><span style="color: #728a05; font-weight: bold;">defmapcatop</span> <span style="color: #2075c7;">split</span>
+  <span style="color: #259185;">"Accepts a sentence 1-tuple, splits that sentence on whitespace, and</span>
+<span style="color: #259185;">  emits a single 1-tuple for each word."</span>
+  [<span style="color: #bd3612;">^String</span> sentence]
+  <span style="color: #7f7f7f;">(</span><span style="color: #728a05;">seq</span> <span style="color: #7f7f7f;">(</span><span style="color: #bd3612;">.split</span> sentence <span style="color: #259185;">"\\s+"</span><span style="color: #7f7f7f;">)))</span>
 
-<span style="color: #8c8c8c;">(</span><span style="color: #7f007f;">defn</span> <span style="color: #0000ff;">wc-query</span>
-  <span style="color: #8b2252;">"Returns a subquery that generates counts for every word in</span>
-<span style="color: #8b2252;">    the text-files located at `text-path`."</span>
+<span style="color: #7f7f7f;">(</span><span style="color: #728a05; font-weight: bold;">defn</span> <span style="color: #2075c7;">wc-query</span>
+  <span style="color: #259185; font-style: italic;">"Returns a subquery that generates counts for every word in</span>
+<span style="color: #259185; font-style: italic;">    the text-files located at `text-path`."</span>
   [text-path]
-  <span style="color: #8c8c8c;">(</span><span style="color: #7a378b;">let</span> [src <span style="color: #8c8c8c;">(</span>hfs-textline text-path<span style="color: #8c8c8c;">)</span>]
-    <span style="color: #8c8c8c;">(</span>&lt;- [?word ?count]
-        <span style="color: #8c8c8c;">(</span>src ?textline<span style="color: #8c8c8c;">)</span>
-        <span style="color: #8c8c8c;">(</span>split ?textline <span style="color: #008b8b;">:&gt;</span> ?word<span style="color: #8c8c8c;">)</span>
-        <span style="color: #8c8c8c;">(</span>c/count ?count<span style="color: #8c8c8c;">))))</span>
+  <span style="color: #7f7f7f;">(</span><span style="color: #728a05; font-weight: bold;">let</span> [src <span style="color: #7f7f7f;">(</span>hfs-textline text-path<span style="color: #7f7f7f;">)</span>]
+    <span style="color: #7f7f7f;">(</span>&lt;- [?word ?count]
+        <span style="color: #7f7f7f;">(</span>src ?textline<span style="color: #7f7f7f;">)</span>
+        <span style="color: #7f7f7f;">(</span>split ?textline <span style="color: #259185; font-weight: bold;">:&gt;</span> ?word<span style="color: #7f7f7f;">)</span>
+        <span style="color: #7f7f7f;">(</span>c/count ?count<span style="color: #7f7f7f;">))))</span>
 
-<span style="color: #8c8c8c;">(</span><span style="color: #7f007f;">defn</span> <span style="color: #0000ff;">-main</span>
-  <span style="color: #8b2252;">"Accepts the following arguments:</span>
+<span style="color: #7f7f7f;">(</span><span style="color: #728a05; font-weight: bold;">defn</span> <span style="color: #2075c7;">-main</span>
+  <span style="color: #259185; font-style: italic;">"Accepts the following arguments:</span>
 
-<span style="color: #8b2252;">   - text-path (path to a textfile, or directory with textfiles)</span>
-<span style="color: #8b2252;">   - results-path (location of textfile containing results)</span>
+<span style="color: #259185; font-style: italic;">   - text-path (path to a textfile, or directory with textfiles)</span>
+<span style="color: #259185; font-style: italic;">   - results-path (location of textfile containing results)</span>
 
-<span style="color: #8b2252;">     And prints lines of the form \"word count\" to a textfile at</span>
-<span style="color: #8b2252;">     results-path. Each distinct word in the textfiles at text-path</span>
-<span style="color: #8b2252;">     gets a count."</span>
+<span style="color: #259185; font-style: italic;">     And prints lines of the form \"word count\" to a textfile at</span>
+<span style="color: #259185; font-style: italic;">     results-path. Each distinct word in the textfiles at text-path</span>
+<span style="color: #259185; font-style: italic;">     gets a count."</span>
   [text-path results-path]
-  <span style="color: #8c8c8c;">(</span>?- <span style="color: #8c8c8c;">(</span>hfs-textline results-path<span style="color: #8c8c8c;">)</span>
-      <span style="color: #8c8c8c;">(</span>wc-query text-path<span style="color: #8c8c8c;">)))</span>
+  <span style="color: #7f7f7f;">(</span>?- <span style="color: #7f7f7f;">(</span>hfs-textline results-path<span style="color: #7f7f7f;">)</span>
+      <span style="color: #7f7f7f;">(</span>wc-query text-path<span style="color: #7f7f7f;">)))</span>
 </pre>
 
 
@@ -355,7 +355,7 @@ All of our program's application logic occurs in the query returned by <code>wc-
 <ul>
 <li><code>wc-query</code> is a function that returns a subquery.
 </li>
-<li>The function calls <code>hfs-textline</code> internally to generate a source of <code>?sentence</code> tuples. 
+<li>The function calls <code>hfs-textline</code> internally to generate a source of <code>?sentence</code> tuples.
 </li>
 <li>These sentences are passed into <code>split</code>, a Cascalog function that creates words from sentences, like this:
 </li>
@@ -365,13 +365,13 @@ All of our program's application logic occurs in the query returned by <code>wc-
 
 
 
-<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span><span style="color: #7a378b;">let</span> [sentence [[<span style="color: #8b2252;">"two words"</span>]]
-      words    [[<span style="color: #8b2252;">"two"</span>] [<span style="color: #8b2252;">"words"</span>]]]
-  <span style="color: #8c8c8c;">(</span>fact?&lt;- <span style="color: #8b2252;">"split converts a sentence into words."</span>
+<pre class="src src-clojure"><span style="color: #7f7f7f;">(</span><span style="color: #728a05; font-weight: bold;">let</span> [sentence [[<span style="color: #259185;">"two words"</span>]]
+      words    [[<span style="color: #259185;">"two"</span>] [<span style="color: #259185;">"words"</span>]]]
+  <span style="color: #7f7f7f;">(</span>fact?&lt;- <span style="color: #259185;">"split converts a sentence into words."</span>
            words
            [?word]
-           <span style="color: #8c8c8c;">(</span>sentence ?sentence<span style="color: #8c8c8c;">)</span>
-           <span style="color: #8c8c8c;">(</span>split ?sentence <span style="color: #008b8b;">:&gt;</span> ?word<span style="color: #8c8c8c;">)))</span>
+           <span style="color: #7f7f7f;">(</span>sentence ?sentence<span style="color: #7f7f7f;">)</span>
+           <span style="color: #7f7f7f;">(</span>split ?sentence <span style="color: #259185; font-weight: bold;">:&gt;</span> ?word<span style="color: #7f7f7f;">)))</span>
 </pre>
 
 
@@ -391,7 +391,7 @@ This logic looks right, but the only way to tell is to write a series of facts a
 </div>
 
 <div id="outline-container-1-2-3" class="outline-4">
-<h4 id="sec-1-2-3">Testing Wordcount </h4>
+<h4 id="sec-1-2-3">Testing Wordcount</h4>
 <div class="outline-text-4" id="text-1-2-3">
 
 
@@ -401,11 +401,11 @@ Let's put our tests in <code>./test/cascalog/testing_demo/core_test.clj</code> (
 
 
 
-<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span><span style="color: #7a378b;">ns</span> cascalog.testing-demo.core-test
-  <span style="color: #8c8c8c;">(</span><span style="color: #008b8b;">:use</span> cascalog.testing-demo.core
+<pre class="src src-clojure"><span style="color: #7f7f7f;">(</span><span style="color: #728a05; font-weight: bold;">ns</span> cascalog.testing-demo.core-test
+  <span style="color: #7f7f7f;">(</span><span style="color: #259185; font-weight: bold;">:use</span> cascalog.testing-demo.core
         cascalog.api
-        [midje sweet cascalog]<span style="color: #8c8c8c;">)</span>
-  <span style="color: #8c8c8c;">(</span><span style="color: #008b8b;">:require</span> [cascalog.ops <span style="color: #008b8b;">:as</span> c]<span style="color: #8c8c8c;">))</span>
+        [midje sweet cascalog]<span style="color: #7f7f7f;">)</span>
+  <span style="color: #7f7f7f;">(</span><span style="color: #259185; font-weight: bold;">:require</span> [cascalog.ops <span style="color: #259185; font-weight: bold;">:as</span> c]<span style="color: #7f7f7f;">))</span>
 </pre>
 
 
@@ -415,12 +415,12 @@ Here's an initial try at a test of <code>wc-query</code> using <code>fact?-</cod
 
 
 
-<pre class="src src-clojure"><span style="color: #b22222;">;; </span><span style="color: #b22222;">/path/to/textfile points to a textfile with a single line:</span>
-<span style="color: #b22222;">;; </span><span style="color: #b22222;">"another another word"</span>
-<span style="color: #8c8c8c;">(</span>fact?- <span style="color: #8b2252;">"wc-query should count words from all lines of text at</span>
-<span style="color: #8b2252;">        /path/to/textfile."</span>
-        [[<span style="color: #8b2252;">"word"</span> 1] [<span style="color: #8b2252;">"another"</span> 2]]
-        <span style="color: #8c8c8c;">(</span>wc-query <span style="color: #8b2252;">"/path/to/textfile"</span><span style="color: #8c8c8c;">))</span> <span style="color: #b22222;">;; </span><span style="color: #b22222;">FALSE!</span>
+<pre class="src src-clojure"><span style="color: #465a61; font-weight: bold;">;; </span><span style="color: #465a61; font-style: italic;">/path/to/textfile points to a textfile with a single line:</span>
+<span style="color: #465a61; font-weight: bold;">;; </span><span style="color: #465a61; font-style: italic;">"another another word"</span>
+<span style="color: #7f7f7f;">(</span>fact?- <span style="color: #259185;">"wc-query should count words from all lines of text at</span>
+<span style="color: #259185;">        /path/to/textfile."</span>
+        [[<span style="color: #259185;">"word"</span> 1] [<span style="color: #259185;">"another"</span> 2]]
+        <span style="color: #7f7f7f;">(</span>wc-query <span style="color: #259185;">"/path/to/textfile"</span><span style="color: #7f7f7f;">))</span> <span style="color: #465a61; font-weight: bold;">;; </span><span style="color: #465a61; font-style: italic;">FALSE!</span>
 </pre>
 
 
@@ -444,7 +444,7 @@ This fact fails. Here are a few of its problems:
 </div>
 
 <div id="outline-container-1-3" class="outline-3">
-<h3 id="sec-1-3">Mocking with Midje </h3>
+<h3 id="sec-1-3">Mocking with Midje</h3>
 <div class="outline-text-3" id="text-1-3">
 
 
@@ -455,7 +455,7 @@ The solution lies in Midje's ability to mock out a function's return values. Mid
 </div>
 
 <div id="outline-container-1-3-1" class="outline-4">
-<h4 id="sec-1-3-1">provided </h4>
+<h4 id="sec-1-3-1">provided</h4>
 <div class="outline-text-4" id="text-1-3-1">
 
 
@@ -465,16 +465,16 @@ Using Midje's <code>provided</code> form, the above fact passes:
 
 
 
-<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span>fact?- <span style="color: #8b2252;">"wc-query should count words from all input sentences."</span>
-        [[<span style="color: #8b2252;">"word"</span> 1] [<span style="color: #8b2252;">"another"</span> 2]]
-        <span style="color: #8c8c8c;">(</span>wc-query <span style="color: #008b8b;">:path</span><span style="color: #8c8c8c;">)</span>
-        <span style="color: #8c8c8c;">(</span>provided
-          <span style="color: #8c8c8c;">(</span>hfs-textline <span style="color: #008b8b;">:path</span><span style="color: #8c8c8c;">)</span> =&gt; [[<span style="color: #8b2252;">"another another word"</span>]]<span style="color: #8c8c8c;">))</span> <span style="color: #b22222;">;; </span><span style="color: #b22222;">true</span>
+<pre class="src src-clojure"><span style="color: #7f7f7f;">(</span>fact?- <span style="color: #259185;">"wc-query should count words from all input sentences."</span>
+        [[<span style="color: #259185;">"word"</span> 1] [<span style="color: #259185;">"another"</span> 2]]
+        <span style="color: #7f7f7f;">(</span>wc-query <span style="color: #259185; font-weight: bold;">:path</span><span style="color: #7f7f7f;">)</span>
+        <span style="color: #7f7f7f;">(</span><span style="color: #728a05; font-weight: bold;">provided</span>
+          <span style="color: #7f7f7f;">(</span>hfs-textline <span style="color: #259185; font-weight: bold;">:path</span><span style="color: #7f7f7f;">)</span> <span style="color: #c60007; font-weight: bold;">=&gt;</span> [[<span style="color: #259185;">"another another word"</span>]]<span style="color: #7f7f7f;">))</span> <span style="color: #465a61; font-weight: bold;">;; </span><span style="color: #465a61; font-style: italic;">true</span>
 </pre>
 
 
 <p>
-This fact states 
+This fact states
 </p>
 <ul>
 <li>when <code>wc-query</code> is called with <code>:path</code>,
@@ -492,24 +492,24 @@ Here's another true fact about <code>wc-query</code> that uses multiple input se
 
 
 
-<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span><span style="color: #7f007f;">def</span> <span style="color: #0000ff;">short-sentences</span>
-  [[<span style="color: #8b2252;">"this is a sentence sentence"</span>]
-   [<span style="color: #8b2252;">"sentence with this is repeated"</span>]]<span style="color: #8c8c8c;">)</span>
+<pre class="src src-clojure"><span style="color: #7f7f7f;">(</span><span style="color: #728a05; font-weight: bold;">def</span> <span style="color: #2075c7;">short-sentences</span>
+  [[<span style="color: #259185;">"this is a sentence sentence"</span>]
+   [<span style="color: #259185;">"sentence with this is repeated"</span>]]<span style="color: #7f7f7f;">)</span>
 
-<span style="color: #8c8c8c;">(</span><span style="color: #7f007f;">def</span> <span style="color: #0000ff;">short-wordcounts</span>
-  [[<span style="color: #8b2252;">"sentence"</span> 3]
-   [<span style="color: #8b2252;">"repeated"</span> 1]
-   [<span style="color: #8b2252;">"is"</span> 2]
-   [<span style="color: #8b2252;">"a"</span> 1]
-   [<span style="color: #8b2252;">"this"</span> 2]
-   [<span style="color: #8b2252;">"with"</span> 1]]<span style="color: #8c8c8c;">)</span>
+<span style="color: #7f7f7f;">(</span><span style="color: #728a05; font-weight: bold;">def</span> <span style="color: #2075c7;">short-wordcounts</span>
+  [[<span style="color: #259185;">"sentence"</span> 3]
+   [<span style="color: #259185;">"repeated"</span> 1]
+   [<span style="color: #259185;">"is"</span> 2]
+   [<span style="color: #259185;">"a"</span> 1]
+   [<span style="color: #259185;">"this"</span> 2]
+   [<span style="color: #259185;">"with"</span> 1]]<span style="color: #7f7f7f;">)</span>
 
-<span style="color: #b22222;">;; </span><span style="color: #b22222;">when =wc-query= is called with =:text-path=</span>
-<span style="color: #b22222;">;; </span><span style="color: #b22222;">it will produce =short-sentences=,</span>
-<span style="color: #b22222;">;; </span><span style="color: #b22222;">provided =(hfs-textline :text-path)= produces =short-wordcounts=.</span>
-<span style="color: #8c8c8c;">(</span>fact?- short-wordcounts <span style="color: #8c8c8c;">(</span>wc-query <span style="color: #008b8b;">:text-path</span><span style="color: #8c8c8c;">)</span>
-        <span style="color: #8c8c8c;">(</span>provided
-          <span style="color: #8c8c8c;">(</span>hfs-textline <span style="color: #008b8b;">:text-path</span><span style="color: #8c8c8c;">)</span> =&gt; short-sentences<span style="color: #8c8c8c;">))</span> <span style="color: #b22222;">;; </span><span style="color: #b22222;">true</span>
+<span style="color: #465a61; font-weight: bold;">;; </span><span style="color: #465a61; font-style: italic;">when =wc-query= is called with =:text-path=</span>
+<span style="color: #465a61; font-weight: bold;">;; </span><span style="color: #465a61; font-style: italic;">it will produce =short-sentences=,</span>
+<span style="color: #465a61; font-weight: bold;">;; </span><span style="color: #465a61; font-style: italic;">provided =(hfs-textline :text-path)= produces =short-wordcounts=.</span>
+<span style="color: #7f7f7f;">(</span>fact?- short-wordcounts <span style="color: #7f7f7f;">(</span>wc-query <span style="color: #259185; font-weight: bold;">:text-path</span><span style="color: #7f7f7f;">)</span>
+        <span style="color: #7f7f7f;">(</span><span style="color: #728a05; font-weight: bold;">provided</span>
+          <span style="color: #7f7f7f;">(</span>hfs-textline <span style="color: #259185; font-weight: bold;">:text-path</span><span style="color: #7f7f7f;">)</span> <span style="color: #c60007; font-weight: bold;">=&gt;</span> short-sentences<span style="color: #7f7f7f;">))</span> <span style="color: #465a61; font-weight: bold;">;; </span><span style="color: #465a61; font-style: italic;">true</span>
 </pre>
 
 
@@ -519,15 +519,15 @@ A <code>provided</code> form only applies to the result-query pair directly abov
 
 
 
-<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span><span style="color: #7a378b;">let</span> [sentence [[<span style="color: #8b2252;">"two words"</span>]]
-      results  [[<span style="color: #8b2252;">"two"</span> 1] [<span style="color: #8b2252;">"words"</span> 1]]]
-  <span style="color: #8c8c8c;">(</span>fact?- <span style="color: #8b2252;">"provided form won't apply here!"</span>
-          results <span style="color: #8c8c8c;">(</span>wc-query <span style="color: #008b8b;">:path</span><span style="color: #8c8c8c;">)</span> <span style="color: #b22222;">;; </span><span style="color: #b22222;">false</span>
+<pre class="src src-clojure"><span style="color: #7f7f7f;">(</span><span style="color: #728a05; font-weight: bold;">let</span> [sentence [[<span style="color: #259185;">"two words"</span>]]
+      results  [[<span style="color: #259185;">"two"</span> 1] [<span style="color: #259185;">"words"</span> 1]]]
+  <span style="color: #7f7f7f;">(</span>fact?- <span style="color: #259185;">"provided form won't apply here!"</span>
+          results <span style="color: #7f7f7f;">(</span>wc-query <span style="color: #259185; font-weight: bold;">:path</span><span style="color: #7f7f7f;">)</span> <span style="color: #465a61; font-weight: bold;">;; </span><span style="color: #465a61; font-style: italic;">false</span>
 
-          <span style="color: #8b2252;">"provided applies here."</span>
-          results <span style="color: #8c8c8c;">(</span>wc-query <span style="color: #008b8b;">:path</span><span style="color: #8c8c8c;">)</span> <span style="color: #b22222;">;; </span><span style="color: #b22222;">true</span>
-          <span style="color: #8c8c8c;">(</span>provided
-            <span style="color: #8c8c8c;">(</span>hfs-textline <span style="color: #008b8b;">:path</span><span style="color: #8c8c8c;">)</span> =&gt; sentence<span style="color: #8c8c8c;">)))</span>
+          <span style="color: #259185;">"provided applies here."</span>
+          results <span style="color: #7f7f7f;">(</span>wc-query <span style="color: #259185; font-weight: bold;">:path</span><span style="color: #7f7f7f;">)</span> <span style="color: #465a61; font-weight: bold;">;; </span><span style="color: #465a61; font-style: italic;">true</span>
+          <span style="color: #7f7f7f;">(</span><span style="color: #728a05; font-weight: bold;">provided</span>
+            <span style="color: #7f7f7f;">(</span>hfs-textline <span style="color: #259185; font-weight: bold;">:path</span><span style="color: #7f7f7f;">)</span> <span style="color: #c60007; font-weight: bold;">=&gt;</span> sentence<span style="color: #7f7f7f;">)))</span>
 </pre>
 
 
@@ -536,7 +536,7 @@ A <code>provided</code> form only applies to the result-query pair directly abov
 </div>
 
 <div id="outline-container-1-3-2" class="outline-4">
-<h4 id="sec-1-3-2">Mocking Arguments </h4>
+<h4 id="sec-1-3-2">Mocking Arguments</h4>
 <div class="outline-text-4" id="text-1-3-2">
 
 
@@ -549,21 +549,21 @@ These facts about <code>wc-query</code> from above are all true, and identical:
 
 
 
-<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span>fact?- <span style="color: #8b2252;">"Mocking with keywords,"</span>
-        [[<span style="color: #8b2252;">"one"</span> 1]] <span style="color: #8c8c8c;">(</span>wc-query <span style="color: #008b8b;">:path</span><span style="color: #8c8c8c;">)</span>
-        <span style="color: #8c8c8c;">(</span>provided <span style="color: #8c8c8c;">(</span>hfs-textline <span style="color: #008b8b;">:path</span><span style="color: #8c8c8c;">)</span> =&gt; [[<span style="color: #8b2252;">"one"</span>]]<span style="color: #8c8c8c;">)</span>
+<pre class="src src-clojure"><span style="color: #7f7f7f;">(</span>fact?- <span style="color: #259185;">"Mocking with keywords,"</span>
+        [[<span style="color: #259185;">"one"</span> 1]] <span style="color: #7f7f7f;">(</span>wc-query <span style="color: #259185; font-weight: bold;">:path</span><span style="color: #7f7f7f;">)</span>
+        <span style="color: #7f7f7f;">(</span><span style="color: #728a05; font-weight: bold;">provided</span> <span style="color: #7f7f7f;">(</span>hfs-textline <span style="color: #259185; font-weight: bold;">:path</span><span style="color: #7f7f7f;">)</span> <span style="color: #c60007; font-weight: bold;">=&gt;</span> [[<span style="color: #259185;">"one"</span>]]<span style="color: #7f7f7f;">)</span>
 
-        <span style="color: #8b2252;">"strings,"</span>
-        [[<span style="color: #8b2252;">"one"</span> 1]] <span style="color: #8c8c8c;">(</span>wc-query <span style="color: #8b2252;">"path"</span><span style="color: #8c8c8c;">)</span>
-        <span style="color: #8c8c8c;">(</span>provided <span style="color: #8c8c8c;">(</span>hfs-textline <span style="color: #8b2252;">"path"</span><span style="color: #8c8c8c;">)</span> =&gt; [[<span style="color: #8b2252;">"one"</span>]]<span style="color: #8c8c8c;">)</span>
+        <span style="color: #259185;">"strings,"</span>
+        [[<span style="color: #259185;">"one"</span> 1]] <span style="color: #7f7f7f;">(</span>wc-query <span style="color: #259185;">"path"</span><span style="color: #7f7f7f;">)</span>
+        <span style="color: #7f7f7f;">(</span><span style="color: #728a05; font-weight: bold;">provided</span> <span style="color: #7f7f7f;">(</span>hfs-textline <span style="color: #259185;">"path"</span><span style="color: #7f7f7f;">)</span> <span style="color: #c60007; font-weight: bold;">=&gt;</span> [[<span style="color: #259185;">"one"</span>]]<span style="color: #7f7f7f;">)</span>
 
-        <span style="color: #8b2252;">"numbers,"</span>
-        [[<span style="color: #8b2252;">"one"</span> 1]] <span style="color: #8c8c8c;">(</span>wc-query 100<span style="color: #8c8c8c;">)</span>
-        <span style="color: #8c8c8c;">(</span>provided <span style="color: #8c8c8c;">(</span>hfs-textline 100<span style="color: #8c8c8c;">)</span> =&gt; [[<span style="color: #8b2252;">"one"</span>]]<span style="color: #8c8c8c;">)</span>
+        <span style="color: #259185;">"numbers,"</span>
+        [[<span style="color: #259185;">"one"</span> 1]] <span style="color: #7f7f7f;">(</span>wc-query 100<span style="color: #7f7f7f;">)</span>
+        <span style="color: #7f7f7f;">(</span><span style="color: #728a05; font-weight: bold;">provided</span> <span style="color: #7f7f7f;">(</span>hfs-textline 100<span style="color: #7f7f7f;">)</span> <span style="color: #c60007; font-weight: bold;">=&gt;</span> [[<span style="color: #259185;">"one"</span>]]<span style="color: #7f7f7f;">)</span>
 
-        <span style="color: #8b2252;">"and Midje dotted symbols."</span>
-        [[<span style="color: #8b2252;">"one"</span> 1]] <span style="color: #8c8c8c;">(</span>wc-query ..path..<span style="color: #8c8c8c;">)</span>
-        <span style="color: #8c8c8c;">(</span>provided <span style="color: #8c8c8c;">(</span>hfs-textline ..path..<span style="color: #8c8c8c;">)</span> =&gt; [[<span style="color: #8b2252;">"one"</span>]]<span style="color: #8c8c8c;">))</span>
+        <span style="color: #259185;">"and Midje dotted symbols."</span>
+        [[<span style="color: #259185;">"one"</span> 1]] <span style="color: #7f7f7f;">(</span>wc-query <span style="color: #a57705; font-weight: bold;">..path..</span><span style="color: #7f7f7f;">)</span>
+        <span style="color: #7f7f7f;">(</span><span style="color: #728a05; font-weight: bold;">provided</span> <span style="color: #7f7f7f;">(</span>hfs-textline <span style="color: #a57705; font-weight: bold;">..path..</span><span style="color: #7f7f7f;">)</span> <span style="color: #c60007; font-weight: bold;">=&gt;</span> [[<span style="color: #259185;">"one"</span>]]<span style="color: #7f7f7f;">))</span>
 </pre>
 
 
@@ -572,7 +572,7 @@ These facts about <code>wc-query</code> from above are all true, and identical:
 </div>
 
 <div id="outline-container-1-3-3" class="outline-4">
-<h4 id="sec-1-3-3">against-background </h4>
+<h4 id="sec-1-3-3">against-background</h4>
 <div class="outline-text-4" id="text-1-3-3">
 
 
@@ -582,23 +582,23 @@ As discussed, the <code>provided</code> form only applies to the result-query pa
 
 
 
-<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span><span style="color: #7f007f;">defn</span> <span style="color: #0000ff;">text-&gt;words</span> [path]
-  <span style="color: #8c8c8c;">(</span><span style="color: #7a378b;">let</span> [src <span style="color: #8c8c8c;">(</span>hfs-textline path<span style="color: #8c8c8c;">)</span>]
-    <span style="color: #8c8c8c;">(</span>&lt;- [?word]
-        <span style="color: #8c8c8c;">(</span>src ?sentence<span style="color: #8c8c8c;">)</span>
-        <span style="color: #8c8c8c;">(</span>split ?sentence <span style="color: #008b8b;">:&gt;</span> ?word<span style="color: #8c8c8c;">)</span>
-        <span style="color: #8c8c8c;">(</span><span style="color: #008b8b;">:distinct</span> false<span style="color: #8c8c8c;">))))</span>
+<pre class="src src-clojure"><span style="color: #7f7f7f;">(</span><span style="color: #728a05; font-weight: bold;">defn</span> <span style="color: #2075c7;">text-&gt;words</span> [path]
+  <span style="color: #7f7f7f;">(</span><span style="color: #728a05; font-weight: bold;">let</span> [src <span style="color: #7f7f7f;">(</span>hfs-textline path<span style="color: #7f7f7f;">)</span>]
+    <span style="color: #7f7f7f;">(</span>&lt;- [?word]
+        <span style="color: #7f7f7f;">(</span>src ?sentence<span style="color: #7f7f7f;">)</span>
+        <span style="color: #7f7f7f;">(</span>split ?sentence <span style="color: #259185; font-weight: bold;">:&gt;</span> ?word<span style="color: #7f7f7f;">)</span>
+        <span style="color: #7f7f7f;">(</span><span style="color: #259185; font-weight: bold;">:distinct</span> false<span style="color: #7f7f7f;">))))</span>
 
-<span style="color: #8c8c8c;">(</span><span style="color: #7a378b;">let</span> [sentence [[<span style="color: #8b2252;">"two two"</span>]]]
-  <span style="color: #8c8c8c;">(</span>fact?- <span style="color: #8b2252;">"text-&gt;words cuts text into words."</span>
-          [[<span style="color: #8b2252;">"two"</span>] [<span style="color: #8b2252;">"two"</span>]] <span style="color: #8c8c8c;">(</span>text-&gt;words <span style="color: #008b8b;">:path</span><span style="color: #8c8c8c;">)</span>
-          <span style="color: #8c8c8c;">(</span>provided
-            <span style="color: #8c8c8c;">(</span>hfs-textline <span style="color: #008b8b;">:path</span><span style="color: #8c8c8c;">)</span> =&gt; sentence<span style="color: #8c8c8c;">)</span>
+<span style="color: #7f7f7f;">(</span><span style="color: #728a05; font-weight: bold;">let</span> [sentence [[<span style="color: #259185;">"two two"</span>]]]
+  <span style="color: #7f7f7f;">(</span>fact?- <span style="color: #259185;">"text-&gt;words cuts text into words."</span>
+          [[<span style="color: #259185;">"two"</span>] [<span style="color: #259185;">"two"</span>]] <span style="color: #7f7f7f;">(</span>text-&gt;words <span style="color: #259185; font-weight: bold;">:path</span><span style="color: #7f7f7f;">)</span>
+          <span style="color: #7f7f7f;">(</span><span style="color: #728a05; font-weight: bold;">provided</span>
+            <span style="color: #7f7f7f;">(</span>hfs-textline <span style="color: #259185; font-weight: bold;">:path</span><span style="color: #7f7f7f;">)</span> <span style="color: #c60007; font-weight: bold;">=&gt;</span> sentence<span style="color: #7f7f7f;">)</span>
 
-          <span style="color: #8b2252;">"wc-query converts a sentence into words."</span>
-          [[<span style="color: #8b2252;">"two"</span> 2]] <span style="color: #8c8c8c;">(</span>wc-query <span style="color: #008b8b;">:path</span><span style="color: #8c8c8c;">)</span>
-          <span style="color: #8c8c8c;">(</span>provided
-            <span style="color: #8c8c8c;">(</span>hfs-textline <span style="color: #008b8b;">:path</span><span style="color: #8c8c8c;">)</span> =&gt; sentence<span style="color: #8c8c8c;">)))</span>
+          <span style="color: #259185;">"wc-query converts a sentence into words."</span>
+          [[<span style="color: #259185;">"two"</span> 2]] <span style="color: #7f7f7f;">(</span>wc-query <span style="color: #259185; font-weight: bold;">:path</span><span style="color: #7f7f7f;">)</span>
+          <span style="color: #7f7f7f;">(</span><span style="color: #728a05; font-weight: bold;">provided</span>
+            <span style="color: #7f7f7f;">(</span>hfs-textline <span style="color: #259185; font-weight: bold;">:path</span><span style="color: #7f7f7f;">)</span> <span style="color: #c60007; font-weight: bold;">=&gt;</span> sentence<span style="color: #7f7f7f;">)))</span>
 
 </pre>
 
@@ -609,22 +609,22 @@ Midje allows facts to share mocked functions with <code>against-background</code
 
 
 
-<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span><span style="color: #7a378b;">let</span> [sentence [[<span style="color: #8b2252;">"two two"</span>]]]
-  <span style="color: #8c8c8c;">(</span>fact?- <span style="color: #8b2252;">"text-&gt;words cuts text into words."</span>
-          [[<span style="color: #8b2252;">"two"</span>] [<span style="color: #8b2252;">"two"</span>]] <span style="color: #8c8c8c;">(</span>text-&gt;words <span style="color: #008b8b;">:path</span><span style="color: #8c8c8c;">)</span>
+<pre class="src src-clojure"><span style="color: #7f7f7f;">(</span><span style="color: #728a05; font-weight: bold;">let</span> [sentence [[<span style="color: #259185;">"two two"</span>]]]
+  <span style="color: #7f7f7f;">(</span>fact?- <span style="color: #259185;">"text-&gt;words cuts text into words."</span>
+          [[<span style="color: #259185;">"two"</span>] [<span style="color: #259185;">"two"</span>]] <span style="color: #7f7f7f;">(</span>text-&gt;words <span style="color: #259185; font-weight: bold;">:path</span><span style="color: #7f7f7f;">)</span>
 
-          <span style="color: #8b2252;">"wc-query converts a sentence into words."</span>
-          [[<span style="color: #8b2252;">"two"</span> 2]]
-          <span style="color: #8c8c8c;">(</span>wc-query <span style="color: #008b8b;">:path</span><span style="color: #8c8c8c;">)</span>
+          <span style="color: #259185;">"wc-query converts a sentence into words."</span>
+          [[<span style="color: #259185;">"two"</span> 2]]
+          <span style="color: #7f7f7f;">(</span>wc-query <span style="color: #259185; font-weight: bold;">:path</span><span style="color: #7f7f7f;">)</span>
 
-          <span style="color: #8b2252;">"wc-query fact with difference inputs."</span>
-          [[<span style="color: #8b2252;">"what"</span> 1] [<span style="color: #8b2252;">"a"</span> 1] [<span style="color: #8b2252;">"world!"</span> 1]]
-          <span style="color: #8c8c8c;">(</span>wc-query <span style="color: #008b8b;">:path</span><span style="color: #8c8c8c;">)</span>
-          <span style="color: #8c8c8c;">(</span>provided
-            <span style="color: #8c8c8c;">(</span>hfs-textline <span style="color: #008b8b;">:path</span><span style="color: #8c8c8c;">)</span> =&gt; [[<span style="color: #8b2252;">"what a world!"</span>]]<span style="color: #8c8c8c;">)</span>
+          <span style="color: #259185;">"wc-query fact with difference inputs."</span>
+          [[<span style="color: #259185;">"what"</span> 1] [<span style="color: #259185;">"a"</span> 1] [<span style="color: #259185;">"world!"</span> 1]]
+          <span style="color: #7f7f7f;">(</span>wc-query <span style="color: #259185; font-weight: bold;">:path</span><span style="color: #7f7f7f;">)</span>
+          <span style="color: #7f7f7f;">(</span><span style="color: #728a05; font-weight: bold;">provided</span>
+            <span style="color: #7f7f7f;">(</span>hfs-textline <span style="color: #259185; font-weight: bold;">:path</span><span style="color: #7f7f7f;">)</span> <span style="color: #c60007; font-weight: bold;">=&gt;</span> [[<span style="color: #259185;">"what a world!"</span>]]<span style="color: #7f7f7f;">)</span>
 
-          <span style="color: #8c8c8c;">(</span>against-background
-            <span style="color: #8c8c8c;">(</span>hfs-textline <span style="color: #008b8b;">:path</span><span style="color: #8c8c8c;">)</span> =&gt; sentence<span style="color: #8c8c8c;">)))</span>
+          <span style="color: #7f7f7f;">(</span>against-background
+            <span style="color: #7f7f7f;">(</span>hfs-textline <span style="color: #259185; font-weight: bold;">:path</span><span style="color: #7f7f7f;">)</span> <span style="color: #c60007; font-weight: bold;">=&gt;</span> sentence<span style="color: #7f7f7f;">)))</span>
 </pre>
 
 
@@ -637,7 +637,7 @@ Note that the third of the three above facts used its own <code>provided</code> 
 </div>
 
 <div id="outline-container-1-4" class="outline-3">
-<h3 id="sec-1-4">Collection Checkers </h3>
+<h3 id="sec-1-4">Collection Checkers</h3>
 <div class="outline-text-3" id="text-1-4">
 
 
@@ -647,11 +647,11 @@ For the next set of facts, let's introduce a larger set of input sentences:
 
 
 
-<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span><span style="color: #7f007f;">def</span> <span style="color: #0000ff;">longer-sentences</span>
-  [[<span style="color: #8b2252;">"Call me Ishmael. Some years ago -- never mind how long"</span>]
-   [<span style="color: #8b2252;">"precisely -- having little or no money in my purse, and"</span>]
-   [<span style="color: #8b2252;">"nothing particular to interest me on shore, I thought I"</span>]
-   [<span style="color: #8b2252;">"would sail about a little and see the watery part of the world."</span>]]<span style="color: #8c8c8c;">)</span>
+<pre class="src src-clojure"><span style="color: #7f7f7f;">(</span><span style="color: #728a05; font-weight: bold;">def</span> <span style="color: #2075c7;">longer-sentences</span>
+  [[<span style="color: #259185;">"Call me Ishmael. Some years ago -- never mind how long"</span>]
+   [<span style="color: #259185;">"precisely -- having little or no money in my purse, and"</span>]
+   [<span style="color: #259185;">"nothing particular to interest me on shore, I thought I"</span>]
+   [<span style="color: #259185;">"would sail about a little and see the watery part of the world."</span>]]<span style="color: #7f7f7f;">)</span>
 </pre>
 
 
@@ -661,15 +661,15 @@ One issue with the above facts is that they use very small input sentences. <cod
 
 
 
-<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span>fact?- [[<span style="color: #8b2252;">"Ishmael."</span> 1]
-         [<span style="color: #8b2252;">"Some"</span> 1]
-         [<span style="color: #8b2252;">"a"</span> 1]
-         [<span style="color: #8b2252;">"about"</span> 1]
-         [<span style="color: #8b2252;">"ago"</span> 1]
-         <span style="color: #b22222;">;; </span><span style="color: #b22222;">and on and on...</span>
+<pre class="src src-clojure"><span style="color: #7f7f7f;">(</span>fact?- [[<span style="color: #259185;">"Ishmael."</span> 1]
+         [<span style="color: #259185;">"Some"</span> 1]
+         [<span style="color: #259185;">"a"</span> 1]
+         [<span style="color: #259185;">"about"</span> 1]
+         [<span style="color: #259185;">"ago"</span> 1]
+         <span style="color: #465a61; font-weight: bold;">;; </span><span style="color: #465a61; font-style: italic;">and on and on...</span>
          ]
-        <span style="color: #8c8c8c;">(</span>wc-query <span style="color: #008b8b;">:path</span><span style="color: #8c8c8c;">)</span>
-        <span style="color: #8c8c8c;">(</span>provided <span style="color: #8c8c8c;">(</span>hfs-textline <span style="color: #008b8b;">:path</span><span style="color: #8c8c8c;">)</span> =&gt; longer-sentences<span style="color: #8c8c8c;">))</span>
+        <span style="color: #7f7f7f;">(</span>wc-query <span style="color: #259185; font-weight: bold;">:path</span><span style="color: #7f7f7f;">)</span>
+        <span style="color: #7f7f7f;">(</span><span style="color: #728a05; font-weight: bold;">provided</span> <span style="color: #7f7f7f;">(</span>hfs-textline <span style="color: #259185; font-weight: bold;">:path</span><span style="color: #7f7f7f;">)</span> <span style="color: #c60007; font-weight: bold;">=&gt;</span> longer-sentences<span style="color: #7f7f7f;">))</span>
 </pre>
 
 
@@ -680,7 +680,7 @@ To solve this, Midje provides a number of collection checkers that provide you w
 </div>
 
 <div id="outline-container-1-4-1" class="outline-4">
-<h4 id="sec-1-4-1">just </h4>
+<h4 id="sec-1-4-1">just</h4>
 <div class="outline-text-4" id="text-1-4-1">
 
 
@@ -690,19 +690,19 @@ To solve this, Midje provides a number of collection checkers that provide you w
 
 
 
-<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span><span style="color: #7a378b;">let</span> [src   [[1] [2]]
-      query <span style="color: #8c8c8c;">(</span>&lt;- [?a ?b]
-                <span style="color: #8c8c8c;">(</span>src ?a<span style="color: #8c8c8c;">)</span>
-                <span style="color: #8c8c8c;">(</span><span style="color: #a0522d;">inc</span> ?a <span style="color: #008b8b;">:&gt;</span> ?b<span style="color: #8c8c8c;">))</span>]
-  <span style="color: #8c8c8c;">(</span>fact?- <span style="color: #8b2252;">"Just form, fully qualified."</span>
-          <span style="color: #8c8c8c;">(</span>just [[2 3] [1 2]] <span style="color: #008b8b;">:in-any-order</span><span style="color: #8c8c8c;">)</span> query <span style="color: #b22222;">;;</span><span style="color: #b22222;">true</span>
+<pre class="src src-clojure"><span style="color: #7f7f7f;">(</span><span style="color: #728a05; font-weight: bold;">let</span> [src   [[1] [2]]
+      query <span style="color: #7f7f7f;">(</span>&lt;- [?a ?b]
+                <span style="color: #7f7f7f;">(</span>src ?a<span style="color: #7f7f7f;">)</span>
+                <span style="color: #7f7f7f;">(</span><span style="color: #728a05;">inc</span> ?a <span style="color: #259185; font-weight: bold;">:&gt;</span> ?b<span style="color: #7f7f7f;">))</span>]
+  <span style="color: #7f7f7f;">(</span>fact?- <span style="color: #259185;">"Just form, fully qualified."</span>
+          <span style="color: #7f7f7f;">(</span><span style="color: #a57705; font-weight: bold;">just</span> [[2 3] [1 2]] <span style="color: #259185; font-weight: bold;">:in-any-order</span><span style="color: #7f7f7f;">)</span> query <span style="color: #465a61; font-weight: bold;">;;</span><span style="color: #465a61; font-style: italic;">true</span>
 
-          <span style="color: #8b2252;">"Wrapping tuples in a set is identical to including</span>
-<span style="color: #8b2252;">           the :in-any-order modifier."</span>
-          <span style="color: #8c8c8c;">(</span>just #{[2 3] [1 2]}<span style="color: #8c8c8c;">)</span> query <span style="color: #b22222;">;; </span><span style="color: #b22222;">true</span>
+          <span style="color: #259185;">"Wrapping tuples in a set is identical to including</span>
+<span style="color: #259185;">           the :in-any-order modifier."</span>
+          <span style="color: #7f7f7f;">(</span><span style="color: #a57705; font-weight: bold;">just</span> #{[2 3] [1 2]}<span style="color: #7f7f7f;">)</span> query <span style="color: #465a61; font-weight: bold;">;; </span><span style="color: #465a61; font-style: italic;">true</span>
 
-          <span style="color: #8b2252;">"midje-cascalog lets us drop these wrappers."</span>
-          [[2 3] [1 2]] query<span style="color: #8c8c8c;">))</span> <span style="color: #b22222;">;; </span><span style="color: #b22222;">true</span>
+          <span style="color: #259185;">"midje-cascalog lets us drop these wrappers."</span>
+          [[2 3] [1 2]] query<span style="color: #7f7f7f;">))</span> <span style="color: #465a61; font-weight: bold;">;; </span><span style="color: #465a61; font-style: italic;">true</span>
 </pre>
 
 
@@ -717,7 +717,7 @@ Note that dropping the <code>:in-any-order</code> modifier (or the set wrapper) 
 </div>
 
 <div id="outline-container-1-4-2" class="outline-4">
-<h4 id="sec-1-4-2">contains </h4>
+<h4 id="sec-1-4-2">contains</h4>
 <div class="outline-text-4" id="text-1-4-2">
 
 
@@ -730,19 +730,19 @@ These restrictions are quite limiting for most Cascalog queries. The following t
 
 
 
-<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span>fact?- <span style="color: #8c8c8c;">(</span>contains #{[<span style="color: #8b2252;">"sail"</span> 1] [<span style="color: #8b2252;">"Ishmael."</span> 1]} <span style="color: #008b8b;">:gaps-ok</span><span style="color: #8c8c8c;">)</span>
-        <span style="color: #8c8c8c;">(</span>wc-query <span style="color: #008b8b;">:path</span><span style="color: #8c8c8c;">)</span> <span style="color: #b22222;">;; </span><span style="color: #b22222;">true</span>
+<pre class="src src-clojure"><span style="color: #7f7f7f;">(</span>fact?- <span style="color: #7f7f7f;">(</span><span style="color: #a57705; font-weight: bold;">contains</span> #{[<span style="color: #259185;">"sail"</span> 1] [<span style="color: #259185;">"Ishmael."</span> 1]} <span style="color: #259185; font-weight: bold;">:gaps-ok</span><span style="color: #7f7f7f;">)</span>
+        <span style="color: #7f7f7f;">(</span>wc-query <span style="color: #259185; font-weight: bold;">:path</span><span style="color: #7f7f7f;">)</span> <span style="color: #465a61; font-weight: bold;">;; </span><span style="color: #465a61; font-style: italic;">true</span>
 
-        <span style="color: #8c8c8c;">(</span>contains [[<span style="color: #8b2252;">"sail"</span> 1] [<span style="color: #8b2252;">"Ishmael."</span> 1]] <span style="color: #008b8b;">:gaps-ok</span> <span style="color: #008b8b;">:in-any-order</span><span style="color: #8c8c8c;">)</span>
-        <span style="color: #8c8c8c;">(</span>wc-query <span style="color: #008b8b;">:path</span><span style="color: #8c8c8c;">)</span> <span style="color: #b22222;">;; </span><span style="color: #b22222;">true</span>
+        <span style="color: #7f7f7f;">(</span><span style="color: #a57705; font-weight: bold;">contains</span> [[<span style="color: #259185;">"sail"</span> 1] [<span style="color: #259185;">"Ishmael."</span> 1]] <span style="color: #259185; font-weight: bold;">:gaps-ok</span> <span style="color: #259185; font-weight: bold;">:in-any-order</span><span style="color: #7f7f7f;">)</span>
+        <span style="color: #7f7f7f;">(</span>wc-query <span style="color: #259185; font-weight: bold;">:path</span><span style="color: #7f7f7f;">)</span> <span style="color: #465a61; font-weight: bold;">;; </span><span style="color: #465a61; font-style: italic;">true</span>
 
-        <span style="color: #8c8c8c;">(</span>against-background
-          <span style="color: #8c8c8c;">(</span>hfs-textline <span style="color: #008b8b;">:path</span><span style="color: #8c8c8c;">)</span> =&gt; longer-sentences<span style="color: #8c8c8c;">))</span>
+        <span style="color: #7f7f7f;">(</span>against-background
+          <span style="color: #7f7f7f;">(</span>hfs-textline <span style="color: #259185; font-weight: bold;">:path</span><span style="color: #7f7f7f;">)</span> <span style="color: #c60007; font-weight: bold;">=&gt;</span> longer-sentences<span style="color: #7f7f7f;">))</span>
 </pre>
 
 
 <p>
-The above facts test that both <code>["sail" 1]</code> and <code>["Ishmael." 1]</code> appear somewhere in the results, in any order. 
+The above facts test that both <code>["sail" 1]</code> and <code>["Ishmael." 1]</code> appear somewhere in the results, in any order.
 </p>
 <ul>
 <li>Wrapping the result tuples in a set (vs. a vector), or adding the <code>:in-any-order</code> keyword, relaxes the ordering restriction.
@@ -757,7 +757,7 @@ The above facts test that both <code>["sail" 1]</code> and <code>["Ishmael." 1]<
 </div>
 
 <div id="outline-container-1-4-3" class="outline-4">
-<h4 id="sec-1-4-3">has-prefix </h4>
+<h4 id="sec-1-4-3">has-prefix</h4>
 <div class="outline-text-4" id="text-1-4-3">
 
 
@@ -770,11 +770,11 @@ The following fact states that <code>["--" 2]</code>, <code>["I" 2]</code> and <
 
 
 
-<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span>fact?- <span style="color: #8c8c8c;">(</span>has-prefix [[<span style="color: #8b2252;">"--"</span> 2] [<span style="color: #8b2252;">"I"</span> 2] [<span style="color: #8b2252;">"and"</span> 2]]<span style="color: #8c8c8c;">)</span>
-        <span style="color: #8c8c8c;">(</span><span style="color: #7a378b;">-&gt;</span> <span style="color: #8c8c8c;">(</span>wc-query <span style="color: #008b8b;">:path</span><span style="color: #8c8c8c;">)</span>
-            <span style="color: #8c8c8c;">(</span>c/first-n 10 <span style="color: #008b8b;">:sort</span> [<span style="color: #8b2252;">"?count"</span>] <span style="color: #008b8b;">:reverse</span> true<span style="color: #8c8c8c;">))</span>
-        <span style="color: #8c8c8c;">(</span>provided
-          <span style="color: #8c8c8c;">(</span>hfs-textline <span style="color: #008b8b;">:path</span><span style="color: #8c8c8c;">)</span> =&gt; longer-sentences<span style="color: #8c8c8c;">))</span> <span style="color: #b22222;">;; </span><span style="color: #b22222;">true</span>
+<pre class="src src-clojure"><span style="color: #7f7f7f;">(</span>fact?- <span style="color: #7f7f7f;">(</span><span style="color: #a57705; font-weight: bold;">has-prefix</span> [[<span style="color: #259185;">"--"</span> 2] [<span style="color: #259185;">"I"</span> 2] [<span style="color: #259185;">"and"</span> 2]]<span style="color: #7f7f7f;">)</span>
+        <span style="color: #7f7f7f;">(</span><span style="color: #728a05; font-weight: bold;">-&gt;</span> <span style="color: #7f7f7f;">(</span>wc-query <span style="color: #259185; font-weight: bold;">:path</span><span style="color: #7f7f7f;">)</span>
+            <span style="color: #7f7f7f;">(</span>c/first-n 10 <span style="color: #259185; font-weight: bold;">:sort</span> [<span style="color: #259185;">"?count"</span>] <span style="color: #259185; font-weight: bold;">:reverse</span> true<span style="color: #7f7f7f;">))</span>
+        <span style="color: #7f7f7f;">(</span><span style="color: #728a05; font-weight: bold;">provided</span>
+          <span style="color: #7f7f7f;">(</span>hfs-textline <span style="color: #259185; font-weight: bold;">:path</span><span style="color: #7f7f7f;">)</span> <span style="color: #c60007; font-weight: bold;">=&gt;</span> longer-sentences<span style="color: #7f7f7f;">))</span> <span style="color: #465a61; font-weight: bold;">;; </span><span style="color: #465a61; font-style: italic;">true</span>
 </pre>
 
 
@@ -783,7 +783,7 @@ The following fact states that <code>["--" 2]</code>, <code>["I" 2]</code> and <
 </div>
 
 <div id="outline-container-1-4-4" class="outline-4">
-<h4 id="sec-1-4-4">has-suffix </h4>
+<h4 id="sec-1-4-4">has-suffix</h4>
 <div class="outline-text-4" id="text-1-4-4">
 
 
@@ -796,11 +796,11 @@ The following fact states that <code>["world." 1]</code>, <code>["would" 1]</cod
 
 
 
-<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span>fact?- <span style="color: #8c8c8c;">(</span>has-suffix [[<span style="color: #8b2252;">"world."</span> 1] [<span style="color: #8b2252;">"would"</span> 1] [<span style="color: #8b2252;">"years"</span> 1]]<span style="color: #8c8c8c;">)</span>
-        <span style="color: #8c8c8c;">(</span><span style="color: #7a378b;">-&gt;</span> <span style="color: #8c8c8c;">(</span>wc-query <span style="color: #008b8b;">:text-path</span><span style="color: #8c8c8c;">)</span>
-            <span style="color: #8c8c8c;">(</span>c/first-n 100 <span style="color: #008b8b;">:sort</span> [<span style="color: #8b2252;">"?word"</span>]<span style="color: #8c8c8c;">))</span>
-        <span style="color: #8c8c8c;">(</span>provided
-          <span style="color: #8c8c8c;">(</span>hfs-textline <span style="color: #008b8b;">:text-path</span><span style="color: #8c8c8c;">)</span> =&gt; longer-sentences<span style="color: #8c8c8c;">))</span> <span style="color: #b22222;">;; </span><span style="color: #b22222;">true</span>
+<pre class="src src-clojure"><span style="color: #7f7f7f;">(</span>fact?- <span style="color: #7f7f7f;">(</span><span style="color: #a57705; font-weight: bold;">has-suffix</span> [[<span style="color: #259185;">"world."</span> 1] [<span style="color: #259185;">"would"</span> 1] [<span style="color: #259185;">"years"</span> 1]]<span style="color: #7f7f7f;">)</span>
+        <span style="color: #7f7f7f;">(</span><span style="color: #728a05; font-weight: bold;">-&gt;</span> <span style="color: #7f7f7f;">(</span>wc-query <span style="color: #259185; font-weight: bold;">:text-path</span><span style="color: #7f7f7f;">)</span>
+            <span style="color: #7f7f7f;">(</span>c/first-n 100 <span style="color: #259185; font-weight: bold;">:sort</span> [<span style="color: #259185;">"?word"</span>]<span style="color: #7f7f7f;">))</span>
+        <span style="color: #7f7f7f;">(</span><span style="color: #728a05; font-weight: bold;">provided</span>
+          <span style="color: #7f7f7f;">(</span>hfs-textline <span style="color: #259185; font-weight: bold;">:text-path</span><span style="color: #7f7f7f;">)</span> <span style="color: #c60007; font-weight: bold;">=&gt;</span> longer-sentences<span style="color: #7f7f7f;">))</span> <span style="color: #465a61; font-weight: bold;">;; </span><span style="color: #465a61; font-style: italic;">true</span>
 </pre>
 
 
@@ -813,7 +813,7 @@ As with <code>has-prefix</code>, facts making use of <code>has-suffix</code> onl
 </div>
 
 <div id="outline-container-1-5" class="outline-3">
-<h3 id="sec-1-5">Tabular </h3>
+<h3 id="sec-1-5">Tabular</h3>
 <div class="outline-text-3" id="text-1-5">
 
 
@@ -823,20 +823,20 @@ In certain cases, you might like to test a single query against a wide range of 
 
 
 
-<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span>fact?- [[<span style="color: #8b2252;">"mock"</span> 1] [<span style="color: #8b2252;">"it"</span> 1] [<span style="color: #8b2252;">"out!"</span> 1]]
-        <span style="color: #8c8c8c;">(</span>wc-query <span style="color: #008b8b;">:path</span><span style="color: #8c8c8c;">)</span>
-        <span style="color: #8c8c8c;">(</span>provided
-          <span style="color: #8c8c8c;">(</span>hfs-textline <span style="color: #008b8b;">:path</span><span style="color: #8c8c8c;">)</span> =&gt; [[<span style="color: #8b2252;">"mock it out!"</span>]]<span style="color: #8c8c8c;">)</span> <span style="color: #b22222;">;;</span><span style="color: #b22222;">true</span>
+<pre class="src src-clojure"><span style="color: #7f7f7f;">(</span>fact?- [[<span style="color: #259185;">"mock"</span> 1] [<span style="color: #259185;">"it"</span> 1] [<span style="color: #259185;">"out!"</span> 1]]
+        <span style="color: #7f7f7f;">(</span>wc-query <span style="color: #259185; font-weight: bold;">:path</span><span style="color: #7f7f7f;">)</span>
+        <span style="color: #7f7f7f;">(</span><span style="color: #728a05; font-weight: bold;">provided</span>
+          <span style="color: #7f7f7f;">(</span>hfs-textline <span style="color: #259185; font-weight: bold;">:path</span><span style="color: #7f7f7f;">)</span> <span style="color: #c60007; font-weight: bold;">=&gt;</span> [[<span style="color: #259185;">"mock it out!"</span>]]<span style="color: #7f7f7f;">)</span> <span style="color: #465a61; font-weight: bold;">;;</span><span style="color: #465a61; font-style: italic;">true</span>
 
-        [[<span style="color: #8b2252;">"two"</span> 3]]
-        <span style="color: #8c8c8c;">(</span>wc-query <span style="color: #008b8b;">:path</span><span style="color: #8c8c8c;">)</span>
-        <span style="color: #8c8c8c;">(</span>provided
-          <span style="color: #8c8c8c;">(</span>hfs-textline <span style="color: #008b8b;">:path</span><span style="color: #8c8c8c;">)</span> =&gt; [[<span style="color: #8b2252;">"two two two"</span>]]<span style="color: #8c8c8c;">)</span> <span style="color: #b22222;">;;</span><span style="color: #b22222;">true</span>
+        [[<span style="color: #259185;">"two"</span> 3]]
+        <span style="color: #7f7f7f;">(</span>wc-query <span style="color: #259185; font-weight: bold;">:path</span><span style="color: #7f7f7f;">)</span>
+        <span style="color: #7f7f7f;">(</span><span style="color: #728a05; font-weight: bold;">provided</span>
+          <span style="color: #7f7f7f;">(</span>hfs-textline <span style="color: #259185; font-weight: bold;">:path</span><span style="color: #7f7f7f;">)</span> <span style="color: #c60007; font-weight: bold;">=&gt;</span> [[<span style="color: #259185;">"two two two"</span>]]<span style="color: #7f7f7f;">)</span> <span style="color: #465a61; font-weight: bold;">;;</span><span style="color: #465a61; font-style: italic;">true</span>
 
-        [[<span style="color: #8b2252;">"M.M"</span> 1] [<span style="color: #8b2252;">"nathan"</span> 1]]
-        <span style="color: #8c8c8c;">(</span>wc-query <span style="color: #008b8b;">:path</span><span style="color: #8c8c8c;">)</span>
-        <span style="color: #8c8c8c;">(</span>provided
-          <span style="color: #8c8c8c;">(</span>hfs-textline <span style="color: #008b8b;">:path</span><span style="color: #8c8c8c;">)</span> =&gt; [[<span style="color: #8b2252;">"nathan M.M"</span>]]<span style="color: #8c8c8c;">))</span> <span style="color: #b22222;">;; </span><span style="color: #b22222;">true</span>
+        [[<span style="color: #259185;">"M.M"</span> 1] [<span style="color: #259185;">"nathan"</span> 1]]
+        <span style="color: #7f7f7f;">(</span>wc-query <span style="color: #259185; font-weight: bold;">:path</span><span style="color: #7f7f7f;">)</span>
+        <span style="color: #7f7f7f;">(</span><span style="color: #728a05; font-weight: bold;">provided</span>
+          <span style="color: #7f7f7f;">(</span>hfs-textline <span style="color: #259185; font-weight: bold;">:path</span><span style="color: #7f7f7f;">)</span> <span style="color: #c60007; font-weight: bold;">=&gt;</span> [[<span style="color: #259185;">"nathan M.M"</span>]]<span style="color: #7f7f7f;">))</span> <span style="color: #465a61; font-weight: bold;">;; </span><span style="color: #465a61; font-style: italic;">true</span>
 </pre>
 
 
@@ -849,17 +849,17 @@ Midje's <code>tabular</code> form provides an elegant way to collapse this repet
 
 
 
-<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span>tabular
- <span style="color: #8c8c8c;">(</span>fact?- <span style="color: #8b2252;">"Tabular generates lots of facts, one for each set of</span>
-<span style="color: #8b2252;">         substitutions in the table below."</span>
+<pre class="src src-clojure"><span style="color: #7f7f7f;">(</span><span style="color: #728a05; font-weight: bold;">tabular</span>
+ <span style="color: #7f7f7f;">(</span>fact?- <span style="color: #259185;">"Tabular generates lots of facts, one for each set of</span>
+<span style="color: #259185;">         substitutions in the table below."</span>
          ?results
-         <span style="color: #8c8c8c;">(</span>wc-query <span style="color: #008b8b;">:path</span><span style="color: #8c8c8c;">)</span>
-         <span style="color: #8c8c8c;">(</span>provided
-           <span style="color: #8c8c8c;">(</span>hfs-textline <span style="color: #008b8b;">:path</span><span style="color: #8c8c8c;">)</span> =&gt; [[?sentence]]<span style="color: #8c8c8c;">))</span>
+         <span style="color: #7f7f7f;">(</span>wc-query <span style="color: #259185; font-weight: bold;">:path</span><span style="color: #7f7f7f;">)</span>
+         <span style="color: #7f7f7f;">(</span><span style="color: #728a05; font-weight: bold;">provided</span>
+           <span style="color: #7f7f7f;">(</span>hfs-textline <span style="color: #259185; font-weight: bold;">:path</span><span style="color: #7f7f7f;">)</span> <span style="color: #c60007; font-weight: bold;">=&gt;</span> [[?sentence]]<span style="color: #7f7f7f;">))</span>
  ?sentence       ?results
- <span style="color: #8b2252;">"mock it out!"</span>  [[<span style="color: #8b2252;">"mock"</span> 1] [<span style="color: #8b2252;">"it"</span> 1] [<span style="color: #8b2252;">"out!"</span> 1]]
- <span style="color: #8b2252;">"two two two"</span>   [[<span style="color: #8b2252;">"two"</span> 3]]
- <span style="color: #8b2252;">"nathan M.M"</span>    [[<span style="color: #8b2252;">"M.M"</span> 1] [<span style="color: #8b2252;">"nathan"</span> 1]]<span style="color: #8c8c8c;">)</span> <span style="color: #b22222;">;; </span><span style="color: #b22222;">3 true facts</span>
+ <span style="color: #259185;">"mock it out!"</span>  [[<span style="color: #259185;">"mock"</span> 1] [<span style="color: #259185;">"it"</span> 1] [<span style="color: #259185;">"out!"</span> 1]]
+ <span style="color: #259185;">"two two two"</span>   [[<span style="color: #259185;">"two"</span> 3]]
+ <span style="color: #259185;">"nathan M.M"</span>    [[<span style="color: #259185;">"M.M"</span> 1] [<span style="color: #259185;">"nathan"</span> 1]]<span style="color: #7f7f7f;">)</span> <span style="color: #465a61; font-weight: bold;">;; </span><span style="color: #465a61; font-style: italic;">3 true facts</span>
 </pre>
 
 
@@ -888,24 +888,24 @@ The first fact generated by the above tabular fact looks like this:
 
 
 
-<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span>tabular
- <span style="color: #b22222;">;; </span><span style="color: #b22222;">Tabular takes this templating form:</span>
- <span style="color: #8c8c8c;">(</span>fact?- <span style="color: #8b2252;">"Tabular generates lots of facts, one for each set of</span>
-<span style="color: #8b2252;">           substitutions in the table below."</span>
+<pre class="src src-clojure"><span style="color: #7f7f7f;">(</span><span style="color: #728a05; font-weight: bold;">tabular</span>
+ <span style="color: #465a61; font-weight: bold;">;; </span><span style="color: #465a61; font-style: italic;">Tabular takes this templating form:</span>
+ <span style="color: #7f7f7f;">(</span>fact?- <span style="color: #259185;">"Tabular generates lots of facts, one for each set of</span>
+<span style="color: #259185;">           substitutions in the table below."</span>
          ?results
-         <span style="color: #8c8c8c;">(</span>wc-query <span style="color: #008b8b;">:path</span><span style="color: #8c8c8c;">)</span>
-         <span style="color: #8c8c8c;">(</span>provided
-           <span style="color: #8c8c8c;">(</span>hfs-textline <span style="color: #008b8b;">:path</span><span style="color: #8c8c8c;">)</span> =&gt; [[?sentence]]<span style="color: #8c8c8c;">))</span>
+         <span style="color: #7f7f7f;">(</span>wc-query <span style="color: #259185; font-weight: bold;">:path</span><span style="color: #7f7f7f;">)</span>
+         <span style="color: #7f7f7f;">(</span><span style="color: #728a05; font-weight: bold;">provided</span>
+           <span style="color: #7f7f7f;">(</span>hfs-textline <span style="color: #259185; font-weight: bold;">:path</span><span style="color: #7f7f7f;">)</span> <span style="color: #c60007; font-weight: bold;">=&gt;</span> [[?sentence]]<span style="color: #7f7f7f;">))</span>
 
- <span style="color: #b22222;">;; </span><span style="color: #b22222;">and substitutes these variables:</span>
+ <span style="color: #465a61; font-weight: bold;">;; </span><span style="color: #465a61; font-style: italic;">and substitutes these variables:</span>
  ?sentence       ?results
- <span style="color: #8b2252;">"mock it out!"</span>  [[<span style="color: #8b2252;">"mock"</span> 1] [<span style="color: #8b2252;">"it"</span> 1] [<span style="color: #8b2252;">"out!"</span> 1]]<span style="color: #8c8c8c;">)</span> <span style="color: #b22222;">;; </span><span style="color: #b22222;">true</span>
+ <span style="color: #259185;">"mock it out!"</span>  [[<span style="color: #259185;">"mock"</span> 1] [<span style="color: #259185;">"it"</span> 1] [<span style="color: #259185;">"out!"</span> 1]]<span style="color: #7f7f7f;">)</span> <span style="color: #465a61; font-weight: bold;">;; </span><span style="color: #465a61; font-style: italic;">true</span>
 
-<span style="color: #b22222;">;; </span><span style="color: #b22222;">to produce this fact:</span>
-<span style="color: #8c8c8c;">(</span>fact?- [[<span style="color: #8b2252;">"mock"</span> 1] [<span style="color: #8b2252;">"it"</span> 1] [<span style="color: #8b2252;">"out!"</span> 1]]
-        <span style="color: #8c8c8c;">(</span>wc-query <span style="color: #008b8b;">:path</span><span style="color: #8c8c8c;">)</span>
-        <span style="color: #8c8c8c;">(</span>provided
-          <span style="color: #8c8c8c;">(</span>hfs-textline <span style="color: #008b8b;">:path</span><span style="color: #8c8c8c;">)</span> =&gt; [[<span style="color: #8b2252;">"mock it out!"</span>]]<span style="color: #8c8c8c;">))</span> <span style="color: #b22222;">;; </span><span style="color: #b22222;">true</span>
+<span style="color: #465a61; font-weight: bold;">;; </span><span style="color: #465a61; font-style: italic;">to produce this fact:</span>
+<span style="color: #7f7f7f;">(</span>fact?- [[<span style="color: #259185;">"mock"</span> 1] [<span style="color: #259185;">"it"</span> 1] [<span style="color: #259185;">"out!"</span> 1]]
+        <span style="color: #7f7f7f;">(</span>wc-query <span style="color: #259185; font-weight: bold;">:path</span><span style="color: #7f7f7f;">)</span>
+        <span style="color: #7f7f7f;">(</span><span style="color: #728a05; font-weight: bold;">provided</span>
+          <span style="color: #7f7f7f;">(</span>hfs-textline <span style="color: #259185; font-weight: bold;">:path</span><span style="color: #7f7f7f;">)</span> <span style="color: #c60007; font-weight: bold;">=&gt;</span> [[<span style="color: #259185;">"mock it out!"</span>]]<span style="color: #7f7f7f;">))</span> <span style="color: #465a61; font-weight: bold;">;; </span><span style="color: #465a61; font-style: italic;">true</span>
 </pre>
 
 
@@ -917,7 +917,7 @@ Any variable prefixed by <code>?</code> that appears inside both the fact templa
 </div>
 
 <div id="outline-container-1-6" class="outline-3">
-<h3 id="sec-1-6">Running Tests </h3>
+<h3 id="sec-1-6">Running Tests</h3>
 <div class="outline-text-3" id="text-1-6">
 
 
@@ -925,7 +925,7 @@ Any variable prefixed by <code>?</code> that appears inside both the fact templa
 </div>
 
 <div id="outline-container-1-6-1" class="outline-4">
-<h4 id="sec-1-6-1">lein-midje </h4>
+<h4 id="sec-1-6-1">lein-midje</h4>
 <div class="outline-text-4" id="text-1-6-1">
 
 
@@ -964,7 +964,7 @@ If you're using Cake, follow the steps on the <a href="https://github.com/marick
 </div>
 
 <div id="outline-container-1-6-2" class="outline-4">
-<h4 id="sec-1-6-2">Interaction with clojure.test </h4>
+<h4 id="sec-1-6-2">Interaction with clojure.test</h4>
 <div class="outline-text-4" id="text-1-6-2">
 
 
@@ -977,7 +977,7 @@ If you currently write <code>deftest</code> style tests using clojure.test, chec
 </div>
 
 <div id="outline-container-1-7" class="outline-3">
-<h3 id="sec-1-7">In Conclusion </h3>
+<h3 id="sec-1-7">In Conclusion</h3>
 <div class="outline-text-3" id="text-1-7">
 
 

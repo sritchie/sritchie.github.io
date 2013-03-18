@@ -6,7 +6,7 @@ title: Haskell in Emacs
 
 
 <div id="outline-container-1" class="outline-2">
-<h2 id="sec-1">Haskell in Emacs </h2>
+<h2 id="sec-1">Haskell in Emacs</h2>
 <div class="outline-text-2" id="text-1">
 
 
@@ -30,7 +30,7 @@ I'm currently running haskell-mode for emacs, with the <code>hs-lint</code> plug
 </div>
 
 <div id="outline-container-1-1" class="outline-3">
-<h3 id="sec-1-1">Installing Haskell </h3>
+<h3 id="sec-1-1">Installing Haskell</h3>
 <div class="outline-text-3" id="text-1-1">
 
 
@@ -42,7 +42,7 @@ Before any of this Emacs jazz, we have to get Haskell, of course. The easiest wa
 </div>
 
 <div id="outline-container-1-2" class="outline-3">
-<h3 id="sec-1-2">Emacs Haskell Mode </h3>
+<h3 id="sec-1-2">Emacs Haskell Mode</h3>
 <div class="outline-text-3" id="text-1-2">
 
 
@@ -67,7 +67,7 @@ Once elpa's all set, install <code>haskell-mode</code> with the following:
 </div>
 
 <div id="outline-container-1-3" class="outline-3">
-<h3 id="sec-1-3">Configuring emacs.el </h3>
+<h3 id="sec-1-3">Configuring emacs.el</h3>
 <div class="outline-text-3" id="text-1-3">
 
 
@@ -77,16 +77,16 @@ Before we get into linting or any other customizations, Add the following to you
 
 
 
-<pre class="src src-emacs-lisp"><span style="color: #8c8c8c;">(</span>add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode<span style="color: #8c8c8c;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #7f7f7f;">(</span>add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode<span style="color: #7f7f7f;">)</span>
 
-<span style="color: #b22222;">;; </span><span style="color: #b22222;">hslint on the command line only likes this indentation mode;</span>
-<span style="color: #b22222;">;; </span><span style="color: #b22222;">alternatives commented out below.</span>
-<span style="color: #8c8c8c;">(</span>add-hook 'haskell-mode-hook 'turn-on-haskell-indentation<span style="color: #8c8c8c;">)</span>
-<span style="color: #b22222;">;;</span><span style="color: #b22222;">(add-hook 'haskell-mode-hook 'turn-on-haskell-indent)</span>
-<span style="color: #b22222;">;;</span><span style="color: #b22222;">(add-hook 'haskell-mode-hook 'turn-on-haskell-simple-indent)</span>
+<span style="color: #465a61; font-weight: bold;">;; </span><span style="color: #465a61; font-style: italic;">hslint on the command line only likes this indentation mode;</span>
+<span style="color: #465a61; font-weight: bold;">;; </span><span style="color: #465a61; font-style: italic;">alternatives commented out below.</span>
+<span style="color: #7f7f7f;">(</span>add-hook 'haskell-mode-hook 'turn-on-haskell-indentation<span style="color: #7f7f7f;">)</span>
+<span style="color: #465a61; font-weight: bold;">;;</span><span style="color: #465a61; font-style: italic;">(add-hook 'haskell-mode-hook 'turn-on-haskell-indent)</span>
+<span style="color: #465a61; font-weight: bold;">;;</span><span style="color: #465a61; font-style: italic;">(add-hook 'haskell-mode-hook 'turn-on-haskell-simple-indent)</span>
 
-<span style="color: #b22222;">;; </span><span style="color: #b22222;">Ignore compiled Haskell files in filename completions</span>
-<span style="color: #8c8c8c;">(</span>add-to-list 'completion-ignored-extensions <span style="color: #8b2252;">".hi"</span><span style="color: #8c8c8c;">)</span>
+<span style="color: #465a61; font-weight: bold;">;; </span><span style="color: #465a61; font-style: italic;">Ignore compiled Haskell files in filename completions</span>
+<span style="color: #7f7f7f;">(</span>add-to-list 'completion-ignored-extensions <span style="color: #259185;">".hi"</span><span style="color: #7f7f7f;">)</span>
 </pre>
 
 
@@ -106,10 +106,10 @@ At this point, you should be able to start using Haskell in emacs. Let's write o
 
 
 
-<pre class="src src-haskell"><span style="color: #7f007f;">module</span> <span style="color: #228b22;">Examples</span> <span style="color: #7f007f;">where</span>
+<pre class="src src-haskell"><span style="color: #728a05; font-weight: bold;">module</span> <span style="color: #a57705; font-weight: bold;">Examples</span> <span style="color: #728a05; font-weight: bold;">where</span>
 
-<span style="color: #0000ff;">square</span> <span style="color: #a0522d;">::</span> <span style="color: #228b22;">Integral</span> a <span style="color: #a0522d;">=&gt;</span> a <span style="color: #a0522d;">-&gt;</span> a
-<span style="color: #0000ff;">square</span> x <span style="color: #a0522d;">=</span> x <span style="color: #a0522d;">*</span> x
+<span style="color: #2075c7;">square</span> <span style="color: #2075c7;">::</span> <span style="color: #a57705; font-weight: bold;">Integral</span> a <span style="color: #2075c7;">=&gt;</span> a <span style="color: #2075c7;">-&gt;</span> a
+<span style="color: #2075c7;">square</span> x <span style="color: #2075c7;">=</span> x <span style="color: #2075c7;">*</span> x
 
 </pre>
 
@@ -120,9 +120,9 @@ Then type <code>C-c C-l</code> in that buffer to load the file's contents into t
 
 
 
-<pre class="src src-haskell"><span style="color: #a0522d;">*</span><span style="color: #228b22;">Main</span><span style="color: #a0522d;">&gt;</span> square 10
+<pre class="src src-haskell"><span style="color: #2075c7;">*</span><span style="color: #a57705; font-weight: bold;">Main</span><span style="color: #2075c7;">&gt;</span> square 10
 100
-<span style="color: #a0522d;">*</span><span style="color: #228b22;">Main</span><span style="color: #a0522d;">&gt;</span> square 34
+<span style="color: #2075c7;">*</span><span style="color: #a57705; font-weight: bold;">Main</span><span style="color: #2075c7;">&gt;</span> square 34
 1156
 </pre>
 
@@ -135,7 +135,7 @@ Nice.
 </div>
 
 <div id="outline-container-1-4" class="outline-3">
-<h3 id="sec-1-4">Flymake </h3>
+<h3 id="sec-1-4">Flymake</h3>
 <div class="outline-text-3" id="text-1-4">
 
 
@@ -178,33 +178,33 @@ Flymake depends on an external perl script, <code>hslint</code>, to pass the con
 
 
 
-<pre class="src src-emacs-lisp"><span style="color: #8c8c8c;">(</span><span style="color: #7f007f;">defun</span> <span style="color: #0000ff;">flymake-haskell-init</span> <span style="color: #8c8c8c;">()</span>
-  <span style="color: #8b2252;">"When flymake triggers, generates a tempfile containing the</span>
-<span style="color: #8b2252;">  contents of the current buffer, runs `hslint` on it, and</span>
-<span style="color: #8b2252;">  deletes file. Put this file path (and run `chmod a+x hslint`)</span>
-<span style="color: #8b2252;">  to enable hslint: https://gist.github.com/1241073"</span>
-  <span style="color: #8c8c8c;">(</span><span style="color: #7f007f;">let*</span> <span style="color: #8c8c8c;">((</span>temp-file   <span style="color: #8c8c8c;">(</span>flymake-init-create-temp-buffer-copy
-                       'flymake-create-temp-inplace<span style="color: #8c8c8c;">))</span>
-         <span style="color: #8c8c8c;">(</span>local-file  <span style="color: #8c8c8c;">(</span>file-relative-name
+<pre class="src src-emacs-lisp"><span style="color: #7f7f7f;">(</span><span style="color: #728a05; font-weight: bold;">defun</span> <span style="color: #2075c7;">flymake-haskell-init</span> <span style="color: #7f7f7f;">()</span>
+  <span style="color: #259185; font-style: italic;">"When flymake triggers, generates a tempfile containing the</span>
+<span style="color: #259185; font-style: italic;">  contents of the current buffer, runs `hslint` on it, and</span>
+<span style="color: #259185; font-style: italic;">  deletes file. Put this file path (and run `chmod a+x hslint`)</span>
+<span style="color: #259185; font-style: italic;">  to enable hslint: https://gist.github.com/1241073"</span>
+  <span style="color: #7f7f7f;">(</span><span style="color: #728a05; font-weight: bold;">let*</span> <span style="color: #7f7f7f;">((</span>temp-file   <span style="color: #7f7f7f;">(</span>flymake-init-create-temp-buffer-copy
+                       'flymake-create-temp-inplace<span style="color: #7f7f7f;">))</span>
+         <span style="color: #7f7f7f;">(</span>local-file  <span style="color: #7f7f7f;">(</span>file-relative-name
                        temp-file
-                       <span style="color: #8c8c8c;">(</span>file-name-directory buffer-file-name<span style="color: #8c8c8c;">))))</span>
-    <span style="color: #8c8c8c;">(</span>list <span style="color: #8b2252;">"hslint"</span> <span style="color: #8c8c8c;">(</span>list local-file<span style="color: #8c8c8c;">))))</span>
+                       <span style="color: #7f7f7f;">(</span>file-name-directory buffer-file-name<span style="color: #7f7f7f;">))))</span>
+    <span style="color: #7f7f7f;">(</span>list <span style="color: #259185;">"hslint"</span> <span style="color: #7f7f7f;">(</span>list local-file<span style="color: #7f7f7f;">))))</span>
 
-<span style="color: #8c8c8c;">(</span><span style="color: #7f007f;">defun</span> <span style="color: #0000ff;">flymake-haskell-enable</span> <span style="color: #8c8c8c;">()</span>
-  <span style="color: #8b2252;">"Enables flymake-mode for haskell, and sets &lt;C-c d&gt; as command</span>
-<span style="color: #8b2252;">  to show current error."</span>
-  <span style="color: #8c8c8c;">(</span><span style="color: #7f007f;">when</span> <span style="color: #8c8c8c;">(</span>and buffer-file-name
-             <span style="color: #8c8c8c;">(</span>file-writable-p
-              <span style="color: #8c8c8c;">(</span>file-name-directory buffer-file-name<span style="color: #8c8c8c;">))</span>
-             <span style="color: #8c8c8c;">(</span>file-writable-p buffer-file-name<span style="color: #8c8c8c;">))</span>
-    <span style="color: #8c8c8c;">(</span>local-set-key <span style="color: #8c8c8c;">(</span>kbd <span style="color: #8b2252;">"C-c d"</span><span style="color: #8c8c8c;">)</span> 'flymake-display-err-menu-for-current-line<span style="color: #8c8c8c;">)</span>
-    <span style="color: #8c8c8c;">(</span>flymake-mode t<span style="color: #8c8c8c;">)))</span>
+<span style="color: #7f7f7f;">(</span><span style="color: #728a05; font-weight: bold;">defun</span> <span style="color: #2075c7;">flymake-haskell-enable</span> <span style="color: #7f7f7f;">()</span>
+  <span style="color: #259185; font-style: italic;">"Enables flymake-mode for haskell, and sets &lt;C-c d&gt; as command</span>
+<span style="color: #259185; font-style: italic;">  to show current error."</span>
+  <span style="color: #7f7f7f;">(</span><span style="color: #728a05; font-weight: bold;">when</span> <span style="color: #7f7f7f;">(</span>and buffer-file-name
+             <span style="color: #7f7f7f;">(</span>file-writable-p
+              <span style="color: #7f7f7f;">(</span>file-name-directory buffer-file-name<span style="color: #7f7f7f;">))</span>
+             <span style="color: #7f7f7f;">(</span>file-writable-p buffer-file-name<span style="color: #7f7f7f;">))</span>
+    <span style="color: #7f7f7f;">(</span>local-set-key <span style="color: #7f7f7f;">(</span>kbd <span style="color: #259185;">"C-c d"</span><span style="color: #7f7f7f;">)</span> 'flymake-display-err-menu-for-current-line<span style="color: #7f7f7f;">)</span>
+    <span style="color: #7f7f7f;">(</span>flymake-mode t<span style="color: #7f7f7f;">)))</span>
 
-<span style="color: #b22222;">;; </span><span style="color: #b22222;">Forces flymake to underline bad lines, instead of fully</span>
-<span style="color: #b22222;">;; </span><span style="color: #b22222;">highlighting them; remove this if you prefer full highlighting.</span>
-<span style="color: #8c8c8c;">(</span>custom-set-faces
- '<span style="color: #8c8c8c;">(</span>flymake-errline <span style="color: #8c8c8c;">((((</span>class color<span style="color: #8c8c8c;">))</span> <span style="color: #8c8c8c;">(</span><span style="color: #7a378b;">:underline</span> <span style="color: #8b2252;">"red"</span><span style="color: #8c8c8c;">))))</span>
- '<span style="color: #8c8c8c;">(</span>flymake-warnline <span style="color: #8c8c8c;">((((</span>class color<span style="color: #8c8c8c;">))</span> <span style="color: #8c8c8c;">(</span><span style="color: #7a378b;">:underline</span> <span style="color: #8b2252;">"yellow"</span><span style="color: #8c8c8c;">)))))</span>
+<span style="color: #465a61; font-weight: bold;">;; </span><span style="color: #465a61; font-style: italic;">Forces flymake to underline bad lines, instead of fully</span>
+<span style="color: #465a61; font-weight: bold;">;; </span><span style="color: #465a61; font-style: italic;">highlighting them; remove this if you prefer full highlighting.</span>
+<span style="color: #7f7f7f;">(</span>custom-set-faces
+ '<span style="color: #7f7f7f;">(</span>flymake-errline <span style="color: #7f7f7f;">((((</span>class color<span style="color: #7f7f7f;">))</span> <span style="color: #7f7f7f;">(</span><span style="color: #728a05;">:underline</span> <span style="color: #259185;">"red"</span><span style="color: #7f7f7f;">))))</span>
+ '<span style="color: #7f7f7f;">(</span>flymake-warnline <span style="color: #7f7f7f;">((((</span>class color<span style="color: #7f7f7f;">))</span> <span style="color: #7f7f7f;">(</span><span style="color: #728a05;">:underline</span> <span style="color: #259185;">"yellow"</span><span style="color: #7f7f7f;">)))))</span>
 </pre>
 
 
@@ -213,7 +213,7 @@ Flymake depends on an external perl script, <code>hslint</code>, to pass the con
 </div>
 
 <div id="outline-container-1-5" class="outline-3">
-<h3 id="sec-1-5">Haskell Extensions </h3>
+<h3 id="sec-1-5">Haskell Extensions</h3>
 <div class="outline-text-3" id="text-1-5">
 
 
@@ -221,7 +221,7 @@ Flymake depends on an external perl script, <code>hslint</code>, to pass the con
 </div>
 
 <div id="outline-container-1-5-1" class="outline-4">
-<h4 id="sec-1-5-1">Auto Complete Mode </h4>
+<h4 id="sec-1-5-1">Auto Complete Mode</h4>
 <div class="outline-text-4" id="text-1-5-1">
 
 
@@ -248,7 +248,7 @@ That should get you all set for the next step.
 </div>
 
 <div id="outline-container-1-5-2" class="outline-4">
-<h4 id="sec-1-5-2">Linting! </h4>
+<h4 id="sec-1-5-2">Linting!</h4>
 <div class="outline-text-4" id="text-1-5-2">
 
 
@@ -263,30 +263,30 @@ That should get you all set for the next step.
 
 
 
-<pre class="src src-emacs-lisp"><span style="color: #8c8c8c;">(</span><span style="color: #7f007f;">require</span> '<span style="color: #008b8b;">hs-lint</span><span style="color: #8c8c8c;">)</span>    <span style="color: #b22222;">;; </span><span style="color: #b22222;">https://gist.github.com/1241059</span>
-<span style="color: #8c8c8c;">(</span><span style="color: #7f007f;">require</span> '<span style="color: #008b8b;">haskell-ac</span><span style="color: #8c8c8c;">)</span> <span style="color: #b22222;">;; </span><span style="color: #b22222;">https://gist.github.com/1241063</span>
+<pre class="src src-emacs-lisp"><span style="color: #7f7f7f;">(</span><span style="color: #728a05; font-weight: bold;">require</span> '<span style="color: #259185; font-weight: bold;">hs-lint</span><span style="color: #7f7f7f;">)</span>    <span style="color: #465a61; font-weight: bold;">;; </span><span style="color: #465a61; font-style: italic;">https://gist.github.com/1241059</span>
+<span style="color: #7f7f7f;">(</span><span style="color: #728a05; font-weight: bold;">require</span> '<span style="color: #259185; font-weight: bold;">haskell-ac</span><span style="color: #7f7f7f;">)</span> <span style="color: #465a61; font-weight: bold;">;; </span><span style="color: #465a61; font-style: italic;">https://gist.github.com/1241063</span>
 
-<span style="color: #8c8c8c;">(</span><span style="color: #7f007f;">defun</span> <span style="color: #0000ff;">my-haskell-mode-hook</span> <span style="color: #8c8c8c;">()</span>
-  <span style="color: #8b2252;">"hs-lint binding, plus autocompletion and paredit."</span>
-  <span style="color: #8c8c8c;">(</span>local-set-key <span style="color: #8b2252;">"\C-cl"</span> 'hs-lint<span style="color: #8c8c8c;">)</span>
-  <span style="color: #8c8c8c;">(</span>setq ac-sources
-        <span style="color: #8c8c8c;">(</span>append '<span style="color: #8c8c8c;">(</span>ac-source-yasnippet
+<span style="color: #7f7f7f;">(</span><span style="color: #728a05; font-weight: bold;">defun</span> <span style="color: #2075c7;">my-haskell-mode-hook</span> <span style="color: #7f7f7f;">()</span>
+  <span style="color: #259185; font-style: italic;">"hs-lint binding, plus autocompletion and paredit."</span>
+  <span style="color: #7f7f7f;">(</span>local-set-key <span style="color: #259185;">"\C-cl"</span> 'hs-lint<span style="color: #7f7f7f;">)</span>
+  <span style="color: #7f7f7f;">(</span>setq ac-sources
+        <span style="color: #7f7f7f;">(</span>append '<span style="color: #7f7f7f;">(</span>ac-source-yasnippet
                   ac-source-abbrev
                   ac-source-words-in-buffer
-                  my/ac-source-haskell<span style="color: #8c8c8c;">)</span>
-                ac-sources<span style="color: #8c8c8c;">))</span>
-  <span style="color: #8c8c8c;">(</span><span style="color: #7f007f;">dolist</span> <span style="color: #8c8c8c;">(</span>x '<span style="color: #8c8c8c;">(</span>haskell literate-haskell<span style="color: #8c8c8c;">))</span>
-    <span style="color: #8c8c8c;">(</span>add-hook
-     <span style="color: #8c8c8c;">(</span>intern <span style="color: #8c8c8c;">(</span>concat <span style="color: #8c8c8c;">(</span>symbol-name x<span style="color: #8c8c8c;">)</span>
-                     <span style="color: #8b2252;">"-mode-hook"</span><span style="color: #8c8c8c;">))</span>
-     'turn-on-paredit<span style="color: #8c8c8c;">)))</span>
+                  my/ac-source-haskell<span style="color: #7f7f7f;">)</span>
+                ac-sources<span style="color: #7f7f7f;">))</span>
+  <span style="color: #7f7f7f;">(</span><span style="color: #728a05; font-weight: bold;">dolist</span> <span style="color: #7f7f7f;">(</span>x '<span style="color: #7f7f7f;">(</span>haskell literate-haskell<span style="color: #7f7f7f;">))</span>
+    <span style="color: #7f7f7f;">(</span>add-hook
+     <span style="color: #7f7f7f;">(</span>intern <span style="color: #7f7f7f;">(</span>concat <span style="color: #7f7f7f;">(</span>symbol-name x<span style="color: #7f7f7f;">)</span>
+                     <span style="color: #259185;">"-mode-hook"</span><span style="color: #7f7f7f;">))</span>
+     'turn-on-paredit<span style="color: #7f7f7f;">)))</span>
 
-<span style="color: #8c8c8c;">(</span><span style="color: #7f007f;">eval-after-load</span> 'haskell-mode
-  '<span style="color: #8c8c8c;">(</span><span style="color: #7f007f;">progn</span>
-     <span style="color: #8c8c8c;">(</span><span style="color: #7f007f;">require</span> '<span style="color: #008b8b;">flymake</span><span style="color: #8c8c8c;">)</span>
-     <span style="color: #8c8c8c;">(</span>push '<span style="color: #8c8c8c;">(</span><span style="color: #8b2252;">"\\.l?hs\\'"</span> flymake-haskell-init<span style="color: #8c8c8c;">)</span> flymake-allowed-file-name-masks<span style="color: #8c8c8c;">)</span>
-     <span style="color: #8c8c8c;">(</span>add-hook 'haskell-mode-hook 'flymake-haskell-enable<span style="color: #8c8c8c;">)</span>
-     <span style="color: #8c8c8c;">(</span>add-hook 'haskell-mode-hook 'my-haskell-mode-hook<span style="color: #8c8c8c;">)))</span>
+<span style="color: #7f7f7f;">(</span><span style="color: #728a05; font-weight: bold;">eval-after-load</span> 'haskell-mode
+  '<span style="color: #7f7f7f;">(</span><span style="color: #728a05; font-weight: bold;">progn</span>
+     <span style="color: #7f7f7f;">(</span><span style="color: #728a05; font-weight: bold;">require</span> '<span style="color: #259185; font-weight: bold;">flymake</span><span style="color: #7f7f7f;">)</span>
+     <span style="color: #7f7f7f;">(</span>push '<span style="color: #7f7f7f;">(</span><span style="color: #259185;">"\\.l?hs\\'"</span> flymake-haskell-init<span style="color: #7f7f7f;">)</span> flymake-allowed-file-name-masks<span style="color: #7f7f7f;">)</span>
+     <span style="color: #7f7f7f;">(</span>add-hook 'haskell-mode-hook 'flymake-haskell-enable<span style="color: #7f7f7f;">)</span>
+     <span style="color: #7f7f7f;">(</span>add-hook 'haskell-mode-hook 'my-haskell-mode-hook<span style="color: #7f7f7f;">)))</span>
 </pre>
 
 
@@ -299,7 +299,7 @@ Now go ahead and add the following line to <code>test.hs</code>:
 
 
 
-<pre class="src src-haskell"><span style="color: #0000ff;">face</span> <span style="color: #a0522d;">::</span> <span style="color: #228b22;">Int</span> <span style="color: #a0522d;">-&gt;</span> <span style="color: #228b22;">Bool</span>
+<pre class="src src-haskell"><span style="color: #2075c7;">face</span> <span style="color: #2075c7;">::</span> <span style="color: #a57705; font-weight: bold;">Int</span> <span style="color: #2075c7;">-&gt;</span> <span style="color: #a57705; font-weight: bold;">Bool</span>
 </pre>
 
 
@@ -319,7 +319,7 @@ Adding this will clear things up:
 
 
 
-<pre class="src src-haskell"><span style="color: #0000ff;">face</span> x <span style="color: #a0522d;">=</span> 5 <span style="color: #a0522d;">&lt;</span> x
+<pre class="src src-haskell"><span style="color: #2075c7;">face</span> x <span style="color: #2075c7;">=</span> 5 <span style="color: #2075c7;">&lt;</span> x
 </pre>
 
 
@@ -329,7 +329,7 @@ Adding this will clear things up:
 </div>
 
 <div id="outline-container-1-6" class="outline-3">
-<h3 id="sec-1-6">Finishing Up </h3>
+<h3 id="sec-1-6">Finishing Up</h3>
 <div class="outline-text-3" id="text-1-6">
 
 

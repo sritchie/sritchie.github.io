@@ -7,7 +7,7 @@ title: Getting Creative with MapReduce
 
 
 <div id="outline-container-1" class="outline-2">
-<h2 id="sec-1">Getting Creative with MapReduce </h2>
+<h2 id="sec-1">Getting Creative with MapReduce</h2>
 <div class="outline-text-2" id="text-1">
 
 
@@ -27,7 +27,7 @@ Cascalog and its testing suite, <a href="https://github.com/sritchie/midje-casca
 </div>
 
 <div id="outline-container-1-1" class="outline-3">
-<h3 id="sec-1-1">Current Approaches to MR Testing </h3>
+<h3 id="sec-1-1">Current Approaches to MR Testing</h3>
 <div class="outline-text-3" id="text-1-1">
 
 
@@ -71,7 +71,7 @@ I'd like to offer a more sane approach to MapReduce testing. In the following ex
 </div>
 
 <div id="outline-container-1-2" class="outline-3">
-<h3 id="sec-1-2">Functional MapReduce Testing </h3>
+<h3 id="sec-1-2">Functional MapReduce Testing</h3>
 <div class="outline-text-3" id="text-1-2">
 
 
@@ -81,15 +81,15 @@ Let's say you want to test a Cascalog workflow that examines your user datastore
 
 
 
-<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span><span style="color: #7f007f;">defn</span> <span style="color: #0000ff;">max-followers-query</span> [datastore-path]
-  <span style="color: #8c8c8c;">(</span><span style="color: #7a378b;">let</span> [src <span style="color: #8c8c8c;">(</span>name-vars <span style="color: #8c8c8c;">(</span>complex-subquery datastore-path<span style="color: #8c8c8c;">)</span>
-                       [<span style="color: #8b2252;">"?user"</span> <span style="color: #8b2252;">"?follower-count"</span>]<span style="color: #8c8c8c;">)</span>]
-    <span style="color: #8c8c8c;">(</span>cascalog.ops/first-n src 1 <span style="color: #008b8b;">:sort</span> [<span style="color: #8b2252;">"?follower-count"</span>] <span style="color: #008b8b;">:reverse</span> true<span style="color: #8c8c8c;">)))</span>
+<pre class="src src-clojure"><span style="color: #7f7f7f;">(</span><span style="color: #728a05; font-weight: bold;">defn</span> <span style="color: #2075c7;">max-followers-query</span> [datastore-path]
+  <span style="color: #7f7f7f;">(</span><span style="color: #728a05; font-weight: bold;">let</span> [src <span style="color: #7f7f7f;">(</span>name-vars <span style="color: #7f7f7f;">(</span>complex-subquery datastore-path<span style="color: #7f7f7f;">)</span>
+                       [<span style="color: #259185;">"?user"</span> <span style="color: #259185;">"?follower-count"</span>]<span style="color: #7f7f7f;">)</span>]
+    <span style="color: #7f7f7f;">(</span>cascalog.ops/first-n src 1 <span style="color: #259185; font-weight: bold;">:sort</span> [<span style="color: #259185;">"?follower-count"</span>] <span style="color: #259185; font-weight: bold;">:reverse</span> true<span style="color: #7f7f7f;">)))</span>
 </pre>
 
 
 <p>
-<code>max-followers-query</code> is a function that returns a Cascalog subquery. It works like this: 
+<code>max-followers-query</code> is a function that returns a Cascalog subquery. It works like this:
 </p>
 <ul>
 <li>The function accepts a path, (<code>datastore-path</code>) and passes it into a function called <code>complex-subquery</code>.
@@ -129,7 +129,7 @@ A correct test of <code>max-followers-query</code> will test this piece of logic
 </div>
 
 <div id="outline-container-1-2-1" class="outline-4">
-<h4 id="sec-1-2-1">Cloudera's "State of the Art" </h4>
+<h4 id="sec-1-2-1">Cloudera's "State of the Art"</h4>
 <div class="outline-text-4" id="text-1-2-1">
 
 
@@ -161,7 +161,7 @@ If your tests are this difficult to write, you're not going to write very many t
 </div>
 
 <div id="outline-container-1-2-2" class="outline-4">
-<h4 id="sec-1-2-2">Fact-Based Testing </h4>
+<h4 id="sec-1-2-2">Fact-Based Testing</h4>
 <div class="outline-text-4" id="text-1-2-2">
 
 
@@ -174,13 +174,13 @@ The following form is a Midje test, or "fact":
 
 
 
-<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span>fact?- <span style="color: #8b2252;">"Query should return a single tuple containing</span>
-<span style="color: #8b2252;">        [most-popular-user, follower-count]."</span>
-        [[<span style="color: #8b2252;">"richhickey"</span> 2961]]
-        <span style="color: #8c8c8c;">(</span>max-followers-query <span style="color: #008b8b;">:path</span><span style="color: #8c8c8c;">)</span>
-        <span style="color: #8c8c8c;">(</span>provided
-          <span style="color: #8c8c8c;">(</span>complex-subquery <span style="color: #008b8b;">:path</span><span style="color: #8c8c8c;">)</span> =&gt; [[<span style="color: #8b2252;">"sritchie09"</span> 180]
-                                       [<span style="color: #8b2252;">"richhickey"</span> 2961]]<span style="color: #8c8c8c;">))</span>
+<pre class="src src-clojure"><span style="color: #7f7f7f;">(</span>fact?- <span style="color: #259185;">"Query should return a single tuple containing</span>
+<span style="color: #259185;">        [most-popular-user, follower-count]."</span>
+        [[<span style="color: #259185;">"richhickey"</span> 2961]]
+        <span style="color: #7f7f7f;">(</span>max-followers-query <span style="color: #259185; font-weight: bold;">:path</span><span style="color: #7f7f7f;">)</span>
+        <span style="color: #7f7f7f;">(</span><span style="color: #728a05; font-weight: bold;">provided</span>
+          <span style="color: #7f7f7f;">(</span>complex-subquery <span style="color: #259185; font-weight: bold;">:path</span><span style="color: #7f7f7f;">)</span> <span style="color: #c60007; font-weight: bold;">=&gt;</span> [[<span style="color: #259185;">"sritchie09"</span> 180]
+                                       [<span style="color: #259185;">"richhickey"</span> 2961]]<span style="color: #7f7f7f;">))</span>
 </pre>
 
 
