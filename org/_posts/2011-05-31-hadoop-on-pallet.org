@@ -1,3 +1,4 @@
+
 #+STARTUP: showall indent
 #+STARTUP: hidestars
 #+BEGIN_HTML
@@ -59,6 +60,7 @@ Pallet abstracts away details about specific cloud providers through the idea of
                             :identity "ec2-access-key-id" ;; Swap in your access key ID
                             :credential "ec2-secret-access-key")) ;; Swap in your secret key
   #'pallet-hadoop-example.core/ec2-service
+  
 #+end_src
 
 Alternatively, if you want to keep these out of your code base, save the following to =~/.pallet/config.clj=:

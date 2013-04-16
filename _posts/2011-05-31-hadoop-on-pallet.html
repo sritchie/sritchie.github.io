@@ -56,7 +56,7 @@ I'm going to assume that you have some basic knowledge of clojure, and know how 
 
 
 <pre class="src src-sh">$ git clone git://github.com/pallet/pallet-hadoop-example.git
-$ cd pallet-hadoop-example
+$ cd pallet-hadoop-example  
 </pre>
 
 
@@ -79,7 +79,7 @@ Start a repl:
 
 
 <pre class="src src-sh">$ lein repl
- <span style="color: #2075c7;">user</span>=&gt; (use <span style="color: #259185;">'pallet-hadoop-example.core) (bootstrap)</span>
+ <span style="color: #a0522d;">user</span>=&gt; (use <span style="color: #8b2252;">'pallet-hadoop-example.core) (bootstrap)</span>
 </pre>
 
 
@@ -98,11 +98,12 @@ Pallet abstracts away details about specific cloud providers through the idea of
 
 
 
-<pre class="src src-clojure">user<span style="color: #c60007; font-weight: bold;">=&gt;</span> <span style="color: #7f7f7f;">(</span><span style="color: #728a05; font-weight: bold;">def</span> <span style="color: #2075c7;">ec2-service</span>
-         <span style="color: #7f7f7f;">(</span>compute-service <span style="color: #259185;">"aws-ec2"</span>
-                          <span style="color: #259185; font-weight: bold;">:identity</span> <span style="color: #259185;">"ec2-access-key-id"</span> <span style="color: #465a61; font-weight: bold;">;; </span><span style="color: #465a61; font-style: italic;">Swap in your access key ID</span>
-                          <span style="color: #259185; font-weight: bold;">:credential</span> <span style="color: #259185;">"ec2-secret-access-key"</span><span style="color: #7f7f7f;">))</span> <span style="color: #465a61; font-weight: bold;">;; </span><span style="color: #465a61; font-style: italic;">Swap in your secret key</span>
+<pre class="src src-clojure">user=&gt; <span style="color: #8c8c8c;">(</span><span style="color: #a020f0;">def</span> <span style="color: #0000ff;">ec2-service</span>
+         <span style="color: #8c8c8c;">(</span>compute-service <span style="color: #8b2252;">"aws-ec2"</span>
+                          <span style="color: #008b8b;">:identity</span> <span style="color: #8b2252;">"ec2-access-key-id"</span> <span style="color: #b22222;">;; </span><span style="color: #b22222;">Swap in your access key ID</span>
+                          <span style="color: #008b8b;">:credential</span> <span style="color: #8b2252;">"ec2-secret-access-key"</span><span style="color: #8c8c8c;">))</span> <span style="color: #b22222;">;; </span><span style="color: #b22222;">Swap in your secret key</span>
 #'pallet-hadoop-example.core/ec2-service
+
 </pre>
 
 
@@ -113,10 +114,10 @@ Alternatively, if you want to keep these out of your code base, save the followi
 
 
 
-<pre class="src src-clojure"><span style="color: #7f7f7f;">(</span><span style="color: #728a05; font-weight: bold;">defpallet</span>
-  <span style="color: #2075c7;">:services</span> {<span style="color: #259185; font-weight: bold;">:aws</span> {<span style="color: #259185; font-weight: bold;">:provider</span> <span style="color: #259185;">"aws-ec2"</span>
-                   <span style="color: #259185; font-weight: bold;">:identity</span> <span style="color: #259185;">"your-ec2-access-key-id"</span>
-                   <span style="color: #259185; font-weight: bold;">:credential</span> <span style="color: #259185;">"your-ec2-secret-access-key"</span>}}<span style="color: #7f7f7f;">)</span>
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span><span style="color: #a020f0;">defpallet</span>
+  <span style="color: #0000ff;">:services</span> {<span style="color: #008b8b;">:aws</span> {<span style="color: #008b8b;">:provider</span> <span style="color: #8b2252;">"aws-ec2"</span>
+                   <span style="color: #008b8b;">:identity</span> <span style="color: #8b2252;">"your-ec2-access-key-id"</span>
+                   <span style="color: #008b8b;">:credential</span> <span style="color: #8b2252;">"your-ec2-secret-access-key"</span>}}<span style="color: #8c8c8c;">)</span>
 </pre>
 
 
@@ -126,7 +127,7 @@ and define <code>ec2-service</code> with:
 
 
 
-<pre class="src src-clojure">user<span style="color: #c60007; font-weight: bold;">=&gt;</span> <span style="color: #7f7f7f;">(</span><span style="color: #728a05; font-weight: bold;">def</span> <span style="color: #2075c7;">ec2-service</span> <span style="color: #7f7f7f;">(</span>compute-service-from-config-file <span style="color: #259185; font-weight: bold;">:aws</span><span style="color: #7f7f7f;">))</span>
+<pre class="src src-clojure">user=&gt; <span style="color: #8c8c8c;">(</span><span style="color: #a020f0;">def</span> <span style="color: #0000ff;">ec2-service</span> <span style="color: #8c8c8c;">(</span>compute-service-from-config-file <span style="color: #008b8b;">:aws</span><span style="color: #8c8c8c;">))</span>
 #'user/ec2-service
 </pre>
 
@@ -146,7 +147,7 @@ Now that we have our compute service and our cluster defined, booting the cluste
 
 
 
-<pre class="src src-clojure">user<span style="color: #c60007; font-weight: bold;">=&gt;</span> <span style="color: #7f7f7f;">(</span>create-cluster example-cluster ec2-service<span style="color: #7f7f7f;">)</span>
+<pre class="src src-clojure">user=&gt; <span style="color: #8c8c8c;">(</span>create-cluster example-cluster ec2-service<span style="color: #8c8c8c;">)</span>
 </pre>
 
 
@@ -183,7 +184,7 @@ Next, we'll SSH into the jobtracker, and operate as the <code>hadoop</code> user
 
 
 
-<pre class="src src-sh">$ ssh jobtracker.com <span style="color: #465a61; font-weight: bold;"># </span><span style="color: #465a61; font-style: italic;">insert actual address, enter yes to continue connecting</span>
+<pre class="src src-sh">$ ssh jobtracker.com <span style="color: #b22222;"># </span><span style="color: #b22222;">insert actual address, enter yes to continue connecting</span>
 $ sudo su - hadoop
 </pre>
 
@@ -259,7 +260,7 @@ And copy the books over to the distributed filesystem:
 /usr/local/hadoop-0.20.2$ hadoop dfs -ls
 Found 1 items
 drwxr-xr-x   - hadoop supergroup          0 2011-06-01 06:12:21 /user/hadoop/books
-/usr/local/hadoop-0.20.2$
+/usr/local/hadoop-0.20.2$ 
 </pre>
 
 
@@ -300,32 +301,32 @@ And you should see something very similar to this:
 11/06/01 06:15:01 INFO mapred.JobClient:  map 100% reduce 100%
 11/06/01 06:15:02 INFO mapred.JobClient: Job complete: job_201106010554_0002
 11/06/01 06:15:02 INFO mapred.JobClient: Counters: 22
-11/06/01 06:15:02 INFO mapred.JobClient:   Job Counters
-11/06/01 06:15:02 INFO mapred.JobClient:     Launched reduce <span style="color: #2075c7;">tasks</span>=3
-11/06/01 06:15:02 INFO mapred.JobClient:     <span style="color: #2075c7;">SLOTS_MILLIS_MAPS</span>=74992
+11/06/01 06:15:02 INFO mapred.JobClient:   Job Counters 
+11/06/01 06:15:02 INFO mapred.JobClient:     Launched reduce <span style="color: #a0522d;">tasks</span>=3
+11/06/01 06:15:02 INFO mapred.JobClient:     <span style="color: #a0522d;">SLOTS_MILLIS_MAPS</span>=74992
 11/06/01 06:15:02 INFO mapred.JobClient:     Total time spent by all reduces waiting after reserving slots (ms)=0
 11/06/01 06:15:02 INFO mapred.JobClient:     Total time spent by all maps waiting after reserving slots (ms)=0
-11/06/01 06:15:02 INFO mapred.JobClient:     Launched map <span style="color: #2075c7;">tasks</span>=7
-11/06/01 06:15:02 INFO mapred.JobClient:     Data-local map <span style="color: #2075c7;">tasks</span>=7
-11/06/01 06:15:02 INFO mapred.JobClient:     <span style="color: #2075c7;">SLOTS_MILLIS_REDUCES</span>=46600
+11/06/01 06:15:02 INFO mapred.JobClient:     Launched map <span style="color: #a0522d;">tasks</span>=7
+11/06/01 06:15:02 INFO mapred.JobClient:     Data-local map <span style="color: #a0522d;">tasks</span>=7
+11/06/01 06:15:02 INFO mapred.JobClient:     <span style="color: #a0522d;">SLOTS_MILLIS_REDUCES</span>=46600
 11/06/01 06:15:02 INFO mapred.JobClient:   FileSystemCounters
-11/06/01 06:15:02 INFO mapred.JobClient:     <span style="color: #2075c7;">FILE_BYTES_READ</span>=1610042
-11/06/01 06:15:02 INFO mapred.JobClient:     <span style="color: #2075c7;">HDFS_BYTES_READ</span>=6557336
-11/06/01 06:15:02 INFO mapred.JobClient:     <span style="color: #2075c7;">FILE_BYTES_WRITTEN</span>=2753014
-11/06/01 06:15:02 INFO mapred.JobClient:     <span style="color: #2075c7;">HDFS_BYTES_WRITTEN</span>=1334919
+11/06/01 06:15:02 INFO mapred.JobClient:     <span style="color: #a0522d;">FILE_BYTES_READ</span>=1610042
+11/06/01 06:15:02 INFO mapred.JobClient:     <span style="color: #a0522d;">HDFS_BYTES_READ</span>=6557336
+11/06/01 06:15:02 INFO mapred.JobClient:     <span style="color: #a0522d;">FILE_BYTES_WRITTEN</span>=2753014
+11/06/01 06:15:02 INFO mapred.JobClient:     <span style="color: #a0522d;">HDFS_BYTES_WRITTEN</span>=1334919
 11/06/01 06:15:02 INFO mapred.JobClient:   Map-Reduce Framework
-11/06/01 06:15:02 INFO mapred.JobClient:     Reduce input <span style="color: #2075c7;">groups</span>=121791
-11/06/01 06:15:02 INFO mapred.JobClient:     Combine output <span style="color: #2075c7;">records</span>=183601
-11/06/01 06:15:02 INFO mapred.JobClient:     Map input <span style="color: #2075c7;">records</span>=127602
-11/06/01 06:15:02 INFO mapred.JobClient:     Reduce shuffle <span style="color: #2075c7;">bytes</span>=958780
-11/06/01 06:15:02 INFO mapred.JobClient:     Reduce output <span style="color: #2075c7;">records</span>=121791
-11/06/01 06:15:02 INFO mapred.JobClient:     Spilled <span style="color: #2075c7;">Records</span>=473035
-11/06/01 06:15:02 INFO mapred.JobClient:     Map output <span style="color: #2075c7;">bytes</span>=10812590
-11/06/01 06:15:02 INFO mapred.JobClient:     Combine input <span style="color: #2075c7;">records</span>=1111905
-11/06/01 06:15:02 INFO mapred.JobClient:     Map output <span style="color: #2075c7;">records</span>=1111905
-11/06/01 06:15:02 INFO mapred.JobClient:     <span style="color: #2075c7;">SPLIT_RAW_BYTES</span>=931
-11/06/01 06:15:02 INFO mapred.JobClient:     Reduce input <span style="color: #2075c7;">records</span>=183601
-/usr/local/hadoop-0.20.2$
+11/06/01 06:15:02 INFO mapred.JobClient:     Reduce input <span style="color: #a0522d;">groups</span>=121791
+11/06/01 06:15:02 INFO mapred.JobClient:     Combine output <span style="color: #a0522d;">records</span>=183601
+11/06/01 06:15:02 INFO mapred.JobClient:     Map input <span style="color: #a0522d;">records</span>=127602
+11/06/01 06:15:02 INFO mapred.JobClient:     Reduce shuffle <span style="color: #a0522d;">bytes</span>=958780
+11/06/01 06:15:02 INFO mapred.JobClient:     Reduce output <span style="color: #a0522d;">records</span>=121791
+11/06/01 06:15:02 INFO mapred.JobClient:     Spilled <span style="color: #a0522d;">Records</span>=473035
+11/06/01 06:15:02 INFO mapred.JobClient:     Map output <span style="color: #a0522d;">bytes</span>=10812590
+11/06/01 06:15:02 INFO mapred.JobClient:     Combine input <span style="color: #a0522d;">records</span>=1111905
+11/06/01 06:15:02 INFO mapred.JobClient:     Map output <span style="color: #a0522d;">records</span>=1111905
+11/06/01 06:15:02 INFO mapred.JobClient:     <span style="color: #a0522d;">SPLIT_RAW_BYTES</span>=931
+11/06/01 06:15:02 INFO mapred.JobClient:     Reduce input <span style="color: #a0522d;">records</span>=183601
+/usr/local/hadoop-0.20.2$ 
 </pre>
 
 
@@ -356,16 +357,16 @@ You should see something very close to:
 
 
 
-<pre class="src src-text">"'Ah!'   2
-"'Ample.'   1
-"'At  1
-"'But,   1
-"'But,'  1
-"'Come!  1
-"'December  1
-"'For 1
-"'Hampshire.   1
-"'Have   1
+<pre class="src src-text">"'Ah!'  2
+"'Ample.'       1
+"'At    1
+"'But,  1
+"'But,' 1
+"'Come! 1
+"'December      1
+"'For   1
+"'Hampshire.    1
+"'Have  1
 </pre>
 
 
@@ -387,7 +388,7 @@ When we're finished, we can kill our cluster with this command, back at the REPL
 
 
 
-<pre class="src src-clojure">user<span style="color: #c60007; font-weight: bold;">=&gt;</span> <span style="color: #7f7f7f;">(</span>destroy-cluster example-cluster ec2-service<span style="color: #7f7f7f;">)</span>
+<pre class="src src-clojure">user=&gt; <span style="color: #8c8c8c;">(</span>destroy-cluster example-cluster ec2-service<span style="color: #8c8c8c;">)</span>
 </pre>
 
 

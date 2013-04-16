@@ -17,7 +17,7 @@ A few months ago I announced <a href="http://sritchie.github.com/2011/09/30/test
 
 
 
-<pre class="src src-clojure">[midje-cascalog <span style="color: #259185;">"0.4.0"</span>]
+<pre class="src src-clojure">[midje-cascalog <span style="color: #8b2252;">"0.4.0"</span>]
 </pre>
 
 
@@ -35,13 +35,13 @@ Take the following Cascalog query:
 
 
 
-<pre class="src src-clojure"><span style="color: #7f7f7f;">(</span><span style="color: #728a05;">use</span> 'cascalog.api<span style="color: #7f7f7f;">)</span>
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span><span style="color: #483d8b;">use</span> 'cascalog.api<span style="color: #8c8c8c;">)</span>
 
-<span style="color: #7f7f7f;">(</span><span style="color: #728a05; font-weight: bold;">let</span> [src [[<span style="color: #259185;">"word"</span>]]]
-  <span style="color: #7f7f7f;">(</span>?&lt;- <span style="color: #7f7f7f;">(</span>stdout<span style="color: #7f7f7f;">)</span>
+<span style="color: #8c8c8c;">(</span><span style="color: #a020f0;">let</span> [src [[<span style="color: #8b2252;">"word"</span>]]]
+  <span style="color: #8c8c8c;">(</span>?&lt;- <span style="color: #8c8c8c;">(</span>stdout<span style="color: #8c8c8c;">)</span>
        [?out-word]
-       <span style="color: #7f7f7f;">(</span>src ?word<span style="color: #7f7f7f;">)</span>
-       <span style="color: #7f7f7f;">(</span><span style="color: #728a05;">str</span> ?word <span style="color: #259185;">" up!"</span> <span style="color: #259185; font-weight: bold;">:&gt;</span> ?out-word<span style="color: #7f7f7f;">)))</span>
+       <span style="color: #8c8c8c;">(</span>src ?word<span style="color: #8c8c8c;">)</span>
+       <span style="color: #8c8c8c;">(</span><span style="color: #483d8b;">str</span> ?word <span style="color: #8b2252;">" up!"</span> <span style="color: #008b8b;">:&gt;</span> ?out-word<span style="color: #8c8c8c;">)))</span>
 </pre>
 
 
@@ -54,14 +54,14 @@ How would you go about testing that this is true? With midje-cascalog, you would
 
 
 
-<pre class="src src-clojure"><span style="color: #7f7f7f;">(</span><span style="color: #728a05; font-weight: bold;">let</span> [src [[<span style="color: #259185;">"word"</span>]]]
-  <span style="color: #7f7f7f;">(</span>fact?&lt;- [[<span style="color: #259185;">"word up!"</span>]]
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span><span style="color: #a020f0;">let</span> [src [[<span style="color: #8b2252;">"word"</span>]]]
+  <span style="color: #8c8c8c;">(</span>fact?&lt;- [[<span style="color: #8b2252;">"word up!"</span>]]
            [?out-word]
-           <span style="color: #7f7f7f;">(</span>src ?word<span style="color: #7f7f7f;">)</span>
-           <span style="color: #7f7f7f;">(</span><span style="color: #728a05;">str</span> ?word <span style="color: #259185;">" up!"</span> <span style="color: #259185; font-weight: bold;">:&gt;</span> ?out-word<span style="color: #7f7f7f;">)))</span>
+           <span style="color: #8c8c8c;">(</span>src ?word<span style="color: #8c8c8c;">)</span>
+           <span style="color: #8c8c8c;">(</span><span style="color: #483d8b;">str</span> ?word <span style="color: #8b2252;">" up!"</span> <span style="color: #008b8b;">:&gt;</span> ?out-word<span style="color: #8c8c8c;">)))</span>
 
-<span style="color: #7f7f7f;">(</span><span style="color: #728a05; font-weight: bold;">fact</span> <span style="color: #259185;">"+ should add two numbers."</span>
-  <span style="color: #7f7f7f;">(</span><span style="color: #728a05;">+</span> 2 2<span style="color: #7f7f7f;">)</span> <span style="color: #c60007; font-weight: bold;">=&gt;</span> 4<span style="color: #7f7f7f;">)</span>
+<span style="color: #8c8c8c;">(</span>fact <span style="color: #8b2252;">"+ should add two numbers."</span>
+  <span style="color: #8c8c8c;">(</span><span style="color: #483d8b;">+</span> 2 2<span style="color: #8c8c8c;">)</span> =&gt; 4<span style="color: #8c8c8c;">)</span>
 </pre>
 
 
@@ -83,22 +83,22 @@ Midje-cascalog 0.4.0 introduces the <code>produces</code> function, mirroring Mi
 
 
 
-<pre class="src src-clojure"><span style="color: #7f7f7f;">(</span><span style="color: #728a05;">use</span> 'cascalog.api<span style="color: #7f7f7f;">)</span>
-<span style="color: #7f7f7f;">(</span><span style="color: #728a05;">require</span> '[cascalog.ops <span style="color: #259185; font-weight: bold;">:as</span> c]<span style="color: #7f7f7f;">)</span>
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span><span style="color: #483d8b;">use</span> 'cascalog.api<span style="color: #8c8c8c;">)</span>
+<span style="color: #8c8c8c;">(</span><span style="color: #483d8b;">require</span> '[cascalog.ops <span style="color: #008b8b;">:as</span> c]<span style="color: #8c8c8c;">)</span>
 
-<span style="color: #7f7f7f;">(</span><span style="color: #728a05; font-weight: bold;">def</span> <span style="color: #2075c7;">src</span>
+<span style="color: #8c8c8c;">(</span><span style="color: #a020f0;">def</span> <span style="color: #0000ff;">src</span>
   [[1 2] [1 3]
    [3 4] [3 6]
-   [5 2] [5 9]]<span style="color: #7f7f7f;">)</span>
+   [5 2] [5 9]]<span style="color: #8c8c8c;">)</span>
 
-<span style="color: #465a61; font-weight: bold;">;; </span><span style="color: #465a61; font-style: italic;">adds the values in each input tuple, sorts the output and returns</span>
-<span style="color: #465a61; font-weight: bold;">;; </span><span style="color: #465a61; font-style: italic;">2-tuples of the first number and the sum. [1 2] becomes [1 3], for</span>
-<span style="color: #465a61; font-weight: bold;">;; </span><span style="color: #465a61; font-style: italic;">example.</span>
-<span style="color: #7f7f7f;">(</span><span style="color: #728a05; font-weight: bold;">def</span> <span style="color: #2075c7;">query</span>
-  <span style="color: #7f7f7f;">(</span>&lt;- [?x ?sum]
-      <span style="color: #7f7f7f;">(</span>src ?x ?y<span style="color: #7f7f7f;">)</span>
-      <span style="color: #7f7f7f;">(</span><span style="color: #259185; font-weight: bold;">:sort</span> ?x<span style="color: #7f7f7f;">)</span>
-      <span style="color: #7f7f7f;">(</span>c/sum ?y <span style="color: #259185; font-weight: bold;">:&gt;</span> ?sum<span style="color: #7f7f7f;">)))</span>
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">adds the values in each input tuple, sorts the output and returns</span>
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">2-tuples of the first number and the sum. [1 2] becomes [1 3], for</span>
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">example.</span>
+<span style="color: #8c8c8c;">(</span><span style="color: #a020f0;">def</span> <span style="color: #0000ff;">query</span>
+  <span style="color: #8c8c8c;">(</span>&lt;- [?x ?sum]
+      <span style="color: #8c8c8c;">(</span>src ?x ?y<span style="color: #8c8c8c;">)</span>
+      <span style="color: #8c8c8c;">(</span><span style="color: #008b8b;">:sort</span> ?x<span style="color: #8c8c8c;">)</span>
+      <span style="color: #8c8c8c;">(</span>c/sum ?y <span style="color: #008b8b;">:&gt;</span> ?sum<span style="color: #8c8c8c;">)))</span>  
 </pre>
 
 
@@ -108,9 +108,9 @@ You can think of a query as a set of tuples waiting to be generated (through que
 
 
 
-<pre class="src src-clojure"><span style="color: #7f7f7f;">(</span><span style="color: #728a05; font-weight: bold;">facts</span>
-  [1 2 3] <span style="color: #c60007; font-weight: bold;">=&gt;</span> <span style="color: #7f7f7f;">(</span><span style="color: #a57705; font-weight: bold;">just</span> [1 2 3]<span style="color: #7f7f7f;">)</span>    <span style="color: #465a61; font-weight: bold;">;; </span><span style="color: #465a61; font-style: italic;">true</span>
-  [1 2 3] <span style="color: #c60007; font-weight: bold;">=&gt;</span> <span style="color: #7f7f7f;">(</span><span style="color: #a57705; font-weight: bold;">just</span> [1 2 3 4]<span style="color: #7f7f7f;">))</span> <span style="color: #465a61; font-weight: bold;">;; </span><span style="color: #465a61; font-style: italic;">false</span>
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span>facts
+  [1 2 3] =&gt; <span style="color: #8c8c8c;">(</span>just [1 2 3]<span style="color: #8c8c8c;">)</span>    <span style="color: #b22222;">;; </span><span style="color: #b22222;">true</span>
+  [1 2 3] =&gt; <span style="color: #8c8c8c;">(</span>just [1 2 3 4]<span style="color: #8c8c8c;">))</span> <span style="color: #b22222;">;; </span><span style="color: #b22222;">false</span>
 </pre>
 
 
@@ -120,9 +120,9 @@ The cascalog analog to <code>just</code> is the <code>produces</code> checker. <
 
 
 
-<pre class="src src-clojure"><span style="color: #7f7f7f;">(</span><span style="color: #728a05; font-weight: bold;">facts</span>
-  query <span style="color: #c60007; font-weight: bold;">=&gt;</span> <span style="color: #7f7f7f;">(</span>produces [[3 10] [1 5] [5 11]]<span style="color: #7f7f7f;">)</span>  <span style="color: #465a61; font-weight: bold;">;; </span><span style="color: #465a61; font-style: italic;">true</span>
-  query <span style="color: #c60007; font-weight: bold;">=&gt;</span> <span style="color: #7f7f7f;">(</span>produces [[1 5] [3 10] [5 11]]<span style="color: #7f7f7f;">))</span> <span style="color: #465a61; font-weight: bold;">;; </span><span style="color: #465a61; font-style: italic;">true  </span>
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span>facts
+  query =&gt; <span style="color: #8c8c8c;">(</span>produces [[3 10] [1 5] [5 11]]<span style="color: #8c8c8c;">)</span>  <span style="color: #b22222;">;; </span><span style="color: #b22222;">true</span>
+  query =&gt; <span style="color: #8c8c8c;">(</span>produces [[1 5] [3 10] [5 11]]<span style="color: #8c8c8c;">))</span> <span style="color: #b22222;">;; </span><span style="color: #b22222;">true  </span>
 </pre>
 
 
@@ -132,8 +132,8 @@ You can read this test as saying "query, when executed, produces [3 10], [1 5] a
 
 
 
-<pre class="src src-clojure"><span style="color: #7f7f7f;">(</span><span style="color: #728a05; font-weight: bold;">fact</span>
-  query <span style="color: #c60007; font-weight: bold;">=not=&gt;</span> <span style="color: #7f7f7f;">(</span>produces [[<span style="color: #259185;">"string!"</span> 11] [1 5] [5 11]]<span style="color: #7f7f7f;">))</span> <span style="color: #465a61; font-weight: bold;">;; </span><span style="color: #465a61; font-style: italic;">true</span>
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span>fact
+  query =not=&gt; <span style="color: #8c8c8c;">(</span>produces [[<span style="color: #8b2252;">"string!"</span> 11] [1 5] [5 11]]<span style="color: #8c8c8c;">))</span> <span style="color: #b22222;">;; </span><span style="color: #b22222;">true</span>
 </pre>
 
 
@@ -143,9 +143,9 @@ Using the <code>:in-order</code> keyword after the expected tuple sequence force
 
 
 
-<pre class="src src-clojure"><span style="color: #7f7f7f;">(</span><span style="color: #728a05; font-weight: bold;">facts</span>
-  query <span style="color: #c60007; font-weight: bold;">=not=&gt;</span> <span style="color: #7f7f7f;">(</span>produces [[3 10] [5 11] [1 5]] <span style="color: #259185; font-weight: bold;">:in-order</span><span style="color: #7f7f7f;">)</span> <span style="color: #465a61; font-weight: bold;">;; </span><span style="color: #465a61; font-style: italic;">true</span>
-  query <span style="color: #c60007; font-weight: bold;">=&gt;</span> <span style="color: #7f7f7f;">(</span>produces [[1 5] [3 10] [5 11]] <span style="color: #259185; font-weight: bold;">:in-order</span><span style="color: #7f7f7f;">))</span>    <span style="color: #465a61; font-weight: bold;">;; </span><span style="color: #465a61; font-style: italic;">true</span>
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span>facts    
+  query =not=&gt; <span style="color: #8c8c8c;">(</span>produces [[3 10] [5 11] [1 5]] <span style="color: #008b8b;">:in-order</span><span style="color: #8c8c8c;">)</span> <span style="color: #b22222;">;; </span><span style="color: #b22222;">true</span>
+  query =&gt; <span style="color: #8c8c8c;">(</span>produces [[1 5] [3 10] [5 11]] <span style="color: #008b8b;">:in-order</span><span style="color: #8c8c8c;">))</span>    <span style="color: #b22222;">;; </span><span style="color: #b22222;">true</span>
 </pre>
 
 
@@ -167,8 +167,8 @@ The <code>produces-some</code> checker tests that a query's output contains a su
 
 
 
-<pre class="src src-clojure"><span style="color: #7f7f7f;">(</span><span style="color: #728a05; font-weight: bold;">fact</span>
-  query <span style="color: #c60007; font-weight: bold;">=&gt;</span> <span style="color: #7f7f7f;">(</span>produces-some [[5 11] [1 5]]<span style="color: #7f7f7f;">))</span> <span style="color: #465a61; font-weight: bold;">;; </span><span style="color: #465a61; font-style: italic;">true</span>
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span>fact
+  query =&gt; <span style="color: #8c8c8c;">(</span>produces-some [[5 11] [1 5]]<span style="color: #8c8c8c;">))</span> <span style="color: #b22222;">;; </span><span style="color: #b22222;">true</span>
 </pre>
 
 
@@ -181,9 +181,9 @@ As with produces, you can use the <code>:in-order</code> keyword to force <code>
 
 
 
-<pre class="src src-clojure"><span style="color: #7f7f7f;">(</span><span style="color: #728a05; font-weight: bold;">facts</span>
-  query <span style="color: #c60007; font-weight: bold;">=not=&gt;</span> <span style="color: #7f7f7f;">(</span>produces-some [[5 11] [1 5]] <span style="color: #259185; font-weight: bold;">:in-order</span><span style="color: #7f7f7f;">)</span> <span style="color: #465a61; font-weight: bold;">;; </span><span style="color: #465a61; font-style: italic;">true</span>
-  query <span style="color: #c60007; font-weight: bold;">=&gt;</span> <span style="color: #7f7f7f;">(</span>produces-some [[1 5] [5 11]] <span style="color: #259185; font-weight: bold;">:in-order</span><span style="color: #7f7f7f;">))</span>    <span style="color: #465a61; font-weight: bold;">;; </span><span style="color: #465a61; font-style: italic;">true</span>
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span>facts
+  query =not=&gt; <span style="color: #8c8c8c;">(</span>produces-some [[5 11] [1 5]] <span style="color: #008b8b;">:in-order</span><span style="color: #8c8c8c;">)</span> <span style="color: #b22222;">;; </span><span style="color: #b22222;">true</span>
+  query =&gt; <span style="color: #8c8c8c;">(</span>produces-some [[1 5] [5 11]] <span style="color: #008b8b;">:in-order</span><span style="color: #8c8c8c;">))</span>    <span style="color: #b22222;">;; </span><span style="color: #b22222;">true</span>
 </pre>
 
 
@@ -193,9 +193,9 @@ Adding the <code>:no-gaps</code> keyword introduces the constraint that tuples m
 
 
 
-<pre class="src src-clojure"><span style="color: #7f7f7f;">(</span><span style="color: #728a05; font-weight: bold;">facts</span>
-  query <span style="color: #c60007; font-weight: bold;">=not=&gt;</span> <span style="color: #7f7f7f;">(</span>produces-some [[1 5] [5 11]] <span style="color: #259185; font-weight: bold;">:in-order</span> <span style="color: #259185; font-weight: bold;">:no-gaps</span><span style="color: #7f7f7f;">)</span> <span style="color: #465a61; font-weight: bold;">;; </span><span style="color: #465a61; font-style: italic;">true</span>
-  query <span style="color: #c60007; font-weight: bold;">=&gt;</span> <span style="color: #7f7f7f;">(</span>produces-some [[1 5] [3 10]] <span style="color: #259185; font-weight: bold;">:in-order</span> <span style="color: #259185; font-weight: bold;">:no-gaps</span><span style="color: #7f7f7f;">))</span>    <span style="color: #465a61; font-weight: bold;">;; </span><span style="color: #465a61; font-style: italic;">true</span>
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span>facts    
+  query =not=&gt; <span style="color: #8c8c8c;">(</span>produces-some [[1 5] [5 11]] <span style="color: #008b8b;">:in-order</span> <span style="color: #008b8b;">:no-gaps</span><span style="color: #8c8c8c;">)</span> <span style="color: #b22222;">;; </span><span style="color: #b22222;">true</span>
+  query =&gt; <span style="color: #8c8c8c;">(</span>produces-some [[1 5] [3 10]] <span style="color: #008b8b;">:in-order</span> <span style="color: #008b8b;">:no-gaps</span><span style="color: #8c8c8c;">))</span>    <span style="color: #b22222;">;; </span><span style="color: #b22222;">true</span>
 </pre>
 
 
@@ -214,9 +214,9 @@ Adding the <code>:no-gaps</code> keyword introduces the constraint that tuples m
 
 
 
-<pre class="src src-clojure"><span style="color: #7f7f7f;">(</span><span style="color: #728a05; font-weight: bold;">facts</span>
-  query <span style="color: #c60007; font-weight: bold;">=&gt;</span> <span style="color: #7f7f7f;">(</span>produces-prefix [[1 5]]<span style="color: #7f7f7f;">)</span>         <span style="color: #465a61; font-weight: bold;">;; </span><span style="color: #465a61; font-style: italic;">true</span>
-  query <span style="color: #c60007; font-weight: bold;">=&gt;</span> <span style="color: #7f7f7f;">(</span>produces-prefix [[1 5] [3 10]]<span style="color: #7f7f7f;">))</span> <span style="color: #465a61; font-weight: bold;">;; </span><span style="color: #465a61; font-style: italic;">true</span>
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span>facts    
+  query =&gt; <span style="color: #8c8c8c;">(</span>produces-prefix [[1 5]]<span style="color: #8c8c8c;">)</span>         <span style="color: #b22222;">;; </span><span style="color: #b22222;">true</span>
+  query =&gt; <span style="color: #8c8c8c;">(</span>produces-prefix [[1 5] [3 10]]<span style="color: #8c8c8c;">))</span> <span style="color: #b22222;">;; </span><span style="color: #b22222;">true</span>
 </pre>
 
 
@@ -226,8 +226,8 @@ Similarly, <code>produce-suffix</code> mimics the <code>has-suffix</code> collec
 
 
 
-<pre class="src src-clojure"><span style="color: #7f7f7f;">(</span><span style="color: #728a05; font-weight: bold;">facts</span>
-  query <span style="color: #c60007; font-weight: bold;">=&gt;</span> <span style="color: #7f7f7f;">(</span>produces-suffix [[5 11]]<span style="color: #7f7f7f;">))</span> <span style="color: #465a61; font-weight: bold;">;; </span><span style="color: #465a61; font-style: italic;">true</span>
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span>facts
+  query =&gt; <span style="color: #8c8c8c;">(</span>produces-suffix [[5 11]]<span style="color: #8c8c8c;">))</span> <span style="color: #b22222;">;; </span><span style="color: #b22222;">true</span>
 </pre>
 
 
@@ -246,9 +246,9 @@ In addition to the keyword options supported above, every one of these checkers 
 
 
 
-<pre class="src src-clojure"><span style="color: #7f7f7f;">(</span><span style="color: #728a05; font-weight: bold;">facts</span>
-  query <span style="color: #c60007; font-weight: bold;">=&gt;</span> <span style="color: #7f7f7f;">(</span>produces-suffix [[5 11]]<span style="color: #7f7f7f;">)</span>        <span style="color: #465a61; font-weight: bold;">;; </span><span style="color: #465a61; font-style: italic;">true</span>
-  query <span style="color: #c60007; font-weight: bold;">=&gt;</span> <span style="color: #7f7f7f;">(</span>produces-suffix [[5 11]] <span style="color: #259185; font-weight: bold;">:info</span><span style="color: #7f7f7f;">))</span> <span style="color: #465a61; font-weight: bold;">;; </span><span style="color: #465a61; font-style: italic;">true</span>
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span>facts
+  query =&gt; <span style="color: #8c8c8c;">(</span>produces-suffix [[5 11]]<span style="color: #8c8c8c;">)</span>        <span style="color: #b22222;">;; </span><span style="color: #b22222;">true</span>
+  query =&gt; <span style="color: #8c8c8c;">(</span>produces-suffix [[5 11]] <span style="color: #008b8b;">:info</span><span style="color: #8c8c8c;">))</span> <span style="color: #b22222;">;; </span><span style="color: #b22222;">true</span>
 </pre>
 
 
@@ -276,9 +276,9 @@ The answer is <code>wrap-checker</code>. <code>wrap-checker</code> is a higher-o
 
 
 
-<pre class="src src-clojure"><span style="color: #7f7f7f;">(</span><span style="color: #728a05; font-weight: bold;">fact</span>
-  [1 3 5 7 9] <span style="color: #c60007; font-weight: bold;">=&gt;</span> <span style="color: #7f7f7f;">(</span><span style="color: #a57705; font-weight: bold;">has</span> every? odd?<span style="color: #7f7f7f;">)</span> <span style="color: #465a61; font-weight: bold;">;; </span><span style="color: #465a61; font-style: italic;">true</span>
-  [1 3 5 6] <span style="color: #c60007; font-weight: bold;">=&gt;</span> <span style="color: #7f7f7f;">(</span><span style="color: #a57705; font-weight: bold;">has</span> some even?<span style="color: #7f7f7f;">))</span>   <span style="color: #465a61; font-weight: bold;">;; </span><span style="color: #465a61; font-style: italic;">true</span>
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span>fact
+  [1 3 5 7 9] =&gt; <span style="color: #8c8c8c;">(</span>has every? odd?<span style="color: #8c8c8c;">)</span> <span style="color: #b22222;">;; </span><span style="color: #b22222;">true</span>
+  [1 3 5 6] =&gt; <span style="color: #8c8c8c;">(</span>has some even?<span style="color: #8c8c8c;">))</span>   <span style="color: #b22222;">;; </span><span style="color: #b22222;">true</span>
 </pre>
 
 
@@ -288,22 +288,22 @@ If you try to use <code>has</code> against a query it will fail, as it expects t
 
 
 
-<pre class="src src-clojure"><span style="color: #7f7f7f;">(</span><span style="color: #728a05; font-weight: bold;">defn</span> <span style="color: #2075c7;">odd-tuple?</span> [tuple]
-  <span style="color: #7f7f7f;">(</span><span style="color: #728a05;">odd?</span> <span style="color: #7f7f7f;">(</span><span style="color: #728a05;">first</span> tuple<span style="color: #7f7f7f;">)))</span>
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span><span style="color: #a020f0;">defn</span> <span style="color: #0000ff;">odd-tuple?</span> [tuple]
+  <span style="color: #8c8c8c;">(</span><span style="color: #483d8b;">odd?</span> <span style="color: #8c8c8c;">(</span><span style="color: #483d8b;">first</span> tuple<span style="color: #8c8c8c;">)))</span>
 
-<span style="color: #7f7f7f;">(</span><span style="color: #728a05; font-weight: bold;">defn</span> <span style="color: #2075c7;">even-tuple?</span> [tuple]
-  <span style="color: #7f7f7f;">(</span><span style="color: #728a05;">even?</span> <span style="color: #7f7f7f;">(</span><span style="color: #728a05;">first</span> tuple<span style="color: #7f7f7f;">)))</span>
+<span style="color: #8c8c8c;">(</span><span style="color: #a020f0;">defn</span> <span style="color: #0000ff;">even-tuple?</span> [tuple]
+  <span style="color: #8c8c8c;">(</span><span style="color: #483d8b;">even?</span> <span style="color: #8c8c8c;">(</span><span style="color: #483d8b;">first</span> tuple<span style="color: #8c8c8c;">)))</span>
 
-<span style="color: #7f7f7f;">(</span><span style="color: #728a05; font-weight: bold;">def</span> <span style="color: #2075c7;">has-tuples</span>
-  <span style="color: #7f7f7f;">(</span>wrap-checker <span style="color: #a57705; font-weight: bold;">has</span><span style="color: #7f7f7f;">))</span>
+<span style="color: #8c8c8c;">(</span><span style="color: #a020f0;">def</span> <span style="color: #0000ff;">has-tuples</span>
+  <span style="color: #8c8c8c;">(</span>wrap-checker has<span style="color: #8c8c8c;">))</span>
 
-<span style="color: #7f7f7f;">(</span><span style="color: #728a05; font-weight: bold;">def</span> <span style="color: #2075c7;">new-query</span>
-  <span style="color: #7f7f7f;">(</span><span style="color: #728a05; font-weight: bold;">let</span> [src [[1] [3] [5]]]
-    <span style="color: #7f7f7f;">(</span>&lt;- [?x] <span style="color: #7f7f7f;">(</span>src ?x<span style="color: #7f7f7f;">))))</span>
+<span style="color: #8c8c8c;">(</span><span style="color: #a020f0;">def</span> <span style="color: #0000ff;">new-query</span>
+  <span style="color: #8c8c8c;">(</span><span style="color: #a020f0;">let</span> [src [[1] [3] [5]]]
+    <span style="color: #8c8c8c;">(</span>&lt;- [?x] <span style="color: #8c8c8c;">(</span>src ?x<span style="color: #8c8c8c;">))))</span>
 
-<span style="color: #7f7f7f;">(</span><span style="color: #728a05; font-weight: bold;">fact</span>
-  new-query     <span style="color: #c60007; font-weight: bold;">=&gt;</span> <span style="color: #7f7f7f;">(</span>has-tuples every? odd-tuple?<span style="color: #7f7f7f;">)</span> <span style="color: #465a61; font-weight: bold;">;; </span><span style="color: #465a61; font-style: italic;">true</span>
-  new-query <span style="color: #c60007; font-weight: bold;">=not=&gt;</span> <span style="color: #7f7f7f;">(</span>has-tuples some even-tuple?<span style="color: #7f7f7f;">))</span> <span style="color: #465a61; font-weight: bold;">;; </span><span style="color: #465a61; font-style: italic;">true  </span>
+<span style="color: #8c8c8c;">(</span>fact
+  new-query     =&gt; <span style="color: #8c8c8c;">(</span>has-tuples every? odd-tuple?<span style="color: #8c8c8c;">)</span> <span style="color: #b22222;">;; </span><span style="color: #b22222;">true</span>
+  new-query =not=&gt; <span style="color: #8c8c8c;">(</span>has-tuples some even-tuple?<span style="color: #8c8c8c;">))</span> <span style="color: #b22222;">;; </span><span style="color: #b22222;">true  </span>
 
 </pre>
 
@@ -317,17 +317,17 @@ A few more examples:
 
 
 
-<pre class="src src-clojure"><span style="color: #7f7f7f;">(</span><span style="color: #728a05; font-weight: bold;">defn</span> <span style="color: #2075c7;">id-query</span> [src]
-  <span style="color: #7f7f7f;">(</span>&lt;- [?x] <span style="color: #7f7f7f;">(</span>src ?x<span style="color: #7f7f7f;">)))</span>
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span><span style="color: #a020f0;">defn</span> <span style="color: #0000ff;">id-query</span> [src]
+  <span style="color: #8c8c8c;">(</span>&lt;- [?x] <span style="color: #8c8c8c;">(</span>src ?x<span style="color: #8c8c8c;">)))</span>
 
-<span style="color: #7f7f7f;">(</span><span style="color: #728a05; font-weight: bold;">let</span> [one-of-tuples <span style="color: #7f7f7f;">(</span>wrap-checker one-of<span style="color: #7f7f7f;">)</span>
-      two-of-tuples <span style="color: #7f7f7f;">(</span>wrap-checker two-of<span style="color: #7f7f7f;">)</span>
+<span style="color: #8c8c8c;">(</span><span style="color: #a020f0;">let</span> [one-of-tuples <span style="color: #8c8c8c;">(</span>wrap-checker one-of<span style="color: #8c8c8c;">)</span>
+      two-of-tuples <span style="color: #8c8c8c;">(</span>wrap-checker two-of<span style="color: #8c8c8c;">)</span>
       src [[1] [3] [4]]]
-  <span style="color: #7f7f7f;">(</span><span style="color: #728a05; font-weight: bold;">facts</span>
-    src            <span style="color: #c60007; font-weight: bold;">=&gt;</span> <span style="color: #7f7f7f;">(</span>two-of odd-tuple?<span style="color: #7f7f7f;">)</span>           <span style="color: #465a61; font-weight: bold;">;; </span><span style="color: #465a61; font-style: italic;">true</span>
-    src            <span style="color: #c60007; font-weight: bold;">=&gt;</span> <span style="color: #7f7f7f;">(</span>one-of even-tuple?<span style="color: #7f7f7f;">)</span>          <span style="color: #465a61; font-weight: bold;">;; </span><span style="color: #465a61; font-style: italic;">true</span>
-    <span style="color: #7f7f7f;">(</span>id-query src<span style="color: #7f7f7f;">)</span> <span style="color: #c60007; font-weight: bold;">=&gt;</span> <span style="color: #7f7f7f;">(</span>two-of-tuples odd-tuple?<span style="color: #7f7f7f;">)</span>    <span style="color: #465a61; font-weight: bold;">;; </span><span style="color: #465a61; font-style: italic;">true</span>
-    <span style="color: #7f7f7f;">(</span>id-query src<span style="color: #7f7f7f;">)</span> <span style="color: #c60007; font-weight: bold;">=&gt;</span> <span style="color: #7f7f7f;">(</span>one-of-tuples even-tuple?<span style="color: #7f7f7f;">)))</span> <span style="color: #465a61; font-weight: bold;">;; </span><span style="color: #465a61; font-style: italic;">true  </span>
+  <span style="color: #8c8c8c;">(</span>facts
+    src            =&gt; <span style="color: #8c8c8c;">(</span>two-of odd-tuple?<span style="color: #8c8c8c;">)</span>           <span style="color: #b22222;">;; </span><span style="color: #b22222;">true</span>
+    src            =&gt; <span style="color: #8c8c8c;">(</span>one-of even-tuple?<span style="color: #8c8c8c;">)</span>          <span style="color: #b22222;">;; </span><span style="color: #b22222;">true</span>
+    <span style="color: #8c8c8c;">(</span>id-query src<span style="color: #8c8c8c;">)</span> =&gt; <span style="color: #8c8c8c;">(</span>two-of-tuples odd-tuple?<span style="color: #8c8c8c;">)</span>    <span style="color: #b22222;">;; </span><span style="color: #b22222;">true</span>
+    <span style="color: #8c8c8c;">(</span>id-query src<span style="color: #8c8c8c;">)</span> =&gt; <span style="color: #8c8c8c;">(</span>one-of-tuples even-tuple?<span style="color: #8c8c8c;">)))</span> <span style="color: #b22222;">;; </span><span style="color: #b22222;">true  </span>
 </pre>
 
 
@@ -346,11 +346,11 @@ All of the collection checkers discussed above can be used with the <code>fact?&
 
 
 
-<pre class="src src-clojure"><span style="color: #7f7f7f;">(</span>fact?&lt;- <span style="color: #7f7f7f;">(</span>produces-some [[1 5] [5 11]] <span style="color: #259185; font-weight: bold;">:in-order</span><span style="color: #7f7f7f;">)</span>
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span>fact?&lt;- <span style="color: #8c8c8c;">(</span>produces-some [[1 5] [5 11]] <span style="color: #008b8b;">:in-order</span><span style="color: #8c8c8c;">)</span>
          [?x ?sum]
-         <span style="color: #7f7f7f;">(</span>src ?x ?y<span style="color: #7f7f7f;">)</span>
-         <span style="color: #7f7f7f;">(</span><span style="color: #259185; font-weight: bold;">:sort</span> ?x<span style="color: #7f7f7f;">)</span>
-         <span style="color: #7f7f7f;">(</span>c/sum ?y <span style="color: #259185; font-weight: bold;">:&gt;</span> ?sum<span style="color: #7f7f7f;">))</span> <span style="color: #465a61; font-weight: bold;">;; </span><span style="color: #465a61; font-style: italic;">true</span>
+         <span style="color: #8c8c8c;">(</span>src ?x ?y<span style="color: #8c8c8c;">)</span>
+         <span style="color: #8c8c8c;">(</span><span style="color: #008b8b;">:sort</span> ?x<span style="color: #8c8c8c;">)</span>
+         <span style="color: #8c8c8c;">(</span>c/sum ?y <span style="color: #008b8b;">:&gt;</span> ?sum<span style="color: #8c8c8c;">))</span> <span style="color: #b22222;">;; </span><span style="color: #b22222;">true</span>
 </pre>
 
 
