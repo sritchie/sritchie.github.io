@@ -14,3 +14,7 @@ The following directories and their contents are Copyright Sam Ritchie. You may 
 * jekyll/images/
 
 All other directories and files are MIT Licensed. Feel free to use the HTML and CSS as you please.
+
+```ruby
+gem install jekyll redcarpet
+```

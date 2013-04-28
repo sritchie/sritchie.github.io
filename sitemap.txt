@@ -1,0 +1,8 @@
+---
+title : Sitemap
+---
+{% for page in site.pages %}
+http://sritchiegithub.io{{ page.url }} {% endfor %}
+
+{% for post in site.posts %}
+http://sritchie.github.io{{ post.url }} {% endfor %}
