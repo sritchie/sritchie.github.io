@@ -5,138 +5,131 @@ title: Getting Creative with MapReduce
 
 <p class="meta">29 Sept 2011 - San Francisco</p>
 
-
-<div id="outline-container-1" class="outline-2">
+<div id="outline-container-sec-1" class="outline-2">
 <h2 id="sec-1">Getting Creative with MapReduce</h2>
 <div class="outline-text-2" id="text-1">
-
-
 <p>
 One problem with many existing MapReduce abstraction layers is the utter difficulty of testing queries and workflows. End-to-end tests are maddening to craft in vanilla Hadoop and frustrating at best in Pig and Hive. The difficulty of testing MapReduce workflows makes it scary to change code, and <b>destroys your desire to be creative</b>. A proper testing suite is an absolute prerequisite to doing creative work in big data.
 </p>
+
 <p>
 In this blog post, I aim to show how most of the difficulty of writing and testing MapReduce queries stems from the fact that Hadoop confounds application logic with decisions about data storage. These problems are the result of poorly implemented abstractions over the primitives of MapReduce, not problems with the core MapReduce algorithms.
 </p>
+
 <p>
 The <a href="https://github.com/nathanmarz/cascalog">Cascalog</a> abstraction layer fixes this issue by separating logic from data, allowing you to play creatively at massive scale. (If you're not familiar with Cascalog, know that it's by far the most expressive MapReduce DSL in existence. We make heavy use of Cascalog here at Twitter. I recommend getting started with <a href="http://nathanmarz.com/blog/introducing-cascalog-a-clojure-based-query-language-for-hado.html">this introduction</a>, then moving on to <a href="http://www.assembla.com/wiki/show/d9Z8_q-Omr35zteJe5cbLr">the wiki</a>.)
 </p>
+
 <p>
 Cascalog and its testing suite, <a href="https://github.com/sritchie/midje-cascalog">midje-cascalog</a>, allow us to test application logic in isolation; the resulting tests are truly beautiful.
 </p>
-
 </div>
 
-<div id="outline-container-1-1" class="outline-3">
+<div id="outline-container-sec-1-1" class="outline-3">
 <h3 id="sec-1-1">Current Approaches to MR Testing</h3>
 <div class="outline-text-3" id="text-1-1">
-
-
 <p>
 Say you've implemented <a href="http://hadoop.apache.org/common/docs/current/mapred_tutorial.html#Example%3A+WordCount+v1.0">wordcount in MapReduce</a>, and are looking to write unit tests against your workflow. The Hadoop consulting giant <a href="http://www.cloudera.com/">Cloudera</a> defines current best practices <a href="http://www.cloudera.com/blog/2009/07/debugging-mapreduce-programs-with-mrunit/">in this article</a>:
 </p>
-<blockquote>
 
-<p>The current state of the art often involves writing a set of tests that each create a JobConf object, which is configured to use a mapper and reducer, and then set to use the LocalJobRunner (via <code>JobConf.set(”mapred.job.tracker”, “local”)</code>). A MapReduce job will then run in a single thread, reading its input from test files stored on the local filesystem and writing its output to another local directory.
+<blockquote>
+<p>
+The current state of the art often involves writing a set of tests that each create a JobConf object, which is configured to use a mapper and reducer, and then set to use the LocalJobRunner (via <code>JobConf.set(”mapred.job.tracker”, “local”)</code>). A MapReduce job will then run in a single thread, reading its input from test files stored on the local filesystem and writing its output to another local directory.
 </p>
+
 <p>
 This process provides a solid mechanism for end-to-end testing, but has several drawbacks. Developing new tests requires adding test inputs to files that are stored alongside one’s program. Validating correct output also requires filesystem access and parsing of the emitted data files. This involves writing a great deal of test harness code, which itself may contain subtle bugs. Finally, this process is slow. Each test requires several seconds to run. Users often find themselves aggregating several unrelated inputs into a single test (violating a unit testing principle of isolating unrelated tests) or performing less exhaustive testing due to the high barriers to test authorship.
 </p>
 </blockquote>
 
-
 <p>
 This is insane. Written this way, unit tests meant to target application logic are dwarfed by the maintenance they impose.
 </p>
+
 <p>
 Most real world MapReduce applications involve chained sequences of many queries; these flows are a nightmare to coordinate and test using the above methods. Perhaps for this reason, <a href="http://www.cloudera.com/blog/2009/07/debugging-mapreduce-programs-with-mrunit/">Cloudera</a> recommends testing mappers and reducers separately:
 </p>
-<blockquote>
 
-<p>your <code>map()</code> and <code>reduce()</code> calls should still be tested individually, as the composition of separate classes may cause unintended bugs to surface.
+<blockquote>
+<p>
+your <code>map()</code> and <code>reduce()</code> calls should still be tested individually, as the composition of separate classes may cause unintended bugs to surface.
 </p>
 </blockquote>
-
 
 <p>
 Again, this is totally batshit crazy. MapReduce queries are functions that operate on datasets. Imagine writing a Clojure function and testing its lines one at a time, in isolation; the approach makes no sense.
 </p>
+
 <p>
 A well designed testing suite will examine each MapReduce query as the function that it is. Queries should be tested against a range of inputs, both in isolation and as components of more complicated workflows. It shouldn't matter how one's data is stored; query logic is independent of data storage, and should be tested as such.
 </p>
+
 <p>
 I'd like to offer a more sane approach to MapReduce testing. In the following example, I'll write MapReduce query with Cascalog and test it using <a href="https://github.com/sritchie/midje-cascalog">midje-cascalog</a>, a thin wrapper I wrote over the Midje testing DSL.
 </p>
 </div>
-
 </div>
-
-<div id="outline-container-1-2" class="outline-3">
+<div id="outline-container-sec-1-2" class="outline-3">
 <h3 id="sec-1-2">Functional MapReduce Testing</h3>
 <div class="outline-text-3" id="text-1-2">
-
-
 <p>
 Let's say you want to test a Cascalog workflow that examines your user datastore and returns the user with the greatest number of followers. Your workflow's top level query will generate a single tuple containing that user's name and follower-count. Here's the code:
 </p>
 
-
+<div class="org-src-container">
 
 <pre class="src src-clojure"><span style="color: #8c8c8c;">(</span><span style="color: #a020f0;">defn</span> <span style="color: #0000ff;">max-followers-query</span> [datastore-path]
   <span style="color: #8c8c8c;">(</span><span style="color: #a020f0;">let</span> [src <span style="color: #8c8c8c;">(</span>name-vars <span style="color: #8c8c8c;">(</span>complex-subquery datastore-path<span style="color: #8c8c8c;">)</span>
                        [<span style="color: #8b2252;">"?user"</span> <span style="color: #8b2252;">"?follower-count"</span>]<span style="color: #8c8c8c;">)</span>]
     <span style="color: #8c8c8c;">(</span>cascalog.ops/first-n src 1 <span style="color: #008b8b;">:sort</span> [<span style="color: #8b2252;">"?follower-count"</span>] <span style="color: #008b8b;">:reverse</span> true<span style="color: #8c8c8c;">)))</span>
 </pre>
-
+</div>
 
 <p>
-<code>max-followers-query</code> is a function that returns a Cascalog subquery. It works like this: 
+<code>max-followers-query</code> is a function that returns a Cascalog subquery. It works like this:
 </p>
-<ul>
+
+<ul class="org-ul">
 <li>The function accepts a path, (<code>datastore-path</code>) and passes it into a function called <code>complex-subquery</code>.
 </li>
 <li><code>complex-subquery</code> returns a subquery that generates 2-tuples; this subquery is passed into <code>name-vars</code>.
-<ul>
+<ul class="org-ul">
 <li><code>name-vars</code> binds this subquery to <code>src</code> after naming its output variables <code>?user</code> and <code>?follower-count</code>.
 </li>
 </ul>
-
 </li>
 <li><code>first-n</code> returns a subquery that
-<ul>
+<ul class="org-ul">
 <li>sorts tuples from <code>src</code> in reverse order by follower count, and
 </li>
 <li>returns a single 2-tuple with the name and follower-count of our most popular user.
 </li>
 </ul>
-
 </li>
 </ul>
-
 
 <p>
 At a high level, the subquery returned by <code>max-followers-query</code> is responsible for a single piece of application logic:
 </p>
-<ul>
+
+<ul class="org-ul">
 <li>extracting the tuple with max <code>?follower-count</code> from the tuples returned by <code>(complex-subquery datastore-path)</code>.
 </li>
 </ul>
 
-
 <p>
 A correct test of <code>max-followers-query</code> will test this piece of logic in isolation.
 </p>
-
 </div>
 
-<div id="outline-container-1-2-1" class="outline-4">
+<div id="outline-container-sec-1-2-1" class="outline-4">
 <h4 id="sec-1-2-1">Cloudera's "State of the Art"</h4>
 <div class="outline-text-4" id="text-1-2-1">
-
-
 <p>
 If you were to follow Cloudera's advice on how to test this query, you would have to:
 </p>
-<ul>
+
+<ul class="org-ul">
 <li>Dig through the code of <code>complex-subquery</code>, and figure out what data it depends on to produce its tuples;
 </li>
 <li>Set up temporary directories and SequenceFiles with appropriate starting tuples;
@@ -149,30 +142,27 @@ If you were to follow Cloudera's advice on how to test this query, you would hav
 </li>
 </ul>
 
-
 <p>
 This series of steps adds tremendous friction to the testing process, and obscures the purpose of the test. Moreover, the results of any test of <code>max-followers-query</code> depend on any number of subqueries invoked the call to <code>complex-subquery</code>.
 </p>
+
 <p>
 If your tests are this difficult to write, you're not going to write very many tests. You need tests to be creative; without tests, you won't change production queries in fear of introducing some bug you don't understand.
 </p>
 </div>
-
 </div>
-
-<div id="outline-container-1-2-2" class="outline-4">
+<div id="outline-container-sec-1-2-2" class="outline-4">
 <h4 id="sec-1-2-2">Fact-Based Testing</h4>
 <div class="outline-text-4" id="text-1-2-2">
-
-
 <p>
 Midje circumvents all of this complexity by mocking out the result of <code>(complex-subquery datastore-path)</code> and forcing it to return a specific Clojure sequence of <code>[?user ?follower-count]</code> tuples.
 </p>
+
 <p>
 The following form is a Midje test, or "fact":
 </p>
 
-
+<div class="org-src-container">
 
 <pre class="src src-clojure"><span style="color: #8c8c8c;">(</span>fact?- <span style="color: #8b2252;">"Query should return a single tuple containing</span>
 <span style="color: #8b2252;">        [most-popular-user, follower-count]."</span>
@@ -182,12 +172,13 @@ The following form is a Midje test, or "fact":
           <span style="color: #8c8c8c;">(</span>complex-subquery <span style="color: #008b8b;">:path</span><span style="color: #8c8c8c;">)</span> =&gt; [[<span style="color: #8b2252;">"sritchie09"</span> 180]
                                        [<span style="color: #8b2252;">"richhickey"</span> 2961]]<span style="color: #8c8c8c;">))</span>
 </pre>
-
+</div>
 
 <p>
 Facts make statements about queries. The fact passes if these statements are true and fails otherwise. The above fact states that
 </p>
-<ul>
+
+<ul class="org-ul">
 <li>when <code>max-followers-query</code> is called with the argument <code>:path</code>,
 </li>
 <li>it will produce <code>[ [ richhickey" 2961] ]</code>,
@@ -196,19 +187,22 @@ Facts make statements about queries. The fact passes if these statements are tru
 </li>
 </ul>
 
-
 <p>
 Fact-based testing separates application logic from the way data is stored. By mocking out <code>complex-subquery</code>, our fact tests <code>max-followers-query</code> in isolation and proves it correct for all expected inputs.
 </p>
+
 <p>
 This approach is not just better than the "state of the art" of MapReduce testing as defined by Cloudera; it completely obliterates the old way of thinking, and makes it possible to build very complex workflows with a minimum of uncertainty.
 </p>
+
 <p>
 Fact-based tests are the building blocks of rock-solid production workflows.
 </p>
+
 <p>
 <i>If you're interested in how to construct fact-based tests with midje-cascalog, I go into great detail on functional MapReduce testing idioms and methods in</i> <a href="http://sritchie.github.com/2011/09/30/testing-cascalog-with-midje.html">Testing Cascalog with Midje</a>.
-</p></div>
+</p>
+</div>
 </div>
 </div>
 </div>

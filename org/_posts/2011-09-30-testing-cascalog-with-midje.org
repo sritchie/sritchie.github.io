@@ -23,7 +23,7 @@ I'll start by introducing midje-cascalog's testing operators, then move on to a 
 
 In this section, I'll discuss midje-cascalog's testing operators: =fact?-= and =fact?<-=. (The syntax mirrors =?-= and =?<-=, Cascalog's [[http://www.assembla.com/spaces/cascalog/wiki/Defining_and_executing_queries][query execution operators]].) These operators provide the abstractions necessary for testing complex Cascalog workflows. Add them to your namespace by including =(:use midje.cascalog)= in the namespace header.
 
-*** fact?- 
+*** fact?-
 
 Let's begin by defining a function to test:
 
@@ -49,7 +49,7 @@ These two facts about =mk-inc-query= are true, and pass:
   ;; returns a single tuple: [1 2]
   (fact?- [[1 2]]
           (mk-inc-query [[1]])) ;; fact is true!
-  
+
   ;; The query returned by (mk-inc-query [[1] [10]]),
   ;; When executed,
   ;; returns two tuples: [10 11] and [1 2]
@@ -65,7 +65,7 @@ This fact is false, and fails:
   ;; when executed,
   ;; returns a single tuple: ["fail!" 10].
   (fact?- [["fail!" 10]]
-          (mk-inc-query [[1]])) ;; fact is FALSE!  
+          (mk-inc-query [[1]])) ;; fact is FALSE!
 #+end_src
 
 =fact?-= can take multiples pairs of result-tuples and queries:
@@ -74,7 +74,7 @@ This fact is false, and fails:
   ;; Same as two true facts above.
   (fact?- [[1 2]]
           (mk-inc-query [[1]])
-  
+
           [[10 11] [1 2]]
           (mk-inc-query [[1] [10]])) ;; both facts are true!
 #+end_src
@@ -84,9 +84,9 @@ Strings are ignored wherever they appear, so feel free to pepper your facts with
 #+begin_src clojure
   (fact?- "These results:"
           [[1 2]]
-  
+
           "Are produced by this query:"
-          (mk-inc-query [[1]])) ;; true  
+          (mk-inc-query [[1]])) ;; true
 #+end_src
 
 Note that facts don't have to be top level forms. It's perfectly acceptable to wrap facts in =let=, if it makes the test clearer:
@@ -103,7 +103,7 @@ Cascalog pipes quite a bit of logging to =stdout=. Facts suppress this logging b
 
 If you want to see more information on fact execution, you customize the log level by placing a keyword at the beginning of your fact:
 
-#+begin_src clojure  
+#+begin_src clojure
   (fact?- :info
           [[1 2]] (mk-inc-query [[1]])) ;; true
 #+end_src
@@ -118,7 +118,7 @@ As of version 0.2.1, =midje-cascalog= supports the following log-level keywords,
 :debug
 #+end_src
 
-*** fact?<- 
+*** fact?<-
 
 The =fact?<-= operator allows you to define a test a query within the same form. The following two facts are equivalent:
 
@@ -128,7 +128,7 @@ The =fact?<-= operator allows you to define a test a query within the same form.
             (<- [?a ?b]
                 (src ?a)
                 (inc ?a :> ?b)))) ;; true
-  
+
   (let [src [[1]]]
     (fact?<- [[1 2]]
              [?a ?b]
@@ -142,12 +142,12 @@ Where =fact?-= is useful for testing full queries and workflows, I find =fact?<-
 
 If you want to stub out an unfinished test and prevent it from throwing errors, you can use =future-fact?-=, like so:
 
-#+begin_src clojure  
+#+begin_src clojure
   (future-fact?- "unwritten-query will convert input integer tuples to
                  strings."
                  [["one"] ["two"]]
                  (unwritten-query [[1] [2]]))
-  
+
   (let [src [[1] [2]]]
     (future-fact?<- "num->string is unwritten."
                     [["one"] ["two"]]
@@ -210,10 +210,10 @@ The following code accomplishes this nicely. (Bear with me! a detailed discussio
 
   (defn -main
     "Accepts the following arguments:
-  
+
      - text-path (path to a textfile, or directory with textfiles)
      - results-path (location of textfile containing results)
-  
+
        And prints lines of the form \"word count\" to a textfile at
        results-path. Each distinct word in the textfiles at text-path
        gets a count."
@@ -227,7 +227,7 @@ The =-main= function is the entry point to the word counting program. =-main= pa
 All of our program's application logic occurs in the query returned by =wc-query=; this is the most important function to test. Let's discuss how =wc-query= works:
 
 - =wc-query= is a function that returns a subquery.
-- The function calls =hfs-textline= internally to generate a source of =?sentence= tuples. 
+- The function calls =hfs-textline= internally to generate a source of =?sentence= tuples.
 - These sentences are passed into =split=, a Cascalog function that creates words from sentences, like this:
 
 #+begin_src clojure
@@ -291,7 +291,7 @@ Using Midje's =provided= form, the above fact passes:
             (hfs-textline :path) => [["another another word"]])) ;; true
 #+end_src
 
-This fact states 
+This fact states
 
 - when =wc-query= is called with =:path=,
 - it will produce two tuples: =["word" 1]= and =["another" 2]=,
@@ -303,7 +303,7 @@ Here's another true fact about =wc-query= that uses multiple input sentences:
   (def short-sentences
     [["this is a sentence sentence"]
      ["sentence with this is repeated"]])
-  
+
   (def short-wordcounts
     [["sentence" 3]
      ["repeated" 1]
@@ -311,7 +311,7 @@ Here's another true fact about =wc-query= that uses multiple input sentences:
      ["a" 1]
      ["this" 2]
      ["with" 1]])
-  
+
   ;; when =wc-query= is called with =:text-path=
   ;; it will produce =short-sentences=,
   ;; provided =(hfs-textline :text-path)= produces =short-wordcounts=.
@@ -327,7 +327,7 @@ A =provided= form only applies to the result-query pair directly above. The firs
         results  [["two" 1] ["words" 1]]]
     (fact?- "provided form won't apply here!"
             results (wc-query :path) ;; false
-  
+
             "provided applies here."
             results (wc-query :path) ;; true
             (provided
@@ -344,15 +344,15 @@ These facts about =wc-query= from above are all true, and identical:
   (fact?- "Mocking with keywords,"
           [["one" 1]] (wc-query :path)
           (provided (hfs-textline :path) => [["one"]])
-  
+
           "strings,"
           [["one" 1]] (wc-query "path")
           (provided (hfs-textline "path") => [["one"]])
-  
+
           "numbers,"
           [["one" 1]] (wc-query 100)
           (provided (hfs-textline 100) => [["one"]])
-  
+
           "and Midje dotted symbols."
           [["one" 1]] (wc-query ..path..)
           (provided (hfs-textline ..path..) => [["one"]]))
@@ -369,18 +369,18 @@ As discussed, the =provided= form only applies to the result-query pair directly
           (src ?sentence)
           (split ?sentence :> ?word)
           (:distinct false))))
-  
+
   (let [sentence [["two two"]]]
     (fact?- "text->words cuts text into words."
             [["two"] ["two"]] (text->words :path)
             (provided
               (hfs-textline :path) => sentence)
-  
+
             "wc-query converts a sentence into words."
             [["two" 2]] (wc-query :path)
             (provided
               (hfs-textline :path) => sentence)))
-  
+
 #+end_src
 
 Midje allows facts to share mocked functions with =against-background=. An =against-background= form placed anywhere inside the body of =fact?-= will apply to all facts inside the form:
@@ -389,17 +389,17 @@ Midje allows facts to share mocked functions with =against-background=. An =agai
   (let [sentence [["two two"]]]
     (fact?- "text->words cuts text into words."
             [["two"] ["two"]] (text->words :path)
-            
+
             "wc-query converts a sentence into words."
             [["two" 2]]
             (wc-query :path)
-            
+
             "wc-query fact with difference inputs."
             [["what" 1] ["a" 1] ["world!" 1]]
             (wc-query :path)
             (provided
               (hfs-textline :path) => [["what a world!"]])
-        
+
             (against-background
               (hfs-textline :path) => sentence)))
 #+end_src
@@ -438,18 +438,18 @@ To solve this, Midje provides a number of collection checkers that provide you w
 
 =just= is the default checker for =fact?-= and =fact?<-=; bare vectors of tuples resolve to =(just result-vec :in-any-order)=. The following three facts are equivalent:
 
-#+begin_src clojure  
+#+begin_src clojure
   (let [src   [[1] [2]]
         query (<- [?a ?b]
                   (src ?a)
                   (inc ?a :> ?b))]
     (fact?- "Just form, fully qualified."
             (just [[2 3] [1 2]] :in-any-order) query ;;true
-  
+
             "Wrapping tuples in a set is identical to including
              the :in-any-order modifier."
             (just #{[2 3] [1 2]}) query ;; true
-            
+
             "midje-cascalog lets us drop these wrappers."
             [[2 3] [1 2]] query)) ;; true
 #+end_src
@@ -467,15 +467,15 @@ These restrictions are quite limiting for most Cascalog queries. The following t
 #+begin_src clojure
   (fact?- (contains #{["sail" 1] ["Ishmael." 1]} :gaps-ok)
           (wc-query :path) ;; true
-          
+
           (contains [["sail" 1] ["Ishmael." 1]] :gaps-ok :in-any-order)
           (wc-query :path) ;; true
-  
+
           (against-background
             (hfs-textline :path) => longer-sentences))
 #+end_src
 
-The above facts test that both =["sail" 1]= and =["Ishmael." 1]= appear somewhere in the results, in any order. 
+The above facts test that both =["sail" 1]= and =["Ishmael." 1]= appear somewhere in the results, in any order.
 
 - Wrapping the result tuples in a set (vs. a vector), or adding the =:in-any-order= keyword, relaxes the ordering restriction.
 - The =:gaps-ok= keyword relaxes the restriction that tuples must contiguous.
@@ -519,12 +519,12 @@ In certain cases, you might like to test a single query against a wide range of 
           (wc-query :path)
           (provided
             (hfs-textline :path) => [["mock it out!"]]) ;;true
-  
+
           [["two" 3]]
           (wc-query :path)
           (provided
             (hfs-textline :path) => [["two two two"]]) ;;true
-  
+
           [["M.M" 1] ["nathan" 1]]
           (wc-query :path)
           (provided
@@ -570,11 +570,11 @@ The first fact generated by the above tabular fact looks like this:
            (wc-query :path)
            (provided
              (hfs-textline :path) => [[?sentence]]))
-  
+
    ;; and substitutes these variables:
    ?sentence       ?results
    "mock it out!"  [["mock" 1] ["it" 1] ["out!" 1]]) ;; true
-  
+
   ;; to produce this fact:
   (fact?- [["mock" 1] ["it" 1] ["out!" 1]]
           (wc-query :path)

@@ -1,22 +1,22 @@
+
 ---
 layout: post
 title: Haskell in Emacs
 ---
 <p class="meta">Sept 25 2011 - San Francisco</p>
 
-
-<div id="outline-container-1" class="outline-2">
+<div id="outline-container-sec-1" class="outline-2">
 <h2 id="sec-1">Haskell in Emacs</h2>
 <div class="outline-text-2" id="text-1">
-
-
 <p>
 I spent some time today getting my emacs config set up to learn Haskell, and ran into a few issues; I figured I'd go ahead and document the process here for everyone's enjoyment. We're going to install and configure Haskell mode, then add a few extensions that'll make learning Haskell fun and easy!
 </p>
+
 <p>
 I'm currently running haskell-mode for emacs, with the <code>hs-lint</code> plugin, Haskell support for FlyMake (which provides on-the-fly syntax checking from the Haskell compiler), and code autocompletion. The steps covered by this tutorial are:
 </p>
-<ol>
+
+<ol class="org-ol">
 <li>Installing Haskell
 </li>
 <li>Configuring Haskell-Mode for Emacs
@@ -24,35 +24,28 @@ I'm currently running haskell-mode for emacs, with the <code>hs-lint</code> plug
 <li>Installing Haskell-Mode Extensions (Flymake support, <code>hs-lint</code> and autocompletion)
 </li>
 </ol>
-
-
-
 </div>
 
-<div id="outline-container-1-1" class="outline-3">
+<div id="outline-container-sec-1-1" class="outline-3">
 <h3 id="sec-1-1">Installing Haskell</h3>
 <div class="outline-text-3" id="text-1-1">
-
-
 <p>
 Before any of this Emacs jazz, we have to get Haskell, of course. The easiest way to do is to download the <a href="http://hackage.haskell.org/platform/">Haskell Platform</a>, a "Batteries Included" package of the Glasgow Haskell Compiler.
 </p>
 </div>
-
 </div>
-
-<div id="outline-container-1-2" class="outline-3">
+<div id="outline-container-sec-1-2" class="outline-3">
 <h3 id="sec-1-2">Emacs Haskell Mode</h3>
 <div class="outline-text-3" id="text-1-2">
-
-
 <p>
 The <a href="http://www.haskell.org/haskellwiki/Haskell_mode_for_Emacs">Haskell Mode for Emacs</a> page at the Haskell wiki is a nice place to start your explorations, and describes how to install <a href="http://projects.haskell.org/haskellmode-emacs/">haskell-mode</a>. I found it easier to use ELPA, the Emacs Lisp Package Archive (install instructions <a href="http://tromey.com/elpa/install.html">here</a>). If you're using the <a href="https://github.com/technomancy/emacs-starter-kit">Emacs starter kit</a>, you've already got ELPA.
 </p>
+
 <p>
 Once elpa's all set, install <code>haskell-mode</code> with the following:
 </p>
-<ol>
+
+<ol class="org-ol">
 <li>run <code>M-x package-list-packages</code> in Emacs
 </li>
 <li>tap <code>i</code> by <code>haskell-mode</code>
@@ -60,22 +53,16 @@ Once elpa's all set, install <code>haskell-mode</code> with the following:
 <li>hit <code>x</code> to the start the install.
 </li>
 </ol>
-
-
 </div>
-
 </div>
-
-<div id="outline-container-1-3" class="outline-3">
+<div id="outline-container-sec-1-3" class="outline-3">
 <h3 id="sec-1-3">Configuring emacs.el</h3>
 <div class="outline-text-3" id="text-1-3">
-
-
 <p>
 Before we get into linting or any other customizations, Add the following to your emacs config (<code>~/.emacs</code>, or <code>~/.emacs.d/init.el</code>, if you're using the Starter kit):
 </p>
 
-
+<div class="org-src-container">
 
 <pre class="src src-emacs-lisp"><span style="color: #8c8c8c;">(</span>add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode<span style="color: #8c8c8c;">)</span>
 
@@ -88,12 +75,13 @@ Before we get into linting or any other customizations, Add the following to you
 <span style="color: #b22222;">;; </span><span style="color: #b22222;">Ignore compiled Haskell files in filename completions</span>
 <span style="color: #8c8c8c;">(</span>add-to-list 'completion-ignored-extensions <span style="color: #8b2252;">".hi"</span><span style="color: #8c8c8c;">)</span>
 </pre>
-
+</div>
 
 <p>
 At this point, you should be able to start using Haskell in emacs. Let's write our first function.
 </p>
-<ul>
+
+<ul class="org-ul">
 <li>Create a file called <code>test.hs</code>.
 </li>
 <li>type <code>C-c C-z</code> to get to the Haskell REPL, supplied by <a href="http://www.haskell.org/haskellwiki/Haskell_mode_for_Emacs#inf-haskell.el:_the_best_thing_since_the_breadknife">inf-haskell mode</a>
@@ -102,51 +90,45 @@ At this point, you should be able to start using Haskell in emacs. Let's write o
 </li>
 </ul>
 
-
-
-
+<div class="org-src-container">
 
 <pre class="src src-haskell"><span style="color: #a020f0;">module</span> <span style="color: #228b22;">Examples</span> <span style="color: #a020f0;">where</span>
 
 <span style="color: #0000ff;">square</span> <span style="color: #a0522d;">::</span> <span style="color: #228b22;">Integral</span> a <span style="color: #a0522d;">=&gt;</span> a <span style="color: #a0522d;">-&gt;</span> a
 <span style="color: #0000ff;">square</span> x <span style="color: #a0522d;">=</span> x <span style="color: #a0522d;">*</span> x
-
 </pre>
-
+</div>
 
 <p>
 Then type <code>C-c C-l</code> in that buffer to load the file's contents into the REPL. <code>C-c C-z</code> over to the repl again and try it out:
 </p>
 
-
+<div class="org-src-container">
 
 <pre class="src src-haskell"><span style="color: #a0522d;">*</span><span style="color: #228b22;">Main</span><span style="color: #a0522d;">&gt;</span> square 10
 100
 <span style="color: #a0522d;">*</span><span style="color: #228b22;">Main</span><span style="color: #a0522d;">&gt;</span> square 34
 1156
 </pre>
-
+</div>
 
 <p>
 Nice.
 </p>
 </div>
-
 </div>
-
-<div id="outline-container-1-4" class="outline-3">
+<div id="outline-container-sec-1-4" class="outline-3">
 <h3 id="sec-1-4">Flymake</h3>
 <div class="outline-text-3" id="text-1-4">
-
-
 <p>
 Next, we're going to add support for Flymake, the emacs syntax-checker. This is a piece of Emacs functionality that'll run our Haskell files through the compiler every few seconds and associate any warnings and errors with some specific line in our Haskell file.
 </p>
+
 <p>
 While we're at it, we'll configure <code>hs-lint</code>, which we can run periodically on our Haskell files for a list of hints as to how to structure code better. For example, running <code>hs-lint</code> on a Haskell file containing <code>times2 x = (*) 2 x</code> yields a buffer with:
 </p>
 
-
+<div class="org-src-container">
 
 <pre class="src src-text">hlint /Users/sritchie/test.hs
 /Users/sritchie/test.hs:1:1: Error: Eta reduce
@@ -157,15 +139,17 @@ Why not:
 
  1 suggestion
 </pre>
-
+</div>
 
 <p>
 Definitely helpful in the learning process.
 </p>
+
 <p>
 Flymake depends on an external perl script, <code>hslint</code>, to pass the contents of the current buffer into the Haskell compiler.
 </p>
-<ul>
+
+<ul class="org-ul">
 <li>Download <code>hslint</code> from <a href="https://gist.github.com/1241073">this gist</a> and place it somewhere on your path.
 </li>
 <li>run <code>chmod a+x hslint</code> to give the file executable privileges
@@ -174,9 +158,7 @@ Flymake depends on an external perl script, <code>hslint</code>, to pass the con
 </li>
 </ul>
 
-
-
-
+<div class="org-src-container">
 
 <pre class="src src-emacs-lisp"><span style="color: #8c8c8c;">(</span><span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">flymake-haskell-init</span> <span style="color: #8c8c8c;">()</span>
   <span style="color: #8b2252;">"When flymake triggers, generates a tempfile containing the</span>
@@ -206,29 +188,20 @@ Flymake depends on an external perl script, <code>hslint</code>, to pass the con
  '<span style="color: #8c8c8c;">(</span>flymake-errline <span style="color: #8c8c8c;">((((</span>class color<span style="color: #8c8c8c;">))</span> <span style="color: #8c8c8c;">(</span><span style="color: #483d8b;">:underline</span> <span style="color: #8b2252;">"red"</span><span style="color: #8c8c8c;">))))</span>
  '<span style="color: #8c8c8c;">(</span>flymake-warnline <span style="color: #8c8c8c;">((((</span>class color<span style="color: #8c8c8c;">))</span> <span style="color: #8c8c8c;">(</span><span style="color: #483d8b;">:underline</span> <span style="color: #8b2252;">"yellow"</span><span style="color: #8c8c8c;">)))))</span>
 </pre>
-
-
 </div>
-
 </div>
-
-<div id="outline-container-1-5" class="outline-3">
+</div>
+<div id="outline-container-sec-1-5" class="outline-3">
 <h3 id="sec-1-5">Haskell Extensions</h3>
 <div class="outline-text-3" id="text-1-5">
-
-
-
-</div>
-
-<div id="outline-container-1-5-1" class="outline-4">
+</div><div id="outline-container-sec-1-5-1" class="outline-4">
 <h4 id="sec-1-5-1">Auto Complete Mode</h4>
 <div class="outline-text-4" id="text-1-5-1">
-
-
 <p>
 Now, let's add autocompletion. Autocomplete mode is awesome; it provides IDE-like word tab completion of words based on info in open buffers, and some knowledge of the modes of the emacs buffer you're currently working in. In Haskell, we'll get autocompletion of every function we define, plus help with core language constructs. Head over to <a href="http://cx4a.org/software/auto-complete/index.html">Auto Complete Mode</a> to download the package, and install with the following:
 </p>
-<ol>
+
+<ol class="org-ol">
 <li>Download and unpack Autocomplete mode
 </li>
 <li>Open emacs, and run <code>M-x load-file</code>
@@ -239,29 +212,22 @@ Now, let's add autocompletion. Autocomplete mode is awesome; it provides IDE-lik
 </li>
 </ol>
 
-
 <p>
 That should get you all set for the next step.
 </p>
 </div>
-
 </div>
-
-<div id="outline-container-1-5-2" class="outline-4">
+<div id="outline-container-sec-1-5-2" class="outline-4">
 <h4 id="sec-1-5-2">Linting!</h4>
 <div class="outline-text-4" id="text-1-5-2">
-
-
-<ol>
+<ol class="org-ol">
 <li>Download <a href="https://gist.github.com/1241059">hs-lint.el</a> and <a href="https://gist.github.com/1241063">haskell-ac.el</a> and place each file inside of <code>~/.emacs.d</code>. (<code>hs-lint</code> is our linter, of course, and <code>haskell-ac.el</code> provides autocomplete mode with some knowledge of a few core Haskell constructs.
 </li>
 <li>Add the following to your <code>.emacs</code> file:
 </li>
 </ol>
 
-
-
-
+<div class="org-src-container">
 
 <pre class="src src-emacs-lisp"><span style="color: #8c8c8c;">(</span><span style="color: #a020f0;">require</span> '<span style="color: #008b8b;">hs-lint</span><span style="color: #8c8c8c;">)</span>    <span style="color: #b22222;">;; </span><span style="color: #b22222;">https://gist.github.com/1241059</span>
 <span style="color: #8c8c8c;">(</span><span style="color: #a020f0;">require</span> '<span style="color: #008b8b;">haskell-ac</span><span style="color: #8c8c8c;">)</span> <span style="color: #b22222;">;; </span><span style="color: #b22222;">https://gist.github.com/1241063</span>
@@ -288,53 +254,50 @@ That should get you all set for the next step.
      <span style="color: #8c8c8c;">(</span>add-hook 'haskell-mode-hook 'flymake-haskell-enable<span style="color: #8c8c8c;">)</span>
      <span style="color: #8c8c8c;">(</span>add-hook 'haskell-mode-hook 'my-haskell-mode-hook<span style="color: #8c8c8c;">)))</span>
 </pre>
-
+</div>
 
 <p>
 The above code binds <code>C-c l</code> to <code>hs-lint</code> inside of Haskell buffers, and configures a large number of Haskell keywords for autocompletion. Go and test it out inside of <code>test.hs</code>; you should find that <code>square</code> autocompletes when you begin typing.
 </p>
+
 <p>
 Now go ahead and add the following line to <code>test.hs</code>:
 </p>
 
-
+<div class="org-src-container">
 
 <pre class="src src-haskell"><span style="color: #0000ff;">face</span> <span style="color: #a0522d;">::</span> <span style="color: #228b22;">Int</span> <span style="color: #a0522d;">-&gt;</span> <span style="color: #228b22;">Bool</span>
 </pre>
-
+</div>
 
 <p>
 Upon save, or within seconds, you should see an angry red underline. Move the cursor over that line and type <code>C-c d</code>, and you'll see a tooltip with the following text:
 </p>
 
-
+<div class="org-src-container">
 
 <pre class="src src-text">1: The type signature for `face' lacks an accompanying binding.
 </pre>
-
+</div>
 
 <p>
 Adding this will clear things up:
 </p>
 
-
+<div class="org-src-container">
 
 <pre class="src src-haskell"><span style="color: #0000ff;">face</span> x <span style="color: #a0522d;">=</span> 5 <span style="color: #a0522d;">&lt;</span> x
 </pre>
-
-
 </div>
 </div>
-
 </div>
-
-<div id="outline-container-1-6" class="outline-3">
+</div>
+<div id="outline-container-sec-1-6" class="outline-3">
 <h3 id="sec-1-6">Finishing Up</h3>
 <div class="outline-text-3" id="text-1-6">
-
-
 <p>
 I hope this helped those of you looking to get started exploring Haskell! Please let me know in the comments if anything could be clearer; I'll be posting more down the road, and all requests are welcome.
-</p></div>
+</p>
+</div>
 </div>
 </div>

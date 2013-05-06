@@ -1,0 +1,71 @@
+#+STARTUP: showall indent
+#+STARTUP: hidestars
+#+BEGIN_HTML
+---
+layout: projects
+title: Projects
+---
+#+END_HTML
+
+** Significant Open Source Projects
+
+*** Storehaus
+
+[[https://github.com/twitter/storehaus][Storehaus]].
+
+*** Bijection
+
+[[https://github.com/twitter/bijection][Bijection]].
+
+*** Algebird
+
+[[https://github.com/twitter/algebird][Algebird]].
+
+*** Chill
+
+[[https://github.com/twitter/chill][Chill]].
+
+*** Tormenta
+
+[[https://github.com/twitter/tormenta][Tormenta]].
+
+*** FORMA
+
+[[https://github.com/reddmetrics/forma-clj][forma-clj]] -- wrote the damned thing in clojure, maintained from January 2011 -> mid 2012.
+
+*** cascading.kryo
+
+[[https://github.com/Cascading/cascading.kryo][cascading.kryo]]
+
+** Contributions to Other Projects
+
+*** Scalding
+
+[[https://github.com/twitter/scalding][Scalding]] -- mention scalding-commons here.
+
+*** Cascalog
+
+[[https://github.com/nathanmarz/cascalog][Cascalog]] -- maintained for a long time. Wrote midje-cascalog (link to blog posts), now in the main repo; cascalog-checkpoint; cascalog-lzo. Added kryo, etc
+
+*** ElephantDB
+
+[[https://github.com/nathanmarz/elephantdb][ElephantDB]]
+
+*** Storm
+
+[[https://github.com/nathanmarz/storm][Storm]] -- Added the multischeme trait and this ability into storm-contrib.
+
+*** Pallet
+
+[[https://github.com/pallet/pallet][Pallet]] -- wrote [[https://github.com/pallet/pallet-hadoop][pallet-hadoop]], contributed other earlier stuff (threading macros [[https://github.com/pallet/thread-expr][thread-expr]])
+
+** Smaller Projects
+
+- https://github.com/sritchie/jackknife
+- https://github.com/sritchie/hadoop-util
+
+** iOS Games
+
+- [[http://goo.gl/etqwS][Rush Hour]] and [[http://goo.gl/TLyyG][Rush Hour Free]],
+- [[http://goo.gl/Mn8Oy][Solitaire Chess]] and [[http://goo.gl/c11Vn][Solitaire Chess Free]],
+- [[http://goo.gl/tIvBY][Chocolate Fix]] and [[http://goo.gl/jYeut][Chocolate Fix Free]].

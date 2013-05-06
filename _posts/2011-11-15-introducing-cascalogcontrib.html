@@ -5,56 +5,54 @@ title: Introducing Cascalog-Contrib
 
 <p class="meta">Nov 15 2011 - Washington DC</p>
 
-
-<div id="outline-container-1" class="outline-2">
+<div id="outline-container-sec-1" class="outline-2">
 <h2 id="sec-1">Cascalog-Contrib</h2>
 <div class="outline-text-2" id="text-1">
-
-
 <p>
 I've had the pleasure of working with <a href="https://github.com/nathanmarz/cascalog">Cascalog</a> for about ten months now, and have seen the community produce some fantastic work. A <a href="https://www.assembla.com/spaces/cascalog/wiki/Who's_using_Cascalog">number of businesses</a> are using Cascalog in production; I use Cascalog at Twitter every day to write MapReduce queries for the new <a href="http://techcrunch.com/2011/09/13/twitter-analytics/">Twitter Web Analytics</a> product.
 </p>
+
 <p>
 One thing Cascalog doesn't yet have is a community repository for generic queries and operations. To fill this gap we've created <a href="https://github.com/nathanmarz/cascalog-contrib">cascalog-contrib</a>.
 </p>
+
 <p>
 Cascalog-contrib will be home to any higher-level abstractions over Cascalog that the community is willing to submit. If you have an idea for a module, file a pull request on GitHub or bring it up on the <a href="http://groups.google.com/group/cascalog-user">mailing list</a> for discussion.
 </p>
+
 <p>
 The first cascalog-contrib modules are now live on <a href="http://clojars.org/cascalog-contrib">clojars</a>. To include them in your leiningen or cake project, add any of the following to <code>project.clj</code>:
 </p>
 
-
+<div class="org-src-container">
 
 <pre class="src src-clojure">[cascalog-checkpoint <span style="color: #8b2252;">"0.1.1"</span>]
 [cascalog-incanter <span style="color: #8b2252;">"0.1.0"</span>]
 [cascalog-math <span style="color: #8b2252;">"0.1.0"</span>]
 </pre>
-
+</div>
 
 <p>
 Contrib currently has three modules: <code>cascalog.math</code>, <code>cascalog.incanter</code> and <code>cascalog.checkpoint</code>. <code>math</code> and <code>incanter</code> are still fairly sparse, but <code>checkpoint</code> is quite interesting and battle-tested at Twitter. Read on if you're interested in the details of the <code>checkpoint</code> module; otherwise, I'll see you on the mailing list!
 </p>
-
 </div>
 
-<div id="outline-container-1-1" class="outline-3">
+<div id="outline-container-sec-1-1" class="outline-3">
 <h3 id="sec-1-1">cascalog.contrib.checkpoint</h3>
 <div class="outline-text-3" id="text-1-1">
-
-
 <p>
 The <code>workflow</code> macro in the checkpoint module allows you to break complicated workflows out into small, checkpointed steps. If one of these steps causes a job to fail and you restart the job, the workflow macro will skip every step up to the previous point of failure. Fault-tolerant MapReduce topologies ftw!
 </p>
+
 <p>
 Let's look at the workflow macro in action. The following function takes an input-path to some existing Twitter data and an output-path, and executes a tweet-processing workflow with five steps:
 </p>
 
-
+<div class="org-src-container">
 
 <pre class="src src-clojure"><span style="color: #8c8c8c;">(</span><span style="color: #a020f0;">defn</span> <span style="color: #0000ff;">-main</span>
   [input-path output-path]
-  <span style="color: #8c8c8c;">(</span>workflow [<span style="color: #8b2252;">"/tmp/example-checkpoint"</span>]          
+  <span style="color: #8c8c8c;">(</span>workflow [<span style="color: #8b2252;">"/tmp/example-checkpoint"</span>]
             step-1     <span style="color: #8c8c8c;">(</span>[<span style="color: #008b8b;">:tmp-dirs</span> [staging-path]]
                           <span style="color: #8c8c8c;">(</span>transfer-tweets input-path staging-path<span style="color: #8c8c8c;">))</span>
 
@@ -74,69 +72,73 @@ Let's look at the workflow macro in action. The following function takes an inpu
                                         age-path
                                         output-path<span style="color: #8c8c8c;">))))</span>
 </pre>
-
+</div>
 
 <p>
 Let's look at this one piece at a time. The first argument to <code>workflow</code> is a vector with some path that the workflow can use to stage temporary files.
 </p>
 
-
+<div class="org-src-container">
 
 <pre class="src src-clojure"><span style="color: #8c8c8c;">(</span>workflow [<span style="color: #8b2252;">"/tmp/example-checkpoint"</span>] ...<span style="color: #8c8c8c;">)</span>
 </pre>
-
+</div>
 
 <p>
 It doesn't matter what path you choose; just make sure that Hadoop has access and can write data to the folder.
 </p>
+
 <p>
 Following this vector, <code>workflow</code> expects pairs of the form
 </p>
 
-
+<div class="org-src-container">
 
 <pre class="src src-clojure">step-name <span style="color: #8c8c8c;">(</span>[<span style="color: #008b8b;">:deps</span> &lt;optional-deps, defaults to <span style="color: #008b8b;">:last&gt;</span>]
              <span style="color: #008b8b;">:tmp-dirs</span> [&lt;optional, creates temp-dirs if supplied&gt;]
              ...&lt;body, same as inside let&gt;...<span style="color: #8c8c8c;">)</span>
 </pre>
-
+</div>
 
 <p>
 Steps can identify other steps as dependencies by referencing their step-names with the <code>:deps</code> keyword argument.
 </p>
+
 <p>
 The first step creates a temporary directory by supplying the symbol <code>staging-path</code> to the <code>:tmp-dirs</code> keyword argument. It then transfers tweets from the input directory into this staging directory, where they will remain available for future steps to consume.
 </p>
 
-
+<div class="org-src-container">
 
 <pre class="src src-clojure">step-1 <span style="color: #8c8c8c;">(</span>[<span style="color: #008b8b;">:tmp-dirs</span> [staging-path]]
           <span style="color: #8c8c8c;">(</span>transfer-tweets input-path staging-path<span style="color: #8c8c8c;">))</span>
 </pre>
-
+</div>
 
 <p>
 Step 2 marks <code>:last</code> as a dependency. <code>:last</code> is the default, and marks the step as dependent only on the step directly above. A step will not execute until all of its dependencies have completed successfully.
 </p>
+
 <p>
 <code>step-2</code> uses <code>staging-path</code> defined in <code>step-1</code> and creates a new temp directory (<code>user-path</code>) for its results.
 </p>
+
 <p>
 If <code>step-2</code> fails for any reason and you restart the workflow, the workflow macro will skip <code>step-1</code>, destroy any temporary directories created in the previous run of <code>step-2</code>, and start <code>step-2</code> afresh.
 </p>
 
-
+<div class="org-src-container">
 
 <pre class="src src-clojure">step-2 <span style="color: #8c8c8c;">(</span>[<span style="color: #008b8b;">:deps</span> <span style="color: #008b8b;">:last</span> <span style="color: #008b8b;">:tmp-dirs</span> user-path]
           <span style="color: #8c8c8c;">(</span>harvest-users staging-path user-path<span style="color: #8c8c8c;">))</span>
 </pre>
-
+</div>
 
 <p>
 The next two steps, <code>step-3a</code> and <code>step-3b</code>, each mark <code>step-2</code> as a dependency. Once <code>step-2</code> completes, <code>step-3a</code> and <code>step-3b</code> will run in parallel.
 </p>
 
-
+<div class="org-src-container">
 
 <pre class="src src-clojure">step-3a <span style="color: #8c8c8c;">(</span>[<span style="color: #008b8b;">:deps</span> step-2 <span style="color: #008b8b;">:tmp-dirs</span> [cluster-path friend-path]]
            <span style="color: #8c8c8c;">(</span>cluster-users user-path cluster-path<span style="color: #8c8c8c;">)</span>
@@ -145,13 +147,13 @@ The next two steps, <code>step-3a</code> and <code>step-3b</code>, each mark <co
 step-3b <span style="color: #8c8c8c;">(</span>[<span style="color: #008b8b;">:deps</span> step-2 <span style="color: #008b8b;">:tmp-dirs</span> age-path]
            <span style="color: #8c8c8c;">(</span>examine-ages user-path age-path<span style="color: #8c8c8c;">))</span>
 </pre>
-
+</div>
 
 <p>
 The final step marks its dependencies as <code>:all</code>. This signifies that the step must wait for every step defined above it to complete before running. Again, if <code>final-step</code> fails and the workflow restarts, all previous successful steps will be skipped.
 </p>
 
-
+<div class="org-src-container">
 
 <pre class="src src-clojure">final-step <span style="color: #8c8c8c;">(</span>[<span style="color: #008b8b;">:deps</span> <span style="color: #008b8b;">:all</span>]
               <span style="color: #8c8c8c;">(</span>big-analysis cluster-path
@@ -159,19 +161,15 @@ The final step marks its dependencies as <code>:all</code>. This signifies that 
                             age-path
                             output-path<span style="color: #8c8c8c;">))</span>
 </pre>
-
-
 </div>
-
 </div>
-
-<div id="outline-container-1-2" class="outline-3">
+</div>
+<div id="outline-container-sec-1-2" class="outline-3">
 <h3 id="sec-1-2">In Conclusion</h3>
 <div class="outline-text-3" id="text-1-2">
-
-
 <p>
 I'm quite excited about the Cascalog-contrib project and hope you all make heavy use of it as its functionality grows. In the short-term, I'm planning on hooking Cascalog in to <a href="http://incanter.org/">Incanter's</a> amazing visualization suite through the <code>cascalog.incanter</code> module.
-</p></div>
+</p>
+</div>
 </div>
 </div>
