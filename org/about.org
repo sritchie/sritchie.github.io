@@ -18,9 +18,3 @@ I'm Sam Ritchie, A [[http://clojure.org/][clojure]] developer on Twitter's Platf
 
 
 I'm currently working on an update to [[http://www.cgdev.org/section/initiatives/_active/forestmonitoringforaction][FORMA]], a system for monitoring deforestation activity in the tropics. We make heavy use of [[https://github.com/nathanmarz/cascalog][cascalog]].
-\\
-\\
-\\
-\\
-\\
-\\

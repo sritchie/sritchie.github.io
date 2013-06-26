@@ -45,7 +45,7 @@ title: Projects
 
 *** Cascalog
 
-[[https://github.com/nathanmarz/cascalog][Cascalog]] -- maintained for a long time. Wrote midje-cascalog (link to blog posts), now in the main repo; cascalog-checkpoint; cascalog-lzo. Added kryo, etc
+[[https://github.com/nathanmarz/cascalog][Cascalog]] -- maintain for a long time. Wrote midje-cascalog (link to blog posts), now in the main repo; cascalog-checkpoint; cascalog-lzo. Added kryo, etc
 
 *** ElephantDB
 

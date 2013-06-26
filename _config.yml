@@ -5,6 +5,6 @@ pygments:    true
 markdown:    redcarpet
 permalink:   date
 exclude:
-- README.md
+- README.org
 - CNAME
 - org
