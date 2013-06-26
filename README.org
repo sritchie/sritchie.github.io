@@ -26,7 +26,3 @@ The following directories and their contents are Copyright Sam Ritchie. You may 
 - jekyll/images/
 
 All other directories and files are MIT Licensed. Feel free to use the HTML and CSS as you please.
-
-## Building the Site
-
-I'm using org-mode to write the content for the site. To actually get this damned thing building using [my emacs profile](https://github.com/sritchie/emacs24-starter-kit),
