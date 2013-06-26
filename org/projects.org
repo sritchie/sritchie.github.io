@@ -7,65 +7,70 @@ title: Projects
 ---
 #+END_HTML
 
-** Significant Open Source Projects
+** Notable Open Source Projects
+
+The following is a list of open source projects I've authored or co-authored.
 
 *** Storehaus
 
-[[https://github.com/twitter/storehaus][Storehaus]].
+[[https://github.com/twitter/storehaus][Storehaus]] is a Scala library that makes it easy to work with asynchronous key-value stores.
 
 *** Bijection
 
-[[https://github.com/twitter/bijection][Bijection]].
+A [[https://github.com/twitter/bijection][Bijection]] is a function that can be inverted. Practically, in Scala, Bijections are used to tell the type system about equivalent concepts that may have been defined in different libraries (=scala.Int= vs =java.lang.Integer=, for example.) The ability to declare these equivalences is hugely valuable.
+
+=Injection=, a related trait included in the library, is a function that can sometimes be inverted. (Your item might be able to convert to a byte array, but not all byte arrays can come back, for example.) =Injection= and =Bijection= turn out to be wonderful at describing serializations. We use the concept heavily in Summingbird and other distributed systems at Twitter.
 
 *** Algebird
 
-[[https://github.com/twitter/algebird][Algebird]].
+[[https://github.com/twitter/algebird][Algebird]] is an abstract algebra library for Scala. Algebird is designed with streaming aggregations in mind, and implements a number of types and combinators that are useful in a streaming mapreduce environment. The =Monoid=, for example, is a core concept of Summingbird, Twitter's streaming MapReduce library.
+
+Here are some of the more exotic data structures in Algebird:
+
+- CountMinSketch
+- SketchMap
+- HyperLogLog
+- Stochastic Gradient Descent
 
 *** Chill
 
-[[https://github.com/twitter/chill][Chill]].
+[[https://github.com/twitter/chill][Chill]] provides a number of enhancements to the [[https://code.google.com/p/kryo/][Kryo]] JVM serialization library; notably, serializers for all scala primitives and collection types, and plugins that make it easy to use Kryo in Hadoop and Storm jobs. Scalding, Cascalog, Spark and many other projects use chill to manage serialization across their various distributed system implementations.
 
 *** Tormenta
 
-[[https://github.com/twitter/tormenta][Tormenta]].
+[[https://github.com/twitter/tormenta][Tormenta]] provides a type-safe Scala DSL over Storm, along with scala-friendly implementations of Kafka, Kestrel and Twitter Streaming API spouts for Storm.
 
 *** FORMA
 
-[[https://github.com/reddmetrics/forma-clj][forma-clj]] -- wrote the damned thing in clojure, maintained from January 2011 -> mid 2012.
+The [[https://github.com/reddmetrics/forma-clj][Forest Monitoring for Action]] (FORMA) project provides free and open forest clearing alert data derived from MODIS satellite imagery every 16 days beginning in December 2005. I was the lead developer of FORMA's Clojure codebase from January 2011 to mid-2012.
 
-*** cascading.kryo
+** Large Contributions
 
-[[https://github.com/Cascading/cascading.kryo][cascading.kryo]]
-
-** Contributions to Other Projects
-
-*** Scalding
-
-[[https://github.com/twitter/scalding][Scalding]] -- mention scalding-commons here.
+Here are other people's projects I've contributed to in large ways.
 
 *** Cascalog
 
-[[https://github.com/nathanmarz/cascalog][Cascalog]] -- maintain for a long time. Wrote midje-cascalog (link to blog posts), now in the main repo; cascalog-checkpoint; cascalog-lzo. Added kryo, etc
+[[https://github.com/nathanmarz/cascalog][Cascalog]] is a Datalog implementation in Clojure that compiles queries down to Hadoop jobs. I've maintained Cascalog since late 2011 and authored many core features and modules, including [[http://sritchie.github.io/2012/01/22/cascalog-testing-20.html][midje-cascalog]] and [[http://sritchie.github.io/2011/11/15/introducing-cascalogcontrib.html][cascalog-contrib]]. I'm currently working on Cascalog 2, which will allow Cascalog's query language to compile down to targets other than Hadoop (like Spark or Storm).
+
+*** Scalding
+
+[[https://github.com/twitter/scalding][Scalding]] is a Hadoop DSL written in Scala. I've contributed a number of designs and constructs to the codebase; many of these can be found in the [[https://github.com/twitter/scalding-commons][scalding-commons]] project. Some examples are
+
+- [[https://github.com/nathanmarz/dfs-datastores][dfs-datastores]] integration via =PailSource=
+- [[https://github.com/twitter/scalding-commons/blob/develop/src/main/scala/com/twitter/scalding/commons/source/VersionedKeyValSource.scala][VersionedKeyValSource]], which makes it easy to write long-running, incrementally-updated streaming aggregations using Scalding
 
 *** ElephantDB
 
-[[https://github.com/nathanmarz/elephantdb][ElephantDB]]
-
-*** Storm
-
-[[https://github.com/nathanmarz/storm][Storm]] -- Added the multischeme trait and this ability into storm-contrib.
+[[https://github.com/nathanmarz/elephantdb][ElephantDB]] is a distributed read-only key-value store designed to be populated by Hadoop. I maintained ElephantDB during the first half of 2012 and performed a major rewrite that went into production at Twitter for a time.
 
 *** Pallet
 
-[[https://github.com/pallet/pallet][Pallet]] -- wrote [[https://github.com/pallet/pallet-hadoop][pallet-hadoop]], contributed other earlier stuff (threading macros [[https://github.com/pallet/thread-expr][thread-expr]])
-
-** Smaller Projects
-
-- https://github.com/sritchie/jackknife
-- https://github.com/sritchie/hadoop-util
+[[https://github.com/pallet/pallet][Pallet]] is a cloud provisioning system written in Clojure. I contributed a Hadoop cluster deploy tool called [[https://github.com/pallet/pallet-hadoop][pallet-hadoop]].
 
 ** iOS Games
 
-- [[http://goo.gl/etqwS][Rush Hour]] and [[http://goo.gl/TLyyG][Rush Hour Free]],
-- [[http://goo.gl/Mn8Oy][Solitaire Chess]] and [[http://goo.gl/c11Vn][Solitaire Chess Free]],
-- [[http://goo.gl/tIvBY][Chocolate Fix]] and [[http://goo.gl/jYeut][Chocolate Fix Free]].
+I developed the following games for iOS:
+
+- [[http://goo.gl/etqwS][Rush Hour]] and [[http://goo.gl/TLyyG][Rush Hour Free]] (4 stars)
+- [[http://goo.gl/Mn8Oy][Solitaire Chess]] and [[http://goo.gl/c11Vn][Solitaire Chess Free]] (5 stars)
+- [[http://goo.gl/tIvBY][Chocolate Fix]] and [[http://goo.gl/jYeut][Chocolate Fix Free]] (5 stars)

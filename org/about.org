@@ -7,14 +7,29 @@ title: About
 ---
 #+END_HTML
 
+* About Me
+
 #+begin_html
-<img src="/images/sam.jpg"
+<img src="https://sphotos-a.xx.fbcdn.net/hphotos-frc3/376694_844399893692_525375492_n.jpg/images/sam.jpg"
 height=250 width=250
 align=right
  style="border:3px solid #000000; margin: 0px 10px 10px 10px;" />
 #+end_html
 
-I'm Sam Ritchie, A [[http://clojure.org/][clojure]] developer on Twitter's Platform team living in San Francisco, CA. I've developed a number of successful iOS games, including [[http://itunes.apple.com/us/app/rush-hour/id336542036?mt=8][Rush Hour]] and [[http://itunes.apple.com/us/app/solitaire-chess-by-thinkfun/id400116606?mt=8][Solitaire Chess]].
+I'm Sam Ritchie. I'm currently (as of June, 2013) living in San Francisco, working as an engineer on Twitter's Analytics & Infrastructure group. I've authored a number of [[http://sritchie.github.io/projects.html][prominent open source projects]] in Scala and Clojure.
 
+** A Short History
 
-I'm currently working on an update to [[http://www.cgdev.org/section/initiatives/_active/forestmonitoringforaction][FORMA]], a system for monitoring deforestation activity in the tropics. We make heavy use of [[https://github.com/nathanmarz/cascalog][cascalog]].
+I left the US Sprint Kayaking Team on 2009, moved to New York and worked for a year at the [[http://www.ted.com][TED Conference]], working the phones of the Partnerships team by day and picking up what I could of Objective-C at night. I fell in love with coding that year and built a number of iOS games for ThinkFun, a brainteaser puzzle company started by my parents about a year before I was born. [[http://itunes.apple.com/us/app/rush-hour/id336542036?mt=8][Rush Hour]] is the most well-known and lucrative of these, though [[http://itunes.apple.com/us/app/solitaire-chess-by-thinkfun/id400116606?mt=8][Solitaire Chess]] or [[https://itunes.apple.com/us/app/chocolate-fix/id409705623?mt%3D8][Chocolate Fix]] seem to have more loyal tribes.
+
+I moved out of New York and south to Philadelphia in the summer of 2010 to code full-time and be a bit closer to the Schuykill river and a few old friends from my kayaking days. One of these old friends, Dan Hammer, knew about my coding forays and asked me help out with a large coding project called FORMA, or FORest Monitoring for Action. Something to do with satellites and NASA data, he said. Dan and his partner Robin Kraft were trying to develop a system that could classify various "pixels" of forest in the world's tropical areas according to their risk of deforestation. They had written a prototype in Python, running a MapReduce-ish algorithm across a bunch of EC2 servers, but the systems issues had begun to bog the project down.
+
+I came on and, to Dan's horror, decided that the only way to save the project from endless systems nightmares was to rewrite everything in Clojure. Which we did. None of us knew Clojure at the time, but from the reading I'd done, Clojure seemed like the surest bet for developing low-maintenance MapReduce applications like the one we needed for FORMA.
+
+I picked up [[https://github.com/nathanmarz/cascalog][Cascalog]] to write the MapReduce portions of the FORMA workflow -- timeseries generation, feature extraction, data warehousing and the like. My experience with Clojure and Cascalog turned me into an open source fanatic. During that period, some of the highlights I produced were a [[https://github.com/pallet/pallet-hadoop][Hadoop cluster deploy tool]], a number of submodules for Cascalog and what may be the most pleasurable Hadoop [[http://sritchie.github.io/2012/01/22/cascalog-testing-20.html][testing suite]] out there. Somehow along the way, I became Cascalog's maintainer. (FORMA is now [[https://github.com/reddmetrics/forma-clj][open source]] as well!)
+
+In the summer of 2011, my work on Cascalog earned me an interview at [[http://www.backtype.com/][BackType]], one of the sexier startups around (and one of the only west coast startups I'd really followed from afar, out in the Philadelphia tech desert). BackType released and maintained Cascalog and had a large open source presence in the Clojure community. At the time, unbeknownst to me, BackType was being acquisition-courted by Twitter. I knew them only as a group of guys knew how to kick ass using the language I loved.
+
+BackType offered me a job out west, which I deferred for three months to train for the [[http://www.texaswatersafari.org/][Texas Water Safari]], a 262 mile canoe race that deserves its own post. I won the race, but lost the standing offer when BackType was acquired by Twitter. (Glory has its price.) Ten interviews later, I received an offer from Twitter to go work with the former BackType team, which I quickly accepted, not wanting to make the same mistake again.
+
+I've been at Twitter for almost two years now! I've had the pleasure of working with some amazing folks and open-sourcing a tremendous amount of code. Much of that code is related to the Summingbird project, a soon-to-be-open-sourced platform for writing streaming aggregations that can run in batch mode on Hadoop, realtime mode on Storm, or in a combined batch/realtime mode in both execution environments. See the [[http://sritchie.github.io/projects.html][Projects page]] for more information about the specific projects I'm working on right now.
