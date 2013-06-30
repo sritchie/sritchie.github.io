@@ -1,12 +1,12 @@
 #+STARTUP: showall indent
 #+STARTUP: hidestars
 #+BEGIN_HTML
-
 ---
 layout: post
 title: Haskell in Emacs
 ---
 <p class="meta">Sept 25 2011 - San Francisco</p>
+
 #+END_HTML
 
 * Haskell in Emacs
@@ -39,13 +39,13 @@ Before we get into linting or any other customizations, Add the following to you
 
 #+begin_src emacs-lisp
   (add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
-  
+
   ;; hslint on the command line only likes this indentation mode;
   ;; alternatives commented out below.
   (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
   ;;(add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
   ;;(add-hook 'haskell-mode-hook 'turn-on-haskell-simple-indent)
-  
+
   ;; Ignore compiled Haskell files in filename completions
   (add-to-list 'completion-ignored-extensions ".hi")
 #+end_src
@@ -58,10 +58,10 @@ At this point, you should be able to start using Haskell in emacs. Let's write o
 
 #+begin_src haskell
   module Examples where
-  
+
   square :: Integral a => a -> a
   square x = x * x
-  
+
 #+end_src
 
 Then type =C-c C-l= in that buffer to load the file's contents into the REPL. =C-c C-z= over to the repl again and try it out:
@@ -101,7 +101,7 @@ Flymake depends on an external perl script, =hslint=, to pass the contents of th
 - Add the following to =.emacs=:
 
 #+begin_src emacs-lisp
-  
+
   (defun flymake-haskell-init ()
     "When flymake triggers, generates a tempfile containing the
     contents of the current buffer, runs `hslint` on it, and
@@ -113,7 +113,7 @@ Flymake depends on an external perl script, =hslint=, to pass the contents of th
                          temp-file
                          (file-name-directory buffer-file-name))))
       (list "hslint" (list local-file))))
-  
+
   (defun flymake-haskell-enable ()
     "Enables flymake-mode for haskell, and sets <C-c d> as command
     to show current error."
@@ -123,7 +123,7 @@ Flymake depends on an external perl script, =hslint=, to pass the contents of th
                (file-writable-p buffer-file-name))
       (local-set-key (kbd "C-c d") 'flymake-display-err-menu-for-current-line)
       (flymake-mode t)))
-  
+
   ;; Forces flymake to underline bad lines, instead of fully
   ;; highlighting them; remove this if you prefer full highlighting.
   (custom-set-faces
@@ -152,7 +152,7 @@ That should get you all set for the next step.
 #+begin_src emacs-lisp
   (require 'hs-lint)    ;; https://gist.github.com/1241059
   (require 'haskell-ac) ;; https://gist.github.com/1241063
-  
+
   (defun my-haskell-mode-hook ()
     "hs-lint binding, plus autocompletion and paredit."
     (local-set-key "\C-cl" 'hs-lint)
@@ -167,7 +167,7 @@ That should get you all set for the next step.
        (intern (concat (symbol-name x)
                        "-mode-hook"))
        'turn-on-paredit)))
-  
+
   (eval-after-load 'haskell-mode
     '(progn
        (require 'flymake)

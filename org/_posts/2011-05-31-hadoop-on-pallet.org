@@ -1,4 +1,3 @@
-
 #+STARTUP: showall indent
 #+STARTUP: hidestars
 #+BEGIN_HTML
@@ -34,7 +33,7 @@ I'm going to assume that you have some basic knowledge of clojure, and know how 
 
 #+begin_src sh
   $ git clone git://github.com/pallet/pallet-hadoop-example.git
-  $ cd pallet-hadoop-example  
+  $ cd pallet-hadoop-example
 #+end_src
 
 
@@ -60,7 +59,7 @@ Pallet abstracts away details about specific cloud providers through the idea of
                             :identity "ec2-access-key-id" ;; Swap in your access key ID
                             :credential "ec2-secret-access-key")) ;; Swap in your secret key
   #'pallet-hadoop-example.core/ec2-service
-  
+
 #+end_src
 
 Alternatively, if you want to keep these out of your code base, save the following to =~/.pallet/config.clj=:
@@ -150,7 +149,7 @@ And copy the books over to the distributed filesystem:
   /usr/local/hadoop-0.20.2$ hadoop dfs -ls
   Found 1 items
   drwxr-xr-x   - hadoop supergroup          0 2011-06-01 06:12:21 /user/hadoop/books
-  /usr/local/hadoop-0.20.2$ 
+  /usr/local/hadoop-0.20.2$
 #+end_src
 
 ** Running MapReduce
@@ -176,7 +175,7 @@ And you should see something very similar to this:
 11/06/01 06:15:01 INFO mapred.JobClient:  map 100% reduce 100%
 11/06/01 06:15:02 INFO mapred.JobClient: Job complete: job_201106010554_0002
 11/06/01 06:15:02 INFO mapred.JobClient: Counters: 22
-11/06/01 06:15:02 INFO mapred.JobClient:   Job Counters 
+11/06/01 06:15:02 INFO mapred.JobClient:   Job Counters
 11/06/01 06:15:02 INFO mapred.JobClient:     Launched reduce tasks=3
 11/06/01 06:15:02 INFO mapred.JobClient:     SLOTS_MILLIS_MAPS=74992
 11/06/01 06:15:02 INFO mapred.JobClient:     Total time spent by all reduces waiting after reserving slots (ms)=0
@@ -201,7 +200,7 @@ And you should see something very similar to this:
 11/06/01 06:15:02 INFO mapred.JobClient:     Map output records=1111905
 11/06/01 06:15:02 INFO mapred.JobClient:     SPLIT_RAW_BYTES=931
 11/06/01 06:15:02 INFO mapred.JobClient:     Reduce input records=183601
-/usr/local/hadoop-0.20.2$ 
+/usr/local/hadoop-0.20.2$
 #+end_src
 
 ** Retrieving Output
