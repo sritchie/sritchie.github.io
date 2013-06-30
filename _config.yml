@@ -4,6 +4,7 @@ permalink:   pretty
 pygments:    true
 markdown:    redcarpet
 permalink:   date
+permalink: pretty
 exclude:
 - README.org
 - CNAME

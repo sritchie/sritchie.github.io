@@ -97,7 +97,7 @@ Each <code>defmain</code> will compile to a class with the supplied name, prefix
 </p>
 
 <p>
-(As always, make sure to add the <code>:aot [myproject.jobs]</code>, kv-pair to <code>project.clj</code>, including each namespace containing a <code>defmain</code> or <code>(:gen-class)</code> in the vector. If you want to call some <code>defmain</code> function directly, <code>(defmain Query &#x2026;)</code> can be called from the REPL with <code>(Query-main &#x2026;)</code>.) I recommend keeping your <code>defmain</code> functions skinny, and testing the components it calls.
+(As always, make sure to add the <code>:aot [myproject.jobs]</code>, kv-pair to <code>project.clj</code>, including each namespace containing a <code>defmain</code> or <code>(:gen-class)</code> in the vector. If you want to call some <code>defmain</code> function directly, <code>(defmain Query ...)</code> can be called from the REPL with <code>(Query-main ...)</code>.) I recommend keeping your <code>defmain</code> functions skinny, and testing the components it calls.
 </p>
 </div>
 </div>
@@ -174,7 +174,7 @@ Just a few bugfixes to note:
 </p>
 
 <ul class="org-ul">
-<li>Fixed a bug preventing cascalog-taps in <code>(:trap (some-tap &#x2026;))</code> option predicates.
+<li>Fixed a bug preventing cascalog-taps in <code>(:trap (some-tap ...))</code> option predicates.
 </li>
 <li>Fixed bug preventing keywords as static arguments (as <a href="https://github.com/nathanmarz/cascalog/blob/master/test/cascalog/api_test.clj#L439">demonstrated here</a>).
 </li>
