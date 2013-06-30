@@ -16,7 +16,7 @@ align=right
  style="border:3px solid #000000; margin: 0px 10px 10px 10px;" />
 #+end_html
 
-I'm Sam Ritchie. I'm currently (as of June, 2013) living in San Francisco, working as an engineer on Twitter's Analytics & Infrastructure group. I've authored a number of [[http://sritchie.github.io/projects][prominent open source projects]] in Scala and Clojure.
+I'm Sam Ritchie. I'm currently (as of June, 2013) living in San Francisco, working as an engineer on Twitter's Analytics & Infrastructure group. I've authored a number of [[http://sritchie.github.io/projects.html][prominent open source projects]] in Scala and Clojure.
 
 ** A Short History
 
@@ -32,4 +32,4 @@ In the summer of 2011, my work on Cascalog earned me an interview at [[http://ww
 
 BackType offered me a job out west, which I deferred for three months to train for the [[http://www.texaswatersafari.org/][Texas Water Safari]], a 262 mile canoe race that deserves its own post. I won the race, but lost the standing offer when BackType was acquired by Twitter. (Glory has its price.) Ten interviews later, I received an offer from Twitter to go work with the former BackType team, which I quickly accepted, not wanting to make the same mistake again.
 
-I've been at Twitter for almost two years now! I've had the pleasure of working with some amazing folks and open-sourcing a tremendous amount of code. Much of that code is related to the Summingbird project, a soon-to-be-open-sourced platform for writing streaming aggregations that can run in batch mode on Hadoop, realtime mode on Storm, or in a combined batch/realtime mode in both execution environments. See the [[http://sritchie.github.io/projects][Projects page]] for more information about the specific projects I'm working on right now.
+I've been at Twitter for almost two years now! I've had the pleasure of working with some amazing folks and open-sourcing a tremendous amount of code. Much of that code is related to the Summingbird project, a soon-to-be-open-sourced platform for writing streaming aggregations that can run in batch mode on Hadoop, realtime mode on Storm, or in a combined batch/realtime mode in both execution environments. See the [[http://sritchie.github.io/projects.html][Projects page]] for more information about the specific projects I'm working on right now.

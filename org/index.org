@@ -7,11 +7,18 @@ title: Sam Ritchie
 ---
 
 <div id="home">
-  <h1>Archive</h1>
+  <h1>Recent Posts</h1>
   <ul class="posts">
-    {% for post in site.posts %}
+    {% for post in site.posts limit: 7 %}
     <li><span>{{ post.date | date_to_string }}</span> &raquo; <a href="{{ post.url }}">{{ post.title }}</a></li>
     {% endfor %}
+  </ul>
+  <h1>Talks and Slides</h1>
+
+  <ul class="posts">
+    <li><span>20 Jun 2013</span>
+    &raquo; <a href="https://speakerdeck.com/sritchie/summingbird-streaming-mapreduce-at-twitter">AK Data
+    Science Summit - Summingbird: Streaming MapReduce at Twitter</a></li>
   </ul>
 </div>
 #+END_HTML
