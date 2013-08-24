@@ -1,0 +1,34 @@
+#+STARTUP: showall indent
+#+STARTUP: hidestars
+#+BEGIN_HTML
+---
+layout: post
+title: Upcoming Talks in 2013
+---
+
+<p class="meta">24 August 2013 - San Francisco</p>
+#+END_HTML
+
+* Upcoming Talks in 2013
+
+This is the year I teach myself to become a better public speaker. I've spent the past year coding up a number of powerful [[http://sritchie.github.io/projects/][Scala and Clojure projects]], all the while avoiding the important and difficult work of teaching and writing about the import and use of those projects. Well, no longer.
+
+To mind that gap I'll be giving a number of talks in 2013 on my recent work on Summingbird and Cascalog. If you're in the Bay Area, Boston, or Northern VA (my home town!), I'd love to meet you.
+
+** Introduction to Summingbird (Sept 3rd, Bay Area Storm Users)
+
+[[http://twitter.com/posco][Oscar Boykin]] and I will be giving an Introduction to Summingbird at the Bay Area Storm Users meetup on Tuesday, September 3rd. Summingbird is a streaming MapReduce framework we developed at Twitter that allows you to write a streaming computation once and execute it in batch-mode on Scalding, in realtime mode on Storm, or on both Scalding and Storm in a hybrid batch/realtime mode that has very attractive fault tolerance properties. Sound exciting? RSVP at the event's [[http://www.meetup.com/Bay-Area-Storm-Users/events/135403842/][meetup page]].
+
+** Realtime MapReduce at Twitter (Sept 22nd, CUFP)
+
+Check this one out at the [[http://cufp.org/conference/sessions/2013/sam-ritchie-twitter-inc-realtime-mapreduce-twitter][Commercial Users of Functional Programming]] conference, September 22nd-24th in Boston. This talk will focus more on the functional programming ideas we used in the design of Summingbird's real-time MapReduce DSL and its component libraries ([[https://github.com/twitter/storehaus][Storehaus]], [[https://github.com/twitter/bijection][Bijection]], and [[https://github.com/twitter/algebird][Algebird]]). Which ideas helped our design? What hurt?
+
+** Summingbird, Scala and Storm (Sept 25th, Boston Storm Users)
+
+Another Introduction to Summingbird talk, with a focus on how Scala's type system and style helps us write correct Storm topologies. Register at the Boston Storm Users' [[http://www.meetup.com/Boston-Storm-Users/events/135630522/][meetup page]].
+
+** Streaming MapReduce in Clojure (Nov 14-16, Clojure/Conj)
+
+This talk will discuss my work on [[https://groups.google.com/forum/#!topic/cascalog-user/F8EkFM7HiE0][Cascalog 2]] and its new "execution platform" abstraction. The recent Cascalog 2 redesign split the datalog compiler apart from the underlying Cascading functions that get called when you run a Cascalog query on a MapReduce cluster. With luck, by the time I deliver the talk, Cascalog will be able to run on [[https://github.com/nathanmarz/storm/wiki/Trident-tutorial][Trident]] and [[https://github.com/mesos/spark][Spark]].
+
+I'll be delivering this talk in my hometown of Alexandria, VA at this year's [[http://clojure-conj.org/][Clojure/Conj]].
