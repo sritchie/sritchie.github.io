@@ -27,7 +27,19 @@ Check this one out at the [[http://cufp.org/conference/sessions/2013/sam-ritchie
 
 Another Introduction to Summingbird talk, with a focus on how Scala's type system and style helps us write correct Storm topologies. Register at the Boston Storm Users' [[http://www.meetup.com/Boston-Storm-Users/events/135630522/][meetup page]].
 
-** Streaming MapReduce in Clojure (Nov 14-16, Clojure/Conj)
+** Twitter: Taking Hadoop Realtime with Summingbird (Oct 19th, PNWScala)
+
+This talk at the [[http://pnwscala.org/][Pacific Northwest Scala Conference]] will get into the guts of Summingbird's batch/realtime merging abstraction and the streaming MapReduce graph planner we've developed. Here's the abstract:
+
+#+BEGIN_QUOTE
+Twitter's Summingbird library allows developers and data scientists to build massive streaming MapReduce pipelines without worrying about the usual mess of systems issues that come with realtime systems at scale. This talk will discuss the development of Summingbird's hybrid Batch and Realtime operating mode, the power of clean, mathematical abstractions and the massive creative leverage that functional design constraints can give to a project.
+
+The talk will also discuss some of the applications for these technologies currently being used at Twitter.
+#+END_QUOTE
+
+Registration is filling up fast, so [[https://pnwscala2013.eventbrite.com/?ref%3Delink][sign up today!]]
+
+** streaming MapReduce in Clojure (Nov 14-16, Clojure/Conj)
 
 This talk will discuss my work on [[https://groups.google.com/forum/#!topic/cascalog-user/F8EkFM7HiE0][Cascalog 2]] and its new "execution platform" abstraction. The recent Cascalog 2 redesign split the datalog compiler apart from the underlying Cascading functions that get called when you run a Cascalog query on a MapReduce cluster. With luck, by the time I deliver the talk, Cascalog will be able to run on [[https://github.com/nathanmarz/storm/wiki/Trident-tutorial][Trident]] and [[https://github.com/mesos/spark][Spark]].
 
