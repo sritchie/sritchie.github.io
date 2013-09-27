@@ -39,8 +39,14 @@ The talk will also discuss some of the applications for these technologies curre
 
 Registration is filling up fast, so [[https://pnwscala2013.eventbrite.com/?ref%3Delink][sign up today!]]
 
-** streaming MapReduce in Clojure (Nov 14-16, Clojure/Conj)
+** Streaming MapReduce in Clojure (Nov 14-16, Clojure/Conj)
 
 This talk will discuss my work on [[https://groups.google.com/forum/#!topic/cascalog-user/F8EkFM7HiE0][Cascalog 2]] and its new "execution platform" abstraction. The recent Cascalog 2 redesign split the datalog compiler apart from the underlying Cascading functions that get called when you run a Cascalog query on a MapReduce cluster. With luck, by the time I deliver the talk, Cascalog will be able to run on [[https://github.com/nathanmarz/storm/wiki/Trident-tutorial][Trident]] and [[https://github.com/mesos/spark][Spark]].
 
 I'll be delivering this talk in my hometown of Alexandria, VA at this year's [[http://clojure-conj.org/][Clojure/Conj]].
+
+** So You Want to Build a MapReduce DSL? (Jan 11th, Data Day Texas, Austin TX)
+
+Still working on the meat of this one, but some initial thoughts - I'd like discuss the vast number of choices in the MapReduce DSL world. Spark, Scoobi, Summingbird, Scalding... folks are writing Hadoop DSLs in Ruby, in Mathematica, in Clojure. Where does it end? What's the right level of abstraction? This talk will discuss why so many different options exist and some pitfalls to beware of when choosing between them.
+
+More information on Data Day Texas, including registration info, on the [[http://datadaytexas.com/][event page]].
