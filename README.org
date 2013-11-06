@@ -11,7 +11,12 @@ gem install jekyll redcarpet
 #+END_SRC
 
 - =jekyll --server --auto= at the command line to host the site at [[http://localhost:4000]]. This configuration will automatically pick up changes made to the site's html files (when you regenerate html from org, for example).
-- generate the code from emacs with =C-c x=. (You may need some of the settings provided by my [[https://github.com/sritchie/emacs24-starter-kit][emacs config]].)
+
+#+BEGIN_SRC emacs-lisp
+M-x customize-themes ;; disable theme!
+C-c x sam ;; (in blog)
+M-x customize-themes ;; select "zenburn"
+#+END_SRC
 
 To actually get content on to http://sritchie.github.io, push to the master branch.
 
