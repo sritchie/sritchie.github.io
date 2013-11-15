@@ -32,6 +32,9 @@
       <li><span>29 Oct 2013</span>
         &raquo; <a href="http://movingforward.kdudley.com/embrace-absurdity/">Article:
         Embrace the Absurdity (Texas Water Safari Interview)</a></li>
+      <li><span>15 Nov 2013</span>
+        &raquo; <a href="http://movingforward.kdudley.com/embrace-absurdity/">Slides:
+        Clojure/Conj 2013 - Cascalog 2.0: Datalog in Realtime</a></li>
     </ul>
   </div>
 #+END_HTML
