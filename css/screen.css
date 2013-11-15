@@ -99,7 +99,7 @@ ul.posts span {
 .site {
     font-size: 110%;
     text-align: justify;
-    width: 53em;
+    width: 40em;
     margin: 3em auto 2em auto;
     line-height: 1.5em;
 }
@@ -191,7 +191,7 @@ ul.posts span {
     margin-left: 50px;
     padding-left: 15px;
     border-left: 3px solid #ccc;
-} 
+}
 
 #post code {
     border: 1px solid #ddd;
