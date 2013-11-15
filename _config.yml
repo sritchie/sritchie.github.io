@@ -1,4 +1,3 @@
-auto:        false
 destination: _site
 permalink:   pretty
 pygments:    true
