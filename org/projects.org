@@ -11,6 +11,31 @@ title: Projects
 
 The following is a list of open source projects I've authored or co-authored.
 
+*** Summingbird
+
+[[https://github.com/twitter/summingbird][Summingbird]] is a library that lets you write MapReduce programs that look like native Scala or Java collection transformations. So, while a word-counting aggregation in pure Scala might look like this:
+
+#+BEGIN_SRC scala
+  def wordCount(source: Iterable[String], store: MutableMap[String, Long]) =
+    source.flatMap { sentence =>
+      toWords(sentence).map(_ -> 1L)
+    }.foreach { case (k, v) => store.update(k, store.get(k) + v) }
+#+END_SRC
+
+Counting words in Summingbird looks like this:
+
+#+BEGIN_SRC scala
+  def wordCount[P <: Platform[P]]
+    (source: Producer[P, String], store: P#Store[String, Long]) =
+      source.flatMap { sentence =>
+        toWords(sentence).map(_ -> 1L)
+      }.sumByKey(store)
+#+END_SRC
+
+The logic is exactly the same, and the code is almost the same. The main difference is that you can execute the Summingbird program in "batch mode" (using [[https://github.com/twitter/scalding][Scalding]]), in "realtime mode" (using [[https://github.com/nathanmarz/storm][Storm]]), or on both Scalding and Storm in a hybrid batch/realtime mode that offers your application very attractive fault-tolerance properties.
+
+Summingbird provides you with the primitives you need to build rock solid production systems.
+
 *** Storehaus
 
 [[https://github.com/twitter/storehaus][Storehaus]] is a Scala library that makes it easy to work with asynchronous key-value stores.

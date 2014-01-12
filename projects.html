@@ -12,16 +12,55 @@ The following is a list of open source projects I've authored or co-authored.
 </div>
 
 <div id="outline-container-sec-1-1" class="outline-3">
-<h3 id="sec-1-1">Storehaus</h3>
+<h3 id="sec-1-1">Summingbird</h3>
 <div class="outline-text-3" id="text-1-1">
+<p>
+<a href="https://github.com/twitter/summingbird">Summingbird</a> is a library that lets you write MapReduce programs that look like native Scala or Java collection transformations. So, while a word-counting aggregation in pure Scala might look like this:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-scala"><span style="color: #a020f0;">def</span> <span style="color: #0000ff;">wordCount</span>(source<span style="color: #a020f0;">:</span> <span style="color: #228b22;">Iterable</span>[<span style="color: #008b8b;">String</span>], store<span style="color: #a020f0;">:</span> <span style="color: #228b22;">MutableMap</span>[<span style="color: #008b8b;">String</span>, <span style="color: #008b8b;">Long</span>]) <span style="color: #a020f0;">=</span>
+  source.flatMap { sentence <span style="color: #a020f0;">=&gt;</span>
+    toWords(sentence).map(<span style="color: #a020f0;">_</span> -&gt; <span style="color: #008b8b;">1L</span>)
+  }.foreach { <span style="color: #a020f0;">case</span> (<span style="color: #a0522d;">k</span>, <span style="color: #a0522d;">v</span>) <span style="color: #a020f0;">=&gt;</span> store.update(k, store.get(k) + v) }
+</pre>
+</div>
+
+<p>
+Counting words in Summingbird looks like this:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-scala"><span style="color: #a020f0;">def</span> <span style="color: #0000ff;">wordCount</span>[<span style="color: #008b8b;">P</span> <span style="color: #a020f0;">&lt;:</span> <span style="color: #008b8b;">Platform</span>[<span style="color: #008b8b;">P</span>]]
+  (source<span style="color: #a020f0;">:</span> <span style="color: #228b22;">Producer</span>[<span style="color: #008b8b;">P</span>, <span style="color: #008b8b;">String</span>], store<span style="color: #a020f0;">:</span> <span style="color: #228b22;">P</span><span style="color: #a020f0;">#</span><span style="color: #008b8b;">Store</span>[<span style="color: #008b8b;">String</span>, <span style="color: #008b8b;">Long</span>]) <span style="color: #a020f0;">=</span>
+    source.flatMap { sentence <span style="color: #a020f0;">=&gt;</span>
+      toWords(sentence).map(<span style="color: #a020f0;">_</span> -&gt; <span style="color: #008b8b;">1L</span>)
+    }.sumByKey(store)
+</pre>
+</div>
+
+<p>
+The logic is exactly the same, and the code is almost the same. The main difference is that you can execute the Summingbird program in "batch mode" (using <a href="https://github.com/twitter/scalding">Scalding</a>), in "realtime mode" (using <a href="https://github.com/nathanmarz/storm">Storm</a>), or on both Scalding and Storm in a hybrid batch/realtime mode that offers your application very attractive fault-tolerance properties.
+</p>
+
+<p>
+Summingbird provides you with the primitives you need to build rock solid production systems.
+</p>
+</div>
+</div>
+<div id="outline-container-sec-1-2" class="outline-3">
+<h3 id="sec-1-2">Storehaus</h3>
+<div class="outline-text-3" id="text-1-2">
 <p>
 <a href="https://github.com/twitter/storehaus">Storehaus</a> is a Scala library that makes it easy to work with asynchronous key-value stores.
 </p>
 </div>
 </div>
-<div id="outline-container-sec-1-2" class="outline-3">
-<h3 id="sec-1-2">Bijection</h3>
-<div class="outline-text-3" id="text-1-2">
+<div id="outline-container-sec-1-3" class="outline-3">
+<h3 id="sec-1-3">Bijection</h3>
+<div class="outline-text-3" id="text-1-3">
 <p>
 A <a href="https://github.com/twitter/bijection">Bijection</a> is a function that can be inverted. Practically, in Scala, Bijections are used to tell the type system about equivalent concepts that may have been defined in different libraries (<code>scala.Int</code> vs <code>java.lang.Integer</code>, for example.) The ability to declare these equivalences is hugely valuable.
 </p>
@@ -31,9 +70,9 @@ A <a href="https://github.com/twitter/bijection">Bijection</a> is a function tha
 </p>
 </div>
 </div>
-<div id="outline-container-sec-1-3" class="outline-3">
-<h3 id="sec-1-3">Algebird</h3>
-<div class="outline-text-3" id="text-1-3">
+<div id="outline-container-sec-1-4" class="outline-3">
+<h3 id="sec-1-4">Algebird</h3>
+<div class="outline-text-3" id="text-1-4">
 <p>
 <a href="https://github.com/twitter/algebird">Algebird</a> is an abstract algebra library for Scala. Algebird is designed with streaming aggregations in mind, and implements a number of types and combinators that are useful in a streaming mapreduce environment. The <code>Monoid</code>, for example, is a core concept of Summingbird, Twitter's streaming MapReduce library.
 </p>
@@ -54,25 +93,25 @@ Here are some of the more exotic data structures in Algebird:
 </ul>
 </div>
 </div>
-<div id="outline-container-sec-1-4" class="outline-3">
-<h3 id="sec-1-4">Chill</h3>
-<div class="outline-text-3" id="text-1-4">
+<div id="outline-container-sec-1-5" class="outline-3">
+<h3 id="sec-1-5">Chill</h3>
+<div class="outline-text-3" id="text-1-5">
 <p>
 <a href="https://github.com/twitter/chill">Chill</a> provides a number of enhancements to the <a href="https://code.google.com/p/kryo/">Kryo</a> JVM serialization library; notably, serializers for all scala primitives and collection types, and plugins that make it easy to use Kryo in Hadoop and Storm jobs. Scalding, Cascalog, Spark and many other projects use chill to manage serialization across their various distributed system implementations.
 </p>
 </div>
 </div>
-<div id="outline-container-sec-1-5" class="outline-3">
-<h3 id="sec-1-5">Tormenta</h3>
-<div class="outline-text-3" id="text-1-5">
+<div id="outline-container-sec-1-6" class="outline-3">
+<h3 id="sec-1-6">Tormenta</h3>
+<div class="outline-text-3" id="text-1-6">
 <p>
 <a href="https://github.com/twitter/tormenta">Tormenta</a> provides a type-safe Scala DSL over Storm, along with scala-friendly implementations of Kafka, Kestrel and Twitter Streaming API spouts for Storm.
 </p>
 </div>
 </div>
-<div id="outline-container-sec-1-6" class="outline-3">
-<h3 id="sec-1-6">FORMA</h3>
-<div class="outline-text-3" id="text-1-6">
+<div id="outline-container-sec-1-7" class="outline-3">
+<h3 id="sec-1-7">FORMA</h3>
+<div class="outline-text-3" id="text-1-7">
 <p>
 The <a href="https://github.com/reddmetrics/forma-clj">Forest Monitoring for Action</a> (FORMA) project provides free and open forest clearing alert data derived from MODIS satellite imagery every 16 days beginning in December 2005. I was the lead developer of FORMA's Clojure codebase from January 2011 to mid-2012.
 </p>
