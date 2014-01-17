@@ -17,9 +17,9 @@ Authentication and authorization are both really important in RESTful APIs. Thes
 
 Well, not so much. Friend and Liberator both have opinionated approaches authentication. Integrating the two was trickier than I imagined, and required a bit of code massage.
 
-In this post, I'll give a short overview of Liberator and a not-so-shrot overview of Friend. (Friend's more confusing, and needs a longer treatment.) I'll discuss how each of these libraries deals with authorization and authentication, and walk through an example project I built that demonstrates how PaddleGuru uses Friend and Liberator in concert to define RESTful API endpoints with really nice, consistent authorization and authentication handling.
+In this post, I'll give a short overview of Liberator and a not-so-short overview of Friend. (Friend's more confusing, and needs a longer treatment.) I'll discuss how each of these libraries deals with authorization and authentication, and walk through an example project I built that demonstrates how PaddleGuru uses Friend and Liberator in concert to define RESTful API endpoints with really nice, consistent authorization and authentication handling.
 
-The code for the example project is up on [[https://github.com/sritchie/liberator-friend][GitHub]].
+The code for the example project is up on [[https://github.com/paddleguru/liberator-friend][GitHub]].
 
 ** Liberator
 
@@ -189,13 +189,13 @@ And then write other resources that extend the base like so:
 
 This tiny resource now shares the =:handle-not-acceptable= and =:handle-not-found= behavior from the base. If I hit the resource and ask for JSON, for example, I'll get a "No acceptable resource available." message in plain-text. (There's more work here to make this perfect, but hey, it's a start.)
 
-Check out my customer version of =defresource= in the post's [[https://github.com/sritchie/liberator-friend/blob/master/src/liberator_friend/resources.clj#L67][example project]]. That namespace also contains =base-resource= and all the helper functions.
+Check out my customer version of =defresource= in the post's [[https://github.com/paddleguru/liberator-friend/blob/master/src/liberator_friend/resources.clj#L67][example project]]. That namespace also contains =base-resource= and all the helper functions.
 
 *** Authenticating Resources
 
-[[https://github.com/sritchie/liberator-friend][liberator-friend]] that shows off my final solution: Liberator resources that delegate to Friend into the =authorized?= point. The code is on [[https://github.com/sritchie/liberator-friend][GitHub]].
+[[https://github.com/paddleguru/liberator-friend][liberator-friend]] that shows off my final solution: Liberator resources that delegate to Friend into the =authorized?= point. The code is on [[https://github.com/paddleguru/liberator-friend][GitHub]].
 
-The example project defines a [[https://github.com/sritchie/liberator-friend/blob/master/src/liberator_friend/resources.clj#L218][Friend base resource]] that provides a handler that Liberator calls when =:authorized?= returns false:
+The example project defines a [[https://github.com/paddleguru/liberator-friend/blob/master/src/liberator_friend/resources.clj#L218][Friend base resource]] that provides a handler that Liberator calls when =:authorized?= returns false:
 
 #+BEGIN_SRC clojure
 (def friend-resource
@@ -214,7 +214,7 @@ The example project defines a [[https://github.com/sritchie/liberator-friend/blo
                  :default (constantly "Not authorized.")})})
 #+END_SRC
 
-=friend-resource= extends =base-resource= from above, just for fun. The =unauthorized!= function above is [[https://github.com/sritchie/liberator-friend/blob/master/src/liberator_friend/resources.clj#L211][also mine]]; it pulls the =::friend/identity= key out of the request, and also sends the function representing next step in the Liberator decision tree up to Friend's middleware. (If the user's not authenticated, this lets Friend workflows perform auth with a database, then jump BACK into Liberator's decision tree at the =allowed?= stage to try again. Pretty awesome.
+=friend-resource= extends =base-resource= from above, just for fun. The =unauthorized!= function above is [[https://github.com/paddleguru/liberator-friend/blob/master/src/liberator_friend/resources.clj#L211][also mine]]; it pulls the =::friend/identity= key out of the request, and also sends the function representing next step in the Liberator decision tree up to Friend's middleware. (If the user's not authenticated, this lets Friend workflows perform auth with a database, then jump BACK into Liberator's decision tree at the =allowed?= stage to try again. Pretty awesome.
 
 That covers the Friend middleware integration. Now all we need to do is override =:authorized?= on each resource to return true or false, and everything else will just work. I wrote a few helpers that make it easy to test Friend's identity map in Liberator's =authorized?= function:
 
@@ -314,7 +314,7 @@ Now let's hit the shell to test out the custom auth.
 
 *** Testing with CURL
 
-You can follow along by cloning [[https://github.com/sritchie/liberator-friend][the example code]] and running =lein run= in the project's root. The default route has no authentication requirement, and returns the string defined in the compojure routes above:
+You can follow along by cloning [[https://github.com/paddleguru/liberator-friend][the example code]] and running =lein run= in the project's root. The default route has no authentication requirement, and returns the string defined in the compojure routes above:
 
 #+BEGIN_SRC sh
 [sritchie@RitchieMacBook ~]$ curl localhost:8090
@@ -328,7 +328,7 @@ Now let's hit the admin resource without basic authentication.
 Not authorized.
 #+END_SRC
 
-Because we didn't include a basic auth header, Friend's =basic-auth= middleware returned let the request through without adding =::friend/identity=. The request hit the Liberator resource, the =:authorized?= check failed, and Liberator delegated to the =:handle-unauthorized= decision point defined in [[https://github.com/sritchie/liberator-friend/blob/master/src/liberator_friend/resources.clj#L218][friend-resource]]. This decision point ONLY throws the Friend exception for "text/html" requests, since I only wanted to redirect for Browser requests. Instead we get the default "Not authorized." response defined [[https://github.com/sritchie/liberator-friend/blob/master/src/liberator_friend/resources.clj#L231][here]], decked out with the proper =401 Unauthorized= response code. Thanks, Liberator.
+Because we didn't include a basic auth header, Friend's =basic-auth= middleware returned let the request through without adding =::friend/identity=. The request hit the Liberator resource, the =:authorized?= check failed, and Liberator delegated to the =:handle-unauthorized= decision point defined in [[https://github.com/paddleguru/liberator-friend/blob/master/src/liberator_friend/resources.clj#L218][friend-resource]]. This decision point ONLY throws the Friend exception for "text/html" requests, since I only wanted to redirect for Browser requests. Instead we get the default "Not authorized." response defined [[https://github.com/paddleguru/liberator-friend/blob/master/src/liberator_friend/resources.clj#L231][here]], decked out with the proper =401 Unauthorized= response code. Thanks, Liberator.
 
 Let's try it with bad credentials.
 

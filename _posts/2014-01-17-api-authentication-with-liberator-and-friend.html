@@ -21,11 +21,11 @@ Well, not so much. Friend and Liberator both have opinionated approaches authent
 </p>
 
 <p>
-In this post, I'll give a short overview of Liberator and a not-so-shrot overview of Friend. (Friend's more confusing, and needs a longer treatment.) I'll discuss how each of these libraries deals with authorization and authentication, and walk through an example project I built that demonstrates how PaddleGuru uses Friend and Liberator in concert to define RESTful API endpoints with really nice, consistent authorization and authentication handling.
+In this post, I'll give a short overview of Liberator and a not-so-short overview of Friend. (Friend's more confusing, and needs a longer treatment.) I'll discuss how each of these libraries deals with authorization and authentication, and walk through an example project I built that demonstrates how PaddleGuru uses Friend and Liberator in concert to define RESTful API endpoints with really nice, consistent authorization and authentication handling.
 </p>
 
 <p>
-The code for the example project is up on <a href="https://github.com/sritchie/liberator-friend">GitHub</a>.
+The code for the example project is up on <a href="https://github.com/paddleguru/liberator-friend">GitHub</a>.
 </p>
 </div>
 
@@ -307,7 +307,7 @@ This tiny resource now shares the <code>:handle-not-acceptable</code> and <code>
 </p>
 
 <p>
-Check out my customer version of <code>defresource</code> in the post's <a href="https://github.com/sritchie/liberator-friend/blob/master/src/liberator_friend/resources.clj#L67">example project</a>. That namespace also contains <code>base-resource</code> and all the helper functions.
+Check out my customer version of <code>defresource</code> in the post's <a href="https://github.com/paddleguru/liberator-friend/blob/master/src/liberator_friend/resources.clj#L67">example project</a>. That namespace also contains <code>base-resource</code> and all the helper functions.
 </p>
 </div>
 
@@ -315,11 +315,11 @@ Check out my customer version of <code>defresource</code> in the post's <a href=
 <h4 id="sec-1-3-1">Authenticating Resources</h4>
 <div class="outline-text-4" id="text-1-3-1">
 <p>
-<a href="https://github.com/sritchie/liberator-friend">liberator-friend</a> that shows off my final solution: Liberator resources that delegate to Friend into the <code>authorized?</code> point. The code is on <a href="https://github.com/sritchie/liberator-friend">GitHub</a>.
+<a href="https://github.com/paddleguru/liberator-friend">liberator-friend</a> that shows off my final solution: Liberator resources that delegate to Friend into the <code>authorized?</code> point. The code is on <a href="https://github.com/paddleguru/liberator-friend">GitHub</a>.
 </p>
 
 <p>
-The example project defines a <a href="https://github.com/sritchie/liberator-friend/blob/master/src/liberator_friend/resources.clj#L218">Friend base resource</a> that provides a handler that Liberator calls when <code>:authorized?</code> returns false:
+The example project defines a <a href="https://github.com/paddleguru/liberator-friend/blob/master/src/liberator_friend/resources.clj#L218">Friend base resource</a> that provides a handler that Liberator calls when <code>:authorized?</code> returns false:
 </p>
 
 <div class="org-src-container">
@@ -342,7 +342,7 @@ The example project defines a <a href="https://github.com/sritchie/liberator-fri
 </div>
 
 <p>
-<code>friend-resource</code> extends <code>base-resource</code> from above, just for fun. The <code>unauthorized!</code> function above is <a href="https://github.com/sritchie/liberator-friend/blob/master/src/liberator_friend/resources.clj#L211">also mine</a>; it pulls the <code>::friend/identity</code> key out of the request, and also sends the function representing next step in the Liberator decision tree up to Friend's middleware. (If the user's not authenticated, this lets Friend workflows perform auth with a database, then jump BACK into Liberator's decision tree at the <code>allowed?</code> stage to try again. Pretty awesome.
+<code>friend-resource</code> extends <code>base-resource</code> from above, just for fun. The <code>unauthorized!</code> function above is <a href="https://github.com/paddleguru/liberator-friend/blob/master/src/liberator_friend/resources.clj#L211">also mine</a>; it pulls the <code>::friend/identity</code> key out of the request, and also sends the function representing next step in the Liberator decision tree up to Friend's middleware. (If the user's not authenticated, this lets Friend workflows perform auth with a database, then jump BACK into Liberator's decision tree at the <code>allowed?</code> stage to try again. Pretty awesome.
 </p>
 
 <p>
@@ -482,7 +482,7 @@ Now let's hit the shell to test out the custom auth.
 <h4 id="sec-1-3-2">Testing with CURL</h4>
 <div class="outline-text-4" id="text-1-3-2">
 <p>
-You can follow along by cloning <a href="https://github.com/sritchie/liberator-friend">the example code</a> and running <code>lein run</code> in the project's root. The default route has no authentication requirement, and returns the string defined in the compojure routes above:
+You can follow along by cloning <a href="https://github.com/paddleguru/liberator-friend">the example code</a> and running <code>lein run</code> in the project's root. The default route has no authentication requirement, and returns the string defined in the compojure routes above:
 </p>
 
 <div class="org-src-container">
@@ -504,7 +504,7 @@ Not authorized.
 </div>
 
 <p>
-Because we didn't include a basic auth header, Friend's <code>basic-auth</code> middleware returned let the request through without adding <code>::friend/identity</code>. The request hit the Liberator resource, the <code>:authorized?</code> check failed, and Liberator delegated to the <code>:handle-unauthorized</code> decision point defined in <a href="https://github.com/sritchie/liberator-friend/blob/master/src/liberator_friend/resources.clj#L218">friend-resource</a>. This decision point ONLY throws the Friend exception for "text/html" requests, since I only wanted to redirect for Browser requests. Instead we get the default "Not authorized." response defined <a href="https://github.com/sritchie/liberator-friend/blob/master/src/liberator_friend/resources.clj#L231">here</a>, decked out with the proper <code>401 Unauthorized</code> response code. Thanks, Liberator.
+Because we didn't include a basic auth header, Friend's <code>basic-auth</code> middleware returned let the request through without adding <code>::friend/identity</code>. The request hit the Liberator resource, the <code>:authorized?</code> check failed, and Liberator delegated to the <code>:handle-unauthorized</code> decision point defined in <a href="https://github.com/paddleguru/liberator-friend/blob/master/src/liberator_friend/resources.clj#L218">friend-resource</a>. This decision point ONLY throws the Friend exception for "text/html" requests, since I only wanted to redirect for Browser requests. Instead we get the default "Not authorized." response defined <a href="https://github.com/paddleguru/liberator-friend/blob/master/src/liberator_friend/resources.clj#L231">here</a>, decked out with the proper <code>401 Unauthorized</code> response code. Thanks, Liberator.
 </p>
 
 <p>
