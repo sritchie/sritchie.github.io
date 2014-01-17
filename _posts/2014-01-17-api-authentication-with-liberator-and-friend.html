@@ -1,0 +1,607 @@
+---
+layout: post
+title: API Authentication with Liberator and Friend
+---
+
+<p class="meta">Jan 17 2014 - Boulder</p>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1">Liberator and Friend</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+I've just finished rewriting a number of <a href="https://paddleguru.com">PaddleGuru</a>'s internal APIs using two great open-source libraries; <a href="http://clojure-liberator.github.io/liberator/">Liberator</a> and <a href="https://github.com/cemerick/friend">Friend</a>. Liberator is a library for writing RESTful resources in Clojure. Friend is an authorization and authentication library written by the prolific Chas Emerick, Dominator, Esquire. You've certainly seen his stuff around if you've played with Clojure(Script) in any level of detail.
+</p>
+
+<p>
+Authentication and authorization are both really important in RESTful APIs. These libraries are made for each other, I thought to myself. I'll just use them together and life will be wonderful. Right?
+</p>
+
+<p>
+Well, not so much. Friend and Liberator both have opinionated approaches authentication. Integrating the two was trickier than I imagined, and required a bit of code massage.
+</p>
+
+<p>
+In this post, I'll give a short overview of Liberator and a not-so-shrot overview of Friend. (Friend's more confusing, and needs a longer treatment.) I'll discuss how each of these libraries deals with authorization and authentication, and walk through an example project I built that demonstrates how PaddleGuru uses Friend and Liberator in concert to define RESTful API endpoints with really nice, consistent authorization and authentication handling.
+</p>
+
+<p>
+The code for the example project is up on <a href="https://github.com/sritchie/liberator-friend">GitHub</a>.
+</p>
+</div>
+
+<div id="outline-container-sec-1-1" class="outline-3">
+<h3 id="sec-1-1">Liberator</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+Liberator lets you define a RESTful resource as a graph of decision points and responses (represented as key-value pairs in Clojure). It handles content negotiation, resource caching, all of the tough stuff that you end up doing as nested function calls without a library like Liberator.
+</p>
+
+<p>
+From the <a href="http://clojure-liberator.github.io/liberator/">project site</a>:
+</p>
+
+<blockquote>
+<p>
+Liberator is a Clojure library that helps you expose your data as resources while automatically complying with all the relevant requirements of the HTTP specification (RFC-2616). Your resources will automatically gain useful HTTP features, such as caching and content negotiation. Liberator was inspired by Erlang’s Webmachine. By following the constraints and requirements in RFC-2616, liberator will enable you to create application according to a REST architecture.
+</p>
+</blockquote>
+
+<p>
+Here's a simple resource that handles only HTML responses, and returns <code>406 Not Acceptable</code> if the user requests some other content type:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span><span style="color: #a020f0;">defresource</span> <span style="color: #0000ff;">hello-resource</span>
+  <span style="color: #008b8b;">:available-media-types</span> [<span style="color: #8b2252;">"text/html"</span>]
+  <span style="color: #008b8b;">:handle-ok</span> <span style="color: #8b2252;">"&lt;html&gt;Hello, Internet.&lt;/html&gt;"</span><span style="color: #8c8c8c;">)</span>
+</pre>
+</div>
+
+<p>
+Because a resource is a function of a request, you can use resources with Compojure like this:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span><span style="color: #483d8b;">ANY</span> <span style="color: #8b2252;">"/foo"</span> [] hello-resource<span style="color: #8c8c8c;">)</span>
+</pre>
+</div>
+
+<p>
+Check out the <a href="http://clojure-liberator.github.io/liberator/">project page</a> for more tutorials and documentation.
+</p>
+</div>
+</div>
+<div id="outline-container-sec-1-2" class="outline-3">
+<h3 id="sec-1-2">Friend</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+Friend provides Ring middleware that handles authentication and authorization for your app. ("Authentication" is whether or not the system knows who you are; authorization is whether or not you're allowed in to a particular resource, one the system identifies you.)
+</p>
+
+<p>
+The middleware looks like this:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span><span style="color: #a020f0;">ns</span> liberator-friend.middleware.auth
+  <span style="color: #8c8c8c;">(</span><span style="color: #008b8b;">:require</span> [cemerick.friend <span style="color: #008b8b;">:as</span> friend]
+            <span style="color: #8c8c8c;">(</span>cemerick.friend [workflows <span style="color: #008b8b;">:as</span> workflows]
+                             [credentials <span style="color: #008b8b;">:as</span> creds]<span style="color: #8c8c8c;">)))</span>
+
+<span style="color: #8c8c8c;">(</span><span style="color: #a020f0;">defn</span> <span style="color: #0000ff;">friend-middleware</span>
+  <span style="color: #8b2252;">"Returns a middleware that enables authentication via Friend."</span>
+  [handler users]
+  <span style="color: #8c8c8c;">(</span><span style="color: #a020f0;">let</span> [friend-m {<span style="color: #008b8b;">:credential-fn</span> <span style="color: #8c8c8c;">(</span><span style="color: #483d8b;">partial</span> creds/bcrypt-credential-fn users<span style="color: #8c8c8c;">)</span>
+                  <span style="color: #008b8b;">:workflows</span>
+                  [<span style="color: #8c8c8c;">(</span>workflows/http-basic <span style="color: #008b8b;">:realm</span> <span style="color: #8b2252;">"/"</span><span style="color: #8c8c8c;">)</span>
+                   <span style="color: #8c8c8c;">(</span>workflows/interactive-form<span style="color: #8c8c8c;">)</span>]}]
+    <span style="color: #8c8c8c;">(</span><span style="color: #a020f0;">-&gt;</span> handler
+        <span style="color: #8c8c8c;">(</span>friend/authenticate friend-m<span style="color: #8c8c8c;">))))</span>
+</pre>
+</div>
+
+<p>
+This middleware sits over top of all of your resources and routing layer (typically handled with a library like <a href="https://github.com/weavejester/compojure">Compojure</a>), and provides all of the plumbing necessary for authorization and authentication.
+</p>
+
+<p>
+(Okay, this is where it gets confusing. For me, anyway. There's a lot of indirection to keep track of in the API. Follow me as best you can, and supplement with Friend's <a href="https://github.com/cemerick/friend">extensive documentation</a>.)
+</p>
+</div>
+
+<div id="outline-container-sec-1-2-1" class="outline-4">
+<h4 id="sec-1-2-1">Authentication</h4>
+<div class="outline-text-4" id="text-1-2-1">
+<p>
+Friend's "workflows" provide pluggable authentication for your app.
+</p>
+
+<p>
+Friend considers a request to be authenticated if the incoming request's session has a certain special key:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-clojure">{<span style="color: #008b8b;">:session</span> {<span style="color: #008b8b;">::cemerick.friend/identity</span> &lt;user's identity!&gt;}}
+</pre>
+</div>
+
+<p>
+(That's a <a href="https://kotka.de/blog/2010/05/Did_you_know_III.html">namespace-qualified keyword</a>, by the way.)
+</p>
+
+<p>
+Friend's middleware examines every incoming request for this key. If the key is present, Friend passes the request on, no problem. (If you're using a session store, this will prevent your app from having to run through the login workflows on every request).
+</p>
+
+<p>
+If <code>::cemerick.friend/identity</code> is missing from the session, Friend's middleware attempts to authenticate the session using its workflows. The middleware passes the request into each workflow in turn until one kicks out a return value, or all have returned <code>nil</code>. Only then will the middleware pass your request on.
+</p>
+
+<p>
+Let's talk about the supported return values. Workflows can return one of three things:
+</p>
+
+<ul class="org-ul">
+<li><b>nil</b>: <code>nil</code> means that the workflow has no nothing to say about the supplied request. Friend will send the request to the next workflow in the list, if one exists. If no workflows are left, Friend calls your handler.
+</li>
+<li><b>Friend Auth</b>: This is ANY Clojure map with a type of <code>::cemerick.friend/auth</code>. The default workflows try to authenticate a user using the <code>:credential-fn</code> you supplied to the middleware (see my above example). If <code>:credential-fn</code> returns a map, the default workflows interpret it as a user record, associate the <code>::cemerick.friend/auth</code> type metadata, merge the identity into the request under <code>{:session {::cemerick.friend/identity &lt;returned auth map&gt;}}</code> and call your hander with the updated, authenticated request.
+</li>
+<li><b>Anything else</b>: Any other response is treated as a ring response, and passed back immediately. Your handler is never called.
+</li>
+</ul>
+
+<p>
+Let's look at an example workflow to see how it handles these three cases. In my snippet above I included Friend's <code>http-basic</code> workflow:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span><span style="color: #483d8b;">require</span> 'cemerick.friend.workflows<span style="color: #8c8c8c;">)</span>
+<span style="color: #8c8c8c;">(</span>workflows/http-basic <span style="color: #008b8b;">:realm</span> <span style="color: #8b2252;">"/"</span><span style="color: #8c8c8c;">)</span>
+</pre>
+</div>
+
+<p>
+(<a href="https://github.com/cemerick/friend/blob/master/src/cemerick/friend/workflows.clj#L35">Here's the code</a> if you want to follow along.)
+</p>
+
+<p>
+When this workflow sees a request, it first checks the request for an <code>authorization</code> header. If that header's missing, it returns <code>nil</code>, and Friend proceeds to the next workflow, or lets the request through.
+</p>
+
+<p>
+If the <code>authorization</code> header IS present, the workflow extracts the supplied username and password and passes them in to <code>:credential-fn</code>.
+</p>
+
+<p>
+If this check succeeds (ie, returns something non-nil), the workflow returns the required <code>::cemerick.friend/identity</code> key described above. If it fails, the workflow returns <a href="https://github.com/cemerick/friend/blob/master/src/cemerick/friend/workflows.clj#L58">a failing ring response</a>:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-clojure">{<span style="color: #008b8b;">:status</span> 400
+ <span style="color: #008b8b;">:body</span> <span style="color: #8b2252;">"Malformed Authorization header for HTTP Basic authentication."</span>}
+</pre>
+</div>
+
+<p>
+You can use these three response types to implement some pretty interesting authentication workflows.
+</p>
+
+<p>
+You can do a lot in this framework. <a href="https://github.com/ddellacosta">Ddellacosta</a>'s <a href="https://github.com/ddellacosta/friend-oauth2">Friend OAuth2 workflow</a> intercepts the initial OAuth request and uses the "failure" return to send out an OAuth2 redirect to the configured provider. When the provider redirects back to the app, the OAuth2 workflow again intercepts the command, does token negotation, then either succeeds or fails the response. Two intercepts! There's a lot going on there.
+</p>
+</div>
+</div>
+<div id="outline-container-sec-1-2-2" class="outline-4">
+<h4 id="sec-1-2-2">Authorization</h4>
+<div class="outline-text-4" id="text-1-2-2">
+<p>
+Okay, phew. That covers authentication. Now we need to talk about authorization, or protecting your resources.
+</p>
+
+<p>
+Resources typically handle authorization with some function of the <code>::friend/identity</code> that the middleware added to the session. If the identity is missing (IE, the request isn't authenticated) or the identity doesn't have the required permissions, the resource can throw an exception with <a href="https://github.com/cemerick/friend/blob/master/src/cemerick/friend.clj#L256">cemerick.friend/throw-unauthorized</a> with the identity that didn't pass the check. (This might be nil, of course.) This function throws an exception with some special metadata.
+</p>
+
+<p>
+Friend's middleware is wrapping the entire app, and catches exceptions with this special metadata as they bubble up. Once this happens, Friend takes responsibility for the response with one of two actions:
+</p>
+
+<ul class="org-ul">
+<li>If Friend sees that the user is authenticated, it calls <code>:unauthorized-handler</code>. (You supply this option when you create the middleware. This is where you'd return some sexy, custom page, or redirect to the home page with a flash yelling "You're not authorized!"). You can include custom info in the thrown exception to make that flash all custom and sexy.
+</li>
+<li>If the request is NOT authenticated (no <code>::friend/identity</code> in the session), Friend calls the <code>:unauthenticated-handler</code>. By default, this stores the URI the request was originally trying to access in the session map and redirects the user to your login page.
+</li>
+</ul>
+
+<p>
+Now, in the latter, unauthenticated case, Friend typically redirects to a route that's being watched by one of the workflows. Friend's supplied <code>interactive-form</code> workflow does this; it redirects to a URI like "/login", then intercepts POST requests to "/login" and tries to pull out credentials and authenticate.
+</p>
+
+<p>
+Once you're authenticated (and this is a new thing I didn't mention above), if the session has any record of the URI you were trying to access when the app threw the <code>unauthorized!</code> exception, Friend will BREAK from the pattern I mentioned above and instead redirect to that stored URI. This gives the resource another chance to check your (now populated) credentials.
+</p>
+
+<p>
+If you make it through, great. If the resource throws an exception again, Friend will catch it again, but this time take the first branch and call <code>:unauthorized-handler</code>.
+</p>
+
+<p>
+I find all that throwing and catching to be extremely confusing. I'm not really sure how to clean it up, but please, please let me know if you have ideas after ingesting all of this.
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-3" class="outline-3">
+<h3 id="sec-1-3">Combining Friend and Liberator</h3>
+<div class="outline-text-3" id="text-1-3">
+<p>
+Liberator has a decision point to deal with authorization and authentication: <code>:authorized?</code>. You provide a predicate for the <code>:authorized?</code> key in your resource definition, and Liberator will either call its <code>:handle-unauthorized</code> handler (on false) or proceed down the decision tree (on true).
+</p>
+
+<p>
+After figuring out Friend and absorbing all of the intricate subtleties described above, it became clear to me that a single predicate was NOT enough for really good auth. Rather than rolling my own session management, redirect handlers, etc, I had to figure out how to use the two libraries together.
+</p>
+
+<p>
+My main blocker here was that Liberator didn't allow resources to inherit key-value pairs from other resources. The resources are effectively maps, and you should be able to define a base map of decision points and then merge them together.
+</p>
+
+<p>
+So I wrote <a href="https://github.com/clojure-liberator/liberator">a pull request</a> that extends Liberator's resources to accept a <code>:base</code> key. The <code>:base</code> key takes a map of liberator decision points and creates your resource by merging the other kv pairs into these defaults.
+</p>
+
+<p>
+This pull req allows you to define a base resource like this:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span><span style="color: #a020f0;">def</span> <span style="color: #0000ff;">base-resource</span>
+  <span style="color: #8b2252;">"Base for all resources.</span>
+
+<span style="color: #8b2252;">   Due to the way liberator's resources merge, these base definitions</span>
+<span style="color: #8b2252;">   define a bunch of content types, even if the resources that inherit</span>
+<span style="color: #8b2252;">   from them don't. The defaults are here to provide reasonable text</span>
+<span style="color: #8b2252;">   error messages, instead of returning big slugs of html."</span>
+  <span style="color: #8c8c8c;">(</span><span style="color: #a020f0;">let</span> [not-found <span style="color: #8c8c8c;">(</span><span style="color: #483d8b;">comp</span> rep/ring-response
+                        <span style="color: #8c8c8c;">(</span>route/not-found <span style="color: #8b2252;">"Route not found!"</span><span style="color: #8c8c8c;">))</span>
+        base {<span style="color: #8b2252;">"text/html"</span> not-found}]
+    {<span style="color: #008b8b;">:handle-not-acceptable</span>
+     <span style="color: #8c8c8c;">(</span><span style="color: #a020f0;">-&gt;&gt;</span> {<span style="color: #8b2252;">"application/json"</span> {<span style="color: #008b8b;">:success</span> false
+                               <span style="color: #008b8b;">:message</span> <span style="color: #8b2252;">"No acceptable resource available"</span>}
+           <span style="color: #8b2252;">"text/plain"</span> <span style="color: #8b2252;">"No acceptable resource available."</span>}
+          <span style="color: #8c8c8c;">(</span>with-default <span style="color: #8b2252;">"text/plain"</span><span style="color: #8c8c8c;">)</span>
+          <span style="color: #8c8c8c;">(</span>media-typed base<span style="color: #8c8c8c;">))</span>
+
+     <span style="color: #008b8b;">:handle-not-found</span>
+     <span style="color: #8c8c8c;">(</span><span style="color: #a020f0;">-&gt;&gt;</span> {<span style="color: #8b2252;">"application/json"</span> {<span style="color: #008b8b;">:success</span> false
+                               <span style="color: #008b8b;">:message</span> <span style="color: #8b2252;">"Resource not found."</span>}
+           <span style="color: #8b2252;">"text/plain"</span> <span style="color: #8b2252;">"Resource not found."</span>}
+          <span style="color: #8c8c8c;">(</span>with-default <span style="color: #8b2252;">"text/plain"</span><span style="color: #8c8c8c;">)</span>
+          <span style="color: #8c8c8c;">(</span>media-typed base<span style="color: #8c8c8c;">))</span>}<span style="color: #8c8c8c;">))</span>
+</pre>
+</div>
+
+<p>
+And then write other resources that extend the base like so:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span><span style="color: #a020f0;">defresource</span> <span style="color: #0000ff;">hello-resource</span>
+  <span style="color: #008b8b;">:base</span> base-resource
+  <span style="color: #008b8b;">:allowed-methods</span> [<span style="color: #008b8b;">:get</span>]
+  <span style="color: #008b8b;">:available-media-types</span> [<span style="color: #8b2252;">"text/plain"</span>]
+  <span style="color: #008b8b;">:handle-ok</span> <span style="color: #8b2252;">"Welcome to the resource!"</span><span style="color: #8c8c8c;">)</span>
+</pre>
+</div>
+
+<p>
+This tiny resource now shares the <code>:handle-not-acceptable</code> and <code>:handle-not-found</code> behavior from the base. If I hit the resource and ask for JSON, for example, I'll get a "No acceptable resource available." message in plain-text. (There's more work here to make this perfect, but hey, it's a start.)
+</p>
+
+<p>
+Check out my customer version of <code>defresource</code> in the post's <a href="https://github.com/sritchie/liberator-friend/blob/master/src/liberator_friend/resources.clj#L67">example project</a>. That namespace also contains <code>base-resource</code> and all the helper functions.
+</p>
+</div>
+
+<div id="outline-container-sec-1-3-1" class="outline-4">
+<h4 id="sec-1-3-1">Authenticating Resources</h4>
+<div class="outline-text-4" id="text-1-3-1">
+<p>
+<a href="https://github.com/sritchie/liberator-friend">liberator-friend</a> that shows off my final solution: Liberator resources that delegate to Friend into the <code>authorized?</code> point. The code is on <a href="https://github.com/sritchie/liberator-friend">GitHub</a>.
+</p>
+
+<p>
+The example project defines a <a href="https://github.com/sritchie/liberator-friend/blob/master/src/liberator_friend/resources.clj#L218">Friend base resource</a> that provides a handler that Liberator calls when <code>:authorized?</code> returns false:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span><span style="color: #a020f0;">def</span> <span style="color: #0000ff;">friend-resource</span>
+  <span style="color: #8b2252;">"Base resource that will handle authentication via friend's</span>
+<span style="color: #8b2252;">  mechanisms. Provide an authorization function and you'll be good to</span>
+<span style="color: #8b2252;">  go."</span>
+  {<span style="color: #008b8b;">:base</span> base-resource
+   <span style="color: #008b8b;">:handle-unauthorized</span>
+   <span style="color: #8c8c8c;">(</span>media-typed {<span style="color: #8b2252;">"text/html"</span> <span style="color: #8c8c8c;">(</span><span style="color: #a020f0;">fn</span> [req]
+                               <span style="color: #8c8c8c;">(</span>unauthorized!
+                                <span style="color: #8c8c8c;">(</span><span style="color: #a020f0;">-&gt;</span> req <span style="color: #008b8b;">:resource</span> <span style="color: #008b8b;">:allowed?</span><span style="color: #8c8c8c;">)</span>
+                                req<span style="color: #8c8c8c;">))</span>
+                 <span style="color: #8b2252;">"application/json"</span>
+                 {<span style="color: #008b8b;">:success</span> false
+                  <span style="color: #008b8b;">:message</span> <span style="color: #8b2252;">"Not authorized!"</span>}
+                 <span style="color: #008b8b;">:default</span> <span style="color: #8c8c8c;">(</span><span style="color: #483d8b;">constantly</span> <span style="color: #8b2252;">"Not authorized."</span><span style="color: #8c8c8c;">)</span>}<span style="color: #8c8c8c;">)</span>}<span style="color: #8c8c8c;">)</span>
+</pre>
+</div>
+
+<p>
+<code>friend-resource</code> extends <code>base-resource</code> from above, just for fun. The <code>unauthorized!</code> function above is <a href="https://github.com/sritchie/liberator-friend/blob/master/src/liberator_friend/resources.clj#L211">also mine</a>; it pulls the <code>::friend/identity</code> key out of the request, and also sends the function representing next step in the Liberator decision tree up to Friend's middleware. (If the user's not authenticated, this lets Friend workflows perform auth with a database, then jump BACK into Liberator's decision tree at the <code>allowed?</code> stage to try again. Pretty awesome.
+</p>
+
+<p>
+That covers the Friend middleware integration. Now all we need to do is override <code>:authorized?</code> on each resource to return true or false, and everything else will just work. I wrote a few helpers that make it easy to test Friend's identity map in Liberator's <code>authorized?</code> function:
+</p>
+
+<p>
+This resource extends the base resource, but adds in a default unauthorized handler. This is all Friend needs - if the user's unauthorized, either handle it immediately, OR, in the HTML case (assuming browsers always access via HTML), the resource throws the proper redirect.
+</p>
+
+<p>
+Now all we need to do is override <code>:authorized?</code> on each resource to return true or false, and everything else will just work.
+</p>
+
+<p>
+I wrote a helper function that defines nice authorization predicates based on Friend's concept of a <code>role</code>:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span><span style="color: #a020f0;">defn</span> <span style="color: #0000ff;">roles</span>
+  <span style="color: #8b2252;">"Returns an authorization predicate that checks if the authenticated</span>
+<span style="color: #8b2252;">  user has the specified roles. (This is the usual friend behavior.)"</span>
+  [roles]
+  <span style="color: #8c8c8c;">(</span><span style="color: #a020f0;">fn</span> [id]
+    <span style="color: #8c8c8c;">(</span>friend/authorized? roles id<span style="color: #8c8c8c;">)))</span>
+</pre>
+</div>
+
+<p>
+This function creates a new base resource that extends <code>friend-resource</code> above, adding in the supplied authorization function:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span><span style="color: #a020f0;">defn</span> <span style="color: #0000ff;">friend-auth</span>
+  <span style="color: #8b2252;">"Returns a base resource that authenticates using the supplied</span>
+<span style="color: #8b2252;">  auth-fn. Authorization failure will trigger Friend's default</span>
+<span style="color: #8b2252;">  unauthorized response."</span>
+  [auth-fn] {<span style="color: #008b8b;">:base</span> friend-resource
+             <span style="color: #008b8b;">:authorized?</span> auth-fn}<span style="color: #8c8c8c;">)</span>
+</pre>
+</div>
+
+<p>
+Those two helpers work together to create Friend-aware (Friend-ly?) base resource generators. All resources that use these bases will be protected by the Friend middleware. In the example project, this means that they'll be protected with HTTP basic authentication, but you can add more workflows to perform different auth in a way that doesn't require you to rewrite your resources.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span><span style="color: #a020f0;">defn</span> <span style="color: #0000ff;">role-auth</span>
+  <span style="color: #8b2252;">"Returns a base resource that authenticates users against the</span>
+<span style="color: #8b2252;">  supplied set of roles."</span>
+  [role-input]
+  <span style="color: #8c8c8c;">(</span>friend-auth <span style="color: #8c8c8c;">(</span><span style="color: #483d8b;">comp</span> <span style="color: #8c8c8c;">(</span>roles role-input<span style="color: #8c8c8c;">)</span> <span style="color: #008b8b;">:request</span><span style="color: #8c8c8c;">)))</span>
+
+<span style="color: #8c8c8c;">(</span><span style="color: #a020f0;">def</span> <span style="color: #0000ff;">authenticated-base</span>
+  <span style="color: #8b2252;">"Returns a base resource that authenticates users against the</span>
+<span style="color: #8b2252;">  supplied set of roles."</span>
+  <span style="color: #8c8c8c;">(</span>friend-auth <span style="color: #8c8c8c;">(</span><span style="color: #483d8b;">comp</span> boolean friend/identity <span style="color: #008b8b;">:request</span><span style="color: #8c8c8c;">)))</span>
+</pre>
+</div>
+
+<p>
+The first, <code>role-auth</code>, takes a set of roles and allows access to the resource if the authenticated user has a role that's in the set.
+</p>
+
+<p>
+<code>authenticated-base</code> just checks that the user is authenticated (that the <code>::friend/identity</code> key is present); no additional authorization comes into play.
+</p>
+
+<p>
+The example project performs authentication using an in-memory "database":
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span><span style="color: #a020f0;">def</span> <span style="color: #0000ff;">users</span>
+  <span style="color: #8b2252;">"dummy in-memory user database."</span>
+  {<span style="color: #8b2252;">"root"</span> {<span style="color: #008b8b;">:username</span> <span style="color: #8b2252;">"root"</span>
+           <span style="color: #008b8b;">:password</span> <span style="color: #8c8c8c;">(</span>creds/hash-bcrypt <span style="color: #8b2252;">"admin_password"</span><span style="color: #8c8c8c;">)</span>
+           <span style="color: #008b8b;">:roles</span> #{<span style="color: #008b8b;">:admin</span>}}
+   <span style="color: #8b2252;">"jane"</span> {<span style="color: #008b8b;">:username</span> <span style="color: #8b2252;">"jane"</span>
+           <span style="color: #008b8b;">:password</span> <span style="color: #8c8c8c;">(</span>creds/hash-bcrypt <span style="color: #8b2252;">"user_password"</span><span style="color: #8c8c8c;">)</span>
+           <span style="color: #008b8b;">:roles</span> #{<span style="color: #008b8b;">:user</span>}}}<span style="color: #8c8c8c;">)</span>
+</pre>
+</div>
+
+<p>
+Now, let's define some resources that use these helpers. These resources all use Friend for authorization. They allow, respectively, admins, users and any authenticated user.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span><span style="color: #483d8b;">require</span> '[liberator-friend.resources <span style="color: #008b8b;">:as</span> r <span style="color: #008b8b;">:refer</span> [defresource]]<span style="color: #8c8c8c;">)</span>
+
+<span style="color: #8c8c8c;">(</span><span style="color: #a020f0;">defresource</span> <span style="color: #0000ff;">admin-resource</span>
+  <span style="color: #008b8b;">:base</span> <span style="color: #8c8c8c;">(</span>r/role-auth #{<span style="color: #008b8b;">:admin</span>}<span style="color: #8c8c8c;">)</span>
+  <span style="color: #008b8b;">:allowed-methods</span> [<span style="color: #008b8b;">:get</span>]
+  <span style="color: #008b8b;">:available-media-types</span> [<span style="color: #8b2252;">"text/plain"</span>]
+  <span style="color: #008b8b;">:handle-ok</span> <span style="color: #8b2252;">"Welcome, admin!"</span><span style="color: #8c8c8c;">)</span>
+
+<span style="color: #8c8c8c;">(</span><span style="color: #a020f0;">defresource</span> <span style="color: #0000ff;">user-resource</span>
+  <span style="color: #008b8b;">:base</span> <span style="color: #8c8c8c;">(</span>r/role-auth #{<span style="color: #008b8b;">:user</span>}<span style="color: #8c8c8c;">)</span>
+  <span style="color: #008b8b;">:allowed-methods</span> [<span style="color: #008b8b;">:get</span>]
+  <span style="color: #008b8b;">:available-media-types</span> [<span style="color: #8b2252;">"text/plain"</span>]
+  <span style="color: #008b8b;">:handle-ok</span> <span style="color: #8b2252;">"Welcome, user!"</span><span style="color: #8c8c8c;">)</span>
+
+<span style="color: #8c8c8c;">(</span><span style="color: #a020f0;">defresource</span> <span style="color: #0000ff;">authenticated-resource</span>
+  <span style="color: #008b8b;">:base</span> r/authenticated-base
+  <span style="color: #008b8b;">:allowed-methods</span> [<span style="color: #008b8b;">:get</span>]
+  <span style="color: #008b8b;">:available-media-types</span> [<span style="color: #8b2252;">"text/plain"</span>]
+  <span style="color: #008b8b;">:handle-ok</span> <span style="color: #8b2252;">"Come on in. You're authenticated."</span><span style="color: #8c8c8c;">)</span>
+</pre>
+</div>
+
+<p>
+Now we can serve these out using Compojure:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-clojure"><span style="color: #8c8c8c;">(</span><span style="color: #a020f0;">defroutes</span> <span style="color: #0000ff;">site-routes</span>
+  <span style="color: #8c8c8c;">(</span><span style="color: #483d8b;">GET</span> <span style="color: #8b2252;">"/"</span> [] <span style="color: #8b2252;">"Welcome to the liberator-friend demo site!"</span><span style="color: #8c8c8c;">)</span>
+  <span style="color: #8c8c8c;">(</span><span style="color: #483d8b;">GET</span> <span style="color: #8b2252;">"/admin"</span> [] admin-resource<span style="color: #8c8c8c;">)</span>
+  <span style="color: #8c8c8c;">(</span><span style="color: #483d8b;">GET</span> <span style="color: #8b2252;">"/authenticated"</span> [] authenticated-resource<span style="color: #8c8c8c;">)</span>
+  <span style="color: #8c8c8c;">(</span><span style="color: #483d8b;">GET</span> <span style="color: #8b2252;">"/user"</span> [] user-resource<span style="color: #8c8c8c;">))</span>
+</pre>
+</div>
+
+<p>
+Now let's hit the shell to test out the custom auth.
+</p>
+</div>
+</div>
+<div id="outline-container-sec-1-3-2" class="outline-4">
+<h4 id="sec-1-3-2">Testing with CURL</h4>
+<div class="outline-text-4" id="text-1-3-2">
+<p>
+You can follow along by cloning <a href="https://github.com/sritchie/liberator-friend">the example code</a> and running <code>lein run</code> in the project's root. The default route has no authentication requirement, and returns the string defined in the compojure routes above:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">[sritchie@RitchieMacBook ~]$ curl localhost:8090
+Welcome to the liberator-friend demo site!
+</pre>
+</div>
+
+<p>
+Now let's hit the admin resource without basic authentication.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">[sritchie@RitchieMacBook ~]$ curl localhost:8090/admin
+Not authorized.
+</pre>
+</div>
+
+<p>
+Because we didn't include a basic auth header, Friend's <code>basic-auth</code> middleware returned let the request through without adding <code>::friend/identity</code>. The request hit the Liberator resource, the <code>:authorized?</code> check failed, and Liberator delegated to the <code>:handle-unauthorized</code> decision point defined in <a href="https://github.com/sritchie/liberator-friend/blob/master/src/liberator_friend/resources.clj#L218">friend-resource</a>. This decision point ONLY throws the Friend exception for "text/html" requests, since I only wanted to redirect for Browser requests. Instead we get the default "Not authorized." response defined <a href="https://github.com/sritchie/liberator-friend/blob/master/src/liberator_friend/resources.clj#L231">here</a>, decked out with the proper <code>401 Unauthorized</code> response code. Thanks, Liberator.
+</p>
+
+<p>
+Let's try it with bad credentials.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">[sritchie@RitchieMacBook ~]$ curl -u root:wrongpass localhost:8090/admin
+</pre>
+</div>
+
+<p>
+We get no text response, just a <code>401 Unauthorized</code>. Because I included basic auth credentials and an <code>authorization</code> header, The <code>basic-auth</code> workflow in Friend's middleware DID try to authenticate. When authentication against the <code>users</code> failed, rather than pass the request through to my liberator <code>:handle-unauthorized</code> hook, Friend returned its own <a href="https://github.com/cemerick/friend/blob/master/src/cemerick/friend/workflows.clj#L9">default response</a>.
+</p>
+
+<p>
+I think that this is the most confusing aspect of integrating Liberator and Friend. Because Friend's workflows DO sometimes return their own responses, if you're going to throw an <code>unauthorized!</code> exception you need to prepare for this and share the proper responses between the middleware resources and your custom workflows.
+</p>
+
+<p>
+Finally, with proper credentials:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">[sritchie@RitchieMacBook ~]$ curl -u root:admin_password localhost:8090/admin
+Welcome, admin!
+</pre>
+</div>
+
+<p>
+The <code>basic-auth</code> workflow adds <code>::friend/identity</code> into the session, <code>:authorized?</code> checks for the <code>:admin</code> role and returns true, and <code>:handle-ok</code> returns "Welcome, admin!".
+</p>
+
+<p>
+What if we supply valid credentials, authenticate properly with Friend, but try to access a route that we're not authorized to see?
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">[sritchie@RitchieMacBook ~]$ curl -u jane:user_password localhost:8090/user
+Welcome, user!
+
+[sritchie@RitchieMacBook ~]$ curl -u jane:user_password localhost:8090/admin
+Not authorized.
+</pre>
+</div>
+
+<p>
+Friend's <code>basic-auth</code> workflow lets both requests through, but <code>:authorized?</code> returns true in the first case, false in the second. Because Friend's middleware was happy Friend supplies no response, leaving the response to Liberator. Liberator calls <code>:handle-ok</code> in the first case and <code>:handle-unauthorized</code> in the second.
+</p>
+
+<p>
+For completeness, here are the same routes with valid admin credentials:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">[sritchie@RitchieMacBook ~]$ curl -u root:admin_password localhost:8090/admin
+Welcome, admin!
+
+[sritchie@RitchieMacBook ~]$ curl -u root:admin_password localhost:8090/user
+Not authorized.
+</pre>
+</div>
+
+<p>
+And proof that the <code>/authenticated</code> route allows any valid credentials:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">[sritchie@RitchieMacBook ~]$ curl -u root:admin_password localhost:8090/authenticated
+Come on in. You<span style="color: #8b2252;">'re authenticated.</span>
+
+<span style="color: #8b2252;">[sritchie@RitchieMacBook ~]$ curl -u jane:user_password localhost:8090/authenticated</span>
+<span style="color: #8b2252;">Come on in. You'</span>re authenticated.
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-4" class="outline-3">
+<h3 id="sec-1-4">Conclusions</h3>
+<div class="outline-text-3" id="text-1-4">
+<p>
+So, there you have it. Friend and Liberator, working in glorious harmony.
+</p>
+
+<p>
+As confusing as I find Friend, I think it's the best solution out there for authentication and authorization for Ring applications. Communication through exception football can be pretty confusing, but it seems like the best way to handle the redirect coordination you need if you want users to be able to "pause" a route, authorize at a different route, then come back to the original URI for another try.
+</p>
+
+<p>
+Both of these libraries are worth exploring, and together they sing. After the initial learning curve, the combination has made it easy to iterate on RESTful APIs in Clojure here at <a href="https://paddleguru.com">PaddleGuru</a>.
+</p>
+</div>
+</div>
+</div>
