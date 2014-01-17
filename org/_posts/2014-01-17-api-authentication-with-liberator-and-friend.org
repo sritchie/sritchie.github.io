@@ -9,7 +9,7 @@ title: API Authentication with Liberator and Friend
 <p class="meta">Jan 17 2014 - Boulder</p>
 #+END_HTML
 
-* Liberator and Friend
+* API Authentication with Liberator and Friend
 
 I've just finished rewriting a number of [[https://paddleguru.com][PaddleGuru]]'s internal APIs using two great open-source libraries; [[http://clojure-liberator.github.io/liberator/][Liberator]] and [[https://github.com/cemerick/friend][Friend]]. Liberator is a library for writing RESTful resources in Clojure. Friend is an authorization and authentication library written by the prolific Chas Emerick, Dominator, Esquire. You've certainly seen his stuff around if you've played with Clojure(Script) in any level of detail.
 
