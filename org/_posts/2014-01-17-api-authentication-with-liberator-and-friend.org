@@ -15,7 +15,7 @@ I've just finished rewriting a number of [[https://paddleguru.com][PaddleGuru]]'
 
 Authentication and authorization are both really important in RESTful APIs. These libraries are made for each other, I thought to myself. I'll just use them together and life will be wonderful. Right?
 
-Well, not so much. Friend and Liberator both have opinionated approaches authentication. Integrating the two was trickier than I imagined, and required a bit of code massage.
+Well, not so much. Friend and Liberator both have opinionated approaches to authentication. Integrating the two was trickier than I imagined, and required a bit of code massage.
 
 In this post, I'll give a short overview of Liberator and a not-so-short overview of Friend. (Friend's more confusing, and needs a longer treatment.) I'll discuss how each of these libraries deals with authorization and authentication, and walk through an example project I built that demonstrates how PaddleGuru uses Friend and Liberator in concert to define RESTful API endpoints with really nice, consistent authorization and authentication handling.
 
