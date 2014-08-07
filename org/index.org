@@ -41,9 +41,8 @@
         &raquo; <a href="http://www.wired.com/wiredenterprise/2013/11/twitter-summingbird/">Article: Wired Magazine - How the Nephew of Computer Science Royalty Remade Twitter</a></li>
       <li><span>11 Jan 2014</span>
         &raquo; <a href="https://speakerdeck.com/sritchie/the-road-to-summingbird-stream-processing-at-every-scale">Slides: Data Day Texas - The Road to Summingbird: Stream Processing at Every Scale</a></li>
-      <li><span>01 Sept 2014</span>
-        &raquo; <a href="http://www.vldb.org/pvldb/vol7/p1441-boykin.pdf">Paper: Proceedings of the 40th International Conference on Very Large Data Base (VLDB 2014) - Summingbird: A Framework for Integrating Batch and
-Online MapReduce Computations</a></li>
+      <li><span>01 Sep 2014</span>
+        &raquo; <a href="http://www.vldb.org/pvldb/vol7/p1441-boykin.pdf">Paper: VLDB 2014 - Summingbird: A Framework for Integrating Batch and Online MapReduce Computations</a></li>
     </ul>
   </div>
 #+END_HTML
