@@ -16,7 +16,7 @@ align=right
  style="border:3px solid #000000; margin: 0px 10px 10px 10px;" />
 #+end_html
 
-I'm Sam Ritchie. I'm currently (as of August, 2014) living in Boulder and working on [[https://paddleguru.com][PaddleGuru]]. I've authored a number of [[http://sritchie.github.io/projects][prominent open source projects]] in Scala and Clojure.
+I'm Sam Ritchie. I'm currently (as of August, 2014) living in Boulder and working on [[https://paddleguru.com][PaddleGuru]]. I've authored a number of [[http://sritchie.github.io/projects][prominent open source projects]] in Scala and Clojure. I'm currently a [[http://www.techstars.com/program/mentors/#featured][TechStars Mentor]] in the Boulder program!
 
 ** A Short History
 
