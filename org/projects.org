@@ -11,6 +11,10 @@ title: Projects
 
 The following is a list of open source projects I've authored or co-authored.
 
+*** Om-Bootstrap
+
+[Om-Bootstrap](https://github.com/racehub/om-bootstrap) is a ClojureScript library of [Bootstrap 3](http://getbootstrap.com) components built on top of [Om](https://github.com/swannodette/om). This is my first big client side library! Definitely a change of scenery.
+
 *** Summingbird
 
 [[https://github.com/twitter/summingbird][Summingbird]] is a library that lets you write MapReduce programs that look like native Scala or Java collection transformations. So, while a word-counting aggregation in pure Scala might look like this:
