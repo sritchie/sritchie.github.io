@@ -259,3 +259,5 @@ And, of course, the bounty:
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 </center>
 #+END_HTML
+
+UPDATE: Here's a fun [[https://storify.com/sritchie/leadville-100-2014][Storify]] with social media from the day! Thanks to my lovely crew for firing these off while I raced.
