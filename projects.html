@@ -15,7 +15,7 @@ The following is a list of open source projects I've authored or co-authored.
 <h3 id="sec-1-1">Om-Bootstrap</h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
-[Om-Bootstrap](<a href="https://github.com/racehub/om-bootstrap">https://github.com/racehub/om-bootstrap</a>) is a ClojureScript library of [Bootstrap 3](<a href="http://getbootstrap.com">http://getbootstrap.com</a>) components built on top of [Om](<a href="https://github.com/swannodette/om">https://github.com/swannodette/om</a>). This is my first big client side library! Definitely a change of scenery.
+<a href="https://github.com/racehub/om-bootstrap">Om-Bootstrap</a> is a ClojureScript library of <a href="http://getbootstrap.com">Bootstrap 3</a> components built on top of <a href="https://github.com/swannodette/om">Om</a>. This is my first big client side library! Definitely a change of scenery.
 </p>
 </div>
 </div>
@@ -29,10 +29,10 @@ The following is a list of open source projects I've authored or co-authored.
 
 <div class="org-src-container">
 
-<pre class="src src-scala"><span style="color: #F0DFAF; font-weight: bold;">def</span> <span style="color: #93E0E3;">wordCount</span>(source<span style="color: #F0DFAF; font-weight: bold;">:</span> <span style="color: #7CB8BB;">Iterable</span>[<span style="color: #BFEBBF;">String</span>], store<span style="color: #F0DFAF; font-weight: bold;">:</span> <span style="color: #7CB8BB;">MutableMap</span>[<span style="color: #BFEBBF;">String</span>, <span style="color: #BFEBBF;">Long</span>]) <span style="color: #F0DFAF; font-weight: bold;">=</span>
-  source.flatMap { sentence <span style="color: #F0DFAF; font-weight: bold;">=&gt;</span>
-    toWords(sentence).map(<span style="color: #F0DFAF; font-weight: bold;">_</span> -&gt; <span style="color: #BFEBBF;">1L</span>)
-  }.foreach { <span style="color: #F0DFAF; font-weight: bold;">case</span> (<span style="color: #DFAF8F;">k</span>, <span style="color: #DFAF8F;">v</span>) <span style="color: #F0DFAF; font-weight: bold;">=&gt;</span> store.update(k, store.get(k) + v) }
+<pre class="src src-scala"><span style="color: #a020f0;">def</span> <span style="color: #0000ff;">wordCount</span>(source<span style="color: #a020f0;">:</span> <span style="color: #228b22;">Iterable</span>[<span style="color: #008b8b;">String</span>], store<span style="color: #a020f0;">:</span> <span style="color: #228b22;">MutableMap</span>[<span style="color: #008b8b;">String</span>, <span style="color: #008b8b;">Long</span>]) <span style="color: #a020f0;">=</span>
+  source.flatMap { sentence <span style="color: #a020f0;">=&gt;</span>
+    toWords(sentence).map(<span style="color: #a020f0;">_</span> -&gt; <span style="color: #008b8b;">1L</span>)
+  }.foreach { <span style="color: #a020f0;">case</span> (<span style="color: #a0522d;">k</span>, <span style="color: #a0522d;">v</span>) <span style="color: #a020f0;">=&gt;</span> store.update(k, store.get(k) + v) }
 </pre>
 </div>
 
@@ -42,10 +42,10 @@ Counting words in Summingbird looks like this:
 
 <div class="org-src-container">
 
-<pre class="src src-scala"><span style="color: #F0DFAF; font-weight: bold;">def</span> <span style="color: #93E0E3;">wordCount</span>[<span style="color: #BFEBBF;">P</span> <span style="color: #F0DFAF; font-weight: bold;">&lt;:</span> <span style="color: #BFEBBF;">Platform</span>[<span style="color: #BFEBBF;">P</span>]]
-  (source<span style="color: #F0DFAF; font-weight: bold;">:</span> <span style="color: #7CB8BB;">Producer</span>[<span style="color: #BFEBBF;">P</span>, <span style="color: #BFEBBF;">String</span>], store<span style="color: #F0DFAF; font-weight: bold;">:</span> <span style="color: #7CB8BB;">P</span><span style="color: #F0DFAF; font-weight: bold;">#</span><span style="color: #BFEBBF;">Store</span>[<span style="color: #BFEBBF;">String</span>, <span style="color: #BFEBBF;">Long</span>]) <span style="color: #F0DFAF; font-weight: bold;">=</span>
-    source.flatMap { sentence <span style="color: #F0DFAF; font-weight: bold;">=&gt;</span>
-      toWords(sentence).map(<span style="color: #F0DFAF; font-weight: bold;">_</span> -&gt; <span style="color: #BFEBBF;">1L</span>)
+<pre class="src src-scala"><span style="color: #a020f0;">def</span> <span style="color: #0000ff;">wordCount</span>[<span style="color: #008b8b;">P</span> <span style="color: #a020f0;">&lt;:</span> <span style="color: #008b8b;">Platform</span>[<span style="color: #008b8b;">P</span>]]
+  (source<span style="color: #a020f0;">:</span> <span style="color: #228b22;">Producer</span>[<span style="color: #008b8b;">P</span>, <span style="color: #008b8b;">String</span>], store<span style="color: #a020f0;">:</span> <span style="color: #228b22;">P</span><span style="color: #a020f0;">#</span><span style="color: #008b8b;">Store</span>[<span style="color: #008b8b;">String</span>, <span style="color: #008b8b;">Long</span>]) <span style="color: #a020f0;">=</span>
+    source.flatMap { sentence <span style="color: #a020f0;">=&gt;</span>
+      toWords(sentence).map(<span style="color: #a020f0;">_</span> -&gt; <span style="color: #008b8b;">1L</span>)
     }.sumByKey(store)
 </pre>
 </div>
