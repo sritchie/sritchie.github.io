@@ -1,0 +1,16 @@
+#+STARTUP: showall indent
+#+STARTUP: hidestars
+#+BEGIN_HTML
+---
+layout: post
+title: New Blog!
+---
+
+<p class="meta">Date - Boulder</p>
+#+END_HTML
+
+** New Blog
+
+Hey all,
+
+I've moved over to a Ghost blog at [[http://www.samritchie.io][samritchie.io]]. Check there for new posts. I've mirrored the current content over and moved all Jekyll comments. See you at the new site.
