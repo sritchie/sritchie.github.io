@@ -1,0 +1,10 @@
+<div class="strava-embed">
+  <iframe
+    height="405"
+    width="100%"
+    frameborder="0"
+    allowtransparency="true"
+    scrolling="no"
+    src="https://www.strava.com/activities/{{ .Get "id" }}/embed/{{ with .Get "hash" }}{{ . }}{{ end }}">
+  </iframe>
+</div>

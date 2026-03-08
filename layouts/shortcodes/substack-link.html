@@ -1,0 +1,9 @@
+<div class="substack-link">
+  <a href="{{ .Get "url" }}" target="_blank" rel="noopener">
+    <div class="substack-link-card">
+      <strong>{{ .Get "title" | default "Road to Reality" }}</strong>
+      {{ with .Get "description" }}<p>{{ . }}</p>{{ end }}
+      <span class="substack-link-url">{{ .Get "url" }}</span>
+    </div>
+  </a>
+</div>

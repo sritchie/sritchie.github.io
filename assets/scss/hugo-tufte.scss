@@ -1,0 +1,18 @@
+// Tufte
+@import "tufte";
+
+// Additional styles for Hugo
+@import "general";
+
+/// Pages
+@import "pages/footer";
+
+/// Components
+@import "components/code-highlight";
+@import "components/toc";
+@import "components/nav";
+@import "components/brand";
+@import "components/meta";
+
+// Light code blocks (hardcoded — no template processing needed)
+@import "syntax/highlight-light.scss";
