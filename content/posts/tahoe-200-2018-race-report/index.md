@@ -17,7 +17,9 @@ cover:
 I never suspected that 100 mile races would be a gateway drug for... 200 mile races, but here I am, polishing off my race report for the Tahoe 200. What went wrong in my past? Neglectful parents? A broken home? The answers lie buried somewhere in the following account.
 
 First, the glorious Strava art I spent over 90 hours painting across the California landscape:
+
 {{< strava id="1834125647" >}}
+
 And then my detailed account.
 
 ## Table of Contents

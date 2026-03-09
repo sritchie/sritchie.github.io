@@ -13,31 +13,24 @@ math: true
 ---
 
 - [Dual Numbers and Automatic Differentiation](#dual-numbers-and-automatic-differentiation)
-<ul>
-<li>[Forward-Mode Automatic Differentiation](#forward-mode-automatic-differentiation)
-- [Dual Numbers and AD](#dual-numbers-and-ad)
-- [Terminology Change!](#terminology-change)
-- [Binary Functions](#binary-functions)
-- [Multiple Variables, Nesting](#multiple-variables-nesting)
-- [What Return Values are Allowed?](#what-return-values-are-allowed)
-
-</li>
-<li>[Differential Implementation](#differential-implementation)</li>
-<li>[Term List Algebra](#term-list-algebra)
-
-- [Addition and Multiplication](#addition-and-multiplication)
-
-</li>
-<li>[Differential Type Implementation](#differential-type-implementation)</li>
-<li>[Accessor Methods](#accessor-methods)</li>
-<li>[Constructors](#constructors)</li>
-<li>[Differential API](#differential-api)</li>
-<li>[Differential Parts API](#differential-parts-api)</li>
-<li>[Comparison, Control Flow](#comparison-control-flow)</li>
-<li>[Chain Rule and Lifted Functions](#chain-rule-and-lifted-functions)</li>
-<li>[Derivatives of Differentials](#derivatives-of-differentials)</li>
-<li>[Generic Method Installation](#generic-method-installation)</li>
-</ul>
+  - [Forward-Mode Automatic Differentiation](#forward-mode-automatic-differentiation)
+    - [Dual Numbers and AD](#dual-numbers-and-ad)
+    - [Terminology Change!](#terminology-change)
+    - [Binary Functions](#binary-functions)
+    - [Multiple Variables, Nesting](#multiple-variables-nesting)
+    - [What Return Values are Allowed?](#what-return-values-are-allowed)
+  - [Differential Implementation](#differential-implementation)
+  - [Term List Algebra](#term-list-algebra)
+    - [Addition and Multiplication](#addition-and-multiplication)
+  - [Differential Type Implementation](#differential-type-implementation)
+  - [Accessor Methods](#accessor-methods)
+  - [Constructors](#constructors)
+  - [Differential API](#differential-api)
+  - [Differential Parts API](#differential-parts-api)
+  - [Comparison, Control Flow](#comparison-control-flow)
+  - [Chain Rule and Lifted Functions](#chain-rule-and-lifted-functions)
+  - [Derivatives of Differentials](#derivatives-of-differentials)
+  - [Generic Method Installation](#generic-method-installation)
 
 # Dual Numbers and Automatic Differentiation
 This literate essay develops an implementation of a type called [Differential](https://github.com/sicmutils/sicmutils/blob/c89b45d453b08a1e1259ff5de9d9841874807fda/src/sicmutils/differential.cljc#L568). A [Differential](https://github.com/sicmutils/sicmutils/blob/c89b45d453b08a1e1259ff5de9d9841874807fda/src/sicmutils/differential.cljc#L568) is a generalization of a type called a [&quot;dual number&quot;](https://en.wikipedia.org/wiki/Dual_number), and the glowing, pulsing core of the [SICMUtils](https://github.com/sicmutils/sicmutils) implementation of forward-mode automatic differentiation.

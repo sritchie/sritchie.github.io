@@ -21,6 +21,22 @@ markup:
           block:
             - - "$$"
               - "$$"
+            - - "\\begin{equation}"
+              - "\\end{equation}"
+            - - "\\begin{equation*}"
+              - "\\end{equation*}"
+            - - "\\begin{align}"
+              - "\\end{align}"
+            - - "\\begin{align*}"
+              - "\\end{align*}"
+            - - "\\begin{aligned}"
+              - "\\end{aligned}"
+            - - "\\begin{eqalign}"
+              - "\\end{eqalign}"
+            - - "\\begin{gather}"
+              - "\\end{gather}"
+            - - "\\begin{multline}"
+              - "\\end{multline}"
           inline:
             - - "$"
               - "$"
@@ -32,7 +48,7 @@ markup:
       unsafe: true
   highlight:
     noClasses: false
-    style: github
+    style: monokai
     anchorLineNos: false
     codeFences: true
     guessSyntax: true

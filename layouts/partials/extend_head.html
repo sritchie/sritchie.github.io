@@ -7,30 +7,21 @@
 {{- $custom := resources.Get "css/custom.css" | minify }}
 <link rel="stylesheet" href="{{ $custom.RelPermalink }}">
 
-<!-- KaTeX math -->
+<!-- MathJax -->
 {{ if or .Params.math site.Params.math }}
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-  renderMathInElement(document.body, {
-    delimiters: [
-      {left: "$$", right: "$$", display: true},
-      {left: "$", right: "$", display: false},
-      {left: "\\(", right: "\\)", display: false},
-      {left: "\\[", right: "\\]", display: true}
-    ],
-    throwOnError: false,
-    trust: (context) => ['\\htmlId', '\\href'].includes(context.command),
-    macros: {
-      "\\eqref": "\\href{###1}{(\\text{#1})}",
-      "\\ref": "\\href{###1}{\\text{#1}}",
-      "\\label": "\\htmlId{#1}{}"
-    }
-  });
-});
+window.MathJax = {
+  loader: {load: ['[tex]/physics']},
+  tex: {
+    tags: 'ams',
+    processEscapes: true,
+    inlineMath: [['$', '$']],
+    displayMath: [['$$', '$$'], ['\\[', '\\]']],
+    packages: {'+': ['physics']}
+  }
+};
 </script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
 {{ end }}
 
 <!-- GoatCounter analytics -->
