@@ -1,0 +1,34 @@
+<!-- Literata font -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,200..900;1,7..72,200..900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<!-- Custom typography + sidenotes CSS -->
+{{- $custom := resources.Get "css/custom.css" | minify }}
+<link rel="stylesheet" href="{{ $custom.RelPermalink }}">
+
+<!-- KaTeX math -->
+{{ if or .Params.math site.Params.math }}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  renderMathInElement(document.body, {
+    delimiters: [
+      {left: "$$", right: "$$", display: true},
+      {left: "$", right: "$", display: false},
+      {left: "\\(", right: "\\)", display: false},
+      {left: "\\[", right: "\\]", display: true}
+    ],
+    throwOnError: false,
+    trust: (context) => ['\\htmlId', '\\href'].includes(context.command),
+    macros: {
+      "\\eqref": "\\href{###1}{(\\text{#1})}",
+      "\\ref": "\\href{###1}{\\text{#1}}",
+      "\\label": "\\htmlId{#1}{}"
+    }
+  });
+});
+</script>
+{{ end }}

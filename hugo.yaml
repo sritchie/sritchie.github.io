@@ -1,7 +1,7 @@
 baseURL: "https://samritchie.io/"
 languageCode: en-US
 title: "Sam Ritchie"
-theme: hugo-tufte
+theme: PaperMod
 pagination:
   pagerSize: 10
 
@@ -20,41 +20,61 @@ markup:
   highlight:
     noClasses: false
     style: github
+    anchorLineNos: false
+    codeFences: true
+    guessSyntax: true
+    lineNos: false
 
 params:
-  subtitle: "Math, code, and adventure"
+  defaultTheme: auto
+  ShowReadingTime: true
+  ShowPostNavLinks: true
+  ShowCodeCopyButtons: true
+  ShowToc: false
+  ShowShareButtons: false
+  ShowBreadCrumbs: true
   math: true
-  KaTeXVersion: 0.16.4
-  KaTeXCDN: "//cdn.jsdelivr.net/npm"
-  codeblocksdark: false
-  marginNoteInd: "⊕"
-  showPoweredBy: false
-  hidedate: false
-  showSummary: true
-  sansSubtitle: false
-  centerArticle: false
-  github: sritchie
-  twitter: saborichin
+  description: "Math, code, and adventure"
+  socialIcons:
+    - name: github
+      url: "https://github.com/sritchie"
+    - name: twitter
+      url: "https://twitter.com/saborichin"
+    - name: rss
+      url: "/index.xml"
+  homeInfoParams:
+    Title: "Sam Ritchie"
+    Content: >
+      Programmer, mathematician, adventurer. I build open-source tools for
+      computational mathematics and physics, run ultramarathons, and I'm
+      building an [RV-10 airplane](/projects/rv10/).
+
+
+      Read my newsletter [Road to Reality](https://roadtoreality.substack.com/)
+      on the mathematics of physics.
+  cover:
+    responsiveImages: true
+    linkFullImages: false
+  assets:
+    disableScrollBarStyle: true
 
 menu:
-  nav:
-    - name: Home
-      weight: -110
-      identifier: home
-      url: /
+  main:
     - name: Writing
-      weight: -100
-      identifier: posts
       url: /posts/
+      weight: 10
     - name: Projects
-      weight: -90
-      identifier: projects
       url: /projects/
+      weight: 20
     - name: Talks
-      weight: -80
-      identifier: talks
       url: /talks/
+      weight: 30
+    - name: Racing
+      url: /racing/
+      weight: 40
     - name: About
-      weight: -70
-      identifier: about
       url: /about/
+      weight: 50
+    - name: Search
+      url: /search/
+      weight: 60
