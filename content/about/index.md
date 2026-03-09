@@ -6,7 +6,7 @@ I'm Sam Ritchie. I'm Co-Founder and CTO at [Perceptual](https://perceptual.ai/),
 
 I co-founded [PaddleGuru](https://paddleguru.com) and [RaceHub](https://www.racehubhq.com), and have written a number of prominent open source projects in Scala and Clojure, including [Emmy](https://github.com/mentat-collective/emmy), a computer algebra system for computational mathematics and physics.
 
-I run ultramarathons and fly [N720AK](https://n720ak.com/), an [RV-10 airplane](/projects/rv10/) I built. I write about math, physics, programming, and trail running at this site. My newsletter [Road to Reality](https://roadtoreality.substack.com/) covers the mathematics of physics. [Sponsor my work on GitHub.](https://github.com/sponsors/sritchie)
+I run ultramarathons and I'm currently flight-testing [N720AK](https://n720ak.com/), an [RV-10 airplane](/projects/rv10/) I built. I write about math, physics, programming, and trail running at this site. My newsletter [Road to Reality](https://roadtoreality.substack.com/) covers the mathematics of physics. [Sponsor my work on GitHub.](https://github.com/sponsors/sritchie)
 
 ## A Short History
 
