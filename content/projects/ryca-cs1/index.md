@@ -2,7 +2,6 @@
 title: "Ryca CS-1 Cafe Racer"
 description: "Custom motorcycle build from a Ryca kit"
 project_url: ""
-status: "completed"
 tech: []
 image: ""
 weight: 2

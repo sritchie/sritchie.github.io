@@ -2,7 +2,6 @@
 title: "Caliban"
 description: "Docker-based job runner for reproducible AI research"
 project_url: "https://github.com/google/caliban"
-status: "archived"
 tech: ["Python", "Docker", "GCP"]
 image: ""
 weight: 5

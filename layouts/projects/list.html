@@ -10,7 +10,7 @@
     {{ .Content }}
 
     {{ $allProjects := where .Site.RegularPages "Section" "projects" }}
-    {{ $groups := dict "open-source" "Open Source Libraries" "applications" "Applications" "aviation" "Aviation" "builds" "Builds" "writing" "Writing & Media" }}
+    {{ $groups := dict "open-source" "Open Source Libraries" "applications" "Applications" "builds" "Builds" "writing" "Writing & Media" }}
 
     {{ range $key, $label := $groups }}
       {{ $pages := where $allProjects ".Params.group" $key }}
@@ -28,10 +28,11 @@
           {{ end }}
           <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
           {{ with .Params.description }}<p>{{ . }}</p>{{ end }}
+          {{ with .Params.tech }}
           <div class="project-meta">
-            {{ with .Params.status }}<span class="project-status status-{{ . }}">{{ . }}</span>{{ end }}
-            {{ range .Params.tech }}<span class="project-tech">{{ . }}</span>{{ end }}
+            {{ range . }}<span class="project-tech">{{ . }}</span>{{ end }}
           </div>
+          {{ end }}
         </div>
         {{ end }}
       </div>

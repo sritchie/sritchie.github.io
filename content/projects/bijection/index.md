@@ -2,7 +2,6 @@
 title: "Bijection"
 description: "Invertible type-safe conversions between Scala types"
 project_url: "https://github.com/twitter/bijection"
-status: "archived"
 tech: ["Scala"]
 image: ""
 weight: 8

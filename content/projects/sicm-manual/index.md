@@ -2,7 +2,6 @@
 title: "SICM Textbook (Typeset)"
 description: "Beautiful typeset edition of Sussman & Wisdom's classical mechanics textbook"
 project_url: "https://github.com/sritchie/sicm"
-status: "completed"
 tech: ["LaTeX"]
 image: ""
 weight: 2

@@ -2,7 +2,6 @@
 title: "Storehaus"
 description: "Asynchronous key-value store abstractions for Scala"
 project_url: "https://github.com/twitter/storehaus"
-status: "archived"
 tech: ["Scala"]
 image: ""
 weight: 10

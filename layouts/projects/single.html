@@ -20,9 +20,6 @@
       {{ with .Params.project_url }}
       <p><strong>URL:</strong> <a href="{{ . }}" target="_blank" rel="noopener">{{ . }}</a></p>
       {{ end }}
-      {{ with .Params.status }}
-      <p><strong>Status:</strong> <span class="project-status status-{{ . }}">{{ . }}</span></p>
-      {{ end }}
       {{ with .Params.tech }}
       <p><strong>Tech:</strong> {{ range $i, $t := . }}{{ if $i }}, {{ end }}{{ $t }}{{ end }}</p>
       {{ end }}

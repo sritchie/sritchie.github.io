@@ -2,7 +2,6 @@
 title: "Pallet-Hadoop"
 description: "Automated Hadoop cluster deployment with Pallet"
 project_url: "https://github.com/pallet/pallet-hadoop"
-status: "archived"
 tech: ["Clojure", "Hadoop", "Pallet"]
 image: ""
 weight: 15

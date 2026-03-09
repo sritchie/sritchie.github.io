@@ -2,7 +2,6 @@
 title: "ScalaRL"
 description: "Reinforcement learning framework in Scala"
 project_url: "https://www.scalarl.com"
-status: "archived"
 tech: ["Scala"]
 image: ""
 weight: 14

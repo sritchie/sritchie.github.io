@@ -2,7 +2,6 @@
 title: "Scalding"
 description: "Scala MapReduce library built on Cascading"
 project_url: "https://github.com/twitter/scalding"
-status: "archived"
 tech: ["Scala", "Hadoop", "Cascading"]
 image: ""
 weight: 6

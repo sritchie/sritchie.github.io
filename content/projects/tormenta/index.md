@@ -2,7 +2,6 @@
 title: "Tormenta"
 description: "Scala API for Apache Storm spouts"
 project_url: "https://github.com/twitter/tormenta"
-status: "archived"
 tech: ["Scala", "Storm"]
 image: ""
 weight: 11

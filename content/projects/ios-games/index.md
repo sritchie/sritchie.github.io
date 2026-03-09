@@ -2,7 +2,6 @@
 title: "ThinkFun iOS Games"
 description: "iOS puzzle games: Rush Hour, Solitaire Chess, Chocolate Fix"
 project_url: ""
-status: "completed"
 tech: ["Objective-C", "iOS"]
 image: ""
 weight: 2

@@ -2,7 +2,6 @@
 title: "FORMA"
 description: "Forest monitoring with satellite imagery at global scale"
 project_url: "https://github.com/reddmetrics/forma-clj"
-status: "archived"
 tech: ["Clojure", "Hadoop", "Cascalog"]
 image: ""
 weight: 7
