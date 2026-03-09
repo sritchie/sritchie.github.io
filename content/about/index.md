@@ -2,7 +2,7 @@
 title: "About"
 ---
 
-I'm Sam Ritchie. I'm Co-Founder and CTO at [Perceptual](https://perceptual.ai/), living in Boulder, Colorado. Before Perceptual I was a research engineering lead at the [Chipman Foundation](https://www.chi-fro.org/), working on tooling and interactive experiences for rational AI and probabilistic programming. Before that I worked at Google X, Stripe, and Twitter.
+I'm Sam Ritchie. I'm Co-Founder and CTO at [Perceptual](https://perceptual.ai/), living in Boulder, Colorado. Before Perceptual I was a research engineering lead at [CHI-FRO](https://www.chi-fro.org/), working on tooling and interactive experiences for rational AI and probabilistic programming. Before that I worked at Google X, Stripe, and Twitter.
 
 I co-founded [PaddleGuru](https://paddleguru.com) and [RaceHub](https://www.racehubhq.com), and have written a number of prominent open source projects in Scala and Clojure, including [Emmy](https://github.com/mentat-collective/emmy), a computer algebra system for computational mathematics and physics.
 
@@ -16,4 +16,4 @@ In 2010 I moved to Philadelphia to code full time. Dan Hammer and Robin Kraft in
 
 My Cascalog work led to an interview at [BackType](https://www.crunchbase.com/organization/backtype) in 2011, which was acquired by Twitter shortly after. I deferred the offer to go race the [Texas Water Safari](http://www.texaswatersafari.org/) (a 260-mile canoe race that my partner and I won), then joined Twitter's Analytics and Infrastructure group. At Twitter I created [Summingbird](https://github.com/twitter/summingbird), a library for writing MapReduce programs that run in batch (via [Scalding](https://github.com/twitter/scalding)) or realtime (via [Storm](https://storm.apache.org/)), and contributed to [Algebird](https://github.com/twitter/algebird), [Bijection](https://github.com/twitter/bijection), [Chill](https://github.com/twitter/chill), [Storehaus](https://github.com/twitter/storehaus), and [Tormenta](https://github.com/twitter/tormenta).
 
-I left Twitter in November 2013, co-founded PaddleGuru and moved to Boulder, Colorado. I worked at Stripe on machine learning infrastructure, then at Google X on a research lab called Blueshift, before joining the [Chipman Foundation](https://www.chi-fro.org/) to build tooling for probabilistic programming and rational AI. I'm now Co-Founder and CTO at [Perceptual](https://perceptual.ai/).
+I left Twitter in November 2013, co-founded PaddleGuru and moved to Boulder, Colorado. I worked at Stripe on machine learning infrastructure, then at Google X on a research lab called Blueshift, before joining [CHI-FRO](https://www.chi-fro.org/) to build tooling for probabilistic programming and rational AI. I'm now Co-Founder and CTO at [Perceptual](https://perceptual.ai/).
