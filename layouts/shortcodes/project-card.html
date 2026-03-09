@@ -1,0 +1,9 @@
+{{ $project := .Site.GetPage (printf "/projects/%s" (.Get "slug")) }}
+{{ with $project }}
+<div class="project-card-inline">
+  <a href="{{ .RelPermalink }}">
+    <strong>{{ .Title }}</strong>
+    {{ with .Params.description }} — {{ . }}{{ end }}
+  </a>
+</div>
+{{ end }}

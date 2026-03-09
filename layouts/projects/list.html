@@ -1,0 +1,47 @@
+{{ define "main" }}
+
+<div id="layout" class="pure-g">
+<article class="pure-u-1">
+
+{{ partial "brand.html" . }}
+{{ partial "content.header.html" . }}
+
+<section>
+{{ .Content }}
+
+{{ $allProjects := where .Site.RegularPages "Section" "projects" }}
+{{ $groups := dict "open-source" "Open Source Libraries" "applications" "Applications" "aviation" "Aviation" "writing" "Writing & Media" }}
+
+{{ range $key, $label := $groups }}
+  {{ $pages := where $allProjects ".Params.group" $key }}
+  {{ if $pages }}
+  <h2>{{ $label }}</h2>
+  <div class="project-grid">
+    {{ range sort $pages ".Params.weight" }}
+    <div class="project-card">
+      {{ with .Params.image }}
+      {{ if ne . "" }}
+      <a href="{{ $.RelPermalink }}">
+        <img src="{{ $.RelPermalink }}{{ . }}" alt="{{ $.Title }}" class="project-image" />
+      </a>
+      {{ end }}
+      {{ end }}
+      <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+      {{ with .Params.description }}<p>{{ . }}</p>{{ end }}
+      <div class="project-meta">
+        {{ with .Params.status }}<span class="project-status status-{{ . }}">{{ . }}</span>{{ end }}
+        {{ range .Params.tech }}<span class="project-tech">{{ . }}</span>{{ end }}
+      </div>
+    </div>
+    {{ end }}
+  </div>
+  {{ end }}
+{{ end }}
+</section>
+
+{{ partial "footer.html" . }}
+
+</article>
+</div>
+
+{{ end }}

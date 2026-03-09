@@ -1,0 +1,61 @@
+baseURL: "https://samritchie.io/"
+languageCode: en-US
+title: "Sam Ritchie"
+theme: hugo-tufte
+canonifyurls: true
+pagination:
+  pagerSize: 10
+
+taxonomies:
+  tag: tags
+  category: categories
+  series: series
+
+permalinks:
+  posts: "/:slug/"
+
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
+  highlight:
+    noClasses: false
+    style: github
+
+params:
+  subtitle: "Math, code, and adventure"
+  math: true
+  KaTeXVersion: 0.16.4
+  KaTeXCDN: "//cdn.jsdelivr.net/npm"
+  codeblocksdark: false
+  marginNoteInd: "⊕"
+  showPoweredBy: false
+  hidedate: false
+  showSummary: true
+  sansSubtitle: false
+  centerArticle: false
+  github: sritchie
+  twitter: saborichin
+
+menu:
+  nav:
+    - name: Home
+      weight: -110
+      identifier: home
+      url: /
+    - name: Writing
+      weight: -100
+      identifier: posts
+      url: /posts/
+    - name: Projects
+      weight: -90
+      identifier: projects
+      url: /projects/
+    - name: Talks
+      weight: -80
+      identifier: talks
+      url: /talks/
+    - name: About
+      weight: -70
+      identifier: about
+      url: /about/
