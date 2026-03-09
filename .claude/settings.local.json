@@ -1,0 +1,43 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//Users/sritchie/.claude/**)",
+      "Read(//Users/sritchie/**)",
+      "Bash(ls /Users/sritchie/code/sritchie.github.io/.claude/settings*)",
+      "Bash(wc:*)",
+      "mcp__ghost-mcp__posts_browse",
+      "mcp__ghost-mcp__tags_browse",
+      "mcp__ghost-mcp__tiers_browse",
+      "mcp__ghost-mcp__users_browse",
+      "mcp__ghost-mcp__newsletters_browse",
+      "mcp__ghost-mcp__posts_read",
+      "Bash(jq:*)",
+      "Bash(ls:*)",
+      "Bash(hugo version:*)",
+      "Bash(hugo new:*)",
+      "Bash(hugo:*)",
+      "Bash(for f in layouts/partials/*.html)",
+      "Bash(do echo \"=== $f ===\")",
+      "Read(//Users/sritchie/code/sritchie.github.io/themes/hugo-tufte/**)",
+      "Bash(done)",
+      "Bash(python3:*)",
+      "Bash(grep:*)",
+      "Bash(chmod +x:*)",
+      "Bash(for post in dual-numbers-and-automatic-differentiation functional-numerical-methods power-series-power-serious)",
+      "Bash(do)",
+      "Bash(f=\"/Users/sritchie/code/sritchie.github.io/content/posts/$post/index.md\")",
+      "Bash(echo \"=== $post ===\")",
+      "Read(//Users/sritchie/code/sritchie.github.io/**)",
+      "Bash(perl:*)",
+      "Bash(for post in dual-numbers-and-automatic-differentiation entropy-combinations-and-permutations functional-numerical-methods half-angles-from-eulers-formula optics-and-the-principle-of-least-time power-series-power-serious taylor-series-and-imaginary-numbers basis-changes-for-linear-transformations computing-the-universe test-mode)",
+      "Bash(if grep -q '<sup>\\\\|<sub>' \"$f\")",
+      "Bash(then)",
+      "Bash(fi)",
+      "Bash(for post in dual-numbers-and-automatic-differentiation test-mode)",
+      "Bash(for dir in computing-the-universe newsletter-warmup-building-the-airplane-still-endlessly maps-paths-and-fairy-circles practice-knitting-and-the-two-selves memento-mori-for-the-hardcore spot-check-boulder-to-longs-peak years-of-backlog-quitting-x-twins the-road-to-the-hardrock-100)",
+      "Bash(echo \"=== $dir ===\")",
+      "Read(//Users/sritchie/code/sritchie.github.io/content/posts/$dir/**)",
+      "Bash(npx pagefind:*)"
+    ]
+  }
+}

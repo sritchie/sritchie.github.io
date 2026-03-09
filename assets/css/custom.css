@@ -1,0 +1,263 @@
+/* ── Typography: Literata ── */
+:root {
+  --font-body: 'Literata', Georgia, 'Times New Roman', serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: 18px;
+  line-height: 1.7;
+  font-optical-sizing: auto;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-body);
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+code, pre, .highlight code {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+}
+
+pre {
+  line-height: 1.5;
+}
+
+/* Slightly wider content for readability */
+.post-content {
+  font-size: 18px;
+}
+
+/* ── Sidenotes / Margin Notes ── */
+/* Footnotes become margin notes on wide viewports (Paperesque-style) */
+
+.footnotes {
+  font-size: 0.85em;
+  border-top: 1px solid var(--tertiary);
+  margin-top: 2rem;
+  padding-top: 1rem;
+}
+
+/* Sidenote shortcode (inline margin notes) */
+.sidenote,
+.marginnote {
+  float: right;
+  clear: right;
+  margin-right: -34%;
+  width: 30%;
+  font-size: 0.85em;
+  line-height: 1.5;
+  color: var(--secondary);
+  position: relative;
+}
+
+.sidenote {
+  padding-left: 1em;
+  border-left: 2px solid var(--tertiary);
+}
+
+.sidenote-number {
+  counter-increment: sidenote-counter;
+}
+
+.sidenote-number::after {
+  content: counter(sidenote-counter);
+  font-size: 0.7em;
+  vertical-align: super;
+  color: var(--secondary);
+}
+
+/* On wide screens, move footnotes to margin */
+@media (min-width: 1200px) {
+  .post-content {
+    position: relative;
+  }
+
+  .marginnote-inline {
+    float: right;
+    clear: right;
+    margin-right: -40%;
+    width: 35%;
+    font-size: 0.82em;
+    line-height: 1.5;
+    color: var(--secondary);
+    padding-left: 1em;
+    border-left: 2px solid var(--tertiary);
+    margin-bottom: 1em;
+  }
+}
+
+/* On narrow screens, sidenotes become inline */
+@media (max-width: 1199px) {
+  .sidenote,
+  .marginnote {
+    float: none;
+    margin: 0.5em 0;
+    width: 100%;
+    padding: 0.5em 1em;
+    background: var(--code-bg);
+    border-radius: var(--radius);
+    border-left: 3px solid var(--tertiary);
+    font-size: 0.9em;
+  }
+}
+
+/* ── Epigraph ── */
+.epigraph {
+  font-style: italic;
+  margin: 2em 0;
+  padding-left: 1.5em;
+  border-left: 3px solid var(--tertiary);
+}
+
+.epigraph footer {
+  font-style: normal;
+  font-size: 0.9em;
+  color: var(--secondary);
+  margin-top: 0.5em;
+}
+
+/* ── Project Gallery ── */
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+.project-card {
+  border: 1px solid var(--tertiary);
+  padding: 1.2rem;
+  border-radius: var(--radius);
+  background: var(--entry);
+  transition: transform 0.2s;
+}
+
+.project-card:hover {
+  transform: translateY(-2px);
+}
+
+.project-card h3 {
+  margin-top: 0;
+  font-size: 1.1rem;
+}
+
+.project-card p {
+  font-size: 0.9rem;
+  color: var(--secondary);
+  margin: 0.5rem 0;
+}
+
+.project-card .project-image {
+  width: 100%;
+  height: auto;
+  border-radius: calc(var(--radius) - 4px);
+  margin-bottom: 0.8rem;
+}
+
+.project-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.8rem;
+}
+
+.project-status {
+  font-size: 0.75rem;
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-family: var(--font-mono);
+}
+
+.status-active { background: #e6f4ea; color: #1a7431; }
+.status-maintained { background: #e8f0fe; color: #1a56db; }
+.status-archived { background: #f3f4f6; color: #6b7280; }
+.status-completed { background: #fef3c7; color: #92400e; }
+
+[data-theme="dark"] .status-active { background: #1a3a2a; color: #6ee7b7; }
+[data-theme="dark"] .status-maintained { background: #1e2a4a; color: #93c5fd; }
+[data-theme="dark"] .status-archived { background: #1f2937; color: #9ca3af; }
+[data-theme="dark"] .status-completed { background: #451a03; color: #fcd34d; }
+
+.project-tech {
+  font-size: 0.75rem;
+  padding: 0.15rem 0.5rem;
+  background: var(--code-bg);
+  border-radius: 4px;
+  color: var(--secondary);
+  font-family: var(--font-mono);
+}
+
+.project-detail-meta {
+  margin: 1rem 0 2rem;
+  padding: 1rem;
+  background: var(--code-bg);
+  border-left: 3px solid var(--tertiary);
+  border-radius: var(--radius);
+}
+
+.project-detail-meta p {
+  margin: 0.3rem 0;
+  font-size: 0.9rem;
+}
+
+/* ── Substack link card ── */
+.substack-link-card {
+  padding: 1rem;
+  border: 1px solid var(--tertiary);
+  border-radius: var(--radius);
+  margin: 1rem 0;
+  background: var(--entry);
+}
+
+.substack-link-card p {
+  margin: 0.3rem 0;
+  font-size: 0.9rem;
+  color: var(--secondary);
+}
+
+.substack-link-url {
+  font-size: 0.8rem;
+  color: var(--secondary);
+}
+
+/* ── Strava embed ── */
+.strava-embed {
+  margin: 1.5rem 0;
+}
+
+/* ── KaTeX overrides ── */
+.katex-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0.5em 0;
+}
+
+/* ── Pagefind search ── */
+.pagefind-ui {
+  --pagefind-ui-primary: var(--primary);
+  --pagefind-ui-text: var(--primary);
+  --pagefind-ui-background: var(--theme);
+  --pagefind-ui-border: var(--tertiary);
+  --pagefind-ui-tag: var(--code-bg);
+  --pagefind-ui-border-width: 1px;
+  --pagefind-ui-border-radius: var(--radius);
+  --pagefind-ui-font: var(--font-body);
+  font-size: 16px;
+}
+
+.pagefind-ui .pagefind-ui__result-link {
+  color: var(--primary);
+}
+
+/* ── Newthought (small caps lead-in) ── */
+.newthought {
+  font-variant: small-caps;
+  font-size: 1.1em;
+  letter-spacing: 0.05em;
+}
