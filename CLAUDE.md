@@ -13,7 +13,6 @@ Hugo site using PaperMod theme, deployed via GitHub Actions to GitHub Pages at s
 - **Overrides:** Place in site-level `layouts/` or `assets/` to override theme
 - **Page bundles:** All content uses page bundles (folder with `index.md` + co-located assets)
 - **Images:** Committed to git in page bundles, referenced with relative paths
-- **Comments:** Disqus via `samritchie.disqus.com` (partial at `layouts/partials/comments.html`)
 - **Analytics:** GoatCounter (`samritchie.goatcounter.com`)
 
 ## Content Structure
