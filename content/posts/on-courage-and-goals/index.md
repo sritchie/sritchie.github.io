@@ -40,7 +40,7 @@ Signing up for a difficult race relaxes the courage requirement of personal grow
 
 ## Leadville, Take Two
 
-I raced Leadville in 2013 ([race report here](http://www.samritchie.io/leadville-trail-100/)) and it crushed me. I stumbled into the Winfield aid station at mile 50, 11 pounds light and shaking with cold. I sat for almost two hours, vomiting over and over as I tried to choke down salty broth and claw my way back from serious dehydration. I was able to recover and get out of the aid station before the cutoff, but the race is serious, and more than 50% of athletes drop out almost every year. Success is not a guarantee.
+I raced Leadville in 2013 ([race report here](/leadville-trail-100/)) and it crushed me. I stumbled into the Winfield aid station at mile 50, 11 pounds light and shaking with cold. I sat for almost two hours, vomiting over and over as I tried to choke down salty broth and claw my way back from serious dehydration. I was able to recover and get out of the aid station before the cutoff, but the race is serious, and more than 50% of athletes drop out almost every year. Success is not a guarantee.
 
 I had set myself an arbitrary time goal of 25 hours. I finished in 26:15. I &quot;failed&quot; at my goal, but I illuminated the path. After that race I knew what it would take to run 25 hours, and (after a few months, once 100 mile amnesia set in) I **needed** to go back and try again.
 

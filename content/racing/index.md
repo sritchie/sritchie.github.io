@@ -25,7 +25,7 @@ slug: "racing"
 
 ##### Marathon Canoe
 
-- 6/8 - [Texas Water Safari](http://www.texaswatersafari.org), 262 miles, San Marcos, TX - **44:14, 16th overall** ([results](http://www.texaswatersafari.org/history/2019-tws/), [report](https://www.samritchie.io/texas-water-safari-2019-race-report/), [strava](https://www.strava.com/activities/2440120796))
+- 6/8 - [Texas Water Safari](http://www.texaswatersafari.org), 262 miles, San Marcos, TX - **44:14, 16th overall** ([results](http://www.texaswatersafari.org/history/2019-tws/), [report](/texas-water-safari-2019-race-report/), [strava](https://www.strava.com/activities/2440120796))
 
 ##### Running
 
@@ -39,12 +39,12 @@ slug: "racing"
 
 ##### Running
 
-- 9/7 - [Tahoe 200](http://www.tahoe200.com/), Lake Tahoe, CA - **90:21:26, 83rd Overall** ([results](https://ultrasignup.com/results_event.aspx?did=51571), [report](https://www.samritchie.io/tahoe-200-2018-race-report/), [report part 2](https://www.samritchie.io/tahoe-200-2018-race-report-part-2/), [strava](https://www.strava.com/activities/1834125647))
-- 4/28 - [Niwot's Challenge](http://humanpotentialrunning.com/niwots-challenge/), South Platte, CO - **DNF after 17.5 Hours** ([report](https://www.samritchie.io/niwots-challenge-2018-race-report/))
+- 9/7 - [Tahoe 200](http://www.tahoe200.com/), Lake Tahoe, CA - **90:21:26, 83rd Overall** ([results](https://ultrasignup.com/results_event.aspx?did=51571), [report](/tahoe-200-2018-race-report/), [report part 2](/tahoe-200-2018-race-report-part-2/), [strava](https://www.strava.com/activities/1834125647))
+- 4/28 - [Niwot's Challenge](http://humanpotentialrunning.com/niwots-challenge/), South Platte, CO - **DNF after 17.5 Hours** ([report](/niwots-challenge-2018-race-report/))
 
 ##### Mountaineering
 
-- 7/10 - [Rainier Infinity Loop](http://ultrapedestrian.blogspot.com/2016/07/mount-rainier-infinity-loop-only-known.html), 135m, Mt Rainier, WA - **1x Rainier + Wonderland** ([report](https://www.samritchie.io/rainier-infinity-loop-2018-attempt/), [strava 1](https://www.strava.com/activities/1699979382), [strava 2](https://www.strava.com/activities/1699985174))
+- 7/10 - [Rainier Infinity Loop](http://ultrapedestrian.blogspot.com/2016/07/mount-rainier-infinity-loop-only-known.html), 135m, Mt Rainier, WA - **1x Rainier + Wonderland** ([report](/rainier-infinity-loop-2018-attempt/), [strava 1](https://www.strava.com/activities/1699979382), [strava 2](https://www.strava.com/activities/1699985174))
 
 ##### Ski
 
@@ -70,7 +70,7 @@ slug: "racing"
 
 ##### Running
 
-- 9/17 - [IMTUF 100](http://imtuf100.com), 106m, McCall, ID - **20:36:35, 2nd overall** ([results](https://ultrasignup.com/results_event.aspx?did=35757), [report](https://www.samritchie.io/imtuf-100-2016-race-report/), [strava](https://www.strava.com/activities/716961069))
+- 9/17 - [IMTUF 100](http://imtuf100.com), 106m, McCall, ID - **20:36:35, 2nd overall** ([results](https://ultrasignup.com/results_event.aspx?did=35757), [report](/imtuf-100-2016-race-report/), [strava](https://www.strava.com/activities/716961069))
 
 ##### Ski
 
@@ -85,15 +85,15 @@ slug: "racing"
 ##### Running
 
 - 7/18 - [Vermont 100m](http://vermont100endurancerun.blogspot.com/), West Windsor, VT - **18:08:59, 8th overall, 1st 20-29** ([results](http://www.coolrunning.com/results/15/vt/Jul19_VT100E_set1.shtml), [strava](https://www.strava.com/activities/349104835/overview))
-- 5/2 - [Miwok 100k](http://miwok100k.com/site/), Stinson Beach, CA - **10:12:52, 9th overall, 2nd 20 - 29** ([results](https://ultrasignup.com/results_event.aspx?did=28753#id644669), [report](http://www.samritchie.io/2015-miwok-100k-race-report/), [strava](https://www.strava.com/activities/297035766))
+- 5/2 - [Miwok 100k](http://miwok100k.com/site/), Stinson Beach, CA - **10:12:52, 9th overall, 2nd 20 - 29** ([results](https://ultrasignup.com/results_event.aspx?did=28753#id644669), [report](/2015-miwok-100k-race-report/), [strava](https://www.strava.com/activities/297035766))
 
 ##### Ski
 
 - 3/27 - [Grand Traverse](http://www.elkmountainstraverse.com/), Crested Butte, CO - **12:13:41, 101st overall** ([results](http://www.webscorer.com/racedetails?pid=1&raceid=39577), [strava](https://www.strava.com/activities/275646486))
 - 2/28 - [Power of 4 Skimo Race](http://www.aspensnowmass.com/events-and-activities/events/power-of-four-ski-mountaineering-race), 25m, Aspen, CO - **7:56:35, 26th overall** ([results](http://www.aspensnowmass.com/-/media/Events/SPORTMENS.pdf), [strava](https://www.strava.com/activities/261588567))
 - 2/7 - [Alley Loop Nordic 42k Skate](http://cbnordic.org/alley-loop-nordic-marathon/), Crested Butte, CO - **2:37:41, 41st Male** ([results](http://racesonline.com/events/alley-loop-nordic-marathon/results/2015/bib/98), [strava](https://www.strava.com/activities/251711270))
-- 1/11 - [Jackson Hole Rando Roundup](http://www.jhskimo.org/wyo-rando-roundup/), Jackson, WY - **3:44:32, 53rd overall** ([results](http://www.jhskimo.org/wyo-rando-roundup/), [report](http://www.samritchie.io/wyoming-rando-roundup-pt-2/), [strava](https://www.strava.com/activities/239972722))
-- 1/10 - [Grand Targhee Skimo Classic](http://www.jhskimo.org/wyo-rando-roundup/), Alta, WY - **2:26:14, 49th overall** ([results](http://www.grandtarghee.com/the-resort/news-events/2546/USMMASkiMountaineeringClassic.php), [report](http://www.samritchie.io/wyoming-rando-roundup-pt-1/), [strava](https://www.strava.com/activities/239322868))
+- 1/11 - [Jackson Hole Rando Roundup](http://www.jhskimo.org/wyo-rando-roundup/), Jackson, WY - **3:44:32, 53rd overall** ([results](http://www.jhskimo.org/wyo-rando-roundup/), [report](/wyoming-rando-roundup-pt-2/), [strava](https://www.strava.com/activities/239972722))
+- 1/10 - [Grand Targhee Skimo Classic](http://www.jhskimo.org/wyo-rando-roundup/), Alta, WY - **2:26:14, 49th overall** ([results](http://www.grandtarghee.com/the-resort/news-events/2546/USMMASkiMountaineeringClassic.php), [report](/wyoming-rando-roundup-pt-1/), [strava](https://www.strava.com/activities/239322868))
 - 1/6 - [Rise & Shine Rando #3](http://arapahoebasin.com/ABasin/mountain/calendar.aspx?id=00cc8426-1d83-4957-885e-c5ccd58a5fda), A Basin, CO - **50:51, 15th overall** ([results](http://arapahoebasin.com/ABasin/mountain/calendar.aspx?id=00cc8426-1d83-4957-885e-c5ccd58a5fda), [strava](http://www.strava.com/activities/237530649))
 
 ### 2014
@@ -105,8 +105,8 @@ slug: "racing"
 
 ##### Running
 
-- 9/5 - [Wasatch Front 100](http://wasatch100.com/), SLC, UT - **26:41, 40th overall, 3rd 20-29** ([results](http://results2014.wasatch100.com/Runner/SearchResults?runnerQuery=244), [report](http://www.samritchie.io/wasatch-front-100-2014/), [strava](http://www.strava.com/activities/190732635/overview))
-- 8/16 - [Leadville 100](http://www.leadvilleraceseries.com/run/leadvilletrail100run/), Leadville, CO - **22:38, 34th overall, 3rd 20-29** ([results](http://results.chronotrack.com/event/results/event/event-6391?entryID=6538161), [report](http://www.samritchie.io/leadville-trail-100-2014-edition), [strava](http://www.strava.com/activities/181566715/overview))
+- 9/5 - [Wasatch Front 100](http://wasatch100.com/), SLC, UT - **26:41, 40th overall, 3rd 20-29** ([results](http://results2014.wasatch100.com/Runner/SearchResults?runnerQuery=244), [report](/wasatch-front-100-2014/), [strava](http://www.strava.com/activities/190732635/overview))
+- 8/16 - [Leadville 100](http://www.leadvilleraceseries.com/run/leadvilletrail100run/), Leadville, CO - **22:38, 34th overall, 3rd 20-29** ([results](http://results.chronotrack.com/event/results/event/event-6391?entryID=6538161), [report](/leadville-trail-100-2014-edition), [strava](http://www.strava.com/activities/181566715/overview))
 - 7/12 - [Hardrock 100](http://hardrock100.com/), Silverton, CO - paced Betsy Kalmeyer for 30 miles ([strava](http://www.strava.com/activities/165071325))
 - 6/14 - [Leadville Trail Marathon](http://www.leadvilleraceseries.com/run/leadvilletrail100run/), Leadville, CO - **6:24, 230th overall** ([results](http://results.chronotrack.com/event/results/event/event-6401?entryID=6815881), [strava](http://www.strava.com/activities/153608712/overview))
 - 4/10 - Grand Canyon Rim 2 Rim 2 Rim, 46 miles, Grand Canyon National Park ([strava](http://www.strava.com/activities/129663422))
@@ -115,7 +115,7 @@ slug: "racing"
 
 ##### Running
 
-- 8/17 - [Leadville 100](http://www.leadvilleraceseries.com/run/leadvilletrail100run/), Leadville, CO - **26:15, 159th overall** ([results](http://my1.raceresult.com/details/results.php?sl=6.18847.en..Result%20Lists%7CRaw%20Splits&pp=1219), [report](http://www.samritchie.io/leadville-trail-100), [strava](http://www.strava.com/activities/75736093))
+- 8/17 - [Leadville 100](http://www.leadvilleraceseries.com/run/leadvilletrail100run/), Leadville, CO - **26:15, 159th overall** ([results](http://my1.raceresult.com/details/results.php?sl=6.18847.en..Result%20Lists%7CRaw%20Splits&pp=1219), [report](/leadville-trail-100), [strava](http://www.strava.com/activities/75736093))
 
 ##### Marathon Canoe
 

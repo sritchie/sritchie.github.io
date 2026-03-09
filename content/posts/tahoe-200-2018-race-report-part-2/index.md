@@ -14,7 +14,7 @@ cover:
   hidden: true
 ---
 
-Welcome back to my report of the 2018 Tahoe 200. If you haven't read [Part 1](https://www.samritchie.io/tahoe-200-2018-race-report/) and care about background and context, [go check it out](https://www.samritchie.io/tahoe-200-2018-race-report/) and come on back. Otherwise enjoy the tale!
+Welcome back to my report of the 2018 Tahoe 200. If you haven't read [Part 1](/tahoe-200-2018-race-report/) and care about background and context, [go check it out](/tahoe-200-2018-race-report/) and come on back. Otherwise enjoy the tale!
 
 ## Table of Contents
 

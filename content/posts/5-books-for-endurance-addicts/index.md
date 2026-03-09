@@ -42,7 +42,7 @@ Lewis's writing is clean, spare and brutally honest about his fear, self doubt a
 
 [![Once a Runner](98250.jpg)](http://www.amazon.com/gp/product/B001NLKSRU/ref=as_li_tl?ie=UTF8&amp;camp=1789&amp;creative=390957&amp;creativeASIN=B001NLKSRU&amp;linkCode=as2&amp;tag=theroato201-20&amp;linkId=TCCQZ2PRQIRDSVXZ)
 
-I read &quot;Once a Runner&quot; before the [Leadville 100](www.leadvilleraceseries.com/run/leadvilletrail100run/) back in 2013, along with a bunch of other running books I mention at the beginning of my [trip report](http://www.samritchie.io/leadville-trail-100/). The book's about Quenton Cassidy, a college runner down in Florida trying to run a 4 minute mile. From the Amazon description:
+I read &quot;Once a Runner&quot; before the [Leadville 100](www.leadvilleraceseries.com/run/leadvilletrail100run/) back in 2013, along with a bunch of other running books I mention at the beginning of my [trip report](/leadville-trail-100/). The book's about Quenton Cassidy, a college runner down in Florida trying to run a 4 minute mile. From the Amazon description:
 
 > Under the tutelage of his friend and mentor, Bruce Denton, a graduate student and former Olympic gold medalist, Cassidy gives up his scholarship, his girlfriend, and possibly his future to withdraw to a monastic retreat in the countryside and begin training for the race of his life against the greatest miler in history.
 

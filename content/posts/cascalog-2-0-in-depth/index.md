@@ -34,7 +34,7 @@ If you want to follow along, go ahead and clone [the Cascalog repo](https://gith
 
 # def*fn macros
 
-Testing Cascalog operations has always been a pain. Before Cascalog 2.0, when you defined a function with any of the `def*op*` macros, you couldn't call it as a function outside of a Cascalog query. Cascalog has a [great testing story](http://www.samritchie.io/testing-cascalog-with-midje/) for queries, but the only way to test single operations was in the context of a Cascalog job.
+Testing Cascalog operations has always been a pain. Before Cascalog 2.0, when you defined a function with any of the `def*op*` macros, you couldn't call it as a function outside of a Cascalog query. Cascalog has a [great testing story](/testing-cascalog-with-midje/) for queries, but the only way to test single operations was in the context of a Cascalog job.
 
 As of 2.0, functions defined with any of the `def*op` macros are now just normal functions, making it **much** easier to write tests, or to use them outside of Cascalog.
 

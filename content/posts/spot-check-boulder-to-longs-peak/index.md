@@ -19,7 +19,7 @@ So when my friend Mike Chambers asked me if I wanted to join him for a run up Lo
 
 We left Pearl Street at 8pm and [carved this 53 mile track](https://www.strava.com/activities/3709549479) up to the 14,259’ summit of Long’s Peak ([strava](https://www.strava.com/activities/3709549479)):
 
-![](image-1.png)My trip reports tend to become [overwhelmingly long](https://samritchie.io/tahoe-200-2018-race-report/), so I’ll keep this to the highlights. We ran through the night along a course that Mike had scouted over the previous weeks. The goal was to hit the Long’s trailhead as close to sunrise as possible. You want to be on the mountain early to avoid thunderstorms, but sufficiently deep into the morning that the ice melts off of the rocks you’ll be climbing.
+![](image-1.png)My trip reports tend to become [overwhelmingly long](/tahoe-200-2018-race-report/), so I’ll keep this to the highlights. We ran through the night along a course that Mike had scouted over the previous weeks. The goal was to hit the Long’s trailhead as close to sunrise as possible. You want to be on the mountain early to avoid thunderstorms, but sufficiently deep into the morning that the ice melts off of the rocks you’ll be climbing.
 
 
 We planned to ascend the [Cables Route](https://www.mountainproject.com/route/105754720/cable-route) to save time. This is a 5.4 technical rock climb with a steep snow field leading up to its base. From the [route description](https://www.mountainproject.com/route/105754720/cable-route):
@@ -31,7 +31,7 @@ We planned to ascend the [Cables Route](https://www.mountainproject.com/route/10
 I felt healthy for most of the adventure, but by the time we hit the base of Cables I was wobbly and destroyed. I had probably 500mg of caffeine in my system, thanks to a solid supply of [Military Energy Gum](https://militaryenergygum.com/), but caffeine can only help you so much.
 
 
-I hate steep snow without skis, and haven’t practiced since my [Infinity Loop](https://samritchie.io/rainier-infinity-loop-2018-attempt/) adventure a few years ago. For the short snow ascent we both carried Microspikes and trekking poles, and I dealt with my fear by savagely kicking far-too-deep steps into the snow at every step. A pair of gumbies was on the route ahead of us, climbing with ropes, shouting back and forth and going very slow. Halfway up the snow field I heard one of them scream “ROCK!!”, and watched a large boulder sail out about 100’ to my right. The lesson is, if you’re scared of steep snow… *get the fuck off of the snow!*
+I hate steep snow without skis, and haven’t practiced since my [Infinity Loop](/rainier-infinity-loop-2018-attempt/) adventure a few years ago. For the short snow ascent we both carried Microspikes and trekking poles, and I dealt with my fear by savagely kicking far-too-deep steps into the snow at every step. A pair of gumbies was on the route ahead of us, climbing with ropes, shouting back and forth and going very slow. Halfway up the snow field I heard one of them scream “ROCK!!”, and watched a large boulder sail out about 100’ to my right. The lesson is, if you’re scared of steep snow… *get the fuck off of the snow!*
 
 
 The technical section of Cables was maybe 60’ long and not very difficult. But water was pouring out of cracks in the back of the rock, and running shoes aren’t terribly sticky on granite. We took our time and moved carefully past the technical bits.

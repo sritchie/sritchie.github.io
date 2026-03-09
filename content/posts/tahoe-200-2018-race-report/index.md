@@ -37,7 +37,7 @@ I'm going to describe why I ran the[ Tahoe 200](www.tahoe200.com), and the reaso
 
 I was not trying to reach enlightenment. The goal was not to find my ultimate limits and transcend them, to make a dent in the universe, to hurl my twitching body across the finish line, hoping that 200 miles would be *enough miles* to stuff into the empty place inside where my dreams used to live, to staunch the deadening drip of my childlike wonder leaking out into the burning light of adult responsibility.
 
-No - I did it for a ticket! I'd convinced myself that the Tahoe 200 was the most casual way I could earn a ticket to the lottery of the [Hardrock 100](https://hardrock100.com), the only trail race I'm still excited about. This whole trail running adventure started with the [Leadville 100 in 2013](https://www.samritchie.io/leadville-trail-100/), and may have peaked with my attempt at the [Rainier Infinity Loop](https://www.samritchie.io/rainier-infinity-loop-2018-attempt/) this summer... but Hardrock's headed my "Athletic Goals" list since college and I'm going to keep running until they let me in.
+No - I did it for a ticket! I'd convinced myself that the Tahoe 200 was the most casual way I could earn a ticket to the lottery of the [Hardrock 100](https://hardrock100.com), the only trail race I'm still excited about. This whole trail running adventure started with the [Leadville 100 in 2013](/leadville-trail-100/), and may have peaked with my attempt at the [Rainier Infinity Loop](/rainier-infinity-loop-2018-attempt/) this summer... but Hardrock's headed my "Athletic Goals" list since college and I'm going to keep running until they let me in.
 
 How sick have I become, that 200 miles doesn't register as a goal in its own right? I saw it as a potential bonding trip with Jason Antin (also running), a nice jaunt around a beautiful lake, and a chance to see if my sanity could survive 100 hours on my feet, but nothing more than an interlude.
 
@@ -55,7 +55,7 @@ Jason, as usual, held my ticket to glory. Jason and his friend Mike Chambers are
 
 Jason and I flew in to Reno on September 5th, two days before the Friday start, and headed to the Merrell house to prepare. A quick introduction to the cast of characters:
 
-- [Jason Antin](https://www.instagram.com/jasonantin/), "the Big man", accompanied by wife Jenny and daughter Avery. Read all about him in my [Infinity Loop](https://www.samritchie.io/rainier-infinity-loop-2018-attempt/) writeup.
+- [Jason Antin](https://www.instagram.com/jasonantin/), "the Big man", accompanied by wife Jenny and daughter Avery. Read all about him in my [Infinity Loop](/rainier-infinity-loop-2018-attempt/) writeup.
 - [Mike Chambers](https://www.instagram.com/mike_chambers/), Jason's "adventure partner", also running. Mike had completed many 50s, but hadn't yet joined the Triple Digit club. He was skipping the 100 to go straight for double.
 - [Anna Frost](https://www.instagram.com/annafrosty/), multiple-time Hardrock champion, absurdly overqualified for the crew chief role. She's crewed for Kilian Jornet... and now for us!
 - [Ryan Atkins](https://www.instagram.com/ryanatkinsdiet/), obstacle course racing champion, Mike's pacer.
@@ -159,7 +159,7 @@ The trail widened into a flat railroad grade cut into the side of the hill and w
 
 Jason was feeling cocky now that his pipes were running. "I *guarantee* we're going to reel him in. There's no way he can continue solo for that long." Unbeknownst to us Mike was far ahead, hammering, laying down a robotically perfect 200.
 
-A month prior to Tahoe I'd experienced my first psilocybin mushroom trip ([read all about it!](https://www.samritchie.io/trip-report-from-the-other-world/)), and shared with Jason my new knowledge of the 5 level "psychedelic trip scale". What level of mind expansion would Tahoe give us by the end of the race? We decided that we were currently sitting at level 2, max, but that we were each open to a level 4 experience at most by the end of the race.
+A month prior to Tahoe I'd experienced my first psilocybin mushroom trip ([read all about it!](/trip-report-from-the-other-world/)), and shared with Jason my new knowledge of the 5 level "psychedelic trip scale". What level of mind expansion would Tahoe give us by the end of the race? We decided that we were currently sitting at level 2, max, but that we were each open to a level 4 experience at most by the end of the race.
 
 I started to feel very tired and suggested we break out our first pieces of [Military Energy Gum](https://amzn.to/2ZgtMDd), 100mg per piece. The package states that civilians should limit themselves to 4 pieces in 24 hours, but that "military" consumers could approach 10. The gum had served us well during the Rainier Infinity Loop, and was the most prized item in our medical kit.
 
@@ -255,7 +255,7 @@ Yup. We were on the same wavelength. We saw a seal ahead in the middle of the tr
 
 A group of guys and one girl caught us half an hour into the climb. The girl was strangely exhilarated, sharing her convinction that Tahoe was the most beautiful course she had ever run. I took the bait and started talking, and she soon mentioned that she'd recently run the [IMTUF 100](http://imtuf100.com/).
 
-I'm obsessed with IMTUF - this was my [best 100 mile finish ever](https://www.samritchie.io/imtuf-100-2016-race-report/), back in 2016 - and pressed her for details. Her husband, Chad, had been her crew chief, and he'd failed over and over, totally checked out. The contrast with the other men she met on the course - primarily Jeremy, the dreamy race directory with the sad eyes - grew and grew, coming to a head at the finish line when Jeremy wrapped her in a warm embrace while Chad stood off to the side, petulant and bored. A few months later she'd divorced Chad.
+I'm obsessed with IMTUF - this was my [best 100 mile finish ever](/imtuf-100-2016-race-report/), back in 2016 - and pressed her for details. Her husband, Chad, had been her crew chief, and he'd failed over and over, totally checked out. The contrast with the other men she met on the course - primarily Jeremy, the dreamy race directory with the sad eyes - grew and grew, coming to a head at the finish line when Jeremy wrapped her in a warm embrace while Chad stood off to the side, petulant and bored. A few months later she'd divorced Chad.
 
 She'd come to Tahoe with a new boyfriend for whom she had very high hopes, she told us, an unsettling gleam in her eyes. He was crewing, and his "big test" was coming up at mile 100. Faced with his hollow-eyed love, would he be a Jeremy? Or a Chad?
 
@@ -389,4 +389,4 @@ We hit the road a hundred yards from Heavenly Aid, finally, halfway done with th
 
 They took our gear, plugged in our watches and phones to charge and hustled us inside what looked like a dark opium den filled with half-inflated air mattresses and moaning patrons. Or a reenactment of a WWII medical field camp? Each was true in its own way.
 
-*Click on through to [part two](https://www.samritchie.io/tahoe-200-2018-race-report-part-2/) for the second half of the Tahoe 200 Odyssey.*
+*Click on through to [part two](/tahoe-200-2018-race-report-part-2/) for the second half of the Tahoe 200 Odyssey.*
