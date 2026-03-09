@@ -40,11 +40,8 @@ The following code builds up a power series implementation that backs two `sicmu
 - `PowerSeries`, a series that represents a power series in a single variable; in other words, a series where the nth entry is interpreted as the coefficient of $x^n$:
 
 \begin{equation}
-
 \label{eq:4}
-
 [a\ b\ c\ d\ ...] = a + bx + cx^2 + dx^3 + ...
-
 \end{equation}
 
 We'll proceed by building up implementations of the arithmetic operations `+`, `-`, `*`, `/` and a few others using bare Clojure lazy sequences.
@@ -77,19 +74,14 @@ A 'series' is an infinite sequence of numbers, represented by Clojure's lazy seq
 The core observation we'll use in the following definitions (courtesy of McIlroy) is that a power series $F$ in a variable $x$:
 
 \begin{equation}
-
 F(x)=f_{0}+x f_{1}+x^{2} f_{2}+\cdots
-
 \end{equation}
 
 Decomposes into a head element $f_0$ plus a tail series, multiplied by $x$:
 
 \begin{equation}
-
 \label{eq:3}
-
 F(x) = F_0(x) = f_0 + x F_1(x)
-
 \end{equation}
 
 We'll use this observation to derive the more complicated sequence operations below.
@@ -118,11 +110,8 @@ Example:
 We can derive series addition by expanding the series $F$ and $G$ into head and tail and rearranging terms:
 
 \begin{equation}
-
 \label{eq:5}
-
 F+G=\left(f+x F_{1}\right)+\left(g+xG_{1}\right)=(f+g)+x\left(F_{1}+G_{1}\right)
-
 \end{equation}
 
 This is particularly straightforward in Clojure, where `map` already merges sequences elementwise:
@@ -229,11 +218,8 @@ To multiply sequences, first recall from above that we can decompose each sequen
 Mutiply the expanded representations out and rearrange terms:
 
 \begin{equation}
-
 \label{eq:6}
-
 F \times G=\left(f+x F_{1}\right) \times\left(g+x G_{1}\right)=f g+x\left(f G_{1}+F_{1} \times G\right)
-
 \end{equation}
 
 $G$ appears on the left and the right, so use an inner function that closes over $g$ to simplify matters, and rewrite the above definition in Clojure:
@@ -266,27 +252,18 @@ NOTE This is also called the "[Cauchy Product](https://en.wikipedia.org/wiki/Cau
 The quotient $Q$ of $F$ and $G$ should satisfy:
 
 \begin{equation}
-
 \label{eq:7}
-
 F = Q \times G
-
 \end{equation}
 
 From McIlroy, first expand out $F$, $Q$ and one instance of $G$:
 
 \begin{equation}
-
 \begin{aligned}
-
 f+x F_{1} &=\left(q+x Q_{1}\right) \times G \cr
-
 &=q G+x Q_{1} \times G=q\left(g+x G_{1}\right)+x Q_{1} \times G \cr
-
 &=q g+x\left(q G_{1}+Q_{1} \times G\right)
-
 \end{aligned}
-
 \end{equation}
 
 Look at just the constant terms and note that $q = \frac{f}{g}$.
@@ -294,11 +271,8 @@ Look at just the constant terms and note that $q = \frac{f}{g}$.
 Consider the terms multiplied by $x$ and solve for $Q_1$:
 
 \begin{equation}
-
 \label{eq:8}
-
 Q_1 = \frac{(F_1 - qG_1)}{G}
-
 \end{equation}
 
 There are two special cases to consider:
@@ -345,21 +319,15 @@ We could generate the reciprocal of $F$ by dividing $(1, 0, 0, ...)$ by $F$. Pag
 We want $R$ such that $FR = 1$. Expand $F$:
 
 \begin{equation}
-
 \label{eq:9}
-
 (f + xF_1)R = 1
-
 \end{equation}
 
 Solve for R:
 
 \begin{equation}
-
 \label{eq:10}
-
 R = \frac{1}{f} (1 - x(F_1 R))
-
 \end{equation}
 
 A recursive definition is no problem in the stream abstraction:
@@ -452,17 +420,11 @@ Division by a constant undoes multiplication by a constant:
 To compose two series $F(x)$ and $G(x)$ means to create a new series $F(G(x))$. Derive this by substuting $G$ for $x$ in the expansion of $F$:
 
 \begin{equation}
-
 \begin{aligned}
-
 F(G)&=f+G \times F_{1}(G) \cr
-
 &=f+\left(g+x G_{1}\right) \times F_{1}(G) \cr
-
 &=\left(f+g F_{1}(G)\right)+x G_{1} \times F_{1}(G)
-
 \end{aligned}
-
 \end{equation}
 
 For the stream-based calculation to work, we need to be able to calculate the head element and attach it to an infinite tail; unless $g=0$ above the head element depends on $F_1$, an infinite sequence.
@@ -470,11 +432,8 @@ For the stream-based calculation to work, we need to be able to calculate the he
 If $g=0$ the calculation simplifies:
 
 \begin{equation}
-
 \label{eq:12}
-
 F(G)=f + x G_{1} \times F_{1}(G)
-
 \end{equation}
 
 In Clojure, using an inner function that captures $G$:
@@ -511,31 +470,22 @@ The functional inverse of a power series $F$ is a series $R$ that satisfies $F(R
 Following McIlroy, we expand $F$ (substituting $R$ for $x$) and one occurrence of $R$:
 
 \begin{equation}
-
 \label{eq:13}
-
 F(R(x))=f+R \times F_{1}(R)=f+\left(r+x R_{1}\right) \times F_{1}(R)=x
-
 \end{equation}
 
 Just like in the composition derivation, in the general case the head term depends on an infinite sequence. Set $r=0$ to address this:
 
 \begin{equation}
-
 \label{eq:14}
-
 f+x R_{1} \times F_{1}(R)=x
-
 \end{equation}
 
 For this to work, the constant $f$ must be 0 as well, hence
 
 \begin{equation}
-
 \label{eq:15}
-
 R_1 = \frac{1}{F_1(R)}
-
 \end{equation}
 
 This works as an implementation because $r=0$. $R_1$ is allowed to reference $R$ thanks to the stream-based approach:
@@ -568,11 +518,8 @@ An example, inverting a series starting with 0:
 Derivatives of power series are simple and mechanical:
 
 \begin{equation}
-
 \label{eq:16}
-
 D(a x^n) = aD(x^n) = a n x^{n-1}
-
 \end{equation}
 
 Implies that all entries shift left by 1, and each new entry gets multiplied by its former index (ie, its new index plus 1).
@@ -593,11 +540,8 @@ Implies that all entries shift left by 1, and each new entry gets multiplied by 
 Which of course we interpret as
 
 \begin{equation}
-
 \label{eq:17}
-
 1 + 2x + 3x^2 + ...
-
 \end{equation}
 
 The definite integral $\int_0^{x}F(t)dt$ is similar. To take the anti-derivative of each term, move it to the right by appending a constant term onto the sequence and divide each element by its new position:
@@ -666,21 +610,15 @@ We can use `expt` to verify that $(1+x)^3$ expands to $1 + 3x + 3x^2 + x^3$:
 The square root of a series $F$ is a series $Q$ such that $Q^2 = F$. We can find this using our calculus methods from above:
 
 \begin{equation}
-
 \label{eq:18}
-
 D(F) = 2Q D(Q)
-
 \end{equation}
 
 or
 
 \begin{equation}
-
 \label{eq:19}
-
 D(Q) = \frac{D(F)}{2Q}
-
 \end{equation}
 
 When the head term of $F$ is nonzero, ie, $f \neq 0$, the head of $Q = \sqrt{F}$ must be $\sqrt{f}$ for the multiplication to work out.
@@ -688,11 +626,8 @@ When the head term of $F$ is nonzero, ie, $f \neq 0$, the head of $Q = \sqrt{F}$
 Integrate both sides:
 
 \begin{equation}
-
 \label{eq:20}
-
 Q = \sqrt{f} + \int_0^x \frac{D(F)}{2Q}
-
 \end{equation}
 
 One optimization appears if the first two terms of $F$ vanish, ie, $F=x^2F_2$. In this case $Q = 0 + x \sqrt{F_2}$.

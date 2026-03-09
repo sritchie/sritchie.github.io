@@ -61,9 +61,7 @@ We can also solve this with calculus. Because the beam doesn't change media, its
 Set $x_1 = 0$ for convenience, and write the total distance the light travels as a function of $x_p$:
 
 \begin{equation}
-
 d(x_p) = \sqrt{y_1^2 + x_p^2} + \sqrt{(x_2 - x_p)^2 + y_2^2}
-
 \end{equation}
 
 For practice, we can also define this function in Scheme.
@@ -84,9 +82,7 @@ Here's the function again, generated from code, with general $t_1$:
 ```
 
 \begin{equation}
-
 \sqrt{{{x}_{1}}^{2} + 2 {x}_{1} {x}_{p} + {{x}_{p}}^{2} + {{y}_{1}}^{2}} + \sqrt{{{x}_{1}}^{2} - 2 {x}_{1} {x}_{2} + 2 {x}_{1} {x}_{p} + {{x}_{2}}^{2} - 2 {x}_{2} {x}_{p} + {{x}_{p}}^{2} + {{y}_{2}}^{2}}
-
 \end{equation}
 
 To find the $x_p$ that minimizes the total distance,
@@ -113,9 +109,7 @@ Here are the sum components:
 ```
 
 \begin{equation}
-
 \begin{pmatrix} \displaystyle{ \sqrt{{{x}_{p}}^{2} + {{y}_{1}}^{2}}} \cr \cr \displaystyle{ \sqrt{{{x}_{2}}^{2} - 2 {x}_{2} {x}_{p} + {{x}_{p}}^{2} + {{y}_{2}}^{2}}}\end{pmatrix}
-
 \end{equation}
 
 Taking a derivative is easy with `scmutils`. Just wrap the function in `D`:
@@ -128,9 +122,7 @@ Taking a derivative is easy with `scmutils`. Just wrap the function in `D`:
 ```
 
 \begin{equation}
-
 \begin{pmatrix} \displaystyle{ {{{x}_{p}}\over {\sqrt{{{x}_{p}}^{2} + {{y}_{1}}^{2}}}}} \cr \cr \displaystyle{ {{ - {x}_{2} + {x}_{p}}\over {\sqrt{{{x}_{2}}^{2} - 2 {x}_{2} {x}_{p} + {{x}_{p}}^{2} + {{y}_{2}}^{2}}}}}\end{pmatrix}
-
 \end{equation}
 
 The first component is the base of base $x_p$ of the left triangle over the total length. This ratio is equal to $\cos \theta_1$:
@@ -140,11 +132,8 @@ The first component is the base of base $x_p$ of the left triangle over the tota
 The bottom component is $-\cos \theta_2$, or ${- (x_2 - x_p)}$ over the length of the right segment. Add these terms together, set them equal to 0 and rearrange:
 
 \begin{equation}
-
 \label{eq:reflect-laws}
-
 \cos \theta_1 = \cos \theta_2 \implies \theta_1 = \theta_2
-
 \end{equation}
 
 This description in terms of the two incident angles isn't so obvious from the Scheme code. Still, you can use Scheme to check this result.
@@ -152,21 +141,15 @@ This description in terms of the two incident angles isn't so obvious from the S
 If the two angles are equal, then the left and right triangles are similar, and the ratio of each base to height is equal:
 
 \begin{equation}
-
 \label{eq:reflect-ratio}
-
 {x_p \over y_1} = {{x_2 - x_p} \over y_2}
-
 \end{equation}
 
 Solve for $x_p$ and rearrange:
 
 \begin{equation}
-
 \label{eq:reflect-ratio2}
-
 x_p = {{y_1 x_2} \over {y_1 + y_2}}
-
 \end{equation}
 
 Plug this in to the derivative of the original `total-distance` function, and we find that the derivative equals 0, as expected:
@@ -179,9 +162,7 @@ Plug this in to the derivative of the original `total-distance` function, and we
 ```
 
 \begin{equation}
-
 0
-
 \end{equation}
 
 If a beam of light travels in a way that minimizes total distance (and therefore time in a constant medium), then it will reflect off of a mirror with the same angle at which it arrived. The law of reflection holds.
@@ -205,51 +186,37 @@ The refractive index $n_i = {c \over v_i}$, the speed of light $c$ in a vacuum o
 Time is distance over speed, so the total time that the beam spends between the start and end points as a function of $y_p$, the point of contact with the boundary, is:
 
 \begin{equation}
-
 \begin{split}
-
 t(y_p) & = {c \sqrt{a^2 + y_p^2}\over v_1} + {c \sqrt{(x_2 - x_p)^2 + y_2^2} \over v_2} \\
-
 & = {n_1 \over c} \sqrt{a^2 + y_p^2} + {n_2 \over c} \sqrt{(x_2 - x_p)^2 + y_2^2}
-
 \end{split}
-
 \end{equation}
 
 Take the derivative:
 
 \begin{equation}
-
 Dt(y_p) = {1 \over c} \left({n_1 y_p \over \sqrt{a^2 + y_p^2}} - {n_2 (x_2 - x_p) \over \sqrt{(x_2 - x_p)^2 + y_2^2}}\right)
-
 \end{equation}
 
 Set the derivative equal to 0 and split terms:
 
 \begin{equation}
-
 \label{eq:almost-snell}
-
 {n_1 y_p \over \sqrt{a^2 + y_p^2}} = {n_2 (x_2 - x_p) \over \sqrt{(x_2 - x_p)^2 + y_2^2}}
-
 \end{equation}
 
 Similar to the law of reflection's result, each term (up to its $n_i$ multiple) is equal to the height of the left or right triangle over the length of the beam's path on the left or right of the boundary.
 
-Equation \eqref{eq:almost-snell} simplifies to:
+Equation $\eqref{eq:almost-snell}$ simplifies to:
 
 \begin{equation}
-
 n_1 \sin \theta_1 = n_2 \sin \theta_2
-
 \end{equation}
 
 Rearranging yields Snell's law:
 
 \begin{equation}
-
 {n_1 \over n_2} = {\sin \theta_2 \over \sin \theta_1}
-
 \end{equation}
 
 ### Geometry

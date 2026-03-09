@@ -1,0 +1,10 @@
+{{- $inner := .Inner -}}
+{{- if strings.Contains $inner `\label` -}}
+<span class="math-block">
+<script type="math/tex; mode=display">\begin{equation}{{ $inner | safeJS }}\end{equation}</script>
+</span>
+{{- else -}}
+<span class="math-block">
+<script type="math/tex; mode=display">{{ $inner | safeJS }}</script>
+</span>
+{{- end -}}

@@ -20,11 +20,8 @@ I've been reading the lovely [Visual Complex Analysis](https://amzn.to/2UdJtv8) 
 Here's the half angle identity for cosine:
 
 \begin{equation}
-
 \label{eq:half-angle}
-
 \cos {\theta \over 2} = \sqrt{{\cos \theta + 1} \over 2}
-
 \end{equation}
 
 This is an equation that lets you express the cosine for *half* of some angle $\theta$ in terms of the cosine of the angle itself. As you can imagine, there are double-angle, triple angle, all sorts of identities that you can sweat out next time you find yourself in a 9th grade classroom.
@@ -32,11 +29,8 @@ This is an equation that lets you express the cosine for *half* of some angle $\
 It turns out that these derivations all become much more fun with [Euler's Formula](https://www.youtube.com/watch?v=v0YEaeIClKY):
 
 \begin{equation}
-
 \label{eq:euler}
-
 e^{i\theta} = \cos\theta + i \sin\theta
-
 \end{equation}
 
 Let's say you want to figure out the half-angle identity. You have some function of cosine of half of an angle, and you want to pull the $1 \over 2$ out of the cosine.
@@ -46,131 +40,95 @@ Let's say you want to figure out the half-angle identity. You have some function
 If you fiddle with the $e^{i \theta}$ representation of complex numbers, a very clear relationship appears:
 
 \begin{equation}
-
 \label{eq:expansion}
-
 e^{i\theta} = e^{2 i{\theta \over 2}} = (e^{i{\theta \over 2}})^2
-
 \end{equation}
 
-Next, use Euler's equation \eqref{eq:euler} and observe that we can rewrite the right side of equation \eqref{eq:expansion} as $(e^{i {\theta \over 2}})^2 = (\cos{\theta \over 2} + i \sin{\theta \over 2})^2$. Expand this out:
+Next, use Euler's equation $\eqref{eq:euler}$ and observe that we can rewrite the right side of equation $\eqref{eq:expansion}$ as $(e^{i {\theta \over 2}})^2 = (\cos{\theta \over 2} + i \sin{\theta \over 2})^2$. Expand this out:
 
 \begin{equation}
-
 \label{eq:newnum}
-
 \cos^2 {\theta \over 2} - \sin^2 {\theta \over 2} + i (2 \sin {\theta \over 2} \cos{\theta \over 2})
-
 \end{equation}
 
-Remember, from equation \eqref{eq:expansion}, that this is a new complex number that equals $e^{i\theta} = \cos\theta + i \sin\theta$. The real parts of both sides are equal:
+Remember, from equation $\eqref{eq:expansion}$, that this is a new complex number that equals $e^{i\theta} = \cos\theta + i \sin\theta$. The real parts of both sides are equal:
 
 \begin{equation}
-
 \cos \theta = \cos^2 {\theta \over 2} - \sin^2 {\theta \over 2}
-
 \label{eq:real}
-
 \end{equation}
 
 and the imaginary parts are equal:
 
 \begin{equation}
-
 \label{eq:imag}
-
 \sin \theta = 2 \sin {\theta \over 2} \cos{\theta \over 2}
-
 \end{equation}
 
 Interesting.
 
-Next, use the $1 - \sin^2 \theta = \cos^2 \theta$ identity on the right side of \eqref{eq:real} and simplify:
+Next, use the $1 - \sin^2 \theta = \cos^2 \theta$ identity on the right side of $\eqref{eq:real}$ and simplify:
 
 \begin{equation}
-
 \label{eq:real-simple}
-
 \cos \theta = 2 \cos^2{\theta \over 2} - 1
-
 \end{equation}
 
 Rearrange and take the square root to get (gasp!) the half-angle identity:
 
 \begin{equation}
-
 \label{eq:cos-half}
-
 \cos {\theta \over 2} = \sqrt{{\cos \theta + 1} \over 2}
-
 \end{equation}
 
-The familiar half angle identity is a nice consequence of equation \eqref{eq:real}.
+The familiar half angle identity is a nice consequence of equation $\eqref{eq:real}$.
 
-We still have equation \eqref{eq:imag}. Could that lead us to the half-angle identity for sine?
+We still have equation $\eqref{eq:imag}$. Could that lead us to the half-angle identity for sine?
 
 Here's the imaginary component again:
 
 \begin{equation}
-
 \label{eq:imag2}
-
 \sin \theta = 2 \sin {\theta \over 2} \cos{\theta \over 2}
-
 \end{equation}
 
 Substitute what we just derived for the cosine half-angle:
 
 \begin{equation}
-
 \label{eq:5}
-
 \sin {\theta} = 2 \sin {\theta \over 2} \sqrt{{\cos \theta + 1} \over 2}
-
 \end{equation}
 
 Square each side and cancel:
 
 \begin{equation}
-
 \label{eq:6}
-
 \sin^2 {\theta} = 2 \sin^2 {\theta \over 2} (\cos \theta + 1)
-
 \end{equation}
 
 Use our identity from before on the left side:
 
 \begin{equation}
-
 \label{eq:10}
-
 \sin^2 \theta = 1 - \cos^2 \theta = (1 + \cos \theta)(1 - \cos \theta)
-
 \end{equation}
 
 Divide through, and take the square root:
 
 \begin{equation}
-
 \label{eq:sin-half}
-
 \sin {\theta \over 2} = \sqrt{{1 - \cos \theta} \over 2}
-
 \end{equation}
 
 And, boom, there it is! the half-angle identity for sine.
 
 ## Sums and Differences
 
-If you look back at equation \eqref{eq:expansion} you'll see that this trick would work for any factor inside the exponent, just just the $1 \over 2$. A similar trick can help you figure out any of [sum and difference identities](https://en.wikipedia.org/wiki/List_of_trigonometric_identities#Angle_sum_and_difference_identities), using observations like this:
+If you look back at equation $\eqref{eq:expansion}$ you'll see that this trick would work for any factor inside the exponent, just just the $1 \over 2$. A similar trick can help you figure out any of [sum and difference identities](https://en.wikipedia.org/wiki/List_of_trigonometric_identities#Angle_sum_and_difference_identities), using observations like this:
 
 \begin{equation}
-
 \label{eq:sumdiff}
-
 e^{i(\theta + \phi)} = e^{i\theta}e^{i\phi} = (\cos \theta + i \sin \theta)(\cos \phi + i \sin \phi)
-
 \end{equation}
 
 ## Conclusion

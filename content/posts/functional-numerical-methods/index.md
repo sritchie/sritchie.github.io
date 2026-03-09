@@ -2865,9 +2865,7 @@ Use `show` to print out its infix representation:
 ```
 
 \begin{equation}
-
 \frac{1}{24},{h}^{4},{D}^{4}f\left(x\right) + \frac{1}{6},{h}^{3},{D}^{3}f\left(x\right) + \frac{1}{2},{h}^{2},{D}^{2}f\left(x\right) + h,Df\left(x\right) + f\left(x\right)
-
 \end{equation}
 
 We can solve this for $Df(x)$ by subtracting $f(x)$ and dividing out $h$:
@@ -2877,9 +2875,7 @@ We can solve this for $Df(x)$ by subtracting $f(x)$ and dividing out $h$:
 ```
 
 \begin{equation}
-
 \frac{1}{24},{h}^{3},{D}^{4}f\left(x\right) + \frac{1}{6},{h}^{2},{D}^{3}f\left(x\right) + \frac{1}{2},h,{D}^{2}f\left(x\right) + Df\left(x\right)
-
 \end{equation}
 
 Voila! The remaining terms include $D f(x)$ along with a series of progressively-smaller &quot;error terms&quot; (since $h \to 0$). The first of these terms is ${1 \over 2} h D^2 f(x)$. It will come to dominate the error as $h \to 0$, so we say that the approximation we've just derived has error of $O(h)$.
@@ -2915,9 +2911,7 @@ We could also expand $f(x - h)$:
 ```
 
 \begin{equation}
-
 \frac{1}{24},{h}^{4},{D}^{4}f\left(x\right) + \frac{-1}{6},{h}^{3},{D}^{3}f\left(x\right) + \frac{1}{2},{h}^{2},{D}^{2}f\left(x\right) - h,Df\left(x\right) + f\left(x\right)
-
 \end{equation}
 
 and solve for $Df(x)$:
@@ -2927,9 +2921,7 @@ and solve for $Df(x)$:
 ```
 
 \begin{equation}
-
 \frac{-1}{24},{h}^{3},{D}^{4}f\left(x\right) + \frac{1}{6},{h}^{2},{D}^{3}f\left(x\right) + \frac{-1}{2},h,{D}^{2}f\left(x\right) + Df\left(x\right)
-
 \end{equation}
 
 To get a similar method, called the &quot;backward difference&quot; formula. Here's the implementation:
@@ -2958,9 +2950,7 @@ We can find yet another method for approximating $Df(x)$ if we subtract these tw
 ```
 
 \begin{equation}
-
 \frac{1}{3},{h}^{3},{D}^{3}f\left(x\right) + 2,h,Df\left(x\right)
-
 \end{equation}
 
 Amazing! Now solve for $Df(x)$:
@@ -2971,9 +2961,7 @@ Amazing! Now solve for $Df(x)$:
 ```
 
 \begin{equation}
-
 \frac{1}{6},{h}^{2},{D}^{3}f\left(x\right) + Df\left(x\right)
-
 \end{equation}
 
 We're left with $Df(x) + O(h^2)$, a quadratic error term in $h$. (Of course if we'd expanded to more than initial terms in the taylor series we'd see a long error series with only even powers.)
@@ -2999,9 +2987,7 @@ There's one more approximation we can extract from these two expansions. We note
 ```
 
 \begin{equation}
-
 \frac{1}{12},{h}^{4},{D}^{4}f\left(x\right) + {h}^{2},{D}^{2}f\left(x\right) + 2,f\left(x\right)
-
 \end{equation}
 
 Interesting. The $Df(x)$ term is gone. Remember that we have $f(x)$ available; the first unknown term in the series is now $D^2 f(x)$. Solve for that term:
@@ -3012,9 +2998,7 @@ Interesting. The $Df(x)$ term is gone. Remember that we have $f(x)$ available; t
 ```
 
 \begin{equation}
-
 \frac{1}{12},{h}^{2},{D}^{4}f\left(x\right) + {D}^{2}f\left(x\right)
-
 \end{equation}
 
 This is the &quot;central difference&quot; approximation to the *second* derivative of $f$. Note that the error term here is quadratic in $h$. Here it is in code:
