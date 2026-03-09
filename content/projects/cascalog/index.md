@@ -2,7 +2,6 @@
 title: "Cascalog"
 description: "Data processing library for Clojure on Hadoop"
 project_url: "https://github.com/nathanmarz/cascalog"
-status: "archived"
 tech: ["Clojure", "Hadoop"]
 image: ""
 weight: 2

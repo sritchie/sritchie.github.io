@@ -2,7 +2,6 @@
 title: "ElephantDB"
 description: "Distributed read-only database for Hadoop-generated data"
 project_url: "https://github.com/nathanmarz/elephantdb"
-status: "archived"
 tech: ["Clojure", "Java", "Hadoop"]
 image: ""
 weight: 12

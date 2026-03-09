@@ -2,7 +2,6 @@
 title: "Algebird"
 description: "Abstract algebra for Scala, powering aggregation at scale"
 project_url: "https://github.com/twitter/algebird"
-status: "archived"
 tech: ["Scala"]
 image: ""
 weight: 4

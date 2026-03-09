@@ -2,7 +2,6 @@
 title: "PaddleGuru / RaceHub"
 description: "Race registration and results platform for endurance sports"
 project_url: "https://paddleguru.com/"
-status: "maintained"
 tech: ["Clojure", "ClojureScript"]
 image: ""
 weight: 1

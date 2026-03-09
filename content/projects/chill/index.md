@@ -2,7 +2,6 @@
 title: "Chill"
 description: "Kryo serialization extensions for Scala and beyond"
 project_url: "https://github.com/twitter/chill"
-status: "archived"
 tech: ["Scala", "Java", "Kryo"]
 image: ""
 weight: 9

@@ -165,24 +165,6 @@ pre {
   margin-top: 0.8rem;
 }
 
-.project-status {
-  font-size: 0.75rem;
-  padding: 0.15rem 0.5rem;
-  border-radius: 4px;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  font-family: var(--font-mono);
-}
-
-.status-active { background: #e6f4ea; color: #1a7431; }
-.status-maintained { background: #e8f0fe; color: #1a56db; }
-.status-archived { background: #f3f4f6; color: #6b7280; }
-.status-completed { background: #fef3c7; color: #92400e; }
-
-[data-theme="dark"] .status-active { background: #1a3a2a; color: #6ee7b7; }
-[data-theme="dark"] .status-maintained { background: #1e2a4a; color: #93c5fd; }
-[data-theme="dark"] .status-archived { background: #1f2937; color: #9ca3af; }
-[data-theme="dark"] .status-completed { background: #451a03; color: #fcd34d; }
 
 .project-tech {
   font-size: 0.75rem;

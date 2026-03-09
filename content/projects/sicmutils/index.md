@@ -2,7 +2,6 @@
 title: "SICMUtils"
 description: "Computer algebra system for math and physics in Clojure/ClojureScript"
 project_url: "https://github.com/sicmutils/sicmutils"
-status: "active"
 tech: ["Clojure", "ClojureScript"]
 image: ""
 weight: 1

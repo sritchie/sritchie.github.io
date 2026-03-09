@@ -2,7 +2,6 @@
 title: "Road to Reality"
 description: "Newsletter on math, physics, and functional programming"
 project_url: "https://roadtoreality.substack.com/"
-status: "active"
 tech: []
 image: ""
 weight: 1

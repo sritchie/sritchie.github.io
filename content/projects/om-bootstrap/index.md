@@ -2,7 +2,6 @@
 title: "Om-Bootstrap"
 description: "Bootstrap 3 components for ClojureScript's Om framework"
 project_url: "https://github.com/racehub/om-bootstrap"
-status: "archived"
 tech: ["ClojureScript", "Om", "Bootstrap"]
 image: ""
 weight: 13

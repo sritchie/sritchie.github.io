@@ -2,7 +2,6 @@
 title: "Personal PhD"
 description: "Self-directed study in mathematics, physics, and computer science"
 project_url: ""
-status: "active"
 tech: []
 image: ""
 weight: 3

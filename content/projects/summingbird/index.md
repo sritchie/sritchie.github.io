@@ -2,7 +2,6 @@
 title: "Summingbird"
 description: "Streaming MapReduce with Scalding and Storm"
 project_url: "https://github.com/twitter/summingbird"
-status: "archived"
 tech: ["Scala", "Storm", "Scalding"]
 image: ""
 weight: 3
