@@ -14,18 +14,11 @@ math: true
 (This is a writeup of [Exercise 1.3](https://tgvaughan.github.io/sicm/chapter001.html#Exe_1-3) from Sussman and Wisdom's &quot;Structure and Interpretation of Classical Mechanics&quot;. See the [solutions repository](https://github.com/sritchie/sicm) for more.)
 
 - [Law of Reflection](#law-of-reflection)
-<ul>
-<li>[Geometry](#geometry)
-- [Calculus](#calculus)
-
-</li>
-<li>[Law of Refraction](#law-of-refraction)
-
-- [Calculus](#calculus-1)
-- [Geometry](#geometry-1)
-
-</li>
-</ul>
+  - [Geometry](#geometry)
+  - [Calculus](#calculus)
+- [Law of Refraction](#law-of-refraction)
+  - [Calculus](#calculus-1)
+  - [Geometry](#geometry-1)
 
 The problem explores some consequences for optics of the principle of least time. The exercise states:
 

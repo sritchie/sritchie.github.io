@@ -236,8 +236,8 @@ pre {
   margin: 1.5rem 0;
 }
 
-/* ── KaTeX overrides ── */
-.katex-display {
+/* ── MathJax overrides ── */
+mjx-container[jax="CHTML"][display="true"] {
   overflow-x: auto;
   overflow-y: hidden;
   padding: 0.5em 0;

@@ -14,145 +14,87 @@ If you're into Clojure, you can use all of this code by importing version `0.13.
 Enjoy!
 
 - [Introduction](#introduction)
-<ul>
-<li>[The Interface](#the-interface)
-<ul>
-<li>[Implementation](#implementation)
-- [Final API](#final-api)
-
-</li>
-</ul>
-</li>
-<li>[Basics](#basics)
-
-- [Riemann Sums](#riemann-sums)
-<ul>
-<li>[Riemann Sum Implementation](#riemann-sum-implementation)
-- [Estimating Integrals with Riemann Sums](#estimating-integrals-with-riemann-sums)
-- [Sequence Acceleration](#sequence-acceleration)
-- [Incremental Computation](#incremental-computation)
-- [Generalizing the Incremental Approach](#generalizing-the-incremental-approach)
-- [Incremental Updates with Any Sequence](#incremental-updates-with-any-sequence)
-- [Final Incremental Implementations](#final-incremental-implementations)
-- [Integral API](#integral-api)
-- [Next Steps](#next-steps)
-
-</li>
-<li>[Midpoint Rule](#midpoint-rule)
-
-- [Simple Midpoint Rule](#simple-midpoint-rule)
-- [Efficient Midpoint Method](#efficient-midpoint-method)
-- [Incremental Midpoint Method](#incremental-midpoint-method)
-- [Final Midpoint API](#final-midpoint-api)
-- [Next Steps](#next-steps-1)
-
-</li>
-<li>[Trapezoid Rule](#trapezoid-rule)
-
-- [Simple Implementation](#simple-implementation)
-- [Efficient Trapezoid Method](#efficient-trapezoid-method)
-- [Incremental Trapezoid Rule](#incremental-trapezoid-rule)
-- [Final Trapezoid API:](#final-trapezoid-api)
-- [Next Steps](#next-steps-2)
-
-</li>
-</ul>
-</li>
-<li>[Sequence Acceleration](#sequence-acceleration-1)
-
-- [Richardson Extrapolation](#richardson-extrapolation)
-<ul>
-<li>[Richardson Interpolation](#richardson-interpolation)
-- [Richardson Columns](#richardson-columns)
-- [Richardson Extrapolation and Polynomial Extrapolation](#richardson-extrapolation-and-polynomial-extrapolation)
-
-</li>
-<li>[Polynomial Extrapolation](#polynomial-extrapolation)
-
-- [Neville's Algorithm](#nevilles-algorithm)
-- [Tableau-based Methods](#tableau-based-methods)
-- [Generic Tableau Processing](#generic-tableau-processing)
-- [Modified Neville](#modified-neville)
-- [Folds and Tableaus by Row](#folds-and-tableaus-by-row)
-- [Fold Utilities](#fold-utilities)
-
-</li>
-<li>[Rational Function Extrapolation](#rational-function-extrapolation)
-
-- [Incremental Bulirsch-Stoer](#incremental-bulirsch-stoer)
-- [Rational Interpolation as a Fold](#rational-interpolation-as-a-fold)
-
-</li>
-</ul>
-</li>
-<li>[Higher-Order Calculus](#higher-order-calculus)
-
-- [Numerical Derivatives](#numerical-derivatives)
-<ul>
-<li>[Approximating Derivatives with Taylor Series](#approximating-derivatives-with-taylor-series)
-- [Taking Derivatives](#taking-derivatives)
-- [Roundoff Error](#roundoff-error)
-- [Richardson Extrapolation](#richardson-extrapolation-1)
-- [Putting it All Together](#putting-it-all-together)
-
-</li>
-<li>[Simpson's Rule](#simpsons-rule)</li>
-<li>[Simpson's 3/8 Rule](#simpsons-38-rule)</li>
-<li>[Boole's Rule](#booles-rule)</li>
-<li>[Romberg Integration](#romberg-integration)</li>
-<li>[Milne's Rule](#milnes-rule)</li>
-<li>[Bulirsch-Stoer Integration](#bulirsch-stoer-integration)
-
-- [Even Power Series](#even-power-series)
-- [Bulirsch-Stoer Estimate Sequences](#bulirsch-stoer-estimate-sequences)
-- [Integration API](#integration-api)
-- [References:](#references)
-
-</li>
-</ul>
-</li>
-<li>[Combinators](#combinators)
-
-- [Variable Substitutions](#variable-substitutions)
-<ul>
-<li>[Infinite Endpoints](#infinite-endpoints)
-- [Power Law Singularities](#power-law-singularities)
-- [Inverse Square Root singularities](#inverse-square-root-singularities)
-- [Exponentially Diverging Endpoints](#exponentially-diverging-endpoints)
-
-</li>
-<li>[Improper Integrals](#improper-integrals)
-
-- [Overview](#overview)
-- [Implementation](#implementation-1)
-- [Suggestions for Improvement](#suggestions-for-improvement)
-
-</li>
-<li>[Adaptive Quadrature](#adaptive-quadrature)
-
-- [Overview](#overview-1)
-- [Fuzzy Midpoints](#fuzzy-midpoints)
-- [Main Implementation](#main-implementation)
-- [Suggestions for Improvement](#suggestions-for-improvement-1)
-- [References](#references-1)
-
-</li>
-</ul>
-</li>
-<li>[Conclusion](#conclusion)</li>
-<li>[Appendix: Common Code](#appendix-common-code)
-
-- [Intervals](#intervals)
-- [Common Integration Interface](#common-integration-interface)
-
-</li>
-<li>[Appendix: Streams](#appendix-streams)
-
-- [Convergence Tests](#convergence-tests)
-
-</li>
-<li>[Appendix: Aggregation](#appendix-aggregation)</li>
-</ul>
+  - [The Interface](#the-interface)
+    - [Implementation](#implementation)
+    - [Final API](#final-api)
+  - [Basics](#basics)
+    - [Riemann Sums](#riemann-sums)
+      - [Riemann Sum Implementation](#riemann-sum-implementation)
+      - [Estimating Integrals with Riemann Sums](#estimating-integrals-with-riemann-sums)
+      - [Sequence Acceleration](#sequence-acceleration)
+      - [Incremental Computation](#incremental-computation)
+      - [Generalizing the Incremental Approach](#generalizing-the-incremental-approach)
+      - [Incremental Updates with Any Sequence](#incremental-updates-with-any-sequence)
+      - [Final Incremental Implementations](#final-incremental-implementations)
+      - [Integral API](#integral-api)
+      - [Next Steps](#next-steps)
+    - [Midpoint Rule](#midpoint-rule)
+      - [Simple Midpoint Rule](#simple-midpoint-rule)
+      - [Efficient Midpoint Method](#efficient-midpoint-method)
+      - [Incremental Midpoint Method](#incremental-midpoint-method)
+      - [Final Midpoint API](#final-midpoint-api)
+      - [Next Steps](#next-steps-1)
+    - [Trapezoid Rule](#trapezoid-rule)
+      - [Simple Implementation](#simple-implementation)
+      - [Efficient Trapezoid Method](#efficient-trapezoid-method)
+      - [Incremental Trapezoid Rule](#incremental-trapezoid-rule)
+      - [Final Trapezoid API:](#final-trapezoid-api)
+      - [Next Steps](#next-steps-2)
+  - [Sequence Acceleration](#sequence-acceleration-1)
+    - [Richardson Extrapolation](#richardson-extrapolation)
+      - [Richardson Interpolation](#richardson-interpolation)
+      - [Richardson Columns](#richardson-columns)
+      - [Richardson Extrapolation and Polynomial Extrapolation](#richardson-extrapolation-and-polynomial-extrapolation)
+    - [Polynomial Extrapolation](#polynomial-extrapolation)
+      - [Neville's Algorithm](#nevilles-algorithm)
+      - [Tableau-based Methods](#tableau-based-methods)
+      - [Generic Tableau Processing](#generic-tableau-processing)
+      - [Modified Neville](#modified-neville)
+      - [Folds and Tableaus by Row](#folds-and-tableaus-by-row)
+      - [Fold Utilities](#fold-utilities)
+    - [Rational Function Extrapolation](#rational-function-extrapolation)
+      - [Incremental Bulirsch-Stoer](#incremental-bulirsch-stoer)
+      - [Rational Interpolation as a Fold](#rational-interpolation-as-a-fold)
+  - [Higher-Order Calculus](#higher-order-calculus)
+    - [Numerical Derivatives](#numerical-derivatives)
+      - [Approximating Derivatives with Taylor Series](#approximating-derivatives-with-taylor-series)
+      - [Taking Derivatives](#taking-derivatives)
+      - [Roundoff Error](#roundoff-error)
+      - [Richardson Extrapolation](#richardson-extrapolation-1)
+      - [Putting it All Together](#putting-it-all-together)
+    - [Simpson's Rule](#simpsons-rule)
+    - [Simpson's 3/8 Rule](#simpsons-38-rule)
+    - [Boole's Rule](#booles-rule)
+    - [Romberg Integration](#romberg-integration)
+    - [Milne's Rule](#milnes-rule)
+    - [Bulirsch-Stoer Integration](#bulirsch-stoer-integration)
+      - [Even Power Series](#even-power-series)
+      - [Bulirsch-Stoer Estimate Sequences](#bulirsch-stoer-estimate-sequences)
+      - [Integration API](#integration-api)
+      - [References:](#references)
+  - [Combinators](#combinators)
+    - [Variable Substitutions](#variable-substitutions)
+      - [Infinite Endpoints](#infinite-endpoints)
+      - [Power Law Singularities](#power-law-singularities)
+      - [Inverse Square Root singularities](#inverse-square-root-singularities)
+      - [Exponentially Diverging Endpoints](#exponentially-diverging-endpoints)
+    - [Improper Integrals](#improper-integrals)
+      - [Overview](#overview)
+      - [Implementation](#implementation-1)
+      - [Suggestions for Improvement](#suggestions-for-improvement)
+    - [Adaptive Quadrature](#adaptive-quadrature)
+      - [Overview](#overview-1)
+      - [Fuzzy Midpoints](#fuzzy-midpoints)
+      - [Main Implementation](#main-implementation)
+      - [Suggestions for Improvement](#suggestions-for-improvement-1)
+      - [References](#references-1)
+  - [Conclusion](#conclusion)
+  - [Appendix: Common Code](#appendix-common-code)
+    - [Intervals](#intervals)
+    - [Common Integration Interface](#common-integration-interface)
+  - [Appendix: Streams](#appendix-streams)
+    - [Convergence Tests](#convergence-tests)
+  - [Appendix: Aggregation](#appendix-aggregation)
 
 # Introduction
 
