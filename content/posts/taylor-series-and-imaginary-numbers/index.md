@@ -114,7 +114,7 @@ This picture shows visually all of the relationships we need to verify that you 
 
 The two complex numbers that this picture represents are $c_1 = \cos \beta + i \sin \beta$ and $c_2 = \cos \alpha + i \sin \alpha$. 
 
-Imagine the red triangle rotated up by an additional angle of $\alpha$. We can work out the same math as in \eqref{eq:angles} above, with $\alpha$ and $\beta$ subbed in, and $r_1 = r_2 = 1$:
+Imagine the red triangle rotated up by an additional angle of $\alpha$. We can work out the same math as in $\eqref{eq:angles}$ above, with $\alpha$ and $\beta$ subbed in, and $r_1 = r_2 = 1$:
 
 \begin{equation}
 (\cos \alpha + i \sin \alpha)(\cos \beta + i \sin \beta)
@@ -126,7 +126,7 @@ If you look at the white triangle on the left, you can verify that the final tri
 (cos(\alpha + \beta) + i \sin(\alpha + \beta))
 \end{equation}
 
-Just like we verified in \eqref{eq:confirmangles}.
+Just like we verified in $\eqref{eq:confirmangles}$.
 
 ## Polar Coordinates
 
@@ -236,7 +236,7 @@ then do the steps for $e^x$, which is its own derivative.
 
 ### Euler's Formula
 
-That gets us back to the amazing equation \eqref{eq:euler}, repeated here:
+That gets us back to the amazing equation $\eqref{eq:euler}$, repeated here:
 
 \begin{equation}
 e^{ix} = \cos x + i \sin x
