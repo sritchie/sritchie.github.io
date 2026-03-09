@@ -2,7 +2,6 @@ baseURL: "https://samritchie.io/"
 languageCode: en-US
 title: "Sam Ritchie"
 theme: hugo-tufte
-canonifyurls: true
 pagination:
   pagerSize: 10
 
