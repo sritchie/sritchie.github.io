@@ -9,7 +9,7 @@ description: "Conference talks, podcasts, and press coverage."
 [Video](https://www.youtube.com/watch?v=Jv2JgzAl5yU) · [Demos](https://github.com/sritchie/strange-loop-2023#demos)
 
 **Emmy: Moldable Physics and Lispy Microworlds** — Clojure/Conj 2023
-[Video](https://www.youtube.com/watch?v=B9kqD8vBuwU)
+[Video](https://www.youtube.com/watch?v=B9kqD8vBuwU) · [Repo](https://github.com/sritchie/clojure-conj-2023)
 
 **Executable Textbooks with Sam Ritchie** — The REPL Podcast
 [Episode](https://www.therepl.net/episodes/47/)
@@ -17,10 +17,10 @@ description: "Conference talks, podcasts, and press coverage."
 ## 2022
 
 **Building SICMUtils, the Atelier of Abstractions** — European Lisp Symposium
-[Video](https://www.youtube.com/watch?v=PFQhL_iwk5o) · [Slides](https://speakerdeck.com/sritchie/building-sicmutils-the-atelier-of-abstractions)
+[Video](https://www.youtube.com/watch?v=PFQhL_iwk5o) · [Slides](https://speakerdeck.com/sritchie/building-sicmutils-the-atelier-of-abstractions) · [Repo](https://github.com/sritchie/programming-2022)
 
 **Lisp as Renaissance Workshop: A Lispy Tour through Mathematical Physics** — European Lisp Symposium
-[Video](https://www.youtube.com/watch?v=kEvE_l8eCso) · [Slides](https://speakerdeck.com/sritchie/lisp-as-renaissance-workshop-a-lispy-tour-through-mathematical-physics)
+[Video](https://www.youtube.com/watch?v=kEvE_l8eCso) · [Slides](https://speakerdeck.com/sritchie/lisp-as-renaissance-workshop-a-lispy-tour-through-mathematical-physics) · [Repo](https://github.com/sritchie/programming-2022)
 
 ## 2021
 
