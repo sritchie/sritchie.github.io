@@ -39,7 +39,7 @@ markup:
     lineNos: false
 
 params:
-  comments: true
+  comments: false
   defaultTheme: auto
   ShowReadingTime: true
   ShowPostNavLinks: true
@@ -52,10 +52,8 @@ params:
   socialIcons:
     - name: github
       url: "https://github.com/sritchie"
-    - name: instagram
-      url: "https://instagram.com/sritchie09"
     - name: email
-      url: "mailto:sritchie09@gmail.com"
+      url: "mailto:sam@mentat.org"
     - name: substack
       title: "Road to Reality newsletter"
       url: "https://roadtoreality.substack.com/"
@@ -97,8 +95,8 @@ menu:
     - name: Adventure Resume
       url: /racing/
       weight: 60
-    - name: Tags
-      url: /tags/
+    - name: Race Reports
+      url: /tags/race-report/
       weight: 65
     - name: Search
       url: /search/
