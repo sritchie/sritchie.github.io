@@ -1,5 +1,5 @@
 ---
-title: "Racing"
+title: "Adventure Resume"
 slug: "racing"
 ---
 

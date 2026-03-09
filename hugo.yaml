@@ -26,6 +26,7 @@ markup:
     lineNos: false
 
 params:
+  comments: true
   defaultTheme: auto
   ShowReadingTime: true
   ShowPostNavLinks: true
@@ -60,21 +61,24 @@ params:
 
 menu:
   main:
-    - name: Writing
-      url: /posts/
-      weight: 10
-    - name: Projects
-      url: /projects/
-      weight: 20
-    - name: Talks
-      url: /talks/
-      weight: 30
-    - name: Racing
-      url: /racing/
-      weight: 40
     - name: About
       url: /about/
+      weight: 10
+    - name: Blog Index
+      url: /posts/
+      weight: 20
+    - name: Bookshelf
+      url: /bookshelf/
+      weight: 30
+    - name: Talks
+      url: /talks/
+      weight: 40
+    - name: Projects
+      url: /projects/
       weight: 50
+    - name: Adventure Resume
+      url: /racing/
+      weight: 60
     - name: Search
       url: /search/
-      weight: 60
+      weight: 70

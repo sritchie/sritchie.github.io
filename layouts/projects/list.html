@@ -10,7 +10,7 @@
     {{ .Content }}
 
     {{ $allProjects := where .Site.RegularPages "Section" "projects" }}
-    {{ $groups := dict "open-source" "Open Source Libraries" "applications" "Applications" "aviation" "Aviation" "writing" "Writing & Media" }}
+    {{ $groups := dict "open-source" "Open Source Libraries" "applications" "Applications" "aviation" "Aviation" "builds" "Builds" "writing" "Writing & Media" }}
 
     {{ range $key, $label := $groups }}
       {{ $pages := where $allProjects ".Params.group" $key }}
