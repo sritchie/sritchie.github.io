@@ -7,6 +7,9 @@ tags:
 categories:
   - essays
 image: 2ndkind.jpg
+cover:
+  image: "2ndkind.jpg"
+  hidden: true
 ---
 
 I spent a while this summer reading math books and popular science, trying to figure out what a life in "research" might look like; in late Spring I began to sense that it was time to wake up my brain and start thinking again, and the best way forward seemed to be to find examples of lives-well-lived in science and study the cases.

@@ -63,9 +63,7 @@ $$x = {-b \pm \sqrt{b^2-4ac} \over 2a}$$
 ```
 
 And MathJax would render the block like this:
-
 $$x = {-b \pm \sqrt{b^2-4ac} \over 2a}$$
-
 Usually you install Mathjax by dropping something like the following in your website's footer:
 
 ```js

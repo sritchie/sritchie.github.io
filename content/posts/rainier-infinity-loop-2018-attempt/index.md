@@ -9,6 +9,9 @@ tags:
 categories:
   - adventure
 image: ril.png
+cover:
+  image: "ril.png"
+  hidden: true
 ---
 
 Earlier this month I attempted to complete the biggest endurance adventure of my life: the Rainier Infinity Loop, a project dreamed up by [the late Chad Kellogg](https://en.wikipedia.org/wiki/Chad_Kellogg). The line physically traces out a rather sloppy infinity sign by traveling over Mount Rainier, the most glaciated peak in the lower 48, 28 miles clockwise around its base on the Wonderland trail back to the start, over the mountain again and then counter-clockwise on the remaining 65 miles of the Wonderland trail. Knock all that out and you'll have traveled over 130 miles and climbed around 47,000 vertical feet.

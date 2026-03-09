@@ -26,7 +26,7 @@ The first cascalog-contrib modules are now live on [clojars](http://clojars.org/
 
 Contrib currently has three modules: `cascalog.math`, `cascalog.incanter` and `cascalog.checkpoint`. `math` and `incanter` are still fairly sparse, but `checkpoint` is quite interesting and battle-tested at Twitter. Read on if you're interested in the details of the `checkpoint` module; otherwise, I'll see you on the mailing list!
 
-## cascalog.contrib.checkpoint<a id="sec-1-1" name="sec-1-1"></a>
+## cascalog.contrib.checkpoint
 
 The `workflow` macro in the checkpoint module allows you to break complicated workflows out into small, checkpointed steps. If one of these steps causes a job to fail and you restart the job, the workflow macro will skip every step up to the previous point of failure. Fault-tolerant MapReduce topologies ftw!
 
@@ -113,6 +113,6 @@ final-step ([:deps :all]
                             output-path))
 ```
 
-## In Conclusion<a id="sec-1-2" name="sec-1-2"></a>
+## In Conclusion
 
 I'm quite excited about the Cascalog-contrib project and hope you all make heavy use of it as its functionality grows. In the short-term, I'm planning on hooking Cascalog in to [Incanter's](http://incanter.org/) amazing visualization suite through the `cascalog.incanter` module.

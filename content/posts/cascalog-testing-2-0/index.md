@@ -16,7 +16,7 @@ A few months ago I announced [Midje-Cascalog](http://sritchie.github.com/2011/09
 [midje-cascalog "0.4.0"]
 ```
 
-## Midje-Cascalog Refresher<a id="sec-1-1" name="sec-1-1"></a>
+## Midje-Cascalog Refresher
 
 Take the following Cascalog query:
 
@@ -47,7 +47,7 @@ How would you go about testing that this is true? With midje-cascalog, you would
 
 I find that `fact?<-` and `fact?-` macros can be a bit confusing when you start mixing Cascalog and Midje tests, as they break the Midje pattern of `<thing-to-test> => <expected-thing>`. The syntax updates fix all of this with a set of checker functions that mimic Midje's excellent [set of collection checkers](https://github.com/marick/Midje/wiki/Checkers-for-collections-and-strings).
 
-## The "produces" checker<a id="sec-1-2" name="sec-1-2"></a>
+## The "produces" checker
 
 Midje-cascalog 0.4.0 introduces the `produces` function, mirroring Midje's `just`. Let's define a source of tuples and a query to test.
 
@@ -103,7 +103,7 @@ Using the `:in-order` keyword after the expected tuple sequence forces the test 
 
 (`:in-order` is really only helpful in cases where output is sorted, like our query above.)
 
-## produces-some<a id="sec-1-3" name="sec-1-3"></a>
+## produces-some
 
 The `produces-some` checker tests that a query's output contains a subset of tuples:
 
@@ -130,7 +130,7 @@ Adding the `:no-gaps` keyword introduces the constraint that tuples must also be
   query => (produces-some [[1 5] [3 10]] :in-order :no-gaps))    ;; true
 ```
 
-## produces-prefix and produces-suffix<a id="sec-1-4" name="sec-1-4"></a>
+## produces-prefix and produces-suffix
 
 `produce-prefix` mimics the `has-prefix` collection checker by checking that some set of tuples is produced at the beginning of the query's output. `produces-prefix` implicitly assumes that tuples will be produced in order with no gaps:
 
@@ -147,7 +147,7 @@ Similarly, `produce-suffix` mimics the `has-suffix` collection checker by checki
   query => (produces-suffix [[5 11]])) ;; true
 ```
 
-## log-level keywords<a id="sec-1-5" name="sec-1-5"></a>
+## log-level keywords
 
 In addition to the keyword options supported above, every one of these checkers supports on optional logging-level keyword. For example, the following two facts are equivalent, but the second one produces `:info` level logging when it runs:
 
@@ -159,7 +159,7 @@ In addition to the keyword options supported above, every one of these checkers 
 
 Log level keywords can be useful when debugging tests, as errors will often only appear in the logging output. Currently supported keywords are `:off` (the default), `:fatal`, `:warn`, `:info` and `:debug`. The log level needs to be the first keyword argument if you supply multiple.
 
-## wrap-checker<a id="sec-1-6" name="sec-1-6"></a>
+## wrap-checker
 
 The real power of the `0.4.0` update is the way in which the previous query checkers were defined. Each of the above checkers mimics the behavior of one of Midje's built-in collection checkers with slightly different keyword arguments. This makes sense if you think of a query as a collection of tuples waiting to be produced (by query execution). The above checkers will get you quite a ways, but what if you want to test a query against some other Midje collection checker?
 
@@ -212,7 +212,7 @@ A few more examples:
     (id-query src) => (one-of-tuples even-tuple?))) ;; true
 ```
 
-## Backwards Compatibility<a id="sec-1-7" name="sec-1-7"></a>
+## Backwards Compatibility
 
 All of the collection checkers discussed above can be used with the `fact?<-` and `fact?-` macros:
 
@@ -226,7 +226,7 @@ All of the collection checkers discussed above can be used with the `fact?<-` an
 
 `fact?<-` and `fact?-` are also compatible with all of Midje's unwrapped collection checkers, as discussed [here](http://sritchie.github.com/2011/09/30/testing-cascalog-with-midje.html).
 
-## Conclusion<a id="sec-1-8" name="sec-1-8"></a>
+## Conclusion
 
 Midje is an astonishingly good testing framework; I'm continually surprised by how well its idioms and conventions satisfy Cascalog's needs. In my next post here I'll go over some of the more subtle details of the `wrap-checker` function. For the curious, [here's the code](https://github.com/sritchie/midje-cascalog/blob/develop/src/midje/cascalog.clj#L39).
 

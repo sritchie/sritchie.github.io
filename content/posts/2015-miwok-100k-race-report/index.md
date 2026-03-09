@@ -28,7 +28,8 @@ The race started at 5am on Saturday. I woke up at 1:45, stretched, showered, cra
 
 We parked at an art gallery across from the finish line and went inside to check in. I left my jacket with Jenna and jogged the first quarter mile of the course, checking out the bottleneck entrance to the Dipsea trail where everyone behind the leaders clogs the trail and are forced to walk.
 
-[Only 63 miles today. #miwok -- View on Instagram](https://instagram.com/p/2LrwXgEvAK/)
+<blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/2LrwXgEvAK/" data-instgrm-version="14"><a href="https://www.instagram.com/p/2LrwXgEvAK/">Only 63 miles today. #miwok — View on Instagram</a></blockquote>
+<script async src="//www.instagram.com/embed.js"></script>
 
 We lined up. I was warm from the bodies pressing in around me. I heard a muffled countdown from the organizer ahead; she yelled &quot;ONE!&quot;, and then we were off. I pushed hard, arcing out right around the group, about twenty places back but past the mob and in a good spot. I ran up the stairs, watching my heart rate climb in the excitement and breathing it down. That first mile always coaxes you to *run*, as if those early miles can do anything but hurt you. I guess you can bank time, but it's such an art, setting the tone with twelve hours of yawning unknown beyond.
 

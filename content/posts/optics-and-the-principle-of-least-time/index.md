@@ -13,16 +13,16 @@ math: true
 
 (This is a writeup of [Exercise 1.3](https://tgvaughan.github.io/sicm/chapter001.html#Exe_1-3) from Sussman and Wisdom's &quot;Structure and Interpretation of Classical Mechanics&quot;. See the [solutions repository](https://github.com/sritchie/sicm) for more.)
 
-- [Law of Reflection](#sec-1-1)
+- [Law of Reflection](#law-of-reflection)
 <ul>
-<li>[Geometry](#sec-1-1-1)
-- [Calculus](#sec-1-1-2)
+<li>[Geometry](#geometry)
+- [Calculus](#calculus)
 
 </li>
-<li>[Law of Refraction](#sec-1-2)
+<li>[Law of Refraction](#law-of-refraction)
 
-- [Calculus](#sec-1-2-1)
-- [Geometry](#sec-1-2-2)
+- [Calculus](#calculus-1)
+- [Geometry](#geometry-1)
 
 </li>
 </ul>
@@ -31,7 +31,7 @@ The problem explores some consequences for optics of the principle of least time
 
 > Fermat observed that the laws of reflection and refraction could be accounted for by the following facts: Light travels in a straight line in any particular medium with a velocity that depends upon the medium. The path taken by a ray from a source to a destination through any sequence of media is a path of least total time, compared to neighboring paths. Show that these facts imply the laws of reflection and refraction.
 
-## Law of Reflection<a id="sec-1-1"></a>
+## Law of Reflection
 
 The [law of reflection](https://en.wikipedia.org/wiki/Reflection_(physics)#Laws_of_reflection) is described in the footnote:
 
@@ -47,7 +47,7 @@ The *actual* path of minimum time is the straight line that avoids the mirror, o
 
 There are two ways to solve this problem. We can use geometry and visual intuition, or we can use calculus.
 
-### Geometry<a id="sec-1-1-1"></a>
+### Geometry
 
 First, recall this fact from the problem text:
 
@@ -61,7 +61,7 @@ The angle that the beam makes with the plane of the mirror is the same on both s
 
 Now reflect the the &quot;end&quot; point and the segment of the beam that's crossed the mirror back up. By symmetry, $\theta_1 = \theta_2$, and we've proved the law of reflection.
 
-### Calculus<a id="sec-1-1-2"></a>
+### Calculus
 
 We can also solve this with calculus. Because the beam doesn't change media, its speed $v$ stays constant, so minimizing the total distance $d$ is equivalent to minimizing the time $t = {d \over v}$.
 
@@ -193,7 +193,7 @@ Plug this in to the derivative of the original `total-distance` function, and we
 
 If a beam of light travels in a way that minimizes total distance (and therefore time in a constant medium), then it will reflect off of a mirror with the same angle at which it arrived. The law of reflection holds.
 
-## Law of Refraction<a id="sec-1-2"></a>
+## Law of Refraction
 
 The law of refraction is also called [Snell's law](https://en.wikipedia.org/wiki/Snell%27s_law). Here's the description from the footnote:
 
@@ -201,7 +201,7 @@ The law of refraction is also called [Snell's law](https://en.wikipedia.org/wiki
 
 First we'll tackle this with calculus.
 
-### Calculus<a id="sec-1-2-1"></a>
+### Calculus
 
 The setup here is slightly different. We have a light beam traveling from one medium to another and changing speeds at a boundary located $a$ to the right of the starting point. The goal is to figure out the point where the light will hit the boundary, if we assume that the light will take the path of least time.
 
@@ -259,7 +259,7 @@ Rearranging yields Snell's law:
 
 \end{equation}
 
-### Geometry<a id="sec-1-2-2"></a>
+### Geometry
 
 I won't recreate this here, but the [Feynman Lectures on Physics](https://www.feynmanlectures.caltech.edu/I_26.html), in [Lecture 26](https://www.feynmanlectures.caltech.edu/I_26.html), has a fantastic discussion about, and derivation of, the law of refraction using no calculus, just geometry. I highly recommend you check out that lecture. Feynman lays out a number of examples of how the principle of least time is not just a restatement of the optical rules we already knew.
 

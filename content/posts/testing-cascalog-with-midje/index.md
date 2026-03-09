@@ -18,11 +18,11 @@ Cascalog is free of this weakness. [midje-cascalog](https://github.com/sritchie/
 
 I'll start by introducing midje-cascalog's testing operators, then move on to a Cascalog implementation of Word Count, tests included. You can find all source code from this post [on github](https://github.com/sritchie/cascalog-testing-demo).
 
-## Testing Operators<a id="sec-1-1" name="sec-1-1"></a>
+## Testing Operators
 
 In this section, I'll discuss midje-cascalog's testing operators: `fact?-` and `fact?<-`. (The syntax mirrors `?-` and `?<-`, Cascalog's [query execution operators](http://www.assembla.com/spaces/cascalog/wiki/Defining_and_executing_queries).) These operators provide the abstractions necessary for testing complex Cascalog workflows. Add them to your namespace by including `(:use midje.cascalog)` in the namespace header.
 
-### fact?-<a id="sec-1-1-1" name="sec-1-1-1"></a>
+### fact?-
 
 Let's begin by defining a function to test:
 
@@ -115,7 +115,7 @@ Note that facts don't have to be top level forms. It's perfectly acceptable to w
 :debug
 ```
 
-### fact?<-<a id="sec-1-1-2" name="sec-1-1-2"></a>
+### fact?<-
 
 The `fact?<-` operator allows you to define a test a query within the same form. The following two facts are equivalent:
 
@@ -135,7 +135,7 @@ The `fact?<-` operator allows you to define a test a query within the same form.
 
 Where `fact?-` is useful for testing full queries and workflows, I find `fact?<-` useful mostly for testing how `def*op` functions behave inside of queries.
 
-### future-fact?- and future-fact?<-<a id="sec-1-1-3" name="sec-1-1-3"></a>
+### future-fact?- and future-fact?<-
 
 If you want to stub out an unfinished test and prevent it from throwing errors, you can use `future-fact?-`, like so:
 
@@ -164,9 +164,9 @@ WORK TO DO: num->string is unwritten.
 
 The `fact?-` and `fact?<-` operators provide the tools necessary to test complex MapReduce workflows as pure functions. Let's expand on these concepts by creating a small project with Cascalog code we'd like to test.
 
-## Example Project<a id="sec-1-2" name="sec-1-2"></a>
+## Example Project
 
-### Dependencies<a id="sec-1-2-1" name="sec-1-2-1"></a>
+### Dependencies
 
 To add `midje-cascalog` support to your own project, add these entries to to the `:dev-dependencies` vector within `project.clj`:
 
@@ -177,7 +177,7 @@ To add `midje-cascalog` support to your own project, add these entries to to the
 
 And add `(:use [midje sweet cascalog])` to the namespace declaration of each of your testing namespaces.
 
-### Implementing Word Count<a id="sec-1-2-2" name="sec-1-2-2"></a>
+### Implementing Word Count
 
 Let's begin with an implementation of word count, the typical "Hello World!" of MapReduce. A word counting application must be able to read in any number of textfiles and generate tuples of the form `[word, count]` for each distinct word across all files.
 
@@ -242,7 +242,7 @@ All of our program's application logic occurs in the query returned by `wc-query
 
 This logic looks right, but the only way to tell is to write a series of facts and see if they're true.
 
-### Testing Wordcount<a id="sec-1-2-3" name="sec-1-2-3"></a>
+### Testing Wordcount
 
 Let's put our tests in `./test/cascalog/testing_demo/core_test.clj` (mirroring the `core.clj`, with `_test` tacked on):
 
@@ -272,11 +272,11 @@ This fact fails. Here are a few of its problems:
 
 **Testing wc-query in isolation is difficult!** How can one test the logic of `wc-query-` without regard to how lines of text are stored?
 
-## Mocking with Midje<a id="sec-1-3" name="sec-1-3"></a>
+## Mocking with Midje
 
 The solution lies in Midje's ability to mock out a function's return values. Midje can hijack `hfs-textline` and force it to return anything you choose inside the body of a fact.
 
-### provided<a id="sec-1-3-1" name="sec-1-3-1"></a>
+### provided
 
 Using Midje's `provided` form, the above fact passes:
 
@@ -331,7 +331,7 @@ A `provided` form only applies to the result-query pair directly above. The firs
             (hfs-textline :path) => sentence)))
 ```
 
-### Mocking Arguments<a id="sec-1-3-2" name="sec-1-3-2"></a>
+### Mocking Arguments
 
 In the above facts, I used keywords (`:path`) as mocking arguments. Any form that evaluates to itself can be used as a mocking argument. In vanilla Clojure, this includes strings, numbers and keywords. Midje adds any symbol surrounded by dots (`..path..`, `.path.`, etc.) to this mix.
 
@@ -355,7 +355,7 @@ These facts about `wc-query` from above are all true, and identical:
         (provided (hfs-textline ..path..) => [["one"]]))
 ```
 
-### against-background<a id="sec-1-3-3" name="sec-1-3-3"></a>
+### against-background
 
 As discussed, the `provided` form only applies to the result-query pair directly above. This limitation can make for repetitive facts, when each fact depends on a mocked result:
 
@@ -402,7 +402,7 @@ Midje allows facts to share mocked functions with `against-background`. An `agai
 
 Note that the third of the three above facts used its own `provided` form. When the two forms are mixed, `provided` takes precedence, shadowing `against-background` if need be (as above).
 
-## Collection Checkers<a id="sec-1-4" name="sec-1-4"></a>
+## Collection Checkers
 
 For the next set of facts, let's introduce a larger set of input sentences:
 
@@ -430,7 +430,7 @@ One issue with the above facts is that they use very small input sentences. `wc-
 
 To solve this, Midje provides a number of collection checkers that provide you with finer control over how queries are compared with result sequences.
 
-### just<a id="sec-1-4-1" name="sec-1-4-1"></a>
+### just
 
 `just` is the default checker for `fact?-` and `fact?<-`; bare vectors of tuples resolve to `(just result-vec :in-any-order)`. The following three facts are equivalent:
 
@@ -454,7 +454,7 @@ Each of these facts checks that its subquery returns `[2 3]` `[1 2]` exclusively
 
 Note that dropping the `:in-any-order` modifier (or the set wrapper) will cause facts to fail if ordering doesn't match. This makes sense sometimes when checking against top-n queries, as noted in the discussion below on 1.4.3.
 
-### contains<a id="sec-1-4-2" name="sec-1-4-2"></a>
+### contains
 
 The `contains` form allows facts to check against a subset of query tuples. By default, `contains` requires result tuples to be contiguous and ordered: `[1 2]` within `[3 4 1 2 1]`, for example.
 
@@ -476,7 +476,7 @@ The above facts test that both `["sail" 1]` and `["Ishmael." 1]` appear somewher
 - Wrapping the result tuples in a set (vs. a vector), or adding the `:in-any-order` keyword, relaxes the ordering restriction.
 - The `:gaps-ok` keyword relaxes the restriction that tuples must contiguous.
 
-### has-prefix<a id="sec-1-4-3" name="sec-1-4-3"></a>
+### has-prefix
 
 `has-prefix` checks that the supplied tuple sequence appears at the beginning of the query's results. `has-prefix` only makes sense with queries that return sorted tuples.
 
@@ -490,7 +490,7 @@ The following fact states that `["--" 2]`, `["I" 2]` and `["and" 2]`, in order, 
           (hfs-textline :path) => longer-sentences)) ;; true
 ```
 
-### has-suffix<a id="sec-1-4-4" name="sec-1-4-4"></a>
+### has-suffix
 
 `has-suffix` checks that the supplied tuple sequence appears at the end of the query's results.
 
@@ -506,7 +506,7 @@ The following fact states that `["world." 1]`, `["would" 1]` and `["years" 2]`, 
 
 As with `has-prefix`, facts making use of `has-suffix` only make sense when specifically testing tuple ordering.
 
-## Tabular<a id="sec-1-5" name="sec-1-5"></a>
+## Tabular
 
 In certain cases, you might like to test a single query against a wide range of inputs and outputs. This quickly grows repetitive:
 
@@ -580,9 +580,9 @@ The first fact generated by the above tabular fact looks like this:
 
 Any variable prefixed by `?` that appears inside both the fact template AND the header variables row is earmarked for substitution. This means that cascalog dynamic variables are totally safe, and play well with tabular.
 
-## Running Tests<a id="sec-1-6" name="sec-1-6"></a>
+## Running Tests
 
-### lein-midje<a id="sec-1-6-1" name="sec-1-6-1"></a>
+### lein-midje
 
 Once you write facts within a project, you can use [lein-midje](https://github.com/marick/Midje/wiki/Lein-midje) to run them all and generate a summary like this:
 
@@ -602,11 +602,11 @@ This command runs all facts and tests in the project and prints a summary of all
 
 If you're using Cake, follow the steps on the [Midje wiki](https://github.com/marick/Midje/wiki/Cake-midje) for installing and running `cake midje`.
 
-### Interaction with clojure.test<a id="sec-1-6-2" name="sec-1-6-2"></a>
+### Interaction with clojure.test
 
 If you currently write `deftest` style tests using clojure.test, check out [Midje's tips](https://github.com/marick/Midje/wiki/Migrating-from-clojure.test) on integration. The two modes work very well together. `lein midje` and `cake midje` will evaluate all `deftest` forms inside of a project and include the results in its report.
 
-## In Conclusion<a id="sec-1-7" name="sec-1-7"></a>
+## In Conclusion
 
 I believe that midje-cascalog is the most advanced MapReduce testing suite available today. The primitives discussed here make testing Cascalog queries a joy; the confidence that comes from fully tested components is a prerequisitive for creative work at large scale.
 

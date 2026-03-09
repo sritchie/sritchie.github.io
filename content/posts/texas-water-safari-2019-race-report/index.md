@@ -9,6 +9,9 @@ tags:
 categories:
   - adventure
 image: 11.jpg
+cover:
+  image: "11.jpg"
+  hidden: true
 ---
 
 On June 8th I completed the [Texas Water Safari](https://www.texaswatersafari.org/), a 260 mile canoe race down in Texas that runs rivers from San Marcos to the Gulf of Mexico. My 4-man boat (filled by Jason Antin, Andrew Soles and Andrew Stephens) finished early Monday morning after 44 hours and 14 minutes of nonstop paddling.
@@ -136,7 +139,8 @@ Finally, a calm stretch. We paddled on, mostly alone now, steering through tight
 ## Staples Dam (17) to Zedler (46)
 
 Staples Dam, mile 17, another portage. Here's a video of how we run these things:
-[Hustle! Hustle! Texas water safari race -- View on Instagram](https://www.instagram.com/p/BysGuWzgflW/)
+<blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/BysGuWzgflW/" data-instgrm-version="14"><a href="https://www.instagram.com/p/BysGuWzgflW/">Hustle! Hustle! Texas water safari race — View on Instagram</a></blockquote>
+<script async src="//www.instagram.com/embed.js"></script>
 Here's me holding the boat back from dropping down and cracking the rudder:
 {{< figure src="image-6.png" >}}
 And another of me coming over the bridge, just because it's kind of an awesome shot:
@@ -292,7 +296,8 @@ The push lasted for over an hour, and then J started to slow down. He was feelin
 Finally, only a few turns of the river past where Stephens guessed, we saw the Victoria boat ramp. We pulled in and jumped out of the boat, and oh, fuck, the cool water felt fantastic.
 
 Jason stayed underwater a bit too long, but got himself onto the dock and packed his thighs and neck with tube socks filled with ice. The girls were here, and I was so happy to finally speak to Jenna and Juno for more than a moment. The rules, and common decency (the smell!), prevented me from touching them. Juno's look sums up the encounter:
-[The Texas Water Safari is crazy. Still 50 miles to go of 260 and 7 of those in the ocean. -- View on Instagram](https://www.instagram.com/p/BygdIWcpZ9_/)
+<blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/BygdIWcpZ9_/" data-instgrm-version="14"><a href="https://www.instagram.com/p/BygdIWcpZ9_/">The Texas Water Safari is crazy. Still 50 miles to go of 260 and 7 of those in the ocean. — View on Instagram</a></blockquote>
+<script async src="//www.instagram.com/embed.js"></script>
 I was also proud to show off my three detached fingernails. The ring finger is the most obvious. Can you spot the other two?
 {{< figure src="image-17.png" caption="Missing fingernails at Victoria." >}}
 Here you can see Soles looking great with his popped collar; Captain Steve looking for trash, socks or mesh food bags to reclaim; Stephens looking antsy as hell to get away from what he called my "campout".

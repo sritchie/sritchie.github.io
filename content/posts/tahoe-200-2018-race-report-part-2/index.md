@@ -9,6 +9,9 @@ tags:
 categories:
   - adventure
 image: ScottRokis_18T200_B95I0488--ZF-10345-92768-1-004-.jpg
+cover:
+  image: "scottrokis_18t200_b95i0488--zf-10345-92768-1-004-.jpg"
+  hidden: true
 ---
 
 Welcome back to my report of the 2018 Tahoe 200. If you haven't read [Part 1](https://www.samritchie.io/tahoe-200-2018-race-report/) and care about background and context, [go check it out](https://www.samritchie.io/tahoe-200-2018-race-report/) and come on back. Otherwise enjoy the tale!
@@ -35,7 +38,8 @@ We took so long to get moving. My wife Jenna later noted that, looking at the tr
 Mary hadn't been provided with any "sharps" by the race organizers, one of many major Black Widow oversights that began to manifest at these later aid stations. Mary was a pro and had brought her own stash of safety pins to sterilize and use for popping blisters, and got to it with Jason, helping him drain his wounds and patch himself up. She lent us her paramedic shears to cut holes for Jason's pinkies in the side of the straitjacketed Merrell shoes.
 
 Mary couldn't resist staring at Anna, and finally, after some teasing from J - "Focus on US, Mary! Anna, what, are you some sort of big deal?" - she asked for a picture. Jason told her it was fine, she didn't have to pretend that she wanted a picture with EVERYONE, but Mary insisted and snapped this beauty:
-[Anna Frost crewing at Tahoe 200 -- View on Instagram](https://www.instagram.com/p/BngvtJoHOSv/)
+<blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/BngvtJoHOSv/" data-instgrm-version="14"><a href="https://www.instagram.com/p/BngvtJoHOSv/">Anna Frost crewing at Tahoe 200 — View on Instagram</a></blockquote>
+<script async src="//www.instagram.com/embed.js"></script>
 As we worked on our feet I overheard a conversation to my left, a runner hyping himself up to his crew - "I mean, look at these. I'm going to keep going, but I SHOULDN'T. NORMAL people wouldn't continue on feet like these!" Yeah, buddy, we get it, you're a badass.
 
 New socks, more food. It felt like we were hustling, finally, but when I checked the watch we'd been at the aid station for over four hours. This was a long cry from the sub-1-minute aid station stops you strive for in a 100 miler. Jason's knees were bothering him; Anna revealed that she's trained in KT tape application, and built a tape-splint for his knees that held off the pain long enough to start the next push.

@@ -15,6 +15,19 @@ permalinks:
 
 markup:
   goldmark:
+    extensions:
+      passthrough:
+        delimiters:
+          block:
+            - - "$$"
+              - "$$"
+          inline:
+            - - "$"
+              - "$"
+        enable: true
+    parser:
+      attribute:
+        block: true
     renderer:
       unsafe: true
   highlight:
@@ -39,8 +52,10 @@ params:
   socialIcons:
     - name: github
       url: "https://github.com/sritchie"
-    - name: twitter
-      url: "https://twitter.com/saborichin"
+    - name: instagram
+      url: "https://instagram.com/sritchie09"
+    - name: email
+      url: "mailto:sritchie09@gmail.com"
     - name: rss
       url: "/index.xml"
   homeInfoParams:
@@ -53,6 +68,7 @@ params:
 
       Read my newsletter [Road to Reality](https://roadtoreality.substack.com/)
       on the mathematics of physics.
+      [Sponsor my work on GitHub.](https://github.com/sponsors/sritchie)
   cover:
     responsiveImages: true
     linkFullImages: false
@@ -79,6 +95,9 @@ menu:
     - name: Adventure Resume
       url: /racing/
       weight: 60
+    - name: Tags
+      url: /tags/
+      weight: 65
     - name: Search
       url: /search/
       weight: 70

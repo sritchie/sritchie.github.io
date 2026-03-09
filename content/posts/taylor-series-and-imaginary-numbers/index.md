@@ -12,9 +12,7 @@ I wanted to share some of the intuition I've been developing around [complex num
 My knowledge of the history here is probably at the level of a [Just-So Story](https://en.wikipedia.org/wiki/Just_So_Stories); still, I've been finding it helpful to have some vague idea of *why* folks started developing some area of mathematics before digging into the details, so I'll pass on what I've got to you.
 
 My understanding (backed up by [Wikipedia](https://en.wikipedia.org/wiki/Complex_number)) is that the idea of $i$ came up as a sort of naughty, wtf-is-going-on way of finding solutions to equations like this:
-
 $$x^2 + 1 = 0$$
-
 If you look at the graph of $y = x^2 + 1$, you can see that there is *no* point where some $x$ gives you 0 back out.
 {{< figure src="image-4.png" >}}
 But what if you just went into overdrive and solved the equation anyway? $x^2=-1$, so just make up a new thing, call it $i$. What is $i$? Well, it's something that, when you square it, gives you back $-1$. Now that equation has *two* solutions, like any good quadratic function: $i$ and $-i$.

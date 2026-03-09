@@ -9,6 +9,9 @@ tags:
 categories:
   - adventure
 image: h_stern_t200-08249--zf-10345-92768-1-001--2.jpg
+cover:
+  image: "h_stern_t200-08249--zf-10345-92768-1-001--2.jpg"
+  hidden: true
 ---
 
 I never suspected that 100 mile races would be a gateway drug for... 200 mile races, but here I am, polishing off my race report for the Tahoe 200. What went wrong in my past? Neglectful parents? A broken home? The answers lie buried somewhere in the following account.

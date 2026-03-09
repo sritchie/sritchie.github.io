@@ -9,6 +9,9 @@ tags:
 categories:
   - adventure
 image: startline-2.jpg
+cover:
+  image: "startline-2.jpg"
+  hidden: true
 ---
 
 In September of 2017 I raced my first ever mountain bike race - the Vapor Trail 125, the hardest race I could find up in the mountains of Colorado. After four years of 100 mile running races I was well and truly burned out on the idea of spending my summer training for yet another huge odyssey-on-foot... but I still wanted to get up into the high country, and I know by now that my best source of motivation is the fear of a big race on the calendar.

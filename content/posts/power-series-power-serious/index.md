@@ -17,22 +17,22 @@ This post is a rendered, literate programming version of `impl.cljc`, the core p
 
 Enjoy!
 
-- [Sequence Operations](#sec-1)
-  - [Negation](#sec-1-1)
-  - [Addition](#sec-1-2)
-  - [Subtraction](#sec-1-3)
-  - [Multiplication](#sec-1-4)
-  - [Division](#sec-1-5)
-  - [Reciprocal](#sec-1-6)
-  - [Functional Composition](#sec-1-7)
-  - [Reversion](#sec-1-8)
-  - [Series Calculus](#sec-1-9)
-  - [Exponentiation](#sec-1-10)
-  - [Square Root of a Series](#sec-1-11)
-- [Examples](#sec-2)
-- [Various Power Series](#sec-3)
-- [Generating Functions](#sec-4)
-  - [Catalan numbers](#sec-4-1)
+- [Sequence Operations](#sequence-operations)
+  - [Negation](#negation)
+  - [Addition](#addition)
+  - [Subtraction](#subtraction)
+  - [Multiplication](#multiplication)
+  - [Division](#division)
+  - [Reciprocal](#reciprocal)
+  - [Functional Composition](#functional-composition)
+  - [Reversion](#reversion)
+  - [Series Calculus](#series-calculus)
+  - [Exponentiation](#exponentiation)
+  - [Square Root of a Series](#square-root-of-a-series)
+- [Examples](#examples)
+- [Various Power Series](#various-power-series)
+- [Generating Functions](#generating-functions)
+  - [Catalan numbers](#catalan-numbers)
 
 The following code builds up a power series implementation that backs two `sicmutils` types:
 
@@ -53,7 +53,7 @@ The implementation follows Doug McIlroy's beautiful paper, ["Power Series, Power
 
 Let's go!
 
-# Sequence Operations<a id="sec-1"></a>
+# Sequence Operations
 
 A 'series' is an infinite sequence of numbers, represented by Clojure's lazy sequence. First, a function `->series` that takes some existing sequence, finite or infinite, and coerces it to an infinite seq by concatenating it with an infinite sequence of zeros. (We use `v/zero-like` so that everything plays nicely with generic arithmetic.)
 
@@ -94,7 +94,7 @@ F(x) = F_0(x) = f_0 + x F_1(x)
 
 We'll use this observation to derive the more complicated sequence operations below.
 
-## Negation<a id="sec-1-1"></a>
+## Negation
 
 To negate a series, negate each element:
 
@@ -113,7 +113,7 @@ Example:
 (-1 -2 -3 -4 0 0 0)
 ```
 
-## Addition<a id="sec-1-2"></a>
+## Addition
 
 We can derive series addition by expanding the series $F$ and $G$ into head and tail and rearranging terms:
 
@@ -162,7 +162,7 @@ A constant is a series with its first element populated, all zeros otherwise. To
 [(11 2 3 4 0 0) (11 2 3 4 0 0)]
 ```
 
-## Subtraction<a id="sec-1-3"></a>
+## Subtraction
 
 Subtraction comes for free from the two definitions above:
 
@@ -213,7 +213,7 @@ To subtract a sequence from a constant, subtract the first element as before, bu
 (10 -1 -2 -3 -4)
 ```
 
-## Multiplication<a id="sec-1-4"></a>
+## Multiplication
 
 What does it mean to multiply two infinite sequences? As McIlroy notes, multiplication is where the lazy-sequence-based approach really comes into its own.
 
@@ -261,7 +261,7 @@ This works just fine on two infinite sequences:
 
 NOTE This is also called the "[Cauchy Product](https://en.wikipedia.org/wiki/Cauchy_product)" of the two sequences. The description on the Wikipedia page has complicated index tracking that simply doesn't come in to play with the stream-based approach. Amazing!
 
-## Division<a id="sec-1-5"></a>
+## Division
 
 The quotient $Q$ of $F$ and $G$ should satisfy:
 
@@ -338,7 +338,7 @@ A simple example shows success:
 (1 0 0 0 0)
 ```
 
-## Reciprocal<a id="sec-1-6"></a>
+## Reciprocal
 
 We could generate the reciprocal of $F$ by dividing $(1, 0, 0, ...)$ by $F$. Page 21 of an earlier [paper by McIlroy](https://swtch.com/~rsc/thread/squint.pdf) gives us a more direct formula.
 
@@ -447,7 +447,7 @@ Division by a constant undoes multiplication by a constant:
 (1 2 3 4 5)
 ```
 
-## Functional Composition<a id="sec-1-7"></a>
+## Functional Composition
 
 To compose two series $F(x)$ and $G(x)$ means to create a new series $F(G(x))$. Derive this by substuting $G$ for $x$ in the expansion of $F$:
 
@@ -504,7 +504,7 @@ Composing $x^2 = (0, 0, 1, 0, 0, ...)$ should square all $x$s, and give us a seq
 (1 0 1 0 1 0 1 0 1 0)
 ```
 
-## Reversion<a id="sec-1-8"></a>
+## Reversion
 
 The functional inverse of a power series $F$ is a series $R$ that satisfies $F(R(x)) = x$.
 
@@ -563,7 +563,7 @@ An example, inverting a series starting with 0:
 (0 1 0 0 0)
 ```
 
-## Series Calculus<a id="sec-1-9"></a>
+## Series Calculus
 
 Derivatives of power series are simple and mechanical:
 
@@ -630,7 +630,7 @@ By default, the constant term is 0:
 (0 1 1 1 1 1)
 ```
 
-## Exponentiation<a id="sec-1-10"></a>
+## Exponentiation
 
 Exponentiation of a power series by some integer is simply repeated multiplication. The implementation here is more efficient the iterating `seq:*`, and handles negative exponent terms by inverting the original sequence.
 
@@ -661,7 +661,7 @@ We can use `expt` to verify that $(1+x)^3$ expands to $1 + 3x + 3x^2 + x^3$:
 (1 3 3 1 0)
 ```
 
-## Square Root of a Series<a id="sec-1-11"></a>
+## Square Root of a Series
 
 The square root of a series $F$ is a series $Q$ such that $Q^2 = F$. We can find this using our calculus methods from above:
 
@@ -749,7 +749,7 @@ We get a correct result if the sequence starts with $0, 0$:
 (0 0 9 10N 11N 12N)
 ```
 
-# Examples<a id="sec-2"></a>
+# Examples
 
 Power series computations can encode polynomial computations. Encoding $(1-2x^2)^3$ as a power series returns the correct result:
 
@@ -784,7 +784,7 @@ $\frac{1}{(1-x)^2}$ is the derivative of the above series:
 (1 2 3 4 5 6 7 8 9 10)
 ```
 
-# Various Power Series<a id="sec-3"></a>
+# Various Power Series
 
 With the above primitives we can define a number of series with somewhat astonishing brevity.
 
@@ -869,9 +869,9 @@ The hyperbolic trig functions are defined in a similar way:
   (integral (cycle [1 -1])))
 ```
 
-# Generating Functions<a id="sec-4"></a>
+# Generating Functions
 
-## Catalan numbers<a id="sec-4-1"></a>
+## Catalan numbers
 
 These are a few more examples from McIlroy's "Power Serious" paper, presented here without context.
 

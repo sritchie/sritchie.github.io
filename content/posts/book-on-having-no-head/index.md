@@ -8,6 +8,9 @@ tags:
 categories:
   - essays
 image: nohead.jpeg
+cover:
+  image: "nohead.jpeg"
+  hidden: true
 ---
 
 What a strange, fantastic little book! I recently read Douglas Harding's "[On Having No Head](https://amzn.to/2S27MKC)" after hearing Sam Harris mention the book in one of "[Waking Up](https://share.wakingup.com/c6d08d5fe8f4)" meditations, and then many times on subsequent podcasts.

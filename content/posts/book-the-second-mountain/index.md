@@ -7,6 +7,9 @@ tags:
 categories:
   - essays
 image: secondmtn.jpg
+cover:
+  image: "secondmtn.jpg"
+  hidden: true
 ---
 
 I had a hard time with this book; it showed up in the TED book club mailing months ago, and I went into my reading primed to love the message, which is concise and persuasive... but maybe so persuasive on its own that the book feels like 300 pages of filler.

@@ -8,6 +8,9 @@ tags:
 categories:
   - projects
 image: IMG_2942.jpeg
+cover:
+  image: "IMG_2942.jpeg"
+  hidden: true
 ---
 
 I'm out here working on the plane today - I haven't made it out much, lately, but I'm in the garage spending the time. This project will end up taking roughly five years, three years longer than I thought it might when I started.

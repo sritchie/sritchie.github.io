@@ -13,152 +13,152 @@ If you're into Clojure, you can use all of this code by importing version `0.13.
 
 Enjoy!
 
-- [Introduction](#sec-1)
+- [Introduction](#introduction)
 <ul>
-<li>[The Interface](#sec-1-1)
+<li>[The Interface](#the-interface)
 <ul>
-<li>[Implementation](#sec-1-1-1)
-- [Final API](#sec-1-1-2)
+<li>[Implementation](#implementation)
+- [Final API](#final-api)
 
 </li>
 </ul>
 </li>
-<li>[Basics](#sec-2)
+<li>[Basics](#basics)
 
-- [Riemann Sums](#sec-2-1)
+- [Riemann Sums](#riemann-sums)
 <ul>
-<li>[Riemann Sum Implementation](#sec-2-1-1)
-- [Estimating Integrals with Riemann Sums](#sec-2-1-2)
-- [Sequence Acceleration](#sec-2-1-3)
-- [Incremental Computation](#sec-2-1-4)
-- [Generalizing the Incremental Approach](#sec-2-1-5)
-- [Incremental Updates with Any Sequence](#sec-2-1-6)
-- [Final Incremental Implementations](#sec-2-1-7)
-- [Integral API](#sec-2-1-8)
-- [Next Steps](#sec-2-1-9)
+<li>[Riemann Sum Implementation](#riemann-sum-implementation)
+- [Estimating Integrals with Riemann Sums](#estimating-integrals-with-riemann-sums)
+- [Sequence Acceleration](#sequence-acceleration)
+- [Incremental Computation](#incremental-computation)
+- [Generalizing the Incremental Approach](#generalizing-the-incremental-approach)
+- [Incremental Updates with Any Sequence](#incremental-updates-with-any-sequence)
+- [Final Incremental Implementations](#final-incremental-implementations)
+- [Integral API](#integral-api)
+- [Next Steps](#next-steps)
 
 </li>
-<li>[Midpoint Rule](#sec-2-2)
+<li>[Midpoint Rule](#midpoint-rule)
 
-- [Simple Midpoint Rule](#sec-2-2-1)
-- [Efficient Midpoint Method](#sec-2-2-2)
-- [Incremental Midpoint Method](#sec-2-2-3)
-- [Final Midpoint API](#sec-2-2-4)
-- [Next Steps](#sec-2-2-5)
+- [Simple Midpoint Rule](#simple-midpoint-rule)
+- [Efficient Midpoint Method](#efficient-midpoint-method)
+- [Incremental Midpoint Method](#incremental-midpoint-method)
+- [Final Midpoint API](#final-midpoint-api)
+- [Next Steps](#next-steps-1)
 
 </li>
-<li>[Trapezoid Rule](#sec-2-3)
+<li>[Trapezoid Rule](#trapezoid-rule)
 
-- [Simple Implementation](#sec-2-3-1)
-- [Efficient Trapezoid Method](#sec-2-3-2)
-- [Incremental Trapezoid Rule](#sec-2-3-3)
-- [Final Trapezoid API:](#sec-2-3-4)
-- [Next Steps](#sec-2-3-5)
+- [Simple Implementation](#simple-implementation)
+- [Efficient Trapezoid Method](#efficient-trapezoid-method)
+- [Incremental Trapezoid Rule](#incremental-trapezoid-rule)
+- [Final Trapezoid API:](#final-trapezoid-api)
+- [Next Steps](#next-steps-2)
 
 </li>
 </ul>
 </li>
-<li>[Sequence Acceleration](#sec-3)
+<li>[Sequence Acceleration](#sequence-acceleration-1)
 
-- [Richardson Extrapolation](#sec-3-1)
+- [Richardson Extrapolation](#richardson-extrapolation)
 <ul>
-<li>[Richardson Interpolation](#sec-3-1-1)
-- [Richardson Columns](#sec-3-1-2)
-- [Richardson Extrapolation and Polynomial Extrapolation](#sec-3-1-3)
+<li>[Richardson Interpolation](#richardson-interpolation)
+- [Richardson Columns](#richardson-columns)
+- [Richardson Extrapolation and Polynomial Extrapolation](#richardson-extrapolation-and-polynomial-extrapolation)
 
 </li>
-<li>[Polynomial Extrapolation](#sec-3-2)
+<li>[Polynomial Extrapolation](#polynomial-extrapolation)
 
-- [Neville's Algorithm](#sec-3-2-1)
-- [Tableau-based Methods](#sec-3-2-2)
-- [Generic Tableau Processing](#sec-3-2-3)
-- [Modified Neville](#sec-3-2-4)
-- [Folds and Tableaus by Row](#sec-3-2-5)
-- [Fold Utilities](#sec-3-2-6)
+- [Neville's Algorithm](#nevilles-algorithm)
+- [Tableau-based Methods](#tableau-based-methods)
+- [Generic Tableau Processing](#generic-tableau-processing)
+- [Modified Neville](#modified-neville)
+- [Folds and Tableaus by Row](#folds-and-tableaus-by-row)
+- [Fold Utilities](#fold-utilities)
 
 </li>
-<li>[Rational Function Extrapolation](#sec-3-3)
+<li>[Rational Function Extrapolation](#rational-function-extrapolation)
 
-- [Incremental Bulirsch-Stoer](#sec-3-3-1)
-- [Rational Interpolation as a Fold](#sec-3-3-2)
+- [Incremental Bulirsch-Stoer](#incremental-bulirsch-stoer)
+- [Rational Interpolation as a Fold](#rational-interpolation-as-a-fold)
 
 </li>
 </ul>
 </li>
-<li>[Higher-Order Calculus](#sec-4)
+<li>[Higher-Order Calculus](#higher-order-calculus)
 
-- [Numerical Derivatives](#sec-4-1)
+- [Numerical Derivatives](#numerical-derivatives)
 <ul>
-<li>[Approximating Derivatives with Taylor Series](#sec-4-1-1)
-- [Taking Derivatives](#sec-4-1-2)
-- [Roundoff Error](#sec-4-1-3)
-- [Richardson Extrapolation](#sec-4-1-4)
-- [Putting it All Together](#sec-4-1-5)
+<li>[Approximating Derivatives with Taylor Series](#approximating-derivatives-with-taylor-series)
+- [Taking Derivatives](#taking-derivatives)
+- [Roundoff Error](#roundoff-error)
+- [Richardson Extrapolation](#richardson-extrapolation-1)
+- [Putting it All Together](#putting-it-all-together)
 
 </li>
-<li>[Simpson's Rule](#sec-4-2)</li>
-<li>[Simpson's 3/8 Rule](#sec-4-3)</li>
-<li>[Boole's Rule](#sec-4-4)</li>
-<li>[Romberg Integration](#sec-4-5)</li>
-<li>[Milne's Rule](#sec-4-6)</li>
-<li>[Bulirsch-Stoer Integration](#sec-4-7)
+<li>[Simpson's Rule](#simpsons-rule)</li>
+<li>[Simpson's 3/8 Rule](#simpsons-38-rule)</li>
+<li>[Boole's Rule](#booles-rule)</li>
+<li>[Romberg Integration](#romberg-integration)</li>
+<li>[Milne's Rule](#milnes-rule)</li>
+<li>[Bulirsch-Stoer Integration](#bulirsch-stoer-integration)
 
-- [Even Power Series](#sec-4-7-1)
-- [Bulirsch-Stoer Estimate Sequences](#sec-4-7-2)
-- [Integration API](#sec-4-7-3)
-- [References:](#sec-4-7-4)
+- [Even Power Series](#even-power-series)
+- [Bulirsch-Stoer Estimate Sequences](#bulirsch-stoer-estimate-sequences)
+- [Integration API](#integration-api)
+- [References:](#references)
 
 </li>
 </ul>
 </li>
-<li>[Combinators](#sec-5)
+<li>[Combinators](#combinators)
 
-- [Variable Substitutions](#sec-5-1)
+- [Variable Substitutions](#variable-substitutions)
 <ul>
-<li>[Infinite Endpoints](#sec-5-1-1)
-- [Power Law Singularities](#sec-5-1-2)
-- [Inverse Square Root singularities](#sec-5-1-3)
-- [Exponentially Diverging Endpoints](#sec-5-1-4)
+<li>[Infinite Endpoints](#infinite-endpoints)
+- [Power Law Singularities](#power-law-singularities)
+- [Inverse Square Root singularities](#inverse-square-root-singularities)
+- [Exponentially Diverging Endpoints](#exponentially-diverging-endpoints)
 
 </li>
-<li>[Improper Integrals](#sec-5-2)
+<li>[Improper Integrals](#improper-integrals)
 
-- [Overview](#sec-5-2-1)
-- [Implementation](#sec-5-2-2)
-- [Suggestions for Improvement](#sec-5-2-3)
+- [Overview](#overview)
+- [Implementation](#implementation-1)
+- [Suggestions for Improvement](#suggestions-for-improvement)
 
 </li>
-<li>[Adaptive Quadrature](#sec-5-3)
+<li>[Adaptive Quadrature](#adaptive-quadrature)
 
-- [Overview](#sec-5-3-1)
-- [Fuzzy Midpoints](#sec-5-3-2)
-- [Main Implementation](#sec-5-3-3)
-- [Suggestions for Improvement](#sec-5-3-4)
-- [References](#sec-5-3-5)
+- [Overview](#overview-1)
+- [Fuzzy Midpoints](#fuzzy-midpoints)
+- [Main Implementation](#main-implementation)
+- [Suggestions for Improvement](#suggestions-for-improvement-1)
+- [References](#references-1)
 
 </li>
 </ul>
 </li>
-<li>[Conclusion](#sec-6)</li>
-<li>[Appendix: Common Code](#sec-7)
+<li>[Conclusion](#conclusion)</li>
+<li>[Appendix: Common Code](#appendix-common-code)
 
-- [Intervals](#sec-7-1)
-- [Common Integration Interface](#sec-7-2)
-
-</li>
-<li>[Appendix: Streams](#sec-8)
-
-- [Convergence Tests](#sec-8-1)
+- [Intervals](#intervals)
+- [Common Integration Interface](#common-integration-interface)
 
 </li>
-<li>[Appendix: Aggregation](#sec-9)</li>
+<li>[Appendix: Streams](#appendix-streams)
+
+- [Convergence Tests](#convergence-tests)
+
+</li>
+<li>[Appendix: Aggregation](#appendix-aggregation)</li>
 </ul>
 
-# Introduction<a id="sec-1"></a>
+# Introduction
 
 This document is an exploration of the `definite-integral` implementation in [SICMUtils](https://github.com/littleredcomputer/sicmutils), a port of the wonderful `scmutils` system.
 
-## The Interface<a id="sec-1-1"></a>
+## The Interface
 
 This interface is the target. The goal of the document is to make this `definite-integral` interface come to life.
 
@@ -194,7 +194,7 @@ Optionally, you can provide a dictionary of customizing options. These are passe
 (definite-integral f a b opts)
 ```
 
-### Implementation<a id="sec-1-1-1"></a>
+### Implementation
 
 The keys in `quad-methods` below define the full range of integration methods available in the package. Each entry in this dictionary is either:
 
@@ -290,7 +290,7 @@ The latter two are the allowed value types in `quadrature-methods`.
        [integrate (dissoc (merge opts m) :method)]))))
 ```
 
-### Final API<a id="sec-1-1-2"></a>
+### Final API
 
 Here we are! The one function you need care about if you're interested in definite integrals. Learn to use this, and then dig in to the details of individual methods if you run inton trouble or want to learn more. Enjoy!
 
@@ -338,9 +338,9 @@ Here we are! The one function you need care about if you're interested in defini
                      available-methods)))))
 ```
 
-# Basics<a id="sec-2"></a>
+# Basics
 
-## Riemann Sums<a id="sec-2-1"></a>
+## Riemann Sums
 
 ```clojure
 (ns quadrature.riemann
@@ -377,7 +377,7 @@ This namespace builds up to implementations for `left-integral`, `right-integral
 
 A closely related method involves forming a trapezoid for each slice. This is equivalent to averaging the left and right Riemann sums. The trapezoid method lives in `trapezoid.cljc`.
 
-### Riemann Sum Implementation<a id="sec-2-1-1"></a>
+### Riemann Sum Implementation
 
 We'll start with an inefficient-but-easily-understandable version of these methods. To form a Riemann sum we need to:
 
@@ -509,7 +509,7 @@ Similarly, the lower Riemann sum uses the *minimum* of $f(x_l)$ and $f(x_r)$:
       (windowed-sum a b)))
 ```
 
-### Estimating Integrals with Riemann Sums<a id="sec-2-1-2"></a>
+### Estimating Integrals with Riemann Sums
 
 Given the tools above, let's attempt to estimate the integral of $f(x) = x^2$ using the left and right Riemann sum methods. (The actual equation for the integral is $x^3 \over 3$).
 
@@ -553,7 +553,7 @@ This bad convergence behavior is why common wisdom states that you should never 
 
 But maybe we can do better.
 
-### Sequence Acceleration<a id="sec-2-1-3"></a>
+### Sequence Acceleration
 
 One answer to this problem is to use &quot;sequence acceleration&quot; via Richardson extrapolation, as described in `richardson.cljc`.
 
@@ -616,7 +616,7 @@ Check that this works:
 
 Excellent!
 
-### Incremental Computation<a id="sec-2-1-4"></a>
+### Incremental Computation
 
 The results look quite nice; but notice how much redundant computation we're doing.
 
@@ -699,7 +699,7 @@ Verify that this function returns an equivalent sequence of estimates to the non
 true
 ```
 
-### Generalizing the Incremental Approach<a id="sec-2-1-5"></a>
+### Generalizing the Incremental Approach
 
 We need to use the same style for `right-sum`, so let's try and extract the pattern above, of:
 
@@ -745,7 +745,7 @@ And another version of `left-sequence`, implemented using the new function:
                            n0)))
 ```
 
-### Incremental Updates with Any Sequence<a id="sec-2-1-6"></a>
+### Incremental Updates with Any Sequence
 
 What if we want to combine the ability to reuse old results with the ability to take successively refined estimates that *don't* look like geometric series? The series 1, 2, 3… of natural numbers is an obvious choice of windows… but only the even powers are able to reuse estimates.
 
@@ -819,7 +819,7 @@ If it's a number, use it as the `n0` seed for a geometrically increasing series 
     (f S-fn next-S-fn factor n)))
 ```
 
-### Final Incremental Implementations<a id="sec-2-1-7"></a>
+### Final Incremental Implementations
 
 We can use `incrementalize` to write our final version of `left-sequence`, along with a matching version for `right-sequence`.
 
@@ -925,7 +925,7 @@ Notice that we're using `accelerate` from above. The interface should make more 
          (accelerate opts)))))
 ```
 
-### Integral API<a id="sec-2-1-8"></a>
+### Integral API
 
 Finally, we expose four API methods for each of the {left, right, lower, upper}-Riemann sums.
 
@@ -1000,11 +1000,11 @@ Upper and lower Riemann sums have the same interface; internally, they're not ab
   :seq-fn upper-sequence)
 ```
 
-### Next Steps<a id="sec-2-1-9"></a>
+### Next Steps
 
 For a discussion and implementation of the more advanced methods (the workhorse methods that you should actually use!), see `midpoint.cljc` and `trapezoid.cljc`. The midpoint method is the standard choice for open intervals, where you can't evaluate the function at its endpoints. The trapezoid method is standard for closed intervals.
 
-## Midpoint Rule<a id="sec-2-2"></a>
+## Midpoint Rule
 
 ```clojure
 (ns quadrature.midpoint
@@ -1035,7 +1035,7 @@ This namespace follows the same development as `riemann.cljc`:
 - write an incremental version that can reuse prior results
 - wrap everything up behind a nice, exposed API
 
-### Simple Midpoint Rule<a id="sec-2-2-1"></a>
+### Simple Midpoint Rule
 
 Here's an implementation of a function that can take the midpoint of a single slice:
 
@@ -1065,7 +1065,7 @@ Let's integrate a triangle!
 50.0
 ```
 
-### Efficient Midpoint Method<a id="sec-2-2-2"></a>
+### Efficient Midpoint Method
 
 It turns out that we already had to implement an efficient version of `midpoint-sum` in `riemann.cljc`; the incremental version of left and right Riemann sums added the midpoints of each interval when doubling the number of slices.
 
@@ -1082,7 +1082,7 @@ true
 
 We'll use `qr/midpoint-sum` in the upcoming functions.
 
-### Incremental Midpoint Method<a id="sec-2-2-3"></a>
+### Incremental Midpoint Method
 
 Unlike the left and right Riemann sums, the Midpoint method can't reuse function evaluations when the number of slices doubles. This is because each evaluation point, on a doubling, becomes the new border between slices:
 
@@ -1170,7 +1170,7 @@ The following example shows that for the sequence $2, 3, 4, 6, …$ (used in the
 [253 315]
 ```
 
-### Final Midpoint API<a id="sec-2-2-4"></a>
+### Final Midpoint API
 
 The final version is analogous the `qr/left-integral` and friends, including an option to `:accelerate?` the final sequence with Richardson extrapolation.
 
@@ -1197,7 +1197,7 @@ The ability to combine these methods makes it easy to produce powerful methods w
   :seq-fn midpoint-sequence)
 ```
 
-### Next Steps<a id="sec-2-2-5"></a>
+### Next Steps
 
 If you start with the midpoint method, one single step of Richardson extrapolation (taking the second column of the Richardson tableau) is equivalent to &quot;Milne's rule&quot; (see `milne.cljc`).
 
@@ -1205,7 +1205,7 @@ The full Richardson-accelerated Midpoint method is an open-interval variant of &
 
 See the wikipedia entry on [Open Newton-Cotes Formulas](https://en.wikipedia.org/wiki/Newton%E2%80%93Cotes_formulas#Open_Newton%E2%80%93Cotes_formulas) for more details.
 
-## Trapezoid Rule<a id="sec-2-3"></a>
+## Trapezoid Rule
 
 same idea but for closed intervals.
 
@@ -1232,7 +1232,7 @@ This namespace builds on the ideas introduced in `riemann.cljc` and `midpoint.cl
 
 Let's begin.
 
-### Simple Implementation<a id="sec-2-3-1"></a>
+### Simple Implementation
 
 A nice integration scheme related to the Midpoint method is the &quot;Trapezoid&quot; method. The idea here is to estimate the area of each slice by fitting a trapezoid between the function values at the left and right sides of the slice.
 
@@ -1244,17 +1244,11 @@ What's the area of a trapezoid? The two slice endpoints are
 - $(x_r, f(x_r))$
 
 The trapezoid consists of a lower rectangle and a capping triangle. The lower rectangle's area is:
-
 $$(b - a) f(a)$$
-
 Just like in the left Riemann sum. The upper triangle's area is one half base times height:
-
 $$ {1 \over 2} (x_r - x_l) (f(x_r) - f(x_l))$$
-
 The sum of these simplifies to:
-
 $${1 \over 2} {(x_r - x_l) (f(x_l) + f(x_r))}$$
-
 Or, in Clojure:
 
 ```clojure
@@ -1365,7 +1359,7 @@ Fun fact: the trapezoid method is equal to the *average* of the left and right R
 true
 ```
 
-### Efficient Trapezoid Method<a id="sec-2-3-2"></a>
+### Efficient Trapezoid Method
 
 Next let's attempt a more efficient implementation. Looking at `single-trapezoid`, it's clear that each slice evaluates both of its endpoints. This means that each point on a border between two slices earns a contribution of $f(x) \over 2$ from each slice.
 
@@ -1407,7 +1401,7 @@ We can define a new `pi-estimator` and check it against our less efficient versi
 true
 ```
 
-### Incremental Trapezoid Rule<a id="sec-2-3-3"></a>
+### Incremental Trapezoid Rule
 
 Next let's develop an incremental updater for the Trapezoid rule that lets us reuse evaluation points as we increase the number of slices.
 
@@ -1504,7 +1498,7 @@ This is a good bit more efficient than the Midpoint method's incremental savings
 [162 327]
 ```
 
-### Final Trapezoid API:<a id="sec-2-3-4"></a>
+### Final Trapezoid API:
 
 The final version is analogous the `qr/left-integral` and friends, including an option to `:accelerate?` the final sequence with Richardson extrapolation. (Accelerating the trapezoid method in this way is called &quot;Romberg integration&quot;.)
 
@@ -1527,7 +1521,7 @@ The final version is analogous the `qr/left-integral` and friends, including an 
   :seq-fn trapezoid-sequence)
 ```
 
-### Next Steps<a id="sec-2-3-5"></a>
+### Next Steps
 
 If you start with the trapezoid method, one single step of Richardson extrapolation (taking the second column of the Richardson tableau) is equivalent to &quot;Simpson's rule&quot;. One step using `t=3`, ie, when you *triple* the number of integration slices per step, gets you &quot;Simpson's 3/8 Rule&quot;. Two steps of Richardson extrapolation gives you &quot;Boole's rule&quot;.
 
@@ -1537,9 +1531,9 @@ These methods will appear in their respective namespaces in the `quadrature` pac
 
 See the wikipedia entry on [Closed Newton-Cotes Formulas](https://en.wikipedia.org/wiki/Newton%E2%80%93Cotes_formulas#Closed_Newton%E2%80%93Cotes_formulas) for more details.
 
-# Sequence Acceleration<a id="sec-3"></a>
+# Sequence Acceleration
 
-## Richardson Extrapolation<a id="sec-3-1"></a>
+## Richardson Extrapolation
 
 is a special case, where we get more efficient by assuming that the x values for the polynomial interpolation go $1, 1/2, 1/4, …$ and that we're extrapolating to 0.
 
@@ -1556,7 +1550,7 @@ is a special case, where we get more efficient by assuming that the x values for
             [sicmutils.value :as v]))
 ```
 
-### Richardson Interpolation<a id="sec-3-1-1"></a>
+### Richardson Interpolation
 
 This approach (and much of this numerical library!) was inspired by Gerald Sussman's [&quot;Abstraction in Numerical Methods&quot;](https://dspace.mit.edu/bitstream/handle/1721.1/6060/AIM-997.pdf?sequence=2) paper.
 
@@ -1573,9 +1567,7 @@ The paper derives this relationship between the sidelength of an $N$- and $2N$-s
 ```
 
 If we can increase the number of sides =&gt; infinity, we should reach a circle. The &quot;semi-perimeter&quot; of an $N$-sided polygon is
-
 $$P_n = {n \over 2} S_n$$
-
 In code:
 
 ```clojure
@@ -1644,13 +1636,9 @@ Enter Sussman:
 > &quot;Imagine poor Archimedes doing the arithmetic by hand: square roots without even the benefit of our place value system! He would be interested in knowing that full precision can be reached on the fifth term, by forming linear combinations of the early terms that allow the limit to be seized by extrapolation.&quot; (p4, Abstraction in Numerical Methods)
 
 Sussman does this by noting that you can also write the side length as:
-
 $$S_n = 2 \sin {\pi \over n}$$
-
 Then the taylor series expansion for $P_n$ becomes:
-
 $$ P_n = {n \over 2} S_n \ = {n \over 2} 2 \sin {\pi \over n} \ = \pi + {A \over n^2} + {B \over n^4} \ldots $$
-
 A couple things to note:
 
 - At large N, the $A \over n^2$ term dominates the truncation error.
@@ -1661,19 +1649,13 @@ The big idea is to multiply $P_{2n}$ by 4 and subtract $P_n$ (then divide by 3 t
 Now keep going and watch the error terms drain away.
 
 Before we write code, let's follow the paper's example and imagine instead some general sequence of $R(h), R(h/t), R(h/{t^2})\ldots$ (where $t = 2$ in the example above), with a power series expansion that looks like
-
 $$R(h) = A + B h^{p_1} + C h^{p_2}...$$
-
 where the exponents $p_1, p_2, \ldots$ are some OTHER series of error growth. (In the example above, because the taylor series expanson of $n \sin n$ only has even factors, the sequence was the even numbers.)
 
 In that case, the general way to cancel error between successive terms is:
-
 $${t^{p_1} R(h/t) - R(h)} = ({t^{p_1} - 1}) A + C_1 h^{p_2} + ...$$
-
 or:
-
 $$\frac{t^{p_1} R(h/t) - R(h)}{t^{p_1} - 1} = A + C_2 h^{p_2} + ...$$
-
 Let's write this in code:
 
 ```clojure
@@ -1685,7 +1667,6 @@ Let's write this in code:
   smaller by a factor of `t` each time:
 
   $$A(h), A(h/t), ...$$
-
   `p` is the order of the dominant error term for the sequence."
   [xs t p]
   (let [t**p   (Math/pow t p)
@@ -1747,7 +1728,6 @@ Now we can put it all together into a sequence transforming function, with nice 
   correction terms:
 
     $$f(x) = A + B x^{p_1} + C x^{p_2}...$$
-
   The two-arity version uses a default `p-sequence` of `[1, 2, 3, ...]`
 
   ### Arithmetic Progression
@@ -1801,7 +1781,7 @@ We can now call this function, combined with `us/seq-limit` (a general-purpose t
 
 Much faster!
 
-### Richardson Columns<a id="sec-3-1-2"></a>
+### Richardson Columns
 
 Richardson extrapolation works by cancelling terms in the error terms of a function's taylor expansion about `0`. To cancel the nth error term, the nth derivative has to be defined. Non-smooth functions aren't going to play well with `richardson-sequence` above.
 
@@ -1840,14 +1820,12 @@ The solution is to look at specific *columns* of the Richardson tableau. Each co
      (richardson-column xs col t arithmetic-p-q))))
 ```
 
-### Richardson Extrapolation and Polynomial Extrapolation<a id="sec-3-1-3"></a>
+### Richardson Extrapolation and Polynomial Extrapolation
 
 It turns out that the Richardson extrapolation is a special case of polynomial extrapolation using Neville's algorithm (as described in `polynomial/neville`), evaluated at x == 0.
 
 Neville's algorithm looks like this:
-
 $$P(x) = [(x - x_r) P_l(x) - (x - x_l) P_r(x)] / [x_l - x_r]$$
-
 Where:
 
 - $P(x)$ is a polynomial estimate from some sequence of points $(a, b, c, ...)$ where a point $a$ has the form $(x_a, f(x_a))$
@@ -1858,21 +1836,13 @@ Where:
 - $P_l(x)$ is the estimate with all points but the LAST, ie, $P_{ab}(x)$
 
 Fill in $x = 0$ and rearrange:
-
 $$P(0) = [(x_l P_r(0)) - (x_r P_l(x))] \over [x_l - x_r]$$
-
 In the Richardson extrapolation scheme, one of our parameters was `t`, the ratio between successive elements in the sequence. Now multiply through by $1 = {1 \over x_r} \over {1 \over x_r}$ so that our formula contains ratios:
-
 $$P(0) = [({x_l \over x_r} P_r(0)) - P_l(x)] \over [{x_l \over x_r} - 1]$$
-
 Because the sequence of $x_i$ elements looks like $x, x/t, x/t^2$, every recursive step separates $x_l$ and $x_r$ by another factor of $t$. So
-
 $${x_l \over x_r} = {x \over {x \over t^n}} = t^n$$
-
 Where $n$ is the difference between the positions of $x_l$ and $x_r$. So the formula simplifies further to:
-
 $$P(0) = [({t^n} P_r(0)) - P_l(x)] \over [{t^n} - 1]$$
-
 Now it looks exactly like Richardson extrapolation. The only difference is that Richardson extrapolation leaves `n` general (and calls it $p_1, p_2$ etc), so that you can customize the jumps in the error series. (I'm sure there is some detail I'm missing here, so please feel free to make a PR and jump in!)
 
 For the example above, we used a geometric series with $p, q = 2$ to fit the archimedean $\pi$ sequence. Another way to think about this is that we're fitting a polynomial to the SQUARE of `h` (the side length), not to the actual side length.
@@ -1899,7 +1869,7 @@ true
 
 Success!
 
-## Polynomial Extrapolation<a id="sec-3-2"></a>
+## Polynomial Extrapolation
 
 The general thing that &quot;richardson extrapolation&quot; is doing below. Historically cool and used to accelerate arbitrary integration sequences.
 
@@ -1954,24 +1924,20 @@ Lagrange's interpolating polynomial is straightforward, but not terribly efficie
 
 &quot;Neville's algorithm&quot; lets us generate the same interpolating polynomial recursively. By flipping the recursion around and generating values from the bottom up, we can achieve goal #2 and add new points incrementally.
 
-### Neville's Algorithm<a id="sec-3-2-1"></a>
+### Neville's Algorithm
 
 Start the recursion with a single point. Any point $(x, f(x))$ has a unique 0th order polynomial passing through it - the constant function $P(x) = f(x)$. For points $x_a$, $x_b$, let's call this $P_a$, $P_b$, etc.
 
 $P_{ab}$ is the unique FIRST order polynomial (ie, a line) going through points $x_a$ and $x_b$.
 
 this first recursive step gives us this rule:
-
 $$P_{ab}(x) = [(x - x_b) P_a(x) - (x - x_a) P_b(x)] / [x_a - x_b]$$
-
 For higher order terms like $P_{abcd}$, let's call $P_{abc}$ '$P_l$', and $P_{bcd}$ '$P_r$' (the polynomial fitted through the left and right set of points).
 
 Similarly, the left and rightmost inputs - $x_a$ and $x_b$ - will be $x_l$ and $x_r$.
 
 Neville's algorithm states that:
-
 $$P(x) = [(x - x_r) P_l(x) - (x - x_l) P_r(x)] / [x_l - x_r]$$
-
 This recurrence works because the two parents $P_l$ and $P_r$ already agree at all points except $x_l$ and $x_r$.
 
 ```clojure
@@ -2005,7 +1971,7 @@ This recurrence works because the two parents $P_l$ and $P_r$ already agree at a
     (evaluate (vec points))))
 ```
 
-### Tableau-based Methods<a id="sec-3-2-2"></a>
+### Tableau-based Methods
 
 Neville's algorithm generates each new polynomial from $P_l$ and $P_r$, using this recursion to incorporate the full set of points.
 
@@ -2047,9 +2013,7 @@ p4 .   .    .     .
 The first column here is the initial set of points. Each entry in each successive column is generated through some operation between the entry to its left, and the entry one left and one up.
 
 Look again at Neville's algorithm:
-
 $$P(x) = [(x - x_r) P_l(x) - (x - x_l) P_r(x)] / [x_l - x_r]$$
-
 $l$ refers to the entry in the same row, previous column, while $r$ is one row higher, previous column.
 
 If each cell in the above tableau tracked:
@@ -2078,7 +2042,6 @@ First, write a function to process each initial point into a vector that contain
   "Processes each point of the form [x, (f x)] into:
 
   $$[x_l, x_r, p]$$
-
   where $p$ is the polynomial that spans all points from $l$ to $r$. The
   recursion starts with $p = f(x)$.
   "
@@ -2133,9 +2096,7 @@ We can use higher-order functions to turn this function into a NEW function that
 ```
 
 Really, we're only interested in the first row:
-
 $$p_0, p_{01}, p_{012}, p_{0123}, p_{01234}$$
-
 So define a function to grab that:
 
 ```clojure
@@ -2193,7 +2154,7 @@ Every point is the same:
 (0 0 0 0)
 ```
 
-### Generic Tableau Processing<a id="sec-3-2-3"></a>
+### Generic Tableau Processing
 
 The above pattern, of processing tableau entries, is general enough that we can abstract it out into a higher order function that takes a `prepare` and `merge` function and generates a tableau. Any method generating a tableau can use a `present` function to extract the first row, OR to process the tableau in any other way that they like.
 
@@ -2271,7 +2232,6 @@ I'm not sure it's the best interface, but we'll add that arity here.
   This function generates each estimate using Neville's algorithm:
 
   $$P(x) = [(x - x_r) P_l(x) - (x - x_l) P_r(x)] / [x_l - x_r]$$
-
   ## Column
 
   If you supply an integer for the third `column` argument, `neville` will
@@ -2310,7 +2270,7 @@ I'm not sure it's the best interface, but we'll add that arity here.
        (neville-present))))
 ```
 
-### Modified Neville<a id="sec-3-2-4"></a>
+### Modified Neville
 
 Press's Numerical Recipes, chapter 3 (p103) ( [http://phys.uri.edu/nigh/NumRec/bookfpdf/f3-1.pdf](http://phys.uri.edu/nigh/NumRec/bookfpdf/f3-1.pdf) ) describes a modified version of Neville's algorithm that is slightly more efficient than the version above.
 
@@ -2326,11 +2286,8 @@ To make this work, instead of tracking the previous $p$ estimate, we track two q
 We can recover the estimates generated by the original Neville's algorithm by summing C values across the first tableau row.
 
 Equation 3.1.5 in Numerical recipes gives us the equations we need:
-
 $$ C_{abc} = \frac{(x_a - x)(C_{bc} - D_{ab})}{x_a - x_c} = \frac{(x_l - x)(C_r - D_l)}{x_l - x_r} $$
-
 $$ D_{abc} = \frac{(x_c - x)(C_{bc} - D_{ab})}{x_a - x_c} = \frac{(x_r - x)(C_r - D_l)}{x_l - x_r} $$
-
 These equations describe a `merge` function for a tableau processing scheme, with state == `[x_l, x_r, C, D]`.
 
 Let's implement each method, and then combine them into final form. The following methods use the prefix `mn` for &quot;Modified Neville&quot;.
@@ -2402,7 +2359,7 @@ Let's implement each method, and then combine them into final form. The followin
                 points))))
 ```
 
-### Folds and Tableaus by Row<a id="sec-3-2-5"></a>
+### Folds and Tableaus by Row
 
 The advantage of the method described above, where we generate an entire tableau and lazily pull the first entry off of each column, is that we can pass a lazy sequence in as `points` and get a lazy sequence of successive estimates back. If we don't pull from the result sequence, no computation will occur.
 
@@ -2572,7 +2529,7 @@ If you *reverse* the incoming point sequence, the final row of the fold will in 
 
 If you want a true incremental version of the above code, reverse points! We don't do this automatically in case points is an infinite sequence.
 
-### Fold Utilities<a id="sec-3-2-6"></a>
+### Fold Utilities
 
 `tableau-scan` below will return a function that acts identically to the non-fold, column-wise version of the interpolators. It does this by folding in one point at a time, but processing EVERY intermediate value through the presentation function.
 
@@ -2655,7 +2612,7 @@ Next, check out:
 - `rational.cljc` to learn how to interpolate rational functions
 - `richardson.cljc` for a specialized implementation of polynomial interpolation, when you know something about the ratios between successive `x` elements in the point sequence.
 
-## Rational Function Extrapolation<a id="sec-3-3"></a>
+## Rational Function Extrapolation
 
 ```clojure
 (ns quadrature.interpolate.rational
@@ -2789,7 +2746,7 @@ We can be a bit more clever, if we reuse the idea of the &quot;tableau&quot; des
        (ip/first-terms tableau)))))
 ```
 
-### Incremental Bulirsch-Stoer<a id="sec-3-3-1"></a>
+### Incremental Bulirsch-Stoer
 
 Press, in [Numerical Recipes section 3.2](http://phys.uri.edu/nigh/NumRec/bookfpdf/f3-2.pdf), describes a modification to the Bulirsch-Stoer that lets you track the differences from the left and left-up entries in the tableau, just like the modified Neville method in `polynomial.cljc`. the algorithm is implemented below.
 
@@ -2855,7 +2812,7 @@ Press, in [Numerical Recipes section 3.2](http://phys.uri.edu/nigh/NumRec/bookfp
                    points))))
 ```
 
-### Rational Interpolation as a Fold<a id="sec-3-3-2"></a>
+### Rational Interpolation as a Fold
 
 Just like in `polynomial.cljc`, we can write rational interpolation in the style of a functional fold:
 
@@ -2903,9 +2860,9 @@ Just like in `polynomial.cljc`, we can write rational interpolation in the style
    ip/mn-present))
 ```
 
-# Higher-Order Calculus<a id="sec-4"></a>
+# Higher-Order Calculus
 
-## Numerical Derivatives<a id="sec-4-1"></a>
+## Numerical Derivatives
 
 derivatives using three kinds of central difference formulas… accelerated using Richardson extrapolation, with a nice technique for guarding against underflow.
 
@@ -2946,7 +2903,7 @@ And a function to play with:
   (f/literal-function 'f))
 ```
 
-### Approximating Derivatives with Taylor Series<a id="sec-4-1-1"></a>
+### Approximating Derivatives with Taylor Series
 
 The key to all of these methods involves the taylor series expansion of an arbitrary function $f$ around a point $x$; we know the taylor series will include a term for $f^{\prime}(x)$, so the goal is to see if we can isolate it.
 
@@ -3139,7 +3096,7 @@ This is the &quot;central difference&quot; approximation to the *second* derivat
           (* h h))))))
 ```
 
-### Taking Derivatives<a id="sec-4-1-2"></a>
+### Taking Derivatives
 
 Let's attempt to use these estimates and see how accurate they are. (This section follows [Sussman](https://dspace.mit.edu/bitstream/handle/1721.1/6060/AIM-997.pdf?sequence=2) starting on page 10.)
 
@@ -3206,7 +3163,7 @@ At first, the series converges toward the proper value. But as $h$ gets smaller,
 
 As Sussman states: &quot;Hence we are in a race between truncation error, which starts out large and gets smaller, and roundoff error, which starts small and gets larger.&quot; ~Sussman, p12
 
-### Roundoff Error<a id="sec-4-1-3"></a>
+### Roundoff Error
 
 We can actually analyze and quantify how many halvings we can apply to $h$ before roundoff error swamps our calculation.
 
@@ -3217,21 +3174,15 @@ In the current library, `v/machine-epsilon` holds this value.
 Our goal, then, is to see if we can figure out when the error due to roundoff grows so large that it exceeds the tolerance we want to apply to our calculation.
 
 For the central difference formula:
-
 $$f^{\prime}(x) = {f(x + h) - f(x - h)} \over {2h}$$
-
 without any roundoff error, the numerator *should* be equal to $2h f'(x)$. In reality, for small values of $h$, $f(x + h)$ and $f(x - h)$ both have machine representations in error by about $f(x) \epsilon$. Their difference doesn't change the order, so we can say that their difference also has error of $f(x) \epsilon$.
 
 Dividing these two together, the relative error is:
-
 $$\epsilon\left|\frac{f(x)}{2 h f^{\prime}(x)}\right|$$
-
 The relative error doubles each time $h$ is halved. This is technically just the relative error of the numerator of the central difference method, but we know the denominator $2h$ to full precision, so we can ignore it here.
 
 If we actually calculate this ratio, we'll find the INITIAL relative error due to roundoff for a given h. Also, because we want to make sure that we're working in integer multiples of machine epsilon, let's actually take the next-highest-integer of the ratio above. The following method takes the ratio above as an argument, and returns:
-
 $$1 + floor(\lvert ratio \rvert)$$
-
 ```clojure
 (defn- roundoff-units
   "Returns the number of 'roundoff units', ie, multiples of the machine epsilon,
@@ -3303,7 +3254,7 @@ How many terms are we allowed to examine for an estimate of the derivative of $f
 
 15 is far beyond the level where roundoff error has rendered our results untrustworthy.
 
-### Richardson Extrapolation<a id="sec-4-1-4"></a>
+### Richardson Extrapolation
 
 We need a way to converge more quickly. `richardson.cljc` lays out a general method of &quot;sequence acceleration&quot; that we can use here, since we know the arithmetic progression of the terms in the error series for each of our methods above.
 
@@ -3328,7 +3279,7 @@ Happily, it does, in only 5 terms instead of 15! This brings convergence in unde
 
 If you're interested in more details of Richardson extrapolation, please see `richardson.cljc`! For now we'll proceed.
 
-### Putting it All Together<a id="sec-4-1-5"></a>
+### Putting it All Together
 
 We're ready to write our final numeric differentiation routine, `D-numeric`. First, some supporting structure. We support four methods, so let's describe them using keywords in a set:
 
@@ -3481,7 +3432,7 @@ More resources about numerical differentiation:
 - UBC's &quot;Mathematical Python&quot; course: [https://www.math.ubc.ca/~pwalls/math-python/differentiation/differentiation/](https://www.math.ubc.ca/~pwalls/math-python/differentiation/differentiation/)
 
 
-## Simpson's Rule<a id="sec-4-2"></a>
+## Simpson's Rule
 
 fit a parabola to every slice. OR, &quot;accelerate&quot; the trapezoid method with one step of Richardson extrapolation!
 
@@ -3494,9 +3445,7 @@ fit a parabola to every slice. OR, &quot;accelerate&quot; the trapezoid method w
 ```
 
 This numerical integration method is a [closed Newton-Cotes formula](https://en.wikipedia.org/wiki/Newton%E2%80%93Cotes_formulas#Closed_Newton%E2%80%93Cotes_formulas); for each integral slice, Simpson's rule samples each endpoint and the midpoint and combines them into an area estimate for this slice using the following formula:
-
 $${{h} \over 3} (f_0 + 4f_1 + f_2)$$
-
 Given a window of $[a, b]$ and a &quot;step size&quot; of $h = {{b - a} \over 2}$. The point $f_i$ is the point $i$ steps into the window.
 
 There are a few simpler ways to understand this:
@@ -3504,9 +3453,7 @@ There are a few simpler ways to understand this:
 - Simpson's rule is simply the trapezoid method (see `trapezoid.cljc`), subject to a single refinement of &quot;Richardson extrapolation&quot;.
 - The trapezoid method fits a line to each integration slice. Simpson's rule fits a quadratic to each slice.
 - Simpson's rule $S$ is the weighted average of the Midpoint rule $M$ and the trapezoid rule $T$:
-
 $$S = {{2M + T} \over 3}$$
-
 The test namespace contains a symbolic proof that the Richardson-extrapolated Trapezoid method is equivalent to using the formula above to calculate Simpson's rule directly.
 
 ```clojure
@@ -3546,7 +3493,7 @@ The test namespace contains a symbolic proof that the Richardson-extrapolated Tr
   :seq-fn simpson-sequence)
 ```
 
-## Simpson's 3/8 Rule<a id="sec-4-3"></a>
+## Simpson's 3/8 Rule
 
 ```clojure
 (ns quadrature.simpson38
@@ -3558,9 +3505,7 @@ The test namespace contains a symbolic proof that the Richardson-extrapolated Tr
 ```
 
 This numerical integration method is a [closed Newton-Cotes formula](https://en.wikipedia.org/wiki/Newton%E2%80%93Cotes_formulas#Closed_Newton%E2%80%93Cotes_formulas); for each integral slice, Simpson's 3/8 rule samples each endpoint and TWO interior, equally spaced points, and combines them into an area estimate for this slice using the following formula:
-
 $${{3h} \over 8} (f_0 + 3f_1 + 3f_2 + f_3)$$
-
 Given a window of $[a, b]$ and a &quot;step size&quot; of $h = {{b - a} \over 3}$. The point $f_i$ is the point $i$ steps into the window.
 
 There are a few simpler ways to understand this:
@@ -3620,7 +3565,7 @@ The test namespace contains a symbolic proof that the Richardson-extrapolated Tr
   :seq-fn simpson38-sequence)
 ```
 
-## Boole's Rule<a id="sec-4-4"></a>
+## Boole's Rule
 
 trapezoid method plus two steps of Richardson extrapolation. (Are you starting to see the pattern??)
 
@@ -3640,9 +3585,7 @@ This numerical integration method is a [closed Newton-Cotes formula](https://en.
 - three interior points
 
 and combines them into an area estimate for this slice using the following formula:
-
 $${{2h} \over 45} (7f_0 + 32f_1 + 12f_2 + 32f_3 + 7f_4)$$
-
 Given a window of $[a, b]$ and a &quot;step size&quot; of $h = {{b - a} \over 4}$. The point $f_i$ is the point $i$ steps into the window.
 
 There are a few simpler ways to understand this:
@@ -3689,7 +3632,7 @@ The test namespace contains a symbolic proof that the Richardson-extrapolated Tr
   :seq-fn boole-sequence)
 ```
 
-## Romberg Integration<a id="sec-4-5"></a>
+## Romberg Integration
 
 ```clojure
 (ns quadrature.romberg
@@ -3701,9 +3644,7 @@ The test namespace contains a symbolic proof that the Richardson-extrapolated Tr
 ```
 
 Romberg's method is a technique for estimating a definite integral over a closed (or open) range $a, b$:
-
 $$\int_{a}^{b} f(x) dx$$
-
 By applying Richardson extrapolation (see `richardson.cljc`) to either the Trapezoid method or the Midpoint method.
 
 The implementation of Richardson extrapolation in this library can be applied to any methods; many of the numerical quadrature methods (Simpson, Simpson's 3/8, Milne, Boole) involve a single step of Richardson extrapolation.
@@ -3826,7 +3767,7 @@ References:
   :seq-fn closed-sequence)
 ```
 
-## Milne's Rule<a id="sec-4-6"></a>
+## Milne's Rule
 
 ```clojure
 (ns quadrature.milne
@@ -3838,9 +3779,7 @@ References:
 ```
 
 This numerical integration method is an [open Newton-Cotes formula](https://en.wikipedia.org/wiki/Newton%E2%80%93Cotes_formulas#Open_Newton%E2%80%93Cotes_formulas); for each integral slice, Milne's rule samples three interior points (not the endpoints!) and combines them into an area estimate for this slice using the following formula:
-
 $${{4h} \over 3} (2f_1 - f_2 + 2f_3)$$
-
 Given a window of $(a, b)$ and a &quot;step size&quot; of $h = {{b - a} \over 3}$. The point $f_i$ is the point $i$ steps into the window.
 
 There is a simpler way to understand this! Milne's method is, in fact, just the midpoint method (see `midpoint.cljc`), subject to a single refinement of &quot;Richardson extrapolation&quot;.
@@ -3889,7 +3828,7 @@ The test namespace contains a symbolic proof that the Richardson-extrapolated Mi
   :seq-fn milne-sequence)
 ```
 
-## Bulirsch-Stoer Integration<a id="sec-4-7"></a>
+## Bulirsch-Stoer Integration
 
 ```clojure
 (ns quadrature.bulirsch-stoer
@@ -3934,20 +3873,15 @@ NOTE - The Wikipedia page states that &quot;Hairer, Nørsett & Wanner (1993, p. 
 
 We can do this too! Passing `{:bs-extrapolator :polynomial}` enables polynomial extrapolation in the sequence and integration functions implemented below.
 
-### Even Power Series<a id="sec-4-7-1"></a>
+### Even Power Series
 
 One more detail is important to understand. You could apply the ideas above to any function that approximates an integral, but this namespace focuses on accelerating the midpoint and trapezoid methods.
 
 As discussed in `midpoint.cljc` and `trapezoid.cljc`, the error series for these methods has terms that fall off as even powers of the integration slice width:
-
 $$1/h^2, 1/h^4, ...$$
-
 $$1/(h^2) 1/(h^2)^2, ...$$
-
 This means that the rational function approximation needs to fit the function to points of the form
-
 $$(h^2, f(h))$$
-
 to take advantage of the acceleration. This trick is baked into Richardson extrapolation through the ability to specify a geometric series. `richardson_test.cljc` shows that Richardson extrapolation is indeed equivalent to a polynomial fit using $h^2$… the idea here is the same.
 
 The following two functions generate a sequence of NON-squared $h$ slice widths. `bs-sequence-fn` below squares each entry.
@@ -3967,7 +3901,7 @@ The following two functions generate a sequence of NON-squared $h$ slice widths.
    (map (slice-width a b) n-seq)))
 ```
 
-### Bulirsch-Stoer Estimate Sequences<a id="sec-4-7-2"></a>
+### Bulirsch-Stoer Estimate Sequences
 
 The next group of functions generates `open-sequence` and `closed-sequence` methods, analagous to all other quadrature methods in the library.
 
@@ -4049,7 +3983,7 @@ The next group of functions generates `open-sequence` and `closed-sequence` meth
   (bs-sequence-fn trap/trapezoid-sequence))
 ```
 
-### Integration API<a id="sec-4-7-3"></a>
+### Integration API
 
 Finally, two separate functions that use the sequence functions above to converge quadrature estimates.
 
@@ -4091,14 +4025,14 @@ Finally, two separate functions that use the sequence functions above to converg
   :seq-fn closed-sequence)
 ```
 
-### References:<a id="sec-4-7-4"></a>
+### References:
 
 - Press, Numerical Recipes, section 16.4: [http://phys.uri.edu/nigh/NumRec/bookfpdf/f16-4.pdf](http://phys.uri.edu/nigh/NumRec/bookfpdf/f16-4.pdf)
 - Wikipedia: [https://en.wikipedia.org/wiki/Bulirsch–Stoer_algorithm](https://en.wikipedia.org/wiki/Bulirsch%E2%80%93Stoer_algorithm)
 
-# Combinators<a id="sec-5"></a>
+# Combinators
 
-## Variable Substitutions<a id="sec-5-1"></a>
+## Variable Substitutions
 
 Implemented as functional wrappers that take an integrator and return a modified integrator.
 
@@ -4117,7 +4051,7 @@ Implemented as functional wrappers that take an integrator and return a modified
             [quadrature.common :as qc]))
 ```
 
-### Infinite Endpoints<a id="sec-5-1-1"></a>
+### Infinite Endpoints
 
 This first function, `infinitize`, transforms some integrator into a new integrator with the same interface that can handle an infinite endpoint.
 
@@ -4130,19 +4064,16 @@ This implementation can only handle one endpoint at a time, and, the way it's wr
   following substitution:
 
   $$u(t) = {1 \\over t}$$ $$du = {-1 \\over t^2}$$
-
   This works when the integrand `f` falls off at least as fast as $1 \\over t^2$
   as it approaches the infinite limit.
 
   The returned function requires that `a` and `b` have the same sign, ie:
 
   $$ab > 0$$
-
   Transform the bounds with $u(t)$, and cancel the negative sign by changing
   their order:
 
   $$\\int_{a}^{b} f(x) d x=\\int_{1 / b}^{1 / a} \\frac{1}{t^{2}} f\\left(\\frac{1}{t}\\right) dt$$
-
   References:
 
   - Mathworld, \"Improper Integral\": https://mathworld.wolfram.com/ImproperIntegral.html
@@ -4163,20 +4094,16 @@ This implementation can only handle one endpoint at a time, and, the way it's wr
        (integrate f' a' b' opts)))))
 ```
 
-### Power Law Singularities<a id="sec-5-1-2"></a>
+### Power Law Singularities
 
 > &quot;To deal with an integral that has an integrable power-law singularity at its lower limit, one also makes a change of variable.&quot; (Press, p138)
 
 A &quot;power-law singularity&quot; means that the integrand diverges as $(x - a)^{-\gamma}$ near $x=a$.
 
 We implement the following identity (from Press) if the singularity occurs at the lower limit:
-
 $$\int_{a}^{b} f(x) d x=\frac{1}{1-\gamma} \int_{0}^{(b-a)^{1-\gamma}} t^{\frac{\gamma}{1-\gamma}} f\left(t^{\frac{1}{1-\gamma}}+a\right) d t \quad(b>a)$$
-
 And this similar identity if the singularity occurs at the upper limit:
-
 $$\int_{a}^{b} f(x) d x=\frac{1}{1-\gamma} \int_{0}^{(b-a)^{1-\gamma}} t^{\frac{\gamma}{1-\gamma}} f\left(b-t^{\frac{1}{1-\gamma}}\right) d t \quad(b>a)$$
-
 If you have singularities at both sides, divide the interval at some interior breakpoint, take separate integrals for both sides and add the values back together.
 
 ```clojure
@@ -4187,7 +4114,6 @@ If you have singularities at both sides, divide the interval at some interior br
   An \"inverse power law singularity\" means that the integrand diverges as
 
   $$(x - a)^{-\\gamma}$$
-
   near $x=a$. Passing true for `lower?` to specify a singularity at the lower
   endpoint, false to signal an upper-endpoint singularity.
 
@@ -4225,7 +4151,7 @@ If you have singularities at both sides, divide the interval at some interior br
   (inverse-power-law integrate gamma false))
 ```
 
-### Inverse Square Root singularities<a id="sec-5-1-3"></a>
+### Inverse Square Root singularities
 
 The next two functions specialize the `inverse-power-law-*` functions to the common situation of an inverse power law singularity.
 
@@ -4235,7 +4161,6 @@ The next two functions specialize the `inverse-power-law-*` functions to the com
   at the lower integration endpoint. Use this when the integrand diverges as
 
   $$1 \\over {\\sqrt{x - a}}$$
-
   near the lower endpoint $a$."
   [integrate]
   (fn call
@@ -4252,7 +4177,6 @@ The next two functions specialize the `inverse-power-law-*` functions to the com
   at the upper integration endpoint. Use this when the integrand diverges as
 
   $$1 \\over {\\sqrt{x - b}}$$
-
   near the upper endpoint $b$."
   [integrate]
   (fn call
@@ -4263,18 +4187,14 @@ The next two functions specialize the `inverse-power-law-*` functions to the com
            (update-in [:result] (partial * 2)))))))
 ```
 
-### Exponentially Diverging Endpoints<a id="sec-5-1-4"></a>
+### Exponentially Diverging Endpoints
 
 From Press, section 4.4: &quot;Suppose the upper limit of integration is infinite, and the integrand falls off exponentially. Then we want a change of variable that maps
-
 $$\exp{-x} dx$$
-
 into +- $dt$ (with the sign chosen to keep the upper limit of the new variable larger than the lower limit).&quot;
 
 The required identity is:
-
 $$\int_{x=a}^{x=\infty} f(x) d x=\int_{t=0}^{t=e^{-a}} f(-\log t) \frac{d t}{t}$$
-
 ```clojure
 (defn exponential-upper
   "Implements a change of variables to address an exponentially diverging upper
@@ -4291,7 +4211,7 @@ $$\int_{x=a}^{x=\infty} f(x) d x=\int_{t=0}^{t=e^{-a}} f(-\log t) \frac{d t}{t}$
        (integrate f 0 (Math/exp (- a)) opts)))))
 ```
 
-## Improper Integrals<a id="sec-5-2"></a>
+## Improper Integrals
 
 A template for a combinator that enables infinite endpoints on any integrator, using variable substitution on an appropriate, tunable range.
 
@@ -4306,16 +4226,12 @@ This namespace holds an implementation of an &quot;improper&quot; integral combi
 
 The implementation was inspired by `evaluate-improper-integral` in `numerics/quadrature/quadrature.scm` file in the [scmutils](https://groups.csail.mit.edu/mac/users/gjs/6946/refman.txt) package.
 
-### Overview<a id="sec-5-2-1"></a>
+### Overview
 
 To evaluate an [improper integral](https://en.wikipedia.org/wiki/Improper_integral) with an infinite endpoint, the `improper` combinator applies an internal change of variables.
-
 $$u(t) = {1 \over t}$$ $$du = {-1 \over t^2}$$
-
 This has the effect of mapping the endpoints from $a, b$ to ${1 \over b}, {1 \over a}$. Here's the identity we implement:
-
 $$\int_{a}^{b} f(x) d x=\int_{1 / b}^{1 / a} \frac{1}{t^{2}} f\left(\frac{1}{t}\right) dt$$
-
 This is implemented by `substitute/infinitize`.
 
 The variable change only works as written when both endpoints are of the same sign; so, internally, `improper` only applies the variable change to the segment of $a, b$ from `##-Inf =&gt; (- :infinite-breakpoint)` and `:infinite-breakpoint -&gt; ##Inf`, where `:infinite-breakpoint` is an argument the user can specify in the returned integrator's options map.
@@ -4324,7 +4240,7 @@ Any segment of $a, b$ *not* in those regions is evaluated normally.
 
 NOTE: The ideas in this namespace could be implemented for other variable substitutions (see `substitute.cljc`) that only need to apply to certain integration intervals. The code below automatically cuts the range $(a, b)$ to accomodate this for the particular variable change we've baked in, but there is a more general abstraction lurking.
 
-### Implementation<a id="sec-5-2-2"></a>
+### Implementation
 
 ```clojure
 (defn improper
@@ -4429,7 +4345,7 @@ NOTE: The ideas in this namespace could be implemented for other variable substi
               :else (integrator f a b opts))))))
 ```
 
-### Suggestions for Improvement<a id="sec-5-2-3"></a>
+### Suggestions for Improvement
 
 The current implementation does not pass convergence information back up the line! Ideally we would merge results by:
 
@@ -4437,7 +4353,7 @@ The current implementation does not pass convergence information back up the lin
 - combining `:converged?` entries with `and`
 - retaining all other keys
 
-## Adaptive Quadrature<a id="sec-5-3"></a>
+## Adaptive Quadrature
 
 ```clojure
 (ns quadrature.adaptive
@@ -4449,7 +4365,7 @@ This namespace holds an implementation of &quot;adaptive quadrature&quot; usable
 
 The implementation was inspired by the `numerics/quadrature/rational.scm` file in the [scmutils](https://groups.csail.mit.edu/mac/users/gjs/6946/refman.txt) package. In that library, adaptive quadrature was special-cased to the Bulirsch-Stoer algorithm, ported in `bulirsch_stoer.cljc`.
 
-### Overview<a id="sec-5-3-1"></a>
+### Overview
 
 Most of the integrators in `quadrature` work by successively refining an integration interval $a, b$ down into evenly-spaced integration slices. Some functions are very well behaved in some regions, and then oscillate wildly in others.
 
@@ -4467,7 +4383,7 @@ The `*adaptive-maxterms*` variable is dynamic, which means you can adjust the be
 (def ^:dynamic *adaptive-maxterms* 10)
 ```
 
-### Fuzzy Midpoints<a id="sec-5-3-2"></a>
+### Fuzzy Midpoints
 
 Symmetric intervals like $-1, 1$ often show up with integrands with singularities right at the center of the midpoint. For this reason, `adaptive` is able to customize its splitting behavior using the `*neighborhood-width*` dynamic variable.
 
@@ -4492,7 +4408,7 @@ By default, when partitioning an interval, `adaptive` will choose an interval wi
      (+ a (* offset width)))))
 ```
 
-### Main Implementation<a id="sec-5-3-3"></a>
+### Main Implementation
 
 The implementation below takes *two* integrate functions, not the one described above. This allows us to handle open and closed intervals, instead of introducing open endpoints at every subdivision. All internal intervals that don't touch an open endpoint are considered closed.
 
@@ -4564,7 +4480,7 @@ The implementation below takes *two* integrate functions, not the one described 
                          (inc iteration))))))))))))
 ```
 
-### Suggestions for Improvement<a id="sec-5-3-4"></a>
+### Suggestions for Improvement
 
 1. Iteration Limit 
  `adaptive` runs until it completes, with no facility available to bail out of computation. An iteration limit would be a great addition… but it won't be efficient without some way of prioritizing high-error subintervals for refinement, as discussed next.
@@ -4573,17 +4489,17 @@ The implementation below takes *two* integrate functions, not the one described 
  `adaptive-sequence` could then return a sequence where every element processes a single refinement. Even without this upgrade, the priority queue idea would allow the estimate to converge quickly and be more accurate if we bailed out at some max number of iterations. 
  [This article](http://www.learningclojure.com/2011/05/numerical-integration-better_29.html) holds a related implementation.
 
-### References<a id="sec-5-3-5"></a>
+### References
 
 - SCMUtils Refman: [https://groups.csail.mit.edu/mac/users/gjs/6946/refman.txt](https://groups.csail.mit.edu/mac/users/gjs/6946/refman.txt)
 - Wikipedia, &quot;Adaptive Simpson's Method&quot;: [https://en.wikipedia.org/wiki/Adaptive_Simpson's_method](https://en.wikipedia.org/wiki/Adaptive_Simpson%27s_method)
 
 
-# Conclusion<a id="sec-6"></a>
+# Conclusion
 
 Conclusion coming.
 
-# Appendix: Common Code<a id="sec-7"></a>
+# Appendix: Common Code
 
 ```clojure
 (ns quadrature.common
@@ -4598,9 +4514,7 @@ Conclusion coming.
 ```
 
 This dynamic variable holds the default &quot;roundoff cutoff&quot; used by all integrators to decide when to return an estimate based on a single slice, vs attempting to converge a sequence of progressively finer estimates. When this condition is satisfied:
-
 $$|b - a| / (|a| + |b|) \leq \text{cutoff}$$
-
 An integrator will estimate a single slice directly. Else, it will attempt to converge a sequence.
 
 ```clojure
@@ -4614,7 +4528,7 @@ NOTE - we don't have an interface yet to bind this dynamic variable. bind it man
   (integrate f a b))
 ```
 
-## Intervals<a id="sec-7-1"></a>
+## Intervals
 
 Implementations of the various intervals used by the adaptive integral interface. By default, integration endpoints are considered *open*.
 
@@ -4670,7 +4584,7 @@ These functions modify an interval by opening or closing either of its endpoints
     (assoc opts k (f (interval opts)))))
 ```
 
-## Common Integration Interface<a id="sec-7-2"></a>
+## Common Integration Interface
 
 The following two functions define a shared interface that integration namespaces can use to create an &quot;integrator&quot; from:
 
@@ -4772,7 +4686,7 @@ The first function is called in the case that the integration range $(a, b)$ (op
        (make-integrator-fn ~area-fn ~seq-fn))))
 ```
 
-# Appendix: Streams<a id="sec-8"></a>
+# Appendix: Streams
 
 ```clojure
 (ns quadrature.util.stream
@@ -4839,7 +4753,7 @@ The first function is called in the case that the integration range $(a, b)$ (op
            (rest)))))
 ```
 
-## Convergence Tests<a id="sec-8-1"></a>
+## Convergence Tests
 
 This convergence tester comes from Gerald Sussman's [&quot;Abstraction in Numerical Methods&quot;](https://dspace.mit.edu/bitstream/handle/1721.1/6060/AIM-997.pdf?sequence=2).
 
@@ -4924,7 +4838,7 @@ As of October 2020 we use this exclusively for various numerical integration rou
                (recur more terms-checked)))))))))
 ```
 
-# Appendix: Aggregation<a id="sec-9"></a>
+# Appendix: Aggregation
 
 ```clojure
 (ns quadrature.util.aggregate

@@ -7,10 +7,10 @@ math: true
 ---
 
 ```
-- [Variation Sum Rule](#sec-1)
+- [Variation Sum Rule](#variation-sum-rule)
 ```
 
-# Variation Sum Rule<a id="sec-1"></a>
+# Variation Sum Rule
 
 The sum rule is easier. Our goal is:
 
