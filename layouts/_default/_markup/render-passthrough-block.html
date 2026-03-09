@@ -1,10 +1,10 @@
 {{- $inner := .Inner -}}
 {{- if strings.Contains $inner `\label` -}}
 <span class="math-block">
-<script type="math/tex; mode=display">\begin{equation}{{ $inner | safeJS }}\end{equation}</script>
+{{ printf `<script type="math/tex; mode=display">\begin{equation}%s\end{equation}</script>` $inner | safeHTML }}
 </span>
 {{- else -}}
 <span class="math-block">
-<script type="math/tex; mode=display">{{ $inner | safeJS }}</script>
+{{ printf `<script type="math/tex; mode=display">%s</script>` $inner | safeHTML }}
 </span>
 {{- end -}}

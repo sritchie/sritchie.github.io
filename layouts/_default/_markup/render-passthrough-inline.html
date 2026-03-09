@@ -1,1 +1,1 @@
-<script type="math/tex">{{ .Inner | safeJS }}</script>
+{{- printf `<span class="math-inline"><script type="math/tex">%s</script></span>` .Inner | safeHTML -}}

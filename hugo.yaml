@@ -54,6 +54,11 @@ markup:
     guessSyntax: true
     lineNos: false
 
+minify:
+  tdewolff:
+    html:
+      keepWhitespace: true
+
 params:
   comments: false
   defaultTheme: auto
