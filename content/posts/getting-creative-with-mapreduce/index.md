@@ -18,7 +18,7 @@ The [Cascalog](https://github.com/nathanmarz/cascalog) abstraction layer fixes t
 
 Cascalog and its testing suite, [midje-cascalog](https://github.com/sritchie/midje-cascalog), allow us to test application logic in isolation; the resulting tests are truly beautiful.
 
-## Current Approaches to MR Testing<a id="sec-1-1" name="sec-1-1"></a>
+## Current Approaches to MR Testing
 
 Say you've implemented [wordcount in MapReduce](http://hadoop.apache.org/common/docs/current/mapred_tutorial.html#Example%253A%2BWordCount%2Bv1.0), and are looking to write unit tests against your workflow. The Hadoop consulting giant [Cloudera](http://www.cloudera.com/) defines current best practices [in this article](http://www.cloudera.com/blog/2009/07/debugging-mapreduce-programs-with-mrunit/):
 
@@ -37,7 +37,7 @@ A well designed testing suite will examine each MapReduce query as the function 
 
 I'd like to offer a more sane approach to MapReduce testing. In the following example, I'll write MapReduce query with Cascalog and test it using [midje-cascalog](https://github.com/sritchie/midje-cascalog), a thin wrapper I wrote over the Midje testing DSL.
 
-## Functional MapReduce Testing<a id="sec-1-2" name="sec-1-2"></a>
+## Functional MapReduce Testing
 
 Let's say you want to test a Cascalog workflow that examines your user datastore and returns the user with the greatest number of followers. Your workflow's top level query will generate a single tuple containing that user's name and follower-count. Here's the code:
 
@@ -63,7 +63,7 @@ At a high level, the subquery returned by `max-followers-query` is responsible f
 
 A correct test of `max-followers-query` will test this piece of logic in isolation.
 
-### Cloudera's "State of the Art"<a id="sec-1-2-1" name="sec-1-2-1"></a>
+### Cloudera's "State of the Art"
 
 If you were to follow Cloudera's advice on how to test this query, you would have to:
 
@@ -77,7 +77,7 @@ This series of steps adds tremendous friction to the testing process, and obscur
 
 If your tests are this difficult to write, you're not going to write very many tests. You need tests to be creative; without tests, you won't change production queries in fear of introducing some bug you don't understand.
 
-### Fact-Based Testing<a id="sec-1-2-2" name="sec-1-2-2"></a>
+### Fact-Based Testing
 
 Midje circumvents all of this complexity by mocking out the result of `(complex-subquery datastore-path)` and forcing it to return a specific Clojure sequence of `[?user ?follower-count]` tuples.
 

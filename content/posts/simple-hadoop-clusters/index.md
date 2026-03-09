@@ -14,7 +14,7 @@ I'm excited to announce [Pallet-Hadoop](https://github.com/pallet/pallet-hadoop)
 
 In the tutorial, we're going to see how to create a three node Hadoop cluster on EC2, and run a word count on MapReduce. We'll be following along with [Pallet-Hadoop example project](https://github.com/pallet/pallet-hadoop-example) for the introduction; for a more in-depth discussion of the design of pallet-hadoop, see the [project wiki](https://github.com/pallet/pallet-hadoop/wiki).
 
-## Background<a id="sec-1-1" name="sec-1-1"></a>
+## Background
 
 Hadoop is an Apache java framework that allows for distributed processing of enormous datasets across large clusters. It combines a computation engine based on [MapReduce](http://en.wikipedia.org/wiki/MapReduce) with [HDFS](http://hadoop.apache.org/hdfs/docs/current/hdfs_design.html), a distributed filesystem based on the [Google File System](http://en.wikipedia.org/wiki/Google_File_System).
 
@@ -24,7 +24,7 @@ Unfortunately, graduating one's MapReduce jobs to the cluster level isn't so eas
 
 After surveying existing tools, I decided to write my own layer over [Pallet](https://github.com/pallet/pallet), a wonderful cloud provisioning library written in Clojure. Pallet runs on top of [jclouds](https://github.com/jclouds/jclouds), which allows pallet to define its operations independent of any one cloud provider. Switching between clouds involves a change of login credentials, nothing more.
 
-## Setting Up<a id="sec-1-2" name="sec-1-2"></a>
+## Setting Up
 
 Before you get your first cluster running, you'll need to [create an AWS account](https://aws-portal.amazon.com/gp/aws/developer/registration/index.html). Once you've done this, navigate to [your account page](http://aws.amazon.com/account/) and follow the "Security Credentials" link. Under "Access Credentials", you should see a tab called "Access Keys". Note down your Access Key ID and Secret Access Key for future reference.
 
@@ -47,7 +47,7 @@ $ lein repl
  user=> (use 'pallet-hadoop-example.core) (bootstrap)
 ```
 
-## Compute Service<a id="sec-1-3" name="sec-1-3"></a>
+## Compute Service
 
 Pallet abstracts away details about specific cloud providers through the idea of a "compute service". The combination of our cluster definition and our compute service will be enough to get our cluster running. We define a compute service at our REPL like so:
 
@@ -75,7 +75,7 @@ user=> (def ec2-service (compute-service-from-config-file :aws))
 #'user/ec2-service
 ```
 
-## Booting the Cluster<a id="sec-1-4" name="sec-1-4"></a>
+## Booting the Cluster
 
 Now that we have our compute service and our cluster defined, booting the cluster is as simple as the following:
 
@@ -87,7 +87,7 @@ The logs you see flying by are Pallet's SSH communications with the nodes in the
 
 Once `create-cluster` returns, we're done! We now have a fully configured, multi-node Hadoop cluster at our disposal.
 
-## Running Word Count<a id="sec-1-5" name="sec-1-5"></a>
+## Running Word Count
 
 To test our new cluster, we're going log in and run a word counting MapReduce job on a number of books from [Project Gutenberg](http://www.gutenberg.org/wiki/Main_Page).
 
@@ -104,7 +104,7 @@ $ ssh jobtracker.com # insert actual address, enter yes to continue connecting
 $ sudo su - hadoop
 ```
 
-## Copy Data to HDFS<a id="sec-1-6" name="sec-1-6"></a>
+## Copy Data to HDFS
 
 At this point, we're ready to begin following along with Michael Noll's excellent [Hadoop configuration tutorial](http://goo.gl/aALr9). (I'll cover some of the same ground for clarity.)
 
@@ -148,7 +148,7 @@ drwxr-xr-x   - hadoop supergroup          0 2011-06-01 06:12:21 /user/hadoop/boo
 /usr/local/hadoop-0.20.2$
 ```
 
-## Running MapReduce<a id="sec-1-7" name="sec-1-7"></a>
+## Running MapReduce
 
 We're ready to run the MapReduce job. `wordcount` takes an input path within HDFS, processes all items within, and saves the output to HDFS – to `books-output`, in this case. Run this command:
 
@@ -199,7 +199,7 @@ And you should see something very similar to this:
 /usr/local/hadoop-0.20.2$
 ```
 
-## Retrieving Output<a id="sec-1-8" name="sec-1-8"></a>
+## Retrieving Output
 
 Now that the MapReduce job has completed successfully, all that remains is to extract the results from HDFS and take a look.
 
@@ -226,7 +226,7 @@ You should see something very close to:
 
 Success!
 
-## Killing the Cluster<a id="sec-1-9" name="sec-1-9"></a>
+## Killing the Cluster
 
 When we're finished, we can kill our cluster with this command, back at the REPL:
 
@@ -234,6 +234,6 @@ When we're finished, we can kill our cluster with this command, back at the REPL
 user=> (destroy-cluster example-cluster ec2-service)
 ```
 
-## Next Installment<a id="sec-1-10" name="sec-1-10"></a>
+## Next Installment
 
 That's it for now! Next, we'll talk about how to test hadoop clusters using pallet-hadoop with [vmfest](https://github.com/tbatchelli/vmfest) to create a virtual machine cluster identical to your production cluster on the cloud.

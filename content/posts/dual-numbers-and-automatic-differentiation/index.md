@@ -12,35 +12,34 @@ description: "This literate essay develops an implementation of a type called `D
 math: true
 ---
 
-- [Dual Numbers and Automatic Differentiation](#sec-1)
+- [Dual Numbers and Automatic Differentiation](#dual-numbers-and-automatic-differentiation)
 <ul>
-<li>[Forward-Mode Automatic Differentiation](#sec-1-1)
-- [Dual Numbers and AD](#sec-1-2)
-- [Terminology Change!](#sec-1-3)
-- [Binary Functions](#sec-1-4)
-- [Multiple Variables, Nesting](#sec-1-5)
-- [What Return Values are Allowed?](#sec-1-6)
+<li>[Forward-Mode Automatic Differentiation](#forward-mode-automatic-differentiation)
+- [Dual Numbers and AD](#dual-numbers-and-ad)
+- [Terminology Change!](#terminology-change)
+- [Binary Functions](#binary-functions)
+- [Multiple Variables, Nesting](#multiple-variables-nesting)
+- [What Return Values are Allowed?](#what-return-values-are-allowed)
 
 </li>
-<li>[Differential Implementation](#sec-2)</li>
-<li>[Term List Algebra](#sec-3)
+<li>[Differential Implementation](#differential-implementation)</li>
+<li>[Term List Algebra](#term-list-algebra)
 
-- [Addition and Multiplication](#sec-3-1)
+- [Addition and Multiplication](#addition-and-multiplication)
 
 </li>
-<li>[Differential Type Implementation](#sec-4)</li>
-<li>[Accessor Methods](#sec-5)</li>
-<li>[Constructors](#sec-6)</li>
-<li>[Differential API](#sec-7)</li>
-<li>[Differential Parts API](#sec-8)</li>
-<li>[Comparison, Control Flow](#sec-9)</li>
-<li>[Chain Rule and Lifted Functions](#sec-10)</li>
-<li>[Derivatives of Differentials](#sec-11)</li>
-<li>[Generic Method Installation](#sec-12)</li>
+<li>[Differential Type Implementation](#differential-type-implementation)</li>
+<li>[Accessor Methods](#accessor-methods)</li>
+<li>[Constructors](#constructors)</li>
+<li>[Differential API](#differential-api)</li>
+<li>[Differential Parts API](#differential-parts-api)</li>
+<li>[Comparison, Control Flow](#comparison-control-flow)</li>
+<li>[Chain Rule and Lifted Functions](#chain-rule-and-lifted-functions)</li>
+<li>[Derivatives of Differentials](#derivatives-of-differentials)</li>
+<li>[Generic Method Installation](#generic-method-installation)</li>
 </ul>
 
-# Dual Numbers and Automatic Differentiation<a id="sec-1"></a>
-
+# Dual Numbers and Automatic Differentiation
 This literate essay develops an implementation of a type called [Differential](https://github.com/sicmutils/sicmutils/blob/c89b45d453b08a1e1259ff5de9d9841874807fda/src/sicmutils/differential.cljc#L568). A [Differential](https://github.com/sicmutils/sicmutils/blob/c89b45d453b08a1e1259ff5de9d9841874807fda/src/sicmutils/differential.cljc#L568) is a generalization of a type called a [&quot;dual number&quot;](https://en.wikipedia.org/wiki/Dual_number), and the glowing, pulsing core of the [SICMUtils](https://github.com/sicmutils/sicmutils) implementation of forward-mode automatic differentiation.
 
 As we'll discuss, passing these numbers as arguments to some function $f$ built out of the [sicmutils.generic](https://github.com/sicmutils/sicmutils/blob/master/src/sicmutils/generic.cljc) operators allows us to build up the derivative of $f$ in parallel to our evaluation of $f$. Complex programs are built out of simple pieces that we know how to evaluate; we can build up derivatives of entire programs in a similar way, building them out of the derivatives of the smaller pieces of those programs.
@@ -66,8 +65,7 @@ As we'll discuss, passing these numbers as arguments to some function $f$ built 
      (:import (clojure.lang AFn IFn))))
 ```
 
-## Forward-Mode Automatic Differentiation<a id="sec-1-1"></a>
-
+## Forward-Mode Automatic Differentiation
 For many scientific computing applications, it's valuable be able to generate a &quot;derivative&quot; of a function; given some wiggle in the inputs, how much wobble does the output produce?
 
 we know how to take derivatives of many of the generic functions exposed by SICMUtils, like `+`, `*`, `sin` and friends. It turns out that we can take the derivatives of large, complicated functions by combining the derivatives of these smaller functions using the [chain rule](https://en.wikipedia.org/wiki/Automatic_differentiation#The_chain_rule,_forward_and_reverse_accumulation) as a clever bookkeeping device.
@@ -76,18 +74,13 @@ The technique of evaluating a function and its derivative in parallel is called 
 
 NOTE: The other flavor of automatic differentiation (AD) is &quot;reverse-mode AD&quot;. See [sicmutils.tape](https://github.com/sicmutils/sicmutils/pull/226) for an implementation of this style, coming soon!
 
-## Dual Numbers and AD<a id="sec-1-2"></a>
-
+## Dual Numbers and AD
 Our goal is to build up derivatives of complex functions out of the derivatives of small pieces. A [dual number](https://en.wikipedia.org/wiki/Dual_number) is a relatively simple piece of machinery that will help us accomplish this goal.
 
 A [dual number](https://en.wikipedia.org/wiki/Dual_number) is a pair of numbers of the form
-
 $$
-
 a+b\varepsilon
-
 $$
-
 where $a$ and $b$ are real numbers, and $\varepsilon$ is an abstract thing, with the property that $\varepsilon^2 = 0$.
 
 NOTE: This might remind you of the definition of a complex number of the form $a + bi$, where $i$ is also a new thing with the property that $i^2 = -1$. You are very wise! The bigger idea lurking here is the [&quot;generalized complex number&quot;](https://people.rit.edu/harkin/research/articles/generalized_complex_numbers.pdf), and of course mathematicians have pushed this very far. You might explore the [&quot;Split-complex numbers&quot;](https://en.wikipedia.org/wiki/Split-complex_number) too, which arise when you set $i^2 = 1$.
@@ -95,31 +88,19 @@ NOTE: This might remind you of the definition of a complex number of the form $a
 Why are dual numbers useful (in SICMUtils)? If you pass $a+b\varepsilon$ in to a function $f$, the result is a dual number $f(a) + Df(a) b \varepsilon$; you get both the function and its derivative evaluated at the same time!
 
 To see why, look at what happens when you pass a dual number into the [Taylor series expansion](https://en.wikipedia.org/wiki/Taylor_series) of some arbitrary function $f$. As a reminder, the Taylor series expansion of $f$ around some point $a$ is:
-
 $$
-
 f(x) = f(a)+\frac{Df(a)}{1!}(x-a)+\frac{D^2f(a)}{2!}(x-a)^{2}+\frac{D^3f(a)}{3!}(x-a)^{3}+\cdots
-
 $$
-
 NOTE: See this nice overview of [Taylor series expansion](https://medium.com/@andrew.chamberlain/an-easy-way-to-remember-the-taylor-series-expansion-a7c3f9101063) by Andrew Chamberlain if you want to understand this idea and why we can approximate (smooth) functions this way.
 
 If you evaluate the expansion of $f(x)$ around $a$ with a dual number argument whose first component is $a$ – take $x=a+b\varepsilon$, for example – watch how the expansion simplifies:
-
 $$
-
 f(a+b\varepsilon) = f(a)+\frac{Df(a)}{1!}(b\varepsilon)+\frac{D^2f(a)}{2!}(b\varepsilon)^2+\cdots
-
 $$
-
 Since $\varepsilon^2=0$ we can ignore all terms beyond the first two:
-
 $$
-
 f(a+b\varepsilon) = f(a)+ (Df(a)b)\varepsilon
-
 $$
-
 NOTE: See [lift-1](https://github.com/sicmutils/sicmutils/blob/c89b45d453b08a1e1259ff5de9d9841874807fda/src/sicmutils/differential.cljc#L1135) for an implementation of this idea.
 
 Interesting! This justifies our claim above: applying a function to some dual number $a+\varepsilon$ returns a new dual number, where
@@ -128,16 +109,13 @@ Interesting! This justifies our claim above: applying a function to some dual nu
 - the second component is $Df(a)$, the derivative.
 
 If we do this twice, the second component of the returned dual number beautifully recreates the [Chain Rule](https://en.wikipedia.org/wiki/Chain_rule):
-
 $$
 \begin{aligned}
 g(f(a+\varepsilon)) & = g(f(a) + Df(a)\varepsilon) \\
 & = g(f(a)) + (Dg(f(a)))(Df(a))\varepsilon
 \end{aligned}
 $$
-
-## Terminology Change!<a id="sec-1-3"></a>
-
+## Terminology Change!
 A &quot;dual number&quot; is a very general idea. Because we're interested in dual numbers as a bookkeeping device for derivatives, we're going to specialize our terminology. From now on, we'll rename $a$ and $b$ to $x$ and $x'$. Given a dual number of the form $x+x'\varepsilon$: we'll refer to:
 
 - $x$ as the &quot;primal&quot; part of the dual number
@@ -146,16 +124,11 @@ A &quot;dual number&quot; is a very general idea. Because we're interested in du
 
 NOTE: &quot;primal&quot; means $x$ is tracking the &quot;primal&quot;, or &quot;primary&quot;, part of the computation. &quot;tangent&quot; is a synonym for &quot;derivative&quot;. &quot;tag&quot; is going to make more sense shortly, when we start talking about mixing together multiple $\varepsilon_1$, $\varepsilon_2$ from different computations.
 
-## Binary Functions<a id="sec-1-4"></a>
-
+## Binary Functions
 What about functions of more than one variable? We can use the same approach by leaning on the [multivariable Taylor series expansion](https://en.wikipedia.org/wiki/Taylor_series#Taylor_series_in_several_variables). Take $f(x, y)$ as a binary example. If we pass dual numbers in to the taylor series expansion of $f$, the $\varepsilon$ multiplication rule will erase all higher-order terms, leaving us with:
-
 $$
-
 f(x+x'\varepsilon, y+y'\varepsilon) = f(x,y) + [\partial_1 f(x,y)x' + \partial_2 f(x,y) y']\varepsilon
-
 $$
-
 NOTE: See [lift-2](https://github.com/sicmutils/sicmutils/blob/c89b45d453b08a1e1259ff5de9d9841874807fda/src/sicmutils/differential.cljc#L1158) for an implementation of this idea.
 
 This expansion generalizes for n-ary functions; every new argument $x_n + x'_n\varepsilon$ contributes $\partial_n f(...)x'_n$ to the result.
@@ -163,32 +136,22 @@ This expansion generalizes for n-ary functions; every new argument $x_n + x'_n\v
 We can check this with the simple cases of addition, subtraction and multiplication.
 
 The real parts of a dual number add commutatively, so we can rearrange the components of a sum to get a new dual number:
-
 $$
-
 (x+x'\varepsilon)+(y+y'\varepsilon) == (x+y)+(x'+y')\varepsilon
-
 $$
-
 This matches the [sum rule](https://en.wikipedia.org/wiki/Differentiation_rules#Differentiation_is_linear) of differentiation, since the partials of $x + y$ with respect to either $x$ or $y$ both equal 1.
 
 Subtraction is almost identical and agrees with the [subtraction rule](https://en.wikipedia.org/wiki/Differentiation_rules#Differentiation_is_linear):
-
 $$
-
 (x+x'\varepsilon)-(y+y'\varepsilon) == (x-y)+(x'-y')\varepsilon
-
 $$
-
 Multiplying out the components of two dual numbers again gives us a new dual number, whose tangent component agrees with the [product rule](https://en.wikipedia.org/wiki/Product_rule):
-
 $$
 \begin{aligned}
 (x+ x'\varepsilon)*(y+y'\epsilon) &= xy+(xy')\varepsilon+(x'y)\varepsilon+(x'y')\epsilon^2 \\
 &= xy+(xy'+y'x)\varepsilon
 \end{aligned}
 $$
-
 Stare at these smaller derivations and convince yourself that they agree with the Taylor series expansion method for binary functions.
 
 The upshot is that, armed with these techniques, we can implement a higher-order `derivative` function (almost!) as simply as this:
@@ -202,8 +165,7 @@ The upshot is that, armed with these techniques, we can implement a higher-order
 
 As long as `f` is built out of functions that know how to apply themselves to dual numbers, this will all Just Work.
 
-## Multiple Variables, Nesting<a id="sec-1-5"></a>
-
+## Multiple Variables, Nesting
 All of the examples above are about first-order derivatives. Taking higher-order derivatives is, in theory, straightforward:
 
 ```clojure
@@ -244,8 +206,7 @@ This implies that `extract-tangent` needs to take a tag, to determine which tang
 
 This is close to the final form you'll find in [derivative](https://github.com/sicmutils/sicmutils/blob/940b83babd0c6f6d556987ed7c835936671c2a89/src/sicmutils/calculus/derivative.cljc#L77).
 
-## What Return Values are Allowed?<a id="sec-1-6"></a>
-
+## What Return Values are Allowed?
 Before we discuss the implementation of dual numbers (called [Differential](https://github.com/sicmutils/sicmutils/blob/c89b45d453b08a1e1259ff5de9d9841874807fda/src/sicmutils/differential.cljc#L568)), [lift-1](https://github.com/sicmutils/sicmutils/blob/c89b45d453b08a1e1259ff5de9d9841874807fda/src/sicmutils/differential.cljc#L1135), [lift-2](https://github.com/sicmutils/sicmutils/blob/c89b45d453b08a1e1259ff5de9d9841874807fda/src/sicmutils/differential.cljc#L1158) and the rest of the machinery that makes this all possible; what sorts of objects is `f` allowed to return?
 
 The dual number approach is beautiful because we can bring to bear all sorts of operations in Clojure that never even see dual numbers. For example, `square-and-cube` called with a dual number returns a PAIR of dual numbers:
@@ -321,34 +282,21 @@ The default implementations are straightforward, and match the docstrings:
   (extract-tangent [this _] (v/zero-like this)))
 ```
 
-# Differential Implementation<a id="sec-2"></a>
-
+# Differential Implementation
 We now have a template for how to implement `derivative`. What's left? We need a dual number type that we can build and split back out into primal and tangent components, given some tag. We'll call this type a [Differential](https://github.com/sicmutils/sicmutils/blob/c89b45d453b08a1e1259ff5de9d9841874807fda/src/sicmutils/differential.cljc#L568).
 
 A [Differential](https://github.com/sicmutils/sicmutils/blob/c89b45d453b08a1e1259ff5de9d9841874807fda/src/sicmutils/differential.cljc#L568) is a generalized dual number with a single primal component, and potentially many tagged terms. Identical tags cancel to 0 when multiplied, but are allowed to multiply by each other:
-
 $$
-
 a + b\varepsilon_1 + c\varepsilon_2 + d\varepsilon_1 \varepsilon_2 + \cdots
-
 $$
-
 Alternatively, you can view a [Differential](https://github.com/sicmutils/sicmutils/blob/c89b45d453b08a1e1259ff5de9d9841874807fda/src/sicmutils/differential.cljc#L568) as a dual number with a specific tag, that's able to hold dual numbers with some other tag in its primal and tangent slots. You can turn a [Differential](https://github.com/sicmutils/sicmutils/blob/c89b45d453b08a1e1259ff5de9d9841874807fda/src/sicmutils/differential.cljc#L568) into a dual number by specifying one of its tags. Here are the primal and tangent components for $\varepsilon_2$:
-
 $$
-
 (a + b\varepsilon_1) + (c + d\varepsilon_1)\varepsilon_2
-
 $$
-
 And for $\varepsilon_1$:
-
 $$
-
 (a + c\varepsilon_2) + (b + d \varepsilon_2) \varepsilon_1
-
 $$
-
 A differential term is implemented as a pair whose first element is a set of tags and whose second is the coefficient.
 
 ```clojure
@@ -383,18 +331,12 @@ Since the only use of a tag is to distinguish each unnamed $\varepsilon_n$, we'l
   (uv/contains? (tags term) t))
 ```
 
-# Term List Algebra<a id="sec-3"></a>
-
+# Term List Algebra
 The discussion above about Taylor series expansions revealed that for single variable functions, we can pass a dual number into any function whose derivative we already know:
-
 $$
-
 f(a+b\varepsilon) = f(a) + (Df(a)b)\varepsilon
-
 $$
-
 Because we can split a [Differential](https://github.com/sicmutils/sicmutils/blob/c89b45d453b08a1e1259ff5de9d9841874807fda/src/sicmutils/differential.cljc#L568) into a primal and tangent component with respect to some tag, we can reuse this result. We'll default to splitting [Differential](https://github.com/sicmutils/sicmutils/blob/c89b45d453b08a1e1259ff5de9d9841874807fda/src/sicmutils/differential.cljc#L568) instances by the highest-index tag:
-
 $$
 \begin{aligned}
 f(a &+ b\varepsilon_1 + c\varepsilon_2 + d\varepsilon_1 \varepsilon_2) \\
@@ -402,9 +344,7 @@ f(a &+ b\varepsilon_1 + c\varepsilon_2 + d\varepsilon_1 \varepsilon_2) \\
 &= f(a + b\varepsilon_1)+Df(a + b\varepsilon_1)(c + d\varepsilon_1)\varepsilon_2 \\
 \end{aligned}
 $$
-
 Note that $f$ and $Df$ both received a dual number! One more expansion, this time in $\varepsilon_1$, completes the evaluation (and makes abundantly clear why we want the computer doing this, not pencil-and-paper):
-
 $$
 \begin{aligned}
 f(a &+ b\varepsilon_1)+Df(a+b\varepsilon_1)(c+d\varepsilon_1)\varepsilon_2 \\
@@ -412,11 +352,9 @@ f(a &+ b\varepsilon_1)+Df(a+b\varepsilon_1)(c+d\varepsilon_1)\varepsilon_2 \\
 &= f(a)+(Df(a)b+D^2f(a)bc)\varepsilon_1+Df(a)c\varepsilon_2+Df(a)d\varepsilon_1\varepsilon_2
 \end{aligned}
 $$
-
 The only operations we need to implement between lists of terms are addition and multiplication.
 
-## Addition and Multiplication<a id="sec-3-1"></a>
-
+## Addition and Multiplication
 To efficiently add two [Differential](https://github.com/sicmutils/sicmutils/blob/c89b45d453b08a1e1259ff5de9d9841874807fda/src/sicmutils/differential.cljc#L568) instances (represented as vectors of terms), we keep all terms in sorted order, sorted first by the length of each tag list (the &quot;order&quot; of the differential term), and secondarily by the values of the tags inside the tag list.
 
 NOTE: Clojure vectors already implement this ordering properly, so we can use `clojure.core/compare` to determine an ordering on a tag list.
@@ -493,8 +431,7 @@ This final step is required by a number of different operations later, so we bre
                 (g/* x-coef y-coef)))))
 ```
 
-# Differential Type Implementation<a id="sec-4"></a>
-
+# Differential Type Implementation
 Armed with our term list arithmetic operations, we can finally implement our [Differential](https://github.com/sicmutils/sicmutils/blob/c89b45d453b08a1e1259ff5de9d9841874807fda/src/sicmutils/differential.cljc#L568) type and implement a number of important Clojure and SICMUtils protocols.
 
 A [Differential](https://github.com/sicmutils/sicmutils/blob/c89b45d453b08a1e1259ff5de9d9841874807fda/src/sicmutils/differential.cljc#L568) will respond to `v/kind` with `::differential`. Because we want [Differential](https://github.com/sicmutils/sicmutils/blob/c89b45d453b08a1e1259ff5de9d9841874807fda/src/sicmutils/differential.cljc#L568) instances to work in any place that real numbers or symbolic argument work, let's make `::differential` derive from `::v/scalar`:
@@ -708,8 +645,7 @@ Now the actual type. The `terms` field is a term-list vector that will remain (c
      (.write w (.toString s))))
 ```
 
-# Accessor Methods<a id="sec-5"></a>
-
+# Accessor Methods
 ```clojure
 (defn differential?
   "Returns true if the supplied object is an instance of `Differential`, false
@@ -727,8 +663,7 @@ Now the actual type. The `terms` field is a term-list vector that will remain (c
   (.-terms ^Differential dx))
 ```
 
-# Constructors<a id="sec-6"></a>
-
+# Constructors
 Because a [Differential](https://github.com/sicmutils/sicmutils/blob/c89b45d453b08a1e1259ff5de9d9841874807fda/src/sicmutils/differential.cljc#L568) is really a wrapper around the idea of a generalized dual number represented as a term-list, we need to be able to get to and from the term list format from other types, not just [Differential](https://github.com/sicmutils/sicmutils/blob/c89b45d453b08a1e1259ff5de9d9841874807fda/src/sicmutils/differential.cljc#L568) instances.
 
 ```clojure
@@ -784,8 +719,7 @@ Because a [Differential](https://github.com/sicmutils/sicmutils/blob/c89b45d453b
    (collect-terms tags->coefs)))
 ```
 
-# Differential API<a id="sec-7"></a>
-
+# Differential API
 This next section lifts slightly-augmented versions of `terms:+` and `terms:*` up to operate on [Differential](https://github.com/sicmutils/sicmutils/blob/c89b45d453b08a1e1259ff5de9d9841874807fda/src/sicmutils/differential.cljc#L568) instances. These work just as before, but handle wrapping and unwrapping the term list.
 
 ```clojure
@@ -808,7 +742,6 @@ This next section lifts slightly-augmented versions of `terms:+` and `terms:*` u
   This works by multiplying out all terms:
 
   $$(dx1 + dx2 + dx3 + ...)(dy1 + dy2 + dy3...)$$
-
   and then collecting any duplicate terms by summing their coefficients.
 
   Works with non-[[Differential]] instances on either or both sides, and returns
@@ -856,8 +789,7 @@ Finally, the function we've been waiting for! `bundle` allows you to augment som
      (d:+ primal (->Differential [term])))))
 ```
 
-# Differential Parts API<a id="sec-8"></a>
-
+# Differential Parts API
 These functions give higher-level access to the components of a [Differential](https://github.com/sicmutils/sicmutils/blob/c89b45d453b08a1e1259ff5de9d9841874807fda/src/sicmutils/differential.cljc#L568) you're typically interested in.
 
 ```clojure
@@ -981,8 +913,7 @@ A reminder: the `primal-part` of a [Differential](https://github.com/sicmutils/s
     dx))
 ```
 
-# Comparison, Control Flow<a id="sec-9"></a>
-
+# Comparison, Control Flow
 Functions like `=`, `&lt;` and friends don't have derivatives; instead, they're used for control flow inside of Clojure functions. To play nicely with these functions, the [Differential](https://github.com/sicmutils/sicmutils/blob/c89b45d453b08a1e1259ff5de9d9841874807fda/src/sicmutils/differential.cljc#L568) API exposes a number of methods for comparing numbers on ONLY their finite parts.
 
 Why? If `x` is a [Differential](https://github.com/sicmutils/sicmutils/blob/c89b45d453b08a1e1259ff5de9d9841874807fda/src/sicmutils/differential.cljc#L568) instance, `(&lt; x 10)` needs to return true whenever a non-[Differential](https://github.com/sicmutils/sicmutils/blob/c89b45d453b08a1e1259ff5de9d9841874807fda/src/sicmutils/differential.cljc#L568) `x` would return true. To make this work, these operations look only at the `finite-part`.
@@ -1070,8 +1001,7 @@ while:
    (finite-term b)))
 ```
 
-# Chain Rule and Lifted Functions<a id="sec-10"></a>
-
+# Chain Rule and Lifted Functions
 Finally, we come to the heart of it! [lift-1](https://github.com/sicmutils/sicmutils/blob/c89b45d453b08a1e1259ff5de9d9841874807fda/src/sicmutils/differential.cljc#L1135) and [lift-2](https://github.com/sicmutils/sicmutils/blob/c89b45d453b08a1e1259ff5de9d9841874807fda/src/sicmutils/differential.cljc#L1158) &quot;lift&quot;, or augment, unary or binary functions with the ability to handle [Differential](https://github.com/sicmutils/sicmutils/blob/c89b45d453b08a1e1259ff5de9d9841874807fda/src/sicmutils/differential.cljc#L568) instances in addition to whatever other types they previously supported.
 
 These functions are implementations of the single and multivariable Taylor series expansion methods discussed at the beginning of the namespace.
@@ -1168,16 +1098,11 @@ Magically this will all Just Work if you pass an already-lifted function, or a f
        (reduce call (call x y) more)))))
 ```
 
-# Derivatives of Differentials<a id="sec-11"></a>
-
+# Derivatives of Differentials
 One more treat before we augment the generic arithmetic system. The derivative operation is linear, so:
-
 $$
-
 D(x+x'\varepsilon) = D(x)+D(x')\varepsilon
-
 $$
-
 This implementation is valid because the coefficients of a [Differential](https://github.com/sicmutils/sicmutils/blob/c89b45d453b08a1e1259ff5de9d9841874807fda/src/sicmutils/differential.cljc#L568) can be functions.
 
 ```clojure
@@ -1190,8 +1115,7 @@ This implementation is valid because the coefficients of a [Differential](https:
               (bundle 0 1 tag)))))
 ```
 
-# Generic Method Installation<a id="sec-12"></a>
-
+# Generic Method Installation
 Armed with [lift-1](https://github.com/sicmutils/sicmutils/blob/c89b45d453b08a1e1259ff5de9d9841874807fda/src/sicmutils/differential.cljc#L1135) and [lift-2](https://github.com/sicmutils/sicmutils/blob/c89b45d453b08a1e1259ff5de9d9841874807fda/src/sicmutils/differential.cljc#L1158), we can install [Differential](https://github.com/sicmutils/sicmutils/blob/c89b45d453b08a1e1259ff5de9d9841874807fda/src/sicmutils/differential.cljc#L568) into the SICMUtils generic arithmetic system.
 
 Any function built out of these components will work with the [D](https://github.com/sicmutils/sicmutils/blob/940b83babd0c6f6d556987ed7c835936671c2a89/src/sicmutils/calculus/derivative.cljc#L153) operator.

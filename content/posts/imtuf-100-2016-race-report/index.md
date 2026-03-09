@@ -9,6 +9,9 @@ tags:
 categories:
   - adventure
 image: IMG_0063-2.JPG
+cover:
+  image: "IMG_0063-2.JPG"
+  hidden: true
 ---
 
 In 2016, as part of my years-long quest to make it into the [Hardrock 100](http://hardrock100.com), I signed up to race the [IMTUF 100](http://imtuf100.com/). IMTUF stands for "Idaho Mountain Trail Ultra Festival", and I'll admit that before the event, I found it difficult to tell people about the "I'm Tough" without apologizing for how lame it sounded and expanding the acronym.

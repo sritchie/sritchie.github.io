@@ -19,7 +19,7 @@ In this post, I'll give a short overview of Liberator and a not-so-short overvie
 
 The code for the example project is up on [GitHub](https://github.com/paddleguru/liberator-friend).
 
-## Liberator<a id="sec-1-1" name="sec-1-1"></a>
+## Liberator
 
 Liberator lets you define a RESTful resource as a graph of decision points and responses (represented as key-value pairs in Clojure). It handles content negotiation, resource caching, all of the tough stuff that you end up doing as nested function calls without a library like Liberator.
 
@@ -43,7 +43,7 @@ Because a resource is a function of a request, you can use resources with Compoj
 
 Check out the [project page](http://clojure-liberator.github.io/liberator/) for more tutorials and documentation.
 
-## Friend<a id="sec-1-2" name="sec-1-2"></a>
+## Friend
 
 Friend provides Ring middleware that handles authentication and authorization for your app. ("Authentication" is whether or not the system knows who you are; authorization is whether or not you're allowed in to a particular resource, one the system identifies you.)
 
@@ -70,7 +70,7 @@ This middleware sits over top of all of your resources and routing layer (typica
 
 (Okay, this is where it gets confusing. For me, anyway. There's a lot of indirection to keep track of in the API. Follow me as best you can, and supplement with Friend's [extensive documentation](https://github.com/cemerick/friend).)
 
-### Authentication<a id="sec-1-2-1" name="sec-1-2-1"></a>
+### Authentication
 
 Friend's "workflows" provide pluggable authentication for your app.
 
@@ -116,7 +116,7 @@ You can use these three response types to implement some pretty interesting auth
 
 You can do a lot in this framework. [Ddellacosta](https://github.com/ddellacosta)'s [Friend OAuth2 workflow](https://github.com/ddellacosta/friend-oauth2) intercepts the initial OAuth request and uses the "failure" return to send out an OAuth2 redirect to the configured provider. When the provider redirects back to the app, the OAuth2 workflow again intercepts the command, does token negotation, then either succeeds or fails the response. Two intercepts! There's a lot going on there.
 
-### Authorization<a id="sec-1-2-2" name="sec-1-2-2"></a>
+### Authorization
 
 Okay, phew. That covers authentication. Now we need to talk about authorization, or protecting your resources.
 
@@ -135,7 +135,7 @@ If you make it through, great. If the resource throws an exception again, Friend
 
 I find all that throwing and catching to be extremely confusing. I'm not really sure how to clean it up, but please, please let me know if you have ideas after ingesting all of this.
 
-## Combining Friend and Liberator<a id="sec-1-3" name="sec-1-3"></a>
+## Combining Friend and Liberator
 
 Liberator has a decision point to deal with authorization and authentication: `:authorized?`. You provide a predicate for the `:authorized?` key in your resource definition, and Liberator will either call its `:handle-unauthorized` handler (on false) or proceed down the decision tree (on true).
 
@@ -187,7 +187,7 @@ This tiny resource now shares the `:handle-not-acceptable` and `:handle-not-foun
 
 Check out my customer version of `defresource` in the post's [example project](https://github.com/paddleguru/liberator-friend/blob/master/src/liberator_friend/resources.clj#L67). That namespace also contains `base-resource` and all the helper functions.
 
-### Authenticating Resources<a id="sec-1-3-1" name="sec-1-3-1"></a>
+### Authenticating Resources
 
 [liberator-friend](https://github.com/paddleguru/liberator-friend) that shows off my final solution: Liberator resources that delegate to Friend into the `authorized?` point. The code is on [GitHub](https://github.com/paddleguru/liberator-friend).
 
@@ -308,7 +308,7 @@ Now we can serve these out using Compojure:
 
 Now let's hit the shell to test out the custom auth.
 
-### Testing with CURL<a id="sec-1-3-2" name="sec-1-3-2"></a>
+### Testing with CURL
 
 You can follow along by cloning [the example code](https://github.com/paddleguru/liberator-friend) and running `lein run` in the project's root. The default route has no authentication requirement, and returns the string defined in the compojure routes above:
 
@@ -377,7 +377,7 @@ Come on in. You're authenticated.
 Come on in. You're authenticated.
 ```
 
-## Conclusions<a id="sec-1-4" name="sec-1-4"></a>
+## Conclusions
 
 So, there you have it. Friend and Liberator, working in glorious harmony.
 

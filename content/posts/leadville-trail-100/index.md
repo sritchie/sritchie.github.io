@@ -25,7 +25,7 @@ In the days leading up to the race I tried to teach my parents what would be req
 
 [Oscar Boykin](https://twitter.com/posco) arrived Wednesday night, ready for action. We did a run the next morning before my girlfriend [Jenna](https://twitter.com/jennadawn) showed. I was feeling good and banged out a 7 minute mile before letting Oscar go kill himself at altitude. I felt pretty low on energy that week, but okay with the altitude after a day or two. Strangely lethargic, I slacked on buying food until the day before the race, when I finally forced myself to imagine what I'd need and kicked my ass into gear for a big shopping trip. My parents bought a TON of organizational items (tupperwares! Zip locs! Trash bags!), perhaps not realizing how fast and light a crew needs to be at each of the aid stations. No worries, we'd figure that out later on the road.
 
-## Race Morning<a id="sec-1-2" name="sec-1-2"></a>
+## Race Morning
 
 The gun goes off for Leadville at 4am. The plan the morning of the race was to wake up at 1am, get about 800 calories in me along with a couple cups of coffee, then hit the sack for a half hour. I got up on time and chowed everything bagel with almond butter and jelly, a greek yogurt and a banana. Chugged one cup of coffee, then back in bed. Another cup of coffee in the car on the way to the race.
 
@@ -39,7 +39,7 @@ We pulled into town in the dark and found a spot right near the finish line. I g
 
 I was trained and ready to go. Oscar, Jenna and the parents would drive the course and meet up with me to provide food and water at various points along the first 50 miles. At mile 50, Andrew Stephens, my partner in the Texas Water Safari and good friend, was to show up and run with me over the mountain. Jenna wanted to be waiting at the top with the Llamas at Hopeless aid station and would take over from Stephens. From there, we'd figure it out on the go.
 
-## Start to May Queen (13.5)<a id="sec-1-3" name="sec-1-3"></a>
+## Start to May Queen (13.5)
 
 I left my folks and Jenna with a kiss and moved out to the start line. The temp was about 40 degrees. I felt calm, but the heart rate was up at 105. The gun went off and I started my watch, shuffling out of the gate at 10:00/mile pace right in the middle of the pack. We all moved down the hill in the cold. Some folks started walking on the first uphill, pacing just right for the distance ahead.
 
@@ -57,7 +57,7 @@ This is when the first warning signs of later trouble began. I had stopped to pe
 
 The run around the lake was really beautiful. I was in a SLOW group, walking everything, making about 13 minute miles, so I did try to pass a few people, but was generally happy with the pace and figured that if I lost even 25 minutes here, rested up and then stayed on my pace for the rest of the race, I'd still be within reach of the big buckle. Getting ten minutes up on my pacing this early in the race was going to be a lot harder than taking back ten minutes from the plan near the finish, when most runners spend huge blocks of time walking. Almost took a wrong turn, got back on track, peed again (!), and made it into Tabor where I surprised the parents, Oscar and Jenna with a high five, then back on single track until May Queen.
 
-## May Queen (13.5) to Fish Hatchery (21.5)<a id="sec-1-4" name="sec-1-4"></a>
+## May Queen (13.5) to Fish Hatchery (21.5)
 
 I pulled into May Queen only eight minutes behind schedule, at around 2:18. Doing so well! Oscar was right there to meet me and handed me my pack. It seemed like a beautiful handoff, until I asked, &quot;Did you add the two scoops of powder?&quot; and Oscar's eyes got wide.
 
@@ -81,7 +81,7 @@ The mountain was fine. I took the steep stuff at a hike, passing people all the 
 
 The sun up was beautiful, and I looked around quite a bit, taking it all in. Here I was racing at Leadville! The first tough climb was underway. I started asking folks around me what their pace goals were and seemed to be solidly in a pack of 23-25 hour racers. Was I going out too fast? Or were they all destined to blow up? I chatted with a dude going for his 30th finish (!!) and a girl looking to finish in 23:30 - 11 hours out, 12:30 back. Aggressive pacing goals. We crested the summit and I ran down the powerline, eating up the miles and letting the heart rate drop. The feet and lungs were feeling great. I was hungry, but I was almost to the next aid station, so no problem there.
 
-## Fish Hatchery (21.5) to TreeLine (27.5)<a id="sec-1-5" name="sec-1-5"></a>
+## Fish Hatchery (21.5) to TreeLine (27.5)
 
 I saw Jenna and Oscar again when I hit the road. Perhaps embarrassed about the last pacing situation, they presented me with a pack that was just CRAMMED with food. I had only two hours until I would see them again, but they'd given me dozens of items, along with fresh drink mix. I applied sunblock, gave a few handfuls of food pouches back, tried to be nice and moved on out. The clouds were out, which gave the racers a break from the heat. I was 21 miles in and feeling really good, like not much time had passed, but just a bit rough and queasy. I walked the uphills, favoring the achilles a bit, but noticing that I hadn't really felt any pain at all for quite some time. Other problems had overtaken my achilles issue.
 
@@ -91,7 +91,7 @@ I saw Jenna and Oscar again when I hit the road. Perhaps embarrassed about the l
 
 A few miles down the road was the Fish Hatchery aid station. I ate a couple of pretzels and choked down a PB&amp;J half, then back out to the road for a long stretch up to treeline. I was dead on the expected pace for the 24 hour finish, maybe pushing a little fast, keeping things in control. Treeline aid was great; I met up with Oscar and the folks, sat down and shook a rock out of my shoe that had been bothering me. Better to take care of these things now than suffer later. They swapped in another pack and some more food and I moved on out into unknown territory.
 
-## TreeLine (27.5) to Twin Lakes (39.5)<a id="sec-1-6" name="sec-1-6"></a>
+## TreeLine (27.5) to Twin Lakes (39.5)
 
 The next section was a long, steady uphill with a big downhill finish into Twin Lakes. I hiked up the initial climb, knowing that I could make up time on the downhill. The goal here was to keep moving and get to Twin Lakes with solid legs in preparation for the grueling trip up Hope Pass.
 
@@ -107,7 +107,7 @@ The trail was gorgeous, with long uphills and good conversation all the way to t
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 </center>
 
-## Twin Lakes (39.5) to Hope Pass (44.5)<a id="sec-1-7" name="sec-1-7"></a>
+## Twin Lakes (39.5) to Hope Pass (44.5)
 
 My coach and two-time Leadville champion Duncan Callahan was waiting at Twin Lakes. I sat for a couple of minutes, taking in food and going over the items in the pack with my parents. I wanted to leave at 7:30. I applied some sunscreen and took my iPhone and headphones from Jenna for the next stretch; the dreaded Hope Pass. Duncan had me eat a couple of pretzels, and I grabbed a PB&amp;J and some boiled potatoes for the trip out. I took my two Excedrin, a salt pill, ate two pepto pills, and chugged a cup of flatted coke.
 
@@ -125,7 +125,7 @@ Half way up I found that I couldn't quit thinking about water. I knew I had vomi
 
 I pushed out of the trees at the 9 hour mark and could see the tents of the aid station up ahead. I knew that I only had a half a mile to go to the top of of Hope Pass; after the summit I could cruise downhill, just as I had on my training run. I'd be at Winfield FAR ahead of schedule. If I stayed smooth I'd get to Winfield at 10:30, leaving me 14:30 to get home. Even feeling diminished, I felt like I had this in the bag. If you ever feel this way on Hope Pass, something is wrong. I had underestimated Leadville.
 
-## Hope Pass (44.5) to Winfield (50.0)<a id="sec-1-8" name="sec-1-8"></a>
+## Hope Pass (44.5) to Winfield (50.0)
 
 I headed to the aid station tent, chugged a cup of coke and decided that I would sit down for five minutes. I had puked up the Excedrin earlier, so I grabbed two Tylenol out of a sample dispenser. Ten minutes ahead of pace over a five mile stretch in the hardest part of the race seemed like a foolish way to move. A five minute rest would get me back on track and let me CRANK over the top of the pass.
 
@@ -149,7 +149,7 @@ Finally, there it was, the turn onto the Colorado trail to Winfield. I was walki
 
 Finally, the road. A quarter mile more on the flats and I was at the aid station, 11:05 into the race, RIGHT on track with Duncan's schedule even with the dehyrdration. Excellent. Just sit down and take ten minutes to get back on pace. Jenna and Oscar found me on the road and led me into Winfield and the checkpoint. I took a moment to smile. I was halfway through the Leadville! Whatever happened from here on out, it was exciting to have gotten through the first 50 miles. I was 17 miles into unknown territory.
 
-## Winfield (50.0)<a id="sec-1-9" name="sec-1-9"></a>
+## Winfield (50.0)
 
 The medical staff led me to the weigh-in, and there it was on the scale - 154.5 pounds, down from 165.5 at the start. I had lost 11 pounds of fluid. I sat and Jenna brought me some broth and my fantasy, a cup of straight-up WATER with nothing mixed into it. I drank two cups of water and some broth and started to shiver heavily. This young girl, a doctor, came over and asked me what I wanted to eat. I told her water and oranges, and she brought me these and gave me a sleeping bag to wrap around my legs. My lips were very blue. I thought that my parents might ask me if I wanted to quit, but I knew that I wouldn't. I also knew that in my current state I wouldn't be able to continue. How to resolve the paradox?
 
@@ -167,7 +167,7 @@ But it worked! I was able to hold down two liters of water and four more salt pi
 
 And then, an hour and a half into the rest, I had to pee! I went out to the porta-potty and forced out a sample. It was dark, but not AS dark. I had gained back three pounds now. I showed another doctor and he smiled. &quot;Your kidneys aren't failing, you're just severely dehydrated. Start running!&quot; My pulse ox was back up to 97% (from 86%). Once Stephens heard that, it was go time. I felt like Jurek now, MUCH better, and wanted to hammer. My motivation was back. I had lost sight of the 25 hour belt buckle, but I thought now that we'd be able to finish this race in a respectable time.
 
-## Winfield (50.0) to Twin Lakes (59.5)<a id="sec-1-10" name="sec-1-10"></a>
+## Winfield (50.0) to Twin Lakes (59.5)
 
 So there it was, out of the aid station 12:45 into the race, 1:15 ahead of the cut-off time. I wanted to run, but Stephens warned me that this was a bad idea. We were already passing dozens of runners on the trail. His new rule was that every time I wanted to start running, I needed to drink. He started feeding me pieces of bagel and cream cheese, which I washed down with the water. &quot;If you go slow, you're going to finish this thing. If you start puking, it's all over.&quot; I knew he was right and made me choice. We went slow.
 
@@ -185,7 +185,7 @@ Once we hit the switchbacks, Andrew said, &quot;Just two more to go and then we'
 
 I had come back from the dead, and I KNEW that I was going to be able to finish the race. Now that I was hydrated my heart rate had dropped to 140, down from 168 of the first trip over Hope. At the summit we started running downhill to the aid station. The station had run out of cups, but Andrew figured out some system and got me another cup of broth. We took five minutes, I cleaned out my shoes and made Andrew take a picture of me by the llamas so we could show Jenna what she was missing. Seven minutes later, now 1:45 ahead of the cutoff, we took off down the hill, passing people and comparing Leadville to the Texas Water Safari. I kept eating and drinking, feeling better and better with every mile.
 
-## Twin Lakes (59.5) to TreeLine (71.5)<a id="sec-1-11" name="sec-1-11"></a>
+## Twin Lakes (59.5) to TreeLine (71.5)
 
 We pulled in to Twin Lakes far enough ahead of the cutoff that I stopped thinking about it, and Oscar switched in on the pacing duties for Andrew. After the morning pacing situation, I was overly worried about having a pacer other than Andrew, and was a little mean and intense toward Oscar. I tore into him right away at the Twin Lakes aid station with rapid fire questioning. &quot;What do you have in your pack? Where's your headlamp? Where are the extra batteries?&quot; Just chewing him out like he was a kid. I'm sure he wanted to punch me, and would have if he didn't have his own killer background in long-distance running and an understanding of the strange mental states that one can experience during these races. My big concern was that I would hit the wall and need my pacer to take complete control. Only later did I realize the incongruity of yelling, &quot;Are you going to tell me what to do!!?&quot;.
 
@@ -197,13 +197,13 @@ Excellent pacing by Oscar through the whole section. We came to the Mt Elbert ai
 
 In no time, we were through the long stretch and walking the last mile or two into the Half Pipe aid station. I drank a delicious cup of hot chocolate and some broth, and we carried potato chips and other items out along the road. As before, we spent very little time in the aid station. A couple of miles later we hit the TreeLine, mile 71.5. The parents, Jenna and Stephens were waiting for me with an Andrew Stephens special: the Leadville pizza. Salami and cheddar cheese on top of a bagel. (Where had the cheddar come from?)
 
-## TreeLine (71.5) to PowerLine (79.5)<a id="sec-1-12" name="sec-1-12"></a>
+## TreeLine (71.5) to PowerLine (79.5)
 
 As happens in the Safari, at this point I had the feeling that the race was almost finished. This was ridiculous, as the farthest I had run before the day in question was around 33 miles, only a short 5k farther than the distance we had yet to go. Oscar and I started talking about code, running for a while, walking for a while and the miles melted away. A woman along the road heard us talking about Scala and Hadoop and called us a &quot;couple of trail philosophers!&quot; I was surprised that we were so upbeat, given the day's events. The night was incredible, stars just blanketing the sky above. So beautiful. In a few miles, we'd reach the base of powerline and Jenna would pick up crewing duties. Another cup of hot chocolate in the Fish Hatchery aid station, a water top-off and we were off.
 
 Just as I was pouring my unwanted hot chocolate out on the road, I heard Oscar say, &quot;Can I get a sip of that?&quot; But it was too late. Only a drop remained, but it seemed enough to cheer him up and power him through the remaining mile. We cruised the final downhill to Jenna, all decked out in pacing attire and a fresh headlamp. My spirits were getting higher and higher.
 
-## PowerLine (79.5) to May Queen (86.5)<a id="sec-1-13" name="sec-1-13"></a>
+## PowerLine (79.5) to May Queen (86.5)
 
 Not much to report for this section, other than fantastic pacing from Jenna. I was sticking to the Stephens formula now, drinking, looking at my watch and eating every twenty minutes, trying for 250 calories per hour and keeping my heart rate under 145. I was happy to be out and healthy around Jenna, but I took time to prepare her for the monster that would reveal itself if I did crash, and how she'd have to force me to eat and drink as I was crying and puking at her feet. Luckily the nightmare didn't come to pass. We passed a bunch of people and ran the entire downhill, all the way through the two miles of single track, over the bridges and out to the road. An older couple was waiting at the exit of the single track.
 
@@ -211,7 +211,7 @@ Not much to report for this section, other than fantastic pacing from Jenna. I w
 
 The May Queen aid station was just intense. The runners looked like ravaged mine workers, slumped, dejected, sipping away at cold broth and lukewarm cups of coffee. I sat down to relube my feet while Jenna ran to grab extra food. We greeted the runners who were present (including the old Italian man we'd met in town before the race, the one running the Spartathlon in a couple of weeks!) then got up and hauled ass out of the gate. We weren't going to break any records, but I still wanted to come into the finish solidly under 27 hours. I had rested at the 50 mile point for 1:40. My goal was to finish 1:40 slower than my intended target time of 24:35. We left MayQueen with this in mind, solidly on track, sipping Ensure and pushing for the boat ramp.
 
-## May Queen (86.5) to Leadville (100.0)<a id="sec-1-14" name="sec-1-14"></a>
+## May Queen (86.5) to Leadville (100.0)
 
 I started to feel quite tired along this stretch and lost my discipline, running the uphills on the single track around the lake. I wanted to reach town before sunrise. Jenna saw what was happening and forced me to slow down and eat. I knew that Stephens would have been proud. We still had 11 miles to go, probably 2.5 hours on fatigued legs. We were passing racers and pacers, and there was no need to do anything special. Now that it was night, just as it had been on the way out, I remembered the course well and applied myself to the task at hand. Eat, drink, and shuffle along the miles.
 

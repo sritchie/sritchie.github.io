@@ -17,11 +17,11 @@ I'm currently running haskell-mode for emacs, with the `hs-lint` plugin, Haskell
 2. Configuring Haskell-Mode for Emacs
 3. Installing Haskell-Mode Extensions (Flymake support, `hs-lint` and autocompletion)
 
-## Installing Haskell<a id="sec-1-1" name="sec-1-1"></a>
+## Installing Haskell
 
 Before any of this Emacs jazz, we have to get Haskell, of course. The easiest way to do is to download the [Haskell Platform](http://hackage.haskell.org/platform/), a "Batteries Included" package of the Glasgow Haskell Compiler.
 
-## Emacs Haskell Mode<a id="sec-1-2" name="sec-1-2"></a>
+## Emacs Haskell Mode
 
 The [Haskell Mode for Emacs](http://www.haskell.org/haskellwiki/Haskell_mode_for_Emacs) page at the Haskell wiki is a nice place to start your explorations, and describes how to install [haskell-mode](http://projects.haskell.org/haskellmode-emacs/). I found it easier to use ELPA, the Emacs Lisp Package Archive (install instructions [here](http://tromey.com/elpa/install.html)). If you're using the [Emacs starter kit](https://github.com/technomancy/emacs-starter-kit), you've already got ELPA.
 
@@ -31,7 +31,7 @@ Once elpa's all set, install `haskell-mode` with the following:
 2. tap `i` by `haskell-mode`
 3. hit `x` to the start the install.
 
-## Configuring emacs.el<a id="sec-1-3" name="sec-1-3"></a>
+## Configuring emacs.el
 
 Before we get into linting or any other customizations, Add the following to your emacs config (`~/.emacs`, or `~/.emacs.d/init.el`, if you're using the Starter kit):
 
@@ -73,7 +73,7 @@ Then type `C-c C-l` in that buffer to load the file's contents into the REPL. `C
 
 Nice.
 
-## Flymake<a id="sec-1-4" name="sec-1-4"></a>
+## Flymake
 
 Next, we're going to add support for Flymake, the emacs syntax-checker. This is a piece of Emacs functionality that'll run our Haskell files through the compiler every few seconds and associate any warnings and errors with some specific line in our Haskell file.
 
@@ -129,9 +129,9 @@ Add the following to `.emacs`:
  '(flymake-warnline ((((class color)) (:underline "yellow")))))
 ```
 
-## Haskell Extensions<a id="sec-1-5" name="sec-1-5"></a>
+## Haskell Extensions
 
-### Auto Complete Mode<a id="sec-1-5-1" name="sec-1-5-1"></a>
+### Auto Complete Mode
 
 Now, let's add autocompletion. Autocomplete mode is awesome; it provides IDE-like word tab completion of words based on info in open buffers, and some knowledge of the modes of the emacs buffer you're currently working in. In Haskell, we'll get autocompletion of every function we define, plus help with core language constructs. Head over to [Auto Complete Mode](http://cx4a.org/software/auto-complete/index.html) to download the package, and install with the following:
 
@@ -142,7 +142,7 @@ Now, let's add autocompletion. Autocomplete mode is awesome; it provides IDE-lik
 
 That should get you all set for the next step.
 
-### Linting!<a id="sec-1-5-2" name="sec-1-5-2"></a>
+### Linting!
 
 1. Download [hs-lint.el](https://gist.github.com/1241059) and [haskell-ac.el](https://gist.github.com/1241063) and place each file inside of `~/.emacs.d`. (`hs-lint` is our linter, of course, and `haskell-ac.el` provides autocomplete mode with some knowledge of a few core Haskell constructs.
 
@@ -195,6 +195,6 @@ Adding this will clear things up:
 face x = 5 < x
 ```
 
-## Finishing Up<a id="sec-1-6" name="sec-1-6"></a>
+## Finishing Up
 
 I hope this helped those of you looking to get started exploring Haskell! Please let me know in the comments if anything could be clearer; I'll be posting more down the road, and all requests are welcome.

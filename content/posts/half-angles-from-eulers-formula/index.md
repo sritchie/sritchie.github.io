@@ -10,6 +10,9 @@ categories:
   - math-and-physics
 math: true
 image: euler-1.png
+cover:
+  image: "euler-1.png"
+  hidden: true
 ---
 
 I've been reading the lovely [Visual Complex Analysis](https://amzn.to/2UdJtv8) by [Tristan Needham](https://www.usfca.edu/faculty/tristan-needham), and the visual-style proofs he's been throwing down have been wonderful and refreshing. I'll write more about this book and its goals later, but I was inspired this AM to write up a proof of the [half angle identities](https://en.wikipedia.org/wiki/List_of_trigonometric_identities#Half-angle_formulae) from trigonometry using some of the tools from the book.
@@ -158,7 +161,7 @@ Divide through, and take the square root:
 
 And, boom, there it is! the half-angle identity for sine.
 
-## Sums and Differences<a id="sec-1-1"></a>
+## Sums and Differences
 
 If you look back at equation \eqref{eq:expansion} you'll see that this trick would work for any factor inside the exponent, just just the $1 \over 2$. A similar trick can help you figure out any of [sum and difference identities](https://en.wikipedia.org/wiki/List_of_trigonometric_identities#Angle_sum_and_difference_identities), using observations like this:
 
@@ -170,7 +173,7 @@ e^{i(\theta + \phi)} = e^{i\theta}e^{i\phi} = (\cos \theta + i \sin \theta)(\cos
 
 \end{equation}
 
-## Conclusion<a id="sec-1-2"></a>
+## Conclusion
 
 The derivation above was much easier for me to understand and push through than the usual geometric derivations I've seen. And, eerily, in going after one of the half angle identities, the other one came along for the ride.
 

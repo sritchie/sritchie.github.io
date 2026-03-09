@@ -12,7 +12,7 @@ categories:
 
 [Nathan Marz](http://nathanmarz.com/) and I are releasing Cascalog 1.8.1 today! We've added a few interesting features, and I thought I'd provide a bit more detail here for anyone interested.
 
-## Cross Join<a id="sec-1-1" name="sec-1-1"></a>
+## Cross Join
 
 `cascalog.api` now includes support for [cross-joins](http://en.wikipedia.org/wiki/Join_(SQL)#Cross_join); just add `(cross-join)` to your query as its own predicate.
 
@@ -49,7 +49,7 @@ If you're interested, here's the implementation:
 
 This is the only predicate macro I know of that can get away with no input OR output vars.
 
-## defmain<a id="sec-1-2" name="sec-1-2"></a>
+## defmain
 
 When running a cascalog query on a cluster, usual practice is to include `(:gen-class)` in the namespace form, and write a `-main` method that gets AOT-compiled and called by Hadoop. This can be a little annoying, if you have a bunch of small queries you want to run.
 
@@ -70,7 +70,7 @@ Each `defmain` will compile to a class with the supplied name, prefixed by the n
 
 (As always, make sure to add the `:aot [myproject.jobs]`, kv-pair to `project.clj`, including each namespace containing a `defmain` or `(:gen-class)` in the vector. If you want to call some `defmain` function directly, `(defmain Query ...)` can be called from the REPL with `(Query-main ...)`.) I recommend keeping your `defmain` functions skinny, and testing the components it calls.
 
-## with-serializations<a id="sec-1-3" name="sec-1-3"></a>
+## with-serializations
 
 Damn you, serializations. This one JobConf entry, "io.serializations", has caused me much pain. We've added `with-serializations`, which makes the supplied Hadoop serializations available to all queries enclosed within the form. These forms nest, and play well with the existing `with-job-conf`. For example:
 
@@ -92,7 +92,7 @@ Damn you, serializations. This one JobConf entry, "io.serializations", has cause
       (<- [?a] ...))))
 ```
 
-## cascalog.ops/first-n<a id="sec-1-4" name="sec-1-4"></a>
+## cascalog.ops/first-n
 
 `first-n` can now handle straight-up vectors, lists, and cascading taps, in addition to queries.
 
@@ -119,7 +119,7 @@ Say we've previously run a wordcount job that output `[?word ?count]` 2-tuples t
 
 `first-n` with vectors and lists is mostly interesting for testing purposes.
 
-## Other Bugfixes<a id="sec-1-5" name="sec-1-5"></a>
+## Other Bugfixes
 
 Just a few bugfixes to note:
 

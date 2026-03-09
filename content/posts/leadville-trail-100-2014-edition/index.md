@@ -25,7 +25,7 @@ Badass, right? Not as badass as the ungodly huge GOLD belt buckle you get for fi
 
 (Not sure whose crotch that is.) I knew that if I could figure out my nutrition issues, I could break the 25 hour barrier. Last winter, with this arbitrary goal spurring me on (I don't even have a belt that can support one of these), I registered again for the Leadville Trail 100.
 
-## PreRace<a id="sec-1-1" name="sec-1-1"></a>
+## PreRace
 
 A lot's changed in my life since last year. I quit my job at Twitter, founded [PaddleGuru](https://paddleguru.com) and moved to Boulder with [Jenna](https://twitter.com/jennadawn). Running in the mountains instead of the streets of San Francisco has given me a huge confidence boost, though I've been logging fewer road miles than last year, and Leadville has a good deal of flat… oh my god, did I screw up my preparation? I should have run more road!! Thoughts like those flared and faded all week. I guess it's impossible not to be anxious before a 100.
 
@@ -47,7 +47,7 @@ I gave up on preparing my clothes and food early. My anxiety builds as the race 
 
 Aaron and I did a 30 minute shakeout on a nearby trail and I pointed out Hope Pass for the 15th time that week. I felt a goofy pride at being able to identify markers on the course, even markers as obvious as the enormous mountain pass looming above the town. My confidence faltered when a runner we saw on the trail told me that the right turn out of Twin Lakes I'd been describing vividly to my parents - &quot;This is where you see the town as you roll downhill!&quot; - was actually a left turn. I think I've been manufacturing memories of the course all year. Frightening.
 
-## The Night Before<a id="sec-1-2" name="sec-1-2"></a>
+## The Night Before
 
 Aaron went to bed at 6pm. I stayed up for another couple of hours, packing, growing jittery, snapping at Jenna and my parents as they asked routine questions. The whole thing was getting to me. Finally, bedtime.
 
@@ -55,7 +55,7 @@ I got up at 1am with Aaron for a pre-race breakfast of coffee, a bagel with Nute
 
 At 2:30 it was game time. Full body smearage of Aquaphor to prevent chafeage (and I mean full body - I hit the bathroom and slid INTO the toilet); short shorts, warm shirt, hat, fancy Salomon pack, the works. Into the car, to the startline, jacket to the parents, and there we were, lined up again in the dark at 4am. Oh my fucking god.
 
-## Start to May Queen (13.5)<a id="sec-1-3" name="sec-1-3"></a>
+## Start to May Queen (13.5)
 
 My heart rate at the start last year fluttered around 100 and hit 120 with the gun. This year it held closer to 80.
 
@@ -75,7 +75,7 @@ I'm not as fuzzy about the &quot;experience&quot; of running - I think those Tal
 
 At the boat ramp, I saw my crew, hugged Jenna and Pretzel (my dog) and tried to mentally beam the message that this day is going to go BEAUTIFULLY, then on into the night again. I hit May Queen at mile 13.5 about ten minutes slower than last year and feeling calm.
 
-## May Queen (13.5) to Outward Bound (23?)<a id="sec-1-4" name="sec-1-4"></a>
+## May Queen (13.5) to Outward Bound (23?)
 
 Last year I had to wait at May Queen for ten minutes while my crew scrambled to fill my pack with food. This year, I'm ten minutes slower, but the crew was spot on. Such a great start to the day. I grabbed some snacks and a new bladder of Perpetuem from Jenna, hit the sunscreen and hustled up the road to join Michael for the hike up Sugarloaf. We started passing people right away on flat sections of trail, jumping around on rocks, keeping the heart rate low. A girl from New York City kept pace with us for a while and told us about her training runs in Central Park. Her boyfriend was pacing her, and he'd already eaten a good amount of her supplies for breakfast by the time she'd seen him at mile 13. Just a sad situation all around.
 
@@ -89,7 +89,7 @@ Near the top of the climb, Alex said, &quot;it's funny, my fingers are swollen u
 
 Phew, crisis averted. I cruised down Powerline, moving through familiar territory. I pulled away from Michael a little on the downhill, trying to move fast but favor my quads. I passed Jason's girlfriend Jenny on the way down and asked where Jason was - she said he was WAY ahead and hammering. So impressive. There went my chances of winning our little group race.
 
-## Outward Bound (23) to Treeline (27.5)<a id="sec-1-5" name="sec-1-5"></a>
+## Outward Bound (23) to Treeline (27.5)
 
 After a mile of quad-punishing descent, I bottomed out, crossed the creek and went up the short rise to the road that leads to Outward Bound and Treeline beyond. My parents hadn't seen Jason, so I figured he must be at least 45 minutes ahead.
 
@@ -101,7 +101,7 @@ The Perpetuem started tasting bad here. This had happened to me last year on the
 
 The next bit is usually a long road stretch, but the organizers had subbed in traverse across a grassy field. Cheers had gone up when they announced the change at the pre-race meeting. I was excited, but when I hit the grass I realized that the field was pocked with ankle twisting bomb craters. It was just an absolutely fucked up horrible little pasture that cows couldn't even use. I dumped water on my head and moved through it, feeling strong without the backpack, loving the cool breeze, and tried not to think about how dangerous this stretch might be at night. I hit the Treeline just ahead of Michael and we moved out to Half Pipe together.
 
-## Treeline (27.5) to Twin Lakes (39.5)<a id="sec-1-6" name="sec-1-6"></a>
+## Treeline (27.5) to Twin Lakes (39.5)
 
 The Half Pipe aid station came up faster than I thought. So good! I was feeling the heat and eating a bunch of salt pills, measuring myself against last year's ghost. Time is hard to measure here in the trees. It's very hot, and there's nothing notable about the long road rollers and the slow, insidious uphill. This section is a great to stage a push on the way home, but not outbound. Michael and I puzzled over the riddle of the three prostitutes and the two condoms to pass the time. I dumped water on my head at every stream to battle what was looking to be a very, very hot day. Finally the downhill arrived.
 
@@ -113,7 +113,7 @@ I rolled downhill behind a strong looking runner in a blue tanktop. His goal had
 *[Vine video](https://vine.co/v/M3bD6wZvaXa) (Vine has been discontinued)*
 </center>
 
-## Twin Lakes (39.5) to Winfield (50.0)<a id="sec-1-7" name="sec-1-7"></a>
+## Twin Lakes (39.5) to Winfield (50.0)
 
 Last year I left Twin Lakes and immediately puked up the contents of my stomach. Melancholy set in on the way up Hope Pass, and I had to walk into Winfield, losing maybe an hour on my goal time. This year, my plan was to go easy and cross the Pass in great condition to run down. That alone would get me a half hour on least year; if I could get out of Winfield quickly and keep it together, I'd be on track for a sub 25 finish.
 
@@ -139,7 +139,7 @@ I saw Jason Antin on the way in, probably 30 minutes ahead of me. I wasn't think
 ![](https://fbcdn-sphotos-g-a.akamaihd.net/hphotos-ak-xfa1/t31.0-8/10623341_799684768429_1504081378802251267_o.jpg)
 </center>
 
-## Winfield (50.0) to Twin Lakes (59.5)<a id="sec-1-8" name="sec-1-8"></a>
+## Winfield (50.0) to Twin Lakes (59.5)
 
 I reached Winfield 10 hours and 33 into the race. Jenna ran out smiling and walked me in past my parents. My weight was stable, maybe two pounds down from my starting weight. Much better than 11 pounds last year. I ate some oranges, refilled my water, stuffed some ice into my headband. We were out within 12 minutes. BOOM! Suddenly I had almost 40 minutes on last year's time! I wasn't 11 pounds light and on my knees in the dirt! Such a celebration.
 
@@ -171,7 +171,7 @@ Cranking down the shaded trail on the north side of Hope, I focused on moving ov
 
 I'd already clawed back a couple of hours on my time; if I could hang on, I might be able to push the 24 hour mark. On the other hand, aiming for too fast of a time goal could cause another blowup. Well, what the hell. I started getting excited about going faster.
 
-## Twin Lakes (59.5) to Treeline (71.5)<a id="sec-1-9" name="sec-1-9"></a>
+## Twin Lakes (59.5) to Treeline (71.5)
 
 I changed my shoes at Twin Lakes and picked up Eric Coppock, a fellow minion who'd volunteered to pace me the final 40. There was bad pain in a couple of my toenails, but I was prepared to lose a few and didn't look closely when I changed my socks.
 
@@ -189,13 +189,13 @@ To our right was the most beautiful sight I've ever seen in the mountains. I don
 
 At the Half Pipe aid station, I grabbed more watermelon and we moved out for the last two miles to Treeline. We took a walking break and prepped the headlamps. Eric's was this wild homemade deal with no on/off toggle that he clipped to his belt. It was incredibly bright, and seemed to give him energy. I think it was some sort of Ironman core.
 
-## Treeline (71.5) to Powerline (79.5)<a id="sec-1-10" name="sec-1-10"></a>
+## Treeline (71.5) to Powerline (79.5)
 
 It was dark when we hit Treeline with its line of cars. Treeline was quiet; we were going fast enough now that we were ahead of the 25 hour press, so runners were only coming through every couple of minutes. My parents, my beautiful parents, had COFFEE. Oh my god, so good. I clutched it and sucked it down like Gollum slurping fish guts. Jenna ran out with me, then realized after a few minutes that she hadn't brought a headlamp. Eric and I moved down the trail while Jenna stumbled back to the cars in the dark. Whoops.
 
 The road section was hard. I wanted to slow down, but Eric was telling stories and keeping a fast pace, so to be polite I kept running and talking. Soon we hit the awful, cratered field near Outward Bound and slowed to a walk to pick our way around the rocks and bomb holes. I tried to run a little, but stuck my foot in one hole and snapped my knee backward, then did it again and almost rolled my weak right ankle. Enough. We walked into Outward Bound, fueled on watermelon and moved out toward the bottom of Powerline, where Jenna's brother [Adam](http://www.strava.com/activities/181299213) was waiting for his first pacing leg ever. Yesterday Adam had told me he was worried that he wasn't going to be able to keep up with me. With 80 miles in my legs, I knew he wouldn't have a problem.
 
-## Powerline (79.5) to May Queen (86.5)<a id="sec-1-11" name="sec-1-11"></a>
+## Powerline (79.5) to May Queen (86.5)
 
 I turned down the road to Powerline with Adam and Eric. Eric wanted all the training he could get for the Run Rabbit Run 100 later this month. His justification: &quot;Well, it's going to be hard to start running again if I sit in the warm car for a couple of hours, so I'll just head over the summit with you guys.&quot; The stud factor was high.)
 
@@ -207,7 +207,7 @@ I didn't know how my feet were moving so fast down the rutted, rocky jeep trail.
 
 I thought about how many steps I'd taken so far and felt a little sick. Just keep going. Finally, the flat section of Hagerman road. I ate a gel before the final, bombing single track downhill, the last significant downhill on the course. It felt endless, but Adam was so happy - &quot;Sick!!&quot; - that I had to smile and gutted it out. The technical downhill of this section required an IQ level that was beyond my reach. Keep drinking water, keep moving.
 
-## May Queen (86.5) to Leadville (100.0)<a id="sec-1-12" name="sec-1-12"></a>
+## May Queen (86.5) to Leadville (100.0)
 
 We hit May Queen over an hour ahead of the schedule I'd set out for my parents, and left the aid station just one minute before they arrived. Adam found a bar of service and called Jenna. &quot;We're leaving May Queen.&quot; I could hear &quot;What??&quot; on the other end of the line, and then the service cut out.
 

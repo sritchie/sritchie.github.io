@@ -8,6 +8,9 @@ tags:
 categories:
   - programming
 image: 68747470733a2f2f7777772e6e61737365722e73706163652f696d67732f73706163656d6163732d6c6f676f2e706e67.png
+cover:
+  image: "68747470733a2f2f7777772e6e61737365722e73706163652f696d67732f73706163656d6163732d6c6f676f2e706e67.png"
+  hidden: true
 ---
 
 I've just finished retooling my development environment, and the process was annoying enough that I thought I'd write it up here, for myself in the future, and for you in the present.

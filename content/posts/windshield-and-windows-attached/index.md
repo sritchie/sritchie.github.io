@@ -8,6 +8,9 @@ tags:
 categories:
   - projects
 image: IMG_3096.jpeg
+cover:
+  image: "IMG_3096.jpeg"
+  hidden: true
 ---
 
 The RV10 has windows! And a windshield! I've got everything attached and mostly cleaned up.

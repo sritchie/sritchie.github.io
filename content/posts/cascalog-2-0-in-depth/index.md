@@ -32,7 +32,7 @@ I'll go over the Cascading DSL and the support for non-Cascading execution envir
 
 If you want to follow along, go ahead and clone [the Cascalog repo](https://github.com/nathanmarz/cascalog), cd into the "cascalog-core" subdirectory and run "lein repl". To try this code out in other projects, run "lein sub install" in the root directory. This will install `[cascalog/cascalog-core "3.0.0-SNAPSHOT"]` locally, so you can add it to your `project.clj` and give the code a whirl.
 
-# def*fn macros<a id="sec-1-1" name="sec-1-1"></a>
+# def*fn macros
 
 Testing Cascalog operations has always been a pain. Before Cascalog 2.0, when you defined a function with any of the `def*op*` macros, you couldn't call it as a function outside of a Cascalog query. Cascalog has a [great testing story](http://www.samritchie.io/testing-cascalog-with-midje/) for queries, but the only way to test single operations was in the context of a Cascalog job.
 
@@ -50,7 +50,7 @@ As of 2.0, functions defined with any of the `def*op` macros are now just normal
 
 I've also deprecated all of the `def*op` macros in favor of `def*fn` macros. Only the suffix has changed; the behaviors are all the same. `defmapop` becomes `defmapfn`, and so on and so forth. All of the `def*op` will continue working, but you'll get a deprecation notice when the old forms are evaluated.
 
-# Anonymous functions<a id="sec-1-2" name="sec-1-2"></a>
+# Anonymous functions
 
 The biggest addition to Cascalog's API is a suite of macros that let you use anonymous functions as Cascalog operations.
 
@@ -79,7 +79,7 @@ It's now possible to define `square` inline using `cascalog.api/mapfn`:
 
 Boom. `mapfn`, `filterfn` and `mapcatfn` are the anonymous alternatives to, respectively, `defmapfn`, `deffilterfn` and `defmapcatfn`.
 
-## Anonymous Aggregators<a id="sec-1-2-1" name="sec-1-2-1"></a>
+## Anonymous Aggregators
 
 You can also define aggregators inline:
 
@@ -108,7 +108,7 @@ You can also turn any two-argument Clojure function into a parallel aggregator w
 ;;=> ([1 6] [2 9])
 ```
 
-# higher order functions<a id="sec-1-3" name="sec-1-3"></a>
+# higher order functions
 
 One result of the new anonymous function syntax is that higher-order function definitions become easy. To parametrize operations, the old syntax required you to use an extra vector around the operation's name, like this:
 
@@ -144,7 +144,7 @@ In this new, beautiful world, you can accomplish the same goal by writing a vani
 
 So GOOD! Now you can pass Cascalog operations around as first class objects, just like any other clojure function.
 
-# Make Functions, Not Vars<a id="sec-1-4" name="sec-1-4"></a>
+# Make Functions, Not Vars
 
 Before Cascalog 2.0, if you wanted to write functions that returned queries, any operation passed as a function argument needed to be passed in as a var:
 
@@ -176,7 +176,7 @@ This means that you can pass functions (or anonymous functions defined using the
   :combine-var +)
 ```
 
-# Function Lifting<a id="sec-1-5" name="sec-1-5"></a>
+# Function Lifting
 
 Cascalog 2.0 includes a suite of functions that let you turn Clojure operations into Cascalog operations. Here's an example of how to use the new `mapop` and `mapcatop` functions to turn `clojure.core/str` into a mapping operation or a mapcat operation.
 
@@ -229,7 +229,7 @@ The `some-function` operation will work exactly the same as the one defined here
     ([x] ,,,,))
 ```
 
-# expand-query<a id="sec-1-6" name="sec-1-6"></a>
+# expand-query
 
 `expand-query` is extremely helpful for understanding how predicate macros and other syntax shortcuts affect your Cascalog queries.
 
@@ -263,7 +263,7 @@ The `count` operation actually outputs to a randomly named variable, which is te
 
 The call to `(str ?string "fun")` generates a temporary variable, `!G__8495`, which gets compared to "fourfun" in a separate, expanded filter. Pretty cool!
 
-# Functions as guards<a id="sec-1-7" name="sec-1-7"></a>
+# Functions as guards
 
 Cascalog has always let you filter logic variables against constants by writing predicates like `(src ?a "handle")`. To filter using a function, you used to have to expand out that filter yourself, like this:
 
@@ -302,7 +302,7 @@ Swapping `expand-query` in for `??<-` shows the filters generated in the source 
 
 The first variable produced by `pairs`, `!G__8295`, is filtered by `odd?`. The result of the multiplication gets assigned to a temporary variable, and that variable gets filtered against `even?`.
 
-# prepared functions<a id="sec-1-8" name="sec-1-8"></a>
+# prepared functions
 
 Cascalog 2.0's `prepfn` and `defprepfn` makes it easy to get access to the [FlowProcess](http://docs.cascading.org/cascading/2.0/javadoc/cascading/flow/FlowProcess.html) and [ConcreteCall](http://docs.cascading.org/cascading/2.0/javadoc/cascading/operation/ConcreteCall.html) instances provided by Cascading. This lets you increment counters and get access to the `JobConf` within your operations. Here's an example of how to use `prepfn`:
 
@@ -358,6 +358,6 @@ This example uses `mapfn` for operation and cleanup because these functions have
            :cleanup (mapfn [] (println "FINISHED!"))}))
 ```
 
-# Questions?<a id="sec-1-9" name="sec-1-9"></a>
+# Questions?
 
 If you have any questions on this new functionality, feel free to comment below, hit up [the mailing list](https://groups.google.com/forum/#!forum/cascalog-user), or hit me up [on Twitter](https://twitter.com/sritchie). If you're still on Cascalog 1.x I'd love to help you migrate.

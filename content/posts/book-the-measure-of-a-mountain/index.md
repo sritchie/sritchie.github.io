@@ -7,6 +7,9 @@ tags:
 categories:
   - essays
 image: measureofamountain.jpg
+cover:
+  image: "measureofamountain.jpg"
+  hidden: true
 ---
 
 Last Spring, while preparing for my attempt on the Rainier Infinity Loop, I bought two books on Mt Rainier... and failed to read either of them. My invite to that adventure had come out of nowhere; I knew nothing about the park, the area, the mountain or its history, and it felt important to develop *some* sense of the mountain I planned on running over and around.

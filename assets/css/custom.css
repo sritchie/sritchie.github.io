@@ -231,6 +231,29 @@ pre {
   margin: 1.5rem 0;
 }
 
+/* ── Center all figures and standalone images ── */
+.post-content figure {
+  text-align: center;
+  margin: 1.5rem auto;
+}
+
+.post-content figure img {
+  margin: 0 auto;
+  display: block;
+}
+
+.post-content > p > img {
+  display: block;
+  margin: 1.5rem auto;
+}
+
+/* ── Instagram embed ── */
+.instagram-embed {
+  display: flex;
+  justify-content: center;
+  margin: 1.5rem 0;
+}
+
 /* ── KaTeX overrides ── */
 .katex-display {
   overflow-x: auto;
