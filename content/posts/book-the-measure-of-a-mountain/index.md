@@ -16,7 +16,7 @@ Last Spring, while preparing for my attempt on the Rainier Infinity Loop, I boug
 
 So I bought *[The Challenge of Rainier](https://amzn.to/2XKTtQo)*, a collection of trip reports by Dee Molenaar, and [*The Measure of a Mountain: Beauty and Terror on Mount Rainier*](https://amzn.to/2lNwjH5), by [Bruce Barcott](http://www.brucebarcott.com/), an environmental journalist from Washington. They lived on my desk for months, untouched. I contemplated bailing on the trip - I wasn't prepared! I was only running a few times a week! Actually reading the books represented a commitment I wasn't sure I wanted to make.
 
-With two week's notice I decided to go, had a hell of a time and generated [this trip report](https://www.samritchie.io/rainier-infinity-loop-2018-attempt/). A year later, here in July of 2019, I finally read *The Measure of a Mountain*, and wish I'd done so before my trip to Rainier.
+With two week's notice I decided to go, had a hell of a time and generated [this trip report](/rainier-infinity-loop-2018-attempt/). A year later, here in July of 2019, I finally read *The Measure of a Mountain*, and wish I'd done so before my trip to Rainier.
 
 The book comes in two parts, interleaved; the first, the book's center, is a series of essays about the mountain's natural and human history, its geology, its incredible allure and danger. I loved each of these, and I'll summarize and talk more about each. The second part is a memoir of Barcott's experiences living near the mountain and building up his courage to go attempt to hike around it, and, eventually, to make a (guided) attempt at the summit. I'll cover these in order.
 

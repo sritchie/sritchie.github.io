@@ -10,7 +10,7 @@ categories:
   - adventure
 ---
 
-This is my race report from the 2015 Jackson Hole skimo race, the second of two ski mountaineering races I completed this weekend. (Here's my [report](http://www.samritchie.io/wyoming-rando-roundup-pt-1/) from yesterday's race at Grand Targhee.)
+This is my race report from the 2015 Jackson Hole skimo race, the second of two ski mountaineering races I completed this weekend. (Here's my [report](/wyoming-rando-roundup-pt-1/) from yesterday's race at Grand Targhee.)
 
 Jackson was going to be bigger and badder than Targhee, no question. I knew that I'd be hucking double black diamond chutes on Wade's skinny race skis, but with no concept of how hard or dangerous that would be, I chose to shut down the usual mental preparation. I'd deal with the steeps soon enough.
 

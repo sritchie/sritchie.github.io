@@ -34,22 +34,22 @@ The course starts in Silverton and travels counter-clockwise through Lake City, 
 Our Texas Water Safari crew imploded from lack of training in 2013 and I impulse-signed up for the Leadville 100 with six weeks to go and almost zero running under my belt over the previous three years.
 
 
-I finished ([race report here](https://samritchie.io/leadville-trail-100)) after 26 hours of swollen hands, many pukes, 12 pounds lost and gained, extreme salt deprivation and almost two hours lying at the halfway point looking so bad that my mom wouldn’t speak to me for fear she’d burst into tears.
+I finished ([race report here](/leadville-trail-100)) after 26 hours of swollen hands, many pukes, 12 pounds lost and gained, extreme salt deprivation and almost two hours lying at the halfway point looking so bad that my mom wouldn’t speak to me for fear she’d burst into tears.
 
 
 This finish got me a ticket in the Hardrock 2014 lottery. I didn’t make it, with < 1% odds.
 
 
-The next year I raced Leadville again, with really no issues and a [more boring race report](https://samritchie.io/leadville-trail-100-2014-edition/?ref=samritchie.io) to show for it. Another Hardrock application, another fail. But Jenna and I paced Betsy Kalmeyer for a combined 50 miles of the 2014 Hardrock, and fell in love with the course and with Telluride. Buyer beware!!
+The next year I raced Leadville again, with really no issues and a [more boring race report](/leadville-trail-100-2014-edition/) to show for it. Another Hardrock application, another fail. But Jenna and I paced Betsy Kalmeyer for a combined 50 miles of the 2014 Hardrock, and fell in love with the course and with Telluride. Buyer beware!!
 
 
-In 2015 I hired Adam St. Pierre to coach me and ran and skied like a maniac, building up reserves of fitness that I am still leaning on today. I finished 9th at the Miwok 100k ([race report here!](https://samritchie.io/2015-miwok-100k-race-report/)) and 8th overall at the [Vermont 100m](https://vermont100.com/) in 18:08, definitely the fastest I’ll ever run this distance. This race wasn’t a Hardrock qualifier, but very special as my grandparents saw me at most of the aid stations. (Pop laid down a good accidental burn with “so how long does it take to run 100 miles? 15 hours?”)
+In 2015 I hired Adam St. Pierre to coach me and ran and skied like a maniac, building up reserves of fitness that I am still leaning on today. I finished 9th at the Miwok 100k ([race report here!](/2015-miwok-100k-race-report/)) and 8th overall at the [Vermont 100m](https://vermont100.com/) in 18:08, definitely the fastest I’ll ever run this distance. This race wasn’t a Hardrock qualifier, but very special as my grandparents saw me at most of the aid stations. (Pop laid down a good accidental burn with “so how long does it take to run 100 miles? 15 hours?”)
 
 
-In 2016 I had to run another qualifier to stay in the lottery, and chose the IMTUF 100 out in Idaho. This is my favorite race I’ve run so far, despite its surprise 109 mile distance. I finished 2nd overall ([race report here!](https://samritchie.io/imtuf-100-2016-race-report/?ref=samritchie.io)), and was *so* excited for my first podium picture… but the hardcore race director shamed me with a comment like “you guys don’t need some lame finish photo on the stands, right?”, so obviously no picture for me.
+In 2016 I had to run another qualifier to stay in the lottery, and chose the IMTUF 100 out in Idaho. This is my favorite race I’ve run so far, despite its surprise 109 mile distance. I finished 2nd overall ([race report here!](/imtuf-100-2016-race-report/)), and was *so* excited for my first podium picture… but the hardcore race director shamed me with a comment like “you guys don’t need some lame finish photo on the stands, right?”, so obviously no picture for me.
 
 
-At this point I was getting a bit sick of these huge races and switched to the 125 mile “graduate level!!” Vapor Trail 125 mountain bike race for 2017 ([race report here](https://samritchie.io/vapor-trail-125-2017-race-report/))… in 2018 Jason Antin brought me back into trail running for the Rainier Infinity Loop and the [Tahoe 200](https://www.samritchie.io/tahoe-200-2018-race-report/). The race director’s “I don’t give a fuck!” attitude was frightening, but made for what I consider [my finest race report yet](https://www.samritchie.io/tahoe-200-2018-race-report). Seriously, go read this one, and don’t ever run a 200!
+At this point I was getting a bit sick of these huge races and switched to the 125 mile “graduate level!!” Vapor Trail 125 mountain bike race for 2017 ([race report here](/vapor-trail-125-2017-race-report/))… in 2018 Jason Antin brought me back into trail running for the Rainier Infinity Loop and the [Tahoe 200](/tahoe-200-2018-race-report/). The race director’s “I don’t give a fuck!” attitude was frightening, but made for what I consider [my finest race report yet](/tahoe-200-2018-race-report). Seriously, go read this one, and don’t ever run a 200!
 
 
 With the pandemic and a Hardrock cancellation in 2019 I didn’t need another qualifier until 2021. I raced the High Lonesome 100 and had an unexpectedly solid performance, coming in 4th overall in 23:52. I also completed my first successful mushroom foraging session with a haul of porcini a few miles before the 50k aid station:
@@ -63,7 +63,7 @@ I have an awesome crew with Jenna, Anna Frost, Dave Petrovics, Patrick Mckeon an
 Please [follow along on the tracking page](https://www.opensplittime.org/efforts/hardrock-100-2023-sam-ritchie) over the weekend, and wish me luck!
 
 
-If you’re looking for something to read, check out [John L. Parker’s "Once a Runner"](https://amzn.to/44GOb6u), from [my “5 books for endurance addicts” post](https://samritchie.io/5-books-for-endurance-addicts/).
+If you’re looking for something to read, check out [John L. Parker’s "Once a Runner"](https://amzn.to/44GOb6u), from [my “5 books for endurance addicts” post](/5-books-for-endurance-addicts/).
 
 
 If you want to get the sense of one of these races, you *have *to watch “Unbreakable”, about the 2010 Western States Endurance Run. [It’s buy-only but totally worth it](http://www.ws100film.com/).

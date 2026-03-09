@@ -57,4 +57,4 @@ Huge push halfway up the ski slope, flailed down on my skinny skis and then up t
 
 This last race felt much, much better on fast gear. I'm really fired up for winter, and Pretzel's sane again. I haven't felt excitement for racing like this since back in kayaking, a couple of years before the end, before it became a job.
 
-I put together a pretty heavy [racing calendar](http://www.samritchie.io/racing/) for this first season, but the goal, as with the trail running, is to get out into the mountains with Jenna and learn more about this incredible, beautiful part of the world. Here's to mountain living!
+I put together a pretty heavy [racing calendar](/racing/) for this first season, but the goal, as with the trail running, is to get out into the mountains with Jenna and learn more about this incredible, beautiful part of the world. Here's to mountain living!

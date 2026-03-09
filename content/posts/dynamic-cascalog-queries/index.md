@@ -10,7 +10,7 @@ categories:
   - programming
 ---
 
-A little side note before I get started - pivoting from my last post on [ski mountaineering racing](http://www.samritchie.io/skimo-racing/) to this post on advanced [Cascalog](https://github.com/nathanmarz/cascalog) patterns has made me realize that I'm a full-fledged connoisseur of the esoteric. I'm embracing it! This is the first in a series of posts on hardcore Cascalog. If you're stoked, leave me a comment telling me what you want to learn more about and we'll go from there.
+A little side note before I get started - pivoting from my last post on [ski mountaineering racing](/skimo-racing/) to this post on advanced [Cascalog](https://github.com/nathanmarz/cascalog) patterns has made me realize that I'm a full-fledged connoisseur of the esoteric. I'm embracing it! This is the first in a series of posts on hardcore Cascalog. If you're stoked, leave me a comment telling me what you want to learn more about and we'll go from there.
 
 While Cascalog's primitives and operations can get you pretty far down the Big Data yellow brick road, advanced users will need to go beyond the basics and generate queries and predicates dynamically. Because Cascalog queries are just Clojure data structures, you can abstract out patterns by writing functions that return custom Cascalog queries. Here's a contrived example:
 

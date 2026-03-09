@@ -24,7 +24,7 @@ Here's the [Strava file for my 2016 run](https://www.strava.com/activities/71696
 
 ## Background
 
-2015 was my first year training for ultras with a coach. [Adam St. Pierre](https://trainright.com/coaches/adam-st-pierre/) put me through the ringer all spring. Structured training is exhausting, but it works. Thanks to a more focused spring season with lots of miles and vertical gain, I finished [9th overall at the Miwok 100k](http://www.samritchie.io/2015-miwok-100k-race-report/) in California in May, then 8th overall at the Vermont 100 later that summer in just under 18 hours, 9 minutes.
+2015 was my first year training for ultras with a coach. [Adam St. Pierre](https://trainright.com/coaches/adam-st-pierre/) put me through the ringer all spring. Structured training is exhausting, but it works. Thanks to a more focused spring season with lots of miles and vertical gain, I finished [9th overall at the Miwok 100k](/2015-miwok-100k-race-report/) in California in May, then 8th overall at the Vermont 100 later that summer in just under 18 hours, 9 minutes.
 
 Vermont was a breakthrough race for me. I trusted my training and ran the race based on heart rate, running through thick fog and distracting myself with trail math for almost the entire race, constantly calculating and checking my pace against the splits I'd need to push close to 18 hours. I remember checking my watch at mile 15, then 25, then 35 and feeling no sense of the passage of time. Each moment was the same. I was able to hide in the data.
 

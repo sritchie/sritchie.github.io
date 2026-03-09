@@ -40,13 +40,13 @@ Stephens and I trained in the East River by Manhattan and the Pine Barrens of Ne
 
 We won again in 2011 and 2012. In 2013 we declined to train and had our doors blown off in the 40 mile preliminary race by a better team; Soles injured his shoulder during the race and we decided to drop out. 
 
-The gap in my schedule led me to register for the [Leadville 100](https://www.samritchie.io/leadville-trail-100/), which led to my move to Boulder, CO in early 2014.
+The gap in my schedule led me to register for the [Leadville 100](/leadville-trail-100/), which led to my move to Boulder, CO in early 2014.
 
 ## Signing Up for the 2019 TWS
 
 I met [Jason Antin](http://jasonantin.com/) soon after moving to Colorado. Jason is an alpinist; ultrarunner; ex-cagefighter; mountain guide; multi-sponsored athlete; you name it, he's done it all.
 
-Except for ultra-distance canoe racing, as I've reminded him for years. We've gone on many adventures (the [Rainier Infinity Loop](https://www.samritchie.io/rainier-infinity-loop-2018-attempt/), the[ Tahoe 200](https://www.samritchie.io/tahoe-200-2018-race-report/), [Leadville 2014](https://www.samritchie.io/leadville-trail-100-2014-edition/)) and I've passed time in each by telling Jason tales of our years racing the TWS.
+Except for ultra-distance canoe racing, as I've reminded him for years. We've gone on many adventures (the [Rainier Infinity Loop](/rainier-infinity-loop-2018-attempt/), the[ Tahoe 200](/tahoe-200-2018-race-report/), [Leadville 2014](/leadville-trail-100-2014-edition/)) and I've passed time in each by telling Jason tales of our years racing the TWS.
 
 Finally, in late 2018, I got Jason to commit to racing if I could get the old team back together.
 
@@ -193,7 +193,7 @@ Here in 2019 we had no one to race, but the old stories made me tingle, and they
 
 Gonzales is a long drag, longer this year than in years past. We traded jugs with Captain Steve and hauled the boat down a long path past the dam. Back in the water, Stephens in the bow, and on and on, paddling on, with a bright moon and fog dancing on the water.
 
-Our curse had faded and we weren't making errors; the only mistake at Gonzales was that we'd failed to place any source of caffeine in our prepared drop bag. Jason and I had packed our secret weapon from the [Infinity Loop](https://www.samritchie.io/rainier-infinity-loop-2018-attempt/) - [Military Energy Gum](https://amzn.to/2X4XM98), 100mg of caffeine per piece - and we were excited to share this Safari innovation with the Andrews. No dice for now. We'd get our gum at Wyatt's Bonfire, a few hours down the river.
+Our curse had faded and we weren't making errors; the only mistake at Gonzales was that we'd failed to place any source of caffeine in our prepared drop bag. Jason and I had packed our secret weapon from the [Infinity Loop](/rainier-infinity-loop-2018-attempt/) - [Military Energy Gum](https://amzn.to/2X4XM98), 100mg of caffeine per piece - and we were excited to share this Safari innovation with the Andrews. No dice for now. We'd get our gum at Wyatt's Bonfire, a few hours down the river.
 
 We were alone until, quietly, another 4-man on doubles appeared behind us in the mist. They looked *strong*. Where had they been all day? Half the team, it turns out, were Kate and Steve Dawson, stud paddlers from New Zealand that had recently won the [Hawkesbury Canoe Classic](https://www.theleader.com.au/story/5762179/hawkesbury-canoe-classic-title-for-dawsons/), 111km, one of the toughest races in Australia. They were in the US to complete the Safari, the [Missouri River 340](https://rivermiles.com/mr340/) and the [Yukon River Quest](https://www.yukonriverquest.com/), 3 of the longest races on the US marathon paddling calendar. They blew by us. We were alone again.
 

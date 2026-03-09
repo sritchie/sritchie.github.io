@@ -10,7 +10,7 @@ categories:
   - adventure
 ---
 
-I want to expand on the last piece I wrote [on courage and goals](http://www.samritchie.io/on-courage-and-goals/), and talk about some of the traps that endurance racing can set for athletes looking to push their limits. That piece makes the case that aggressive goals are important because they force your ego to adapt, and that maintaining a flexible identity requires you to get good at setting goals. Goal-setting is hard, and an endurance race's finish line is as good a goal as any to start with.
+I want to expand on the last piece I wrote [on courage and goals](/on-courage-and-goals/), and talk about some of the traps that endurance racing can set for athletes looking to push their limits. That piece makes the case that aggressive goals are important because they force your ego to adapt, and that maintaining a flexible identity requires you to get good at setting goals. Goal-setting is hard, and an endurance race's finish line is as good a goal as any to start with.
 
 Endurance races have had huge success marketing that finish line as something sacred. The Ironman series was my first encounter with the &quot;finish and you'll be transformed&quot; mentality. Finishing an Ironman is a major achievement that *will* permanently change your belief in your limits. The organizers know this and prey on that ego boost by setting up tattoo parlors at the finish so that each athlete can burn the Ironman logo into a calf after crossing the line.
 

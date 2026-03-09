@@ -44,7 +44,7 @@ Sometimes I write longer form book reviews! I'll link to these as I generate the
 
 ## Outside
 
-- [Measure of a Mountain: Beauty and Terror on Mount Rainier](https://amzn.to/2lNwjH5), by Bruce Barcott ([my review](https://www.samritchie.io/book-the-measure-of-a-mountain/))
+- [Measure of a Mountain: Beauty and Terror on Mount Rainier](https://amzn.to/2lNwjH5), by Bruce Barcott ([my review](/book-the-measure-of-a-mountain/))
 
 ## General, To File
 
