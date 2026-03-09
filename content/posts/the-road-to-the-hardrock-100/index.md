@@ -28,7 +28,9 @@ For anyone interested in following along, here are the relevant links:
 
 The course starts in Silverton and travels counter-clockwise through Lake City, Ouray and Telluride before aiming us back at Silverton, accumulating just over 33,000 feet of vertical gain along the way, all through terrain like this:
 
-![Runners hiking up above an alpine lake on the way to grant swamp pass.](image-1.jpeg)pc: https://www.letsdothis.com/us/e/hardrock-100-32807I first read about the Hardrock during a late night session in college Googling “hardest ultra events” across all sorts of disciplines. Back in 2008 I fully believed that it was impossible for me to finish an event like Hardrock or the Leadville 100! I raced two Ironman races, then spent my Golden Years from 2010 to 2012 focusing on the oddball combo of CrossFit and [ultra-distance canoe racing](https://www.texaswatersafari.org/).
+![Runners hiking up above an alpine lake on the way to grant swamp pass. Photo credit: letsdothis.com](image-1.jpeg)
+
+I first read about the Hardrock during a late night session in college Googling “hardest ultra events” across all sorts of disciplines. Back in 2008 I fully believed that it was impossible for me to finish an event like Hardrock or the Leadville 100! I raced two Ironman races, then spent my Golden Years from 2010 to 2012 focusing on the oddball combo of CrossFit and [ultra-distance canoe racing](https://www.texaswatersafari.org/).
 
 
 Our Texas Water Safari crew imploded from lack of training in 2013 and I impulse-signed up for the Leadville 100 with six weeks to go and almost zero running under my belt over the previous three years.
@@ -54,7 +56,9 @@ At this point I was getting a bit sick of these huge races and switched to the 1
 
 With the pandemic and a Hardrock cancellation in 2019 I didn’t need another qualifier until 2021. I raced the High Lonesome 100 and had an unexpectedly solid performance, coming in 4th overall in 23:52. I also completed my first successful mushroom foraging session with a haul of porcini a few miles before the 50k aid station:
 
-![](image-2.jpeg)And now here I am in 2023. Jenna and I had twins (Remi and Tilda) in May of 2022, and I spent most of my slim athletic time allotment lifting weights, reading about amateur Strongman competitions and avoiding the trails. Spring rolled around, the snow melted, I started running and the fear of The Big One has been slowly settling over me for the past four months.
+![Porcini mushrooms foraged during the High Lonesome 100](image-2.jpeg)
+
+And now here I am in 2023. Jenna and I had twins (Remi and Tilda) in May of 2022, and I spent most of my slim athletic time allotment lifting weights, reading about amateur Strongman competitions and avoiding the trails. Spring rolled around, the snow melted, I started running and the fear of The Big One has been slowly settling over me for the past four months.
 
 
 I have an awesome crew with Jenna, Anna Frost, Dave Petrovics, Patrick Mckeon and Jeff Friesen, plus my parents coming in to town to watch the babies while I flail around the mountains. I have no idea what to expect. I’m leaning on a history of mostly-successful race day execution, and my belief that the wheels fall off in these things from thinking too much and skipping salt pills.
