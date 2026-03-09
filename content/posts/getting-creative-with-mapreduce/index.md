@@ -41,7 +41,7 @@ I'd like to offer a more sane approach to MapReduce testing. In the following ex
 
 Let's say you want to test a Cascalog workflow that examines your user datastore and returns the user with the greatest number of followers. Your workflow's top level query will generate a single tuple containing that user's name and follower-count. Here's the code:
 
-```
+```clojure
 (defn max-followers-query [datastore-path]
   (let [src (name-vars (complex-subquery datastore-path)
                        ["?user" "?follower-count"])]
@@ -52,17 +52,10 @@ Let's say you want to test a Cascalog workflow that examines your user datastore
 
 - The function accepts a path, (`datastore-path`) and passes it into a function called `complex-subquery`.
 - `complex-subquery` returns a subquery that generates 2-tuples; this subquery is passed into `name-vars`.
-<ul>
-<li>`name-vars` binds this subquery to `src` after naming its output variables `?user` and `?follower-count`.
-
-</li>
-<li>`first-n` returns a subquery that
-
-- sorts tuples from `src` in reverse order by follower count, and
-- returns a single 2-tuple with the name and follower-count of our most popular user.
-
-</li>
-</ul>
+- `name-vars` binds this subquery to `src` after naming its output variables `?user` and `?follower-count`.
+- `first-n` returns a subquery that
+  - sorts tuples from `src` in reverse order by follower count, and
+  - returns a single 2-tuple with the name and follower-count of our most popular user.
 
 At a high level, the subquery returned by `max-followers-query` is responsible for a single piece of application logic:
 
@@ -70,7 +63,7 @@ At a high level, the subquery returned by `max-followers-query` is responsible f
 
 A correct test of `max-followers-query` will test this piece of logic in isolation.
 
-### Cloudera's &quot;State of the Art&quot;<a id="sec-1-2-1" name="sec-1-2-1"></a>
+### Cloudera's "State of the Art"<a id="sec-1-2-1" name="sec-1-2-1"></a>
 
 If you were to follow Cloudera's advice on how to test this query, you would have to:
 
@@ -88,9 +81,9 @@ If your tests are this difficult to write, you're not going to write very many t
 
 Midje circumvents all of this complexity by mocking out the result of `(complex-subquery datastore-path)` and forcing it to return a specific Clojure sequence of `[?user ?follower-count]` tuples.
 
-The following form is a Midje test, or &quot;fact&quot;:
+The following form is a Midje test, or "fact":
 
-```
+```clojure
 (fact?- "Query should return a single tuple containing
         [most-popular-user, follower-count]."
         [["richhickey" 2961]]
@@ -103,12 +96,12 @@ The following form is a Midje test, or &quot;fact&quot;:
 Facts make statements about queries. The fact passes if these statements are true and fails otherwise. The above fact states that
 
 - when `max-followers-query` is called with the argument `:path`,
-- it will produce `[ [ richhickey&quot; 2961] ]`,
-- provided `(complex-subquery :path)` produces `[[&quot;sritchie09&quot; 180] [&quot;richhickey&quot; 2961]]`.
+- it will produce `[ [ richhickey" 2961] ]`,
+- provided `(complex-subquery :path)` produces `[["sritchie09" 180] ["richhickey" 2961]]`.
 
 Fact-based testing separates application logic from the way data is stored. By mocking out `complex-subquery`, our fact tests `max-followers-query` in isolation and proves it correct for all expected inputs.
 
-This approach is not just better than the &quot;state of the art&quot; of MapReduce testing as defined by Cloudera; it completely obliterates the old way of thinking, and makes it possible to build very complex workflows with a minimum of uncertainty.
+This approach is not just better than the "state of the art" of MapReduce testing as defined by Cloudera; it completely obliterates the old way of thinking, and makes it possible to build very complex workflows with a minimum of uncertainty.
 
 Fact-based tests are the building blocks of rock-solid production workflows.
 

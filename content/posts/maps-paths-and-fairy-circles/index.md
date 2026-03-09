@@ -52,9 +52,7 @@ Do you play [Go](https://en.wikipedia.org/wiki/Go_(game))? Reading an entire tex
 
 I listened to a wonderful episode of Steven Strogatz’s [“The Joy of X“](https://podcasts.apple.com/us/podcast/corina-tarnita-and-the-deep-mathematics-of-social-insects/id1495067186?i=1000465991717) podcast with [Corina Tarnita](https://eeb.princeton.edu/people/corina-tarnita) about the incredible math behind how termites distribute their mounds across the African savannah. Check out these beautiful “[fairy circles](https://en.wikipedia.org/wiki/Fairy_circle_(arid_grass_formation))”:
 
-[
-
-![Fairy circles in Namibia](https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/e3b4fa91-9493-467b-8156-b9157fba03c8_1150x767.jpeg)](https://substackcdn.com/image/fetch/$s_!isvo!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fbucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com%2Fpublic%2Fimages%2Fe3b4fa91-9493-467b-8156-b9157fba03c8_1150x767.jpeg)(From https://www.princeton.edu/news/2017/01/19/african-fairy-circles-template-natures-many-patterns).
+![Fairy circles in Namibia](image-1.jpeg)(From https://www.princeton.edu/news/2017/01/19/african-fairy-circles-template-natures-many-patterns).
 
 
 These fairy circles cover maybe 1,500 miles of landscape in Southern Africa. Each circle is a separate termite colony. The spacing between circles turns out to be exactly the spacing you’d predict for colonies trying to balance their goals of maximizing the resources they can take in and minimizing the border that they have to defend against other colonies.

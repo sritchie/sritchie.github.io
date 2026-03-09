@@ -16,7 +16,7 @@ Here's what it looks like now:
 {{< figure src="image-6.png" >}}
 I used three tubes of Lord 7545 A/E adhesive from [Aerosport Products](http://www.aerosportproducts.com/product/lord-adhesive/), one for each pair of side windows and a full tube for the windshield. The process was stressful; I've been mildly dreading this for a couple of years now. Compared to much of the metal work, this step is one-shot with permanent results.
 
-I wrote up the process of preparing to glue these in my [last post](__GHOST_URL__/spring-clips-and-stage-time/); the spring clips are absolutely the right way to go. I can tell that in the spots where the clips were touching the window, there are very mild ripples (is that what people call "crazing" on the forums?) but it's barely there, and only in the zone that I expect to fiberglass over with deck cloth anyway. I'm not sure how I would have held the windows on without that tip.
+I wrote up the process of preparing to glue these in my [last post](/spring-clips-and-stage-time/); the spring clips are absolutely the right way to go. I can tell that in the spots where the clips were touching the window, there are very mild ripples (is that what people call "crazing" on the forums?) but it's barely there, and only in the zone that I expect to fiberglass over with deck cloth anyway. I'm not sure how I would have held the windows on without that tip.
 
 What did I learn?
 

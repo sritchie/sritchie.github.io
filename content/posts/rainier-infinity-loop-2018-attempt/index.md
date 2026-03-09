@@ -181,7 +181,7 @@ A sample of my thoughts from my first time in glaciated terrain:
 
 We kept our eyes up for rockfall, spaced out and moved quickly over to the Cathedral Rocks ridge and up onto Ingraham Flats, where more parties were camping. The snow started to become more wild and textured:
 
-<figure class="kg-card kg-embed-card">{{< youtube "DJoPPysOOb0" >}}</figure>
+{{< youtube "DJoPPysOOb0" >}}
 We met a group from the Denver area that was a few days into their push to the top. They were very friendly, but seemed to grow more alarmed as they eyeballed our minimal gear. When had we started? Did we have any other adventures planned in the park after this? Finally, I laid out the details of the Infinity Loop... and it just shut down the conversation. It was like we were a group of aliens in possession of ancient galactic wisdom, and I'd goofed and overloaded their minds with too much all at once. Full system overload.
 
 We roped up here and I tried my best not to look like an idiot. My troubles with crampons began right away. I was in the back of the rope team behind Erik and Jason. Five minutes in to our rope walk, trying to eat a bar and drink as I was walking, I caught a crampon and took a dive, ejecting my second water bottle and a few bars onto the narrow path ahead of me. I didn't want to stop the team, so I jumped up and tried to stow the items while still moving, all while the slope got steeper. I stuffed the entire bar into my mouth, shoved the bottle into my jacket and tried to focus on my feet.
@@ -212,7 +212,7 @@ Suddenly, at the end of a long switchback, we jumped across one final crevasse i
 
 We snapped a few pictures and took a little video:
 
-<figure class="kg-card kg-embed-card">{{< youtube "YyKrZ72qZGk" >}}</figure>
+{{< youtube "YyKrZ72qZGk" >}}
 And just like that, the climbing was over. It was time to descend Emmons.
 
 ## Emmons Descent
@@ -255,7 +255,7 @@ The scary part of the descent was over, and I found it hard to recall the physic
 
 Suddenly, a glissade track! We sat down and started sliding. This was my first time glissading, and it was just SO DAMNED FUN. Jason led the team, smashing out a perfect luge run for me and Erik.
 
-<figure class="kg-card kg-embed-card">{{< youtube "QZyQmfTFmhw" >}}</figure>
+{{< youtube "QZyQmfTFmhw" >}}
 We lost about 2,000 feet in 15 minutes, ran out the final portion of snow and hit the trail. I switched my boots for the Altra trail runners I'd carried in my pack and we ran the three miles down to camp, eating our remaining food as we moved, passing more guided parties on their approach to Emmons. Compared to the boots, my Altras felt like little deerskin slippers, and we were down to the campsite at White River in no time. We'd completed the first leg of the Infinity Loop.
 
 ## White River to Paradise
@@ -268,7 +268,7 @@ Everything is temporary, and sure enough we were soon climbing again. I'd warmed
 
 Here's a video from one of our first water filling stops. (Notice Erik casually drop that his vision has been blurring out for a while now. What a dominator.)
 
-<figure class="kg-card kg-embed-card">{{< youtube "8myi1yLtv4A" >}}</figure>
+{{< youtube "8myi1yLtv4A" >}}
 A girl sitting by the trail watched this whole conversation with suspicion. She asked where we were going, and I replied that we were running back to Paradise, over 20 miles away. Her eyes were troubled.
 
 &quot;What, we don't look like we can make it?&quot; I said.
@@ -277,9 +277,9 @@ A girl sitting by the trail watched this whole conversation with suspicion. She 
 
 If only she knew where we'd come from. We kept climbing and hit a snowy traverse. Here's the entrance onto the first snow field:
 
-<figure class="kg-card kg-embed-card">{{< youtube "Avop87Gnv8Y" >}}</figure>
+{{< youtube "Avop87Gnv8Y" >}}
 It was colder on the Wonderland section than at any point on Rainier! We kept moving, shivering and covering up with a buff any time we had to stop.
-<figure class="kg-card kg-embed-card">{{< youtube "NuZEJ9HtDs0" >}}</figure>
+{{< youtube "NuZEJ9HtDs0" >}}
 This is where the dark thoughts began. There is a lot of time to think on these long runs, and unexpectedly, monitoring my state, I began looping on the feelings I'd had on the top of Emmons. Was I really going to go up there again? On such low training?
 
 It got worse. I've had a number of friends that have torched their endocrine systems digging too deep... what the hell was I doing? It might be dark on the next descent. What if I trip? Am I putting the team at risk? I'll blow the FKT for sure with the extra hour that it takes guiding me down.
@@ -296,7 +296,7 @@ Back to the Wonderland. The trail really was world class. I got to foot-glissade
 
 The campsites on the trail were absolutely wild. Here's a shot of the entrance to one of the group sites nestled in the endless snow of the July Wonderland trail. This little wooden bridge spanned a stone-lined waterfall with perfect, clear water roaring down.
 
-<figure class="kg-card kg-embed-card">{{< youtube "JCzqx5W5g20" >}}</figure>
+{{< youtube "JCzqx5W5g20" >}}
 I lost my sense of time passing, other than a repeating thought that we seemed very far away from our starting point. These 28 miles were some of the rougher miles I've run on trails. We completed a huge descent down off of the snowy section, finally, back on soft trails through old growth forest, and made it to the road at Box Canyon before putting on our headlamps.
 
 ![Wonderland Pic](https://lh3.googleusercontent.com/a1WRQiBky6IltJ_WQ1SuEdyRcMxvJbg-Nat_-dJoIdSybokab37WPkG3uGbS40_HeAouPQoGh79Ilgu29Iy9zK_cNK4ufLHTi--hVISNI-Nvv0fBto99OfD1q1vnGhU8Tk6ra6EAAKlrJdiVmRK37MRfPsun_yPjtPyB-d5OGQ4Hh2Kfcu3XuaXblVjZSSYeP1qRUBYhHt6yPL0NTleNchZI9x2iaMSFsYII_ipzGXD8HhsGuNtzt48FxSBInds9j8q2Sdz2df_MTDpaAhZ4sUYAaqCBKntC9dXpRxqvCzZNHHeuWDllIaU-wiWUdzIRQ0aBlYuSiYIB6UR9PPffGrwwi9WYbj0c8ngGpp9xXp5Y-vl_6xdBqHFj5Hu0WUok9RvNU-v64mxZCvppw53IKzLeQHR65wQtEp5G4pi6c4tK9H4S3CrvJvYBPDEMv5jz4Z7rGWCuaCYa4Aume2akKTJPlTUlZhN5iA1TnSTlfakTLt4WZ0jPtVEPjOym6AUuS9KBCU2t41Oy0g4dL8l_o2etvuMwSYXs__q0UDAqxTUehVAsfqpNm92UcnMf86VG_zY842M6YlrbrW36EFls7pyPD99FQRzLO9-J2qeH-TBVKJNyo-or_kX38iYcS5jgeP3RMh2hxdXc2SpJCs1dW1qDJWGu5WsJJg=w1696-h1272-no)
@@ -335,7 +335,7 @@ Back at the campsite, we spread out all of our extra food on the picnic table an
 
 &quot;Get some!&quot; I yelled, done with rest, excited to get back into it. I ran into the aid station with the guys, participated in the donut feed session and paced around quietly as they tried to sleep for a couple of hours.
 
-<figure class="kg-card kg-embed-card">{{< youtube "3NWR-hmjSfg" >}}</figure>
+{{< youtube "3NWR-hmjSfg" >}}
 Finally, it was time. Erik and Jason got up and we all got ready, packing for an expected 26 hour push back to the Paradise. By the time we left roughly 39 hours had elapsed since the adventure began.
 
 ## Run 2
@@ -358,7 +358,7 @@ Another descent in the dark, this one through rough rock and lasting something l
 
 Sometimes you have to go to a special place to make it tolerable. We passed the time with some group singing:
 
-<figure class="kg-card kg-embed-card">{{< youtube "XqOPXPPHj68" >}}</figure>
+{{< youtube "XqOPXPPHj68" >}}
 Next, a monster climb up to Ipsutz pass. Near the top we laid down under an overhanging cliff, content, exhausted, happy to take a break and look at the stars. Then, WHAM.
 
 &quot;What the fuck was that?&quot; yelled Erik from his prime bathroom spot down the trail.
@@ -377,7 +377,7 @@ Quiet. &quot;No. Maybe we could try something else.&quot;
 
 Eventually Erik found a system of logs that we could shimmy across. We called our inner thighs into service and got after it:
 
-<figure class="kg-card kg-embed-card">{{< youtube "bhuF3taXYi8" >}}</figure>
+{{< youtube "bhuF3taXYi8" >}}
 I couldn't imagine trying to do this with the huge pack that most through hikers had to carry. Another obstacle dispatched, we started to climb again.
 
 I chewed my first piece of &quot;Military Energy Gum&quot; a few minutes into the climb. I wasn't sure if it was working, then noticed that I was chewing very aggressively and stabbing my trekking poles hard into the dirt. Game on! Jason chewed two pieces and moved to the front spot, setting an aggressive pace for the hour long climb to Golden Lakes.
@@ -418,18 +418,18 @@ I couldn't help but get infected with the excitement. I did some cautious trail 
 
 More climbing and descending. The terrain was so big. Just look at this bridge:
 
-<figure class="kg-card kg-embed-card">{{< youtube "6VmwcR9LWPs" >}}</figure>
+{{< youtube "6VmwcR9LWPs" >}}
 Here's a report I gave from the trail on a climb not long after this bridge crossing:
-<figure class="kg-card kg-embed-card">{{< youtube "0hkoL5Zix5Y" >}}</figure>
+{{< youtube "0hkoL5Zix5Y" >}}
 Erik's knee had recovered by this point, and he was back in adventure racing mode, was always doing something, mixing up instant potatoes or mountain house meals with cold water, tidying, moving items from pocket to pocket. He developed this rhythmic walk that seemed to cycle over many strides, a brilliant move that allowed him to tap into any unused muscle that was willing to assist in the climb:
-<figure class="kg-card kg-embed-card">{{< youtube "dv0j0dIELkA" >}}</figure>
+{{< youtube "dv0j0dIELkA" >}}
 As the morning proceeded the heat started to get to me. We were passing frozen lakes, tempting me with their floating ice blocks. I'd stare at the ice and yell at the guys to pack snow into their shirts, pour water, ANYTHING... we had to beat the heat! I found out later that they just weren't that hot, and confused about the big deal I was making. Damn, another weakness.
 
 ![frozen lakes](https://lh3.googleusercontent.com/DhfEYrGOKDDL9FTnVlRX_5Ib7ZPA1NfAVlzDoCJH_ynW0HgFCtQIfHVg8nEwDN91SfPbuQ3JJOs9YRZ38jlB1WsR7sCe7ZvbWQubPDdnIZXPFtehlOXX7uprrdUDrVaLj6Y62ZaJvStg2XGJbDx7TMvtGtnD9bYigdJ9akFjJzZTVG8H0ZaojDOjw6ZDuijIFny2OWy7kposYVD_uA3ODGEp_JbPEbjJZbLKUCguWFfj2amq3LWr4NhR85mypUg-nL87dIM7ORR5kKIj0I6x5xSBGqmeFntL1oIBjhgR6ULR4Ne1707OXmR-ODThiZCScvGyduZrllGZb0gF3ohuPh2sykD4xzZnblJ5bBuDll70RR1-nqWuTy0vKcIOb9-CVobw6QP4_mHdsm1J9N-uMF5FRuuJpuWE1DefpSTctK6VL2WppZ2HNYgPg6hy8D20Crjqgf80tm2HZy8DGCO2kYxiGbal6lOhaWzZfLI3SakqrxH71uIr5-phOwKZoOtA8z7Hz8c6jhwGBFQcyhHxPMN3Jp6lyrCIxMl_BC6VuGX1QZU-9dZa8kmeaey-fGs13i7UMlSnnZLw6DxbL6j3n5yUPFhRXRMS-fqy6C9MfcjUglMisHBh_sC_o3c9c9vG0OugPFhkyl9_XOflVqVg2Zf4CLbAjvu1dw=w954-h1272-no)
 
 The second to last downhill marked roughly 15 miles to go. Here's a shot of us cruising in the full heat of the day:
 
-<figure class="kg-card kg-embed-card">{{< youtube "lARsZBKUJlQ" >}}</figure>
+{{< youtube "lARsZBKUJlQ" >}}
 The final downhill was a mindfuck. From the topo, we were expecting a gentle seven mile descent before the final five mile climb to the finish. Of course we should have known that nothing is gentle on Wonderland. The descent was seven miles of rollers, with a big climb stuck in the middle. It wasn't that different from anything we'd seen before, but the expectation that we'd be getting a break set us up for... mental difficulties, shall we say. We stopped talking to each other, privately suffering.
 
 Finally we hit the road, the bottom of the descent and our last major checkpoint - Longmire, 5.6 miles to go to Paradise. We were each out of water, and considered running into the Longmire campground to try to find some, but the clock was ticking on sub-60 and we decided to go for it and pushed on.
@@ -442,7 +442,7 @@ Systems shutting down, we hit the Narada Falls trail for a final 1000 feet of cl
 
 I backed off and pulled out the camera, letting the boys run ahead to finish out the Rainier Infinity Loop in 59 hours, 21 minutes, breaking Scott's FKT by over 7 hours.
 
-<figure class="kg-card kg-embed-card">{{< youtube "ymeJtOH80tY" >}}</figure>
+{{< youtube "ymeJtOH80tY" >}}
 Here's a shot of us next to the Muir steps where it all began:
 
 ![The crew at the end](https://lh3.googleusercontent.com/hbxSaiEhpM_7oxNzU42yhdA3WVWWwyVCkSIABbG-qWLnLuitEnmEwlnhC9nxBzbGZUeisZIqcwxLIbdNfyvFvXM0rnFScPAfohvYTGumVeIR-qrlzJ4auI9IE9LMeLQ9haj0LKlj9dqciVtllmWDY-0jK0IMjQRHzFJkz3shZ0LEHjMkhX4bWVWhgWJ0p-tJ6ayPl0c3nbSG9ROpgG8Gramx5n6R-YADbJnEq-S1dUcFzZugLEKfouujRVwUpib_4fwKsuUegKcPzPaeKl0W7702a2MfidE_r0olOEYwl3JWafIHEOuW2dFvPXfFtu7g4UE_NbTGDvqIjbb1hPlI14rBEGXGbqpmgweSXltfQeFXyKg6Yh_Nkg81YPJUYU7sqLbYrB7LrVPjJROtVZcZ0Cq44Jjg5pkhdZeMxUtqs9VaHSlHnEcrWgEAGy7mEbcIrXLSsm2j0Bg90DUiKSI8mulh60COrC6Hv_qPmEVje8VKMp_5rlhvwgFJACH4AelMg4Hrm3bUBDC1wvrTqRlDVEqUgQvh3fp-5_jMC26sOlFcTJcm2P_D9-wyS3DLAu4tM4SPU3bVv-BH5DFDnTsTeZssz4C57-0G_GRMQYDCQP7ExG6iaWn06oUP36OTNpgOl54lrmx8uDIJvNx3EGfMyP_xCAPs7wPkSQ=w954-h1272-no)

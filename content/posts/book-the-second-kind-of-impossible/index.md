@@ -43,7 +43,7 @@ Come on. How much more awesome can it get?
 
 ## Thoughts
 
-I've been writing many [trip reports](__GHOST_URL__/tahoe-200-2018-race-report/) of late, and this whole book is a trip report of a legendary physical and intellectual adventure. It's a celebratory book, meant to get you excited about the physics that Paul is tackling, and the pleasure that can come from taking a passing curiosity seriously and trying to track down the answer.
+I've been writing many [trip reports](/tahoe-200-2018-race-report/) of late, and this whole book is a trip report of a legendary physical and intellectual adventure. It's a celebratory book, meant to get you excited about the physics that Paul is tackling, and the pleasure that can come from taking a passing curiosity seriously and trying to track down the answer.
 
 It's easy to imagine passing over the initial curiosity of a strange symmetry popping up in a computer simulation. Paul keeps at it for years with no indication that the things he's simulating are even possible in the physical universe, with the collection of elements we have on earth. He's rewarded with the discovery of an entirely new kind of matter that actually does exist in nature.
 

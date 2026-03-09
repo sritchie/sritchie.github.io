@@ -48,14 +48,14 @@ There are only two of us heading in our direction. What the heck? Bill and (woma
 
 - leave bill behind, push on the Colorado trail telling stories, goofing, poles out, great decisions
 
-<figure class="kg-card kg-embed-card">{{< youtube "O_gSqeygSt0" >}}</figure>
+{{< youtube "O_gSqeygSt0" >}}
 - theme of the day:
 
 > "I don't want to speak too soon, buttttt I think we might be crushing this thing!"
 
 - massively overestimate the scale of the map, even though it says the scale. We turn off and head for the wrong mountain, far in the distance. We get halfway there before questioning our choice....
 
-<figure class="kg-card kg-embed-card">{{< youtube "LNKOtGgmroA" >}}</figure>
+{{< youtube "LNKOtGgmroA" >}}
 - backtrack to the right mountain
 
 {{< figure src="IMG_5185.jpg" >}}
@@ -72,7 +72,9 @@ There are only two of us heading in our direction. What the heck? Bill and (woma
 Theme of the day - mapping things out on foot vs trusting the map. We tried to lean heavily on our stoke and athleticism, and put in a ton more effort than we probably needed to.
 
 Next book went well... we were getting nervous and settled into checking ALL drainages for cairns, not relaxing. Head home, no big deal.
-{{< figure src="IMG_5195.jpg" >}}<figure class="kg-card kg-embed-card kg-card-hascaption">{{< youtube "Eg_Wtj_fjcY" >}}<figcaption>Climbing up to the CT to return home.</figcaption></figure>
+{{< figure src="IMG_5195.jpg" >}}
+
+{{< youtube "Eg_Wtj_fjcY" >}}
 ### Suffer and Aid Station
 
 refueled, took in a massive amount of gatorade, downed an ensure, probably 500 calories. Total shock to the system, nausea rising.
@@ -92,12 +94,14 @@ We met one guy coming down who was fully shell shocked - he'd been wandering aro
 
 - hit three more dudes at the summit... they were torn to shreds. This is beyond the eight hour mark. (They looked great, but we later heard that this descent was the "beginning of the end" for them.)
 
-<figure class="kg-card kg-embed-card">{{< youtube "bKJy7fc9o1Y" >}}</figure>{{< figure src="IMG_0013.jpg" >}}
+{{< youtube "bKJy7fc9o1Y" >}}
+
+{{< figure src="IMG_0013.jpg" >}}
 STICK TO THE HEADINGS - 70, 90. Do not forget! More nailing it.
 
 - Jason took a shit at the summit, sat in fire ants
 
-<figure class="kg-card kg-embed-card">{{< youtube "BReLxE8wLDU" >}}</figure>
+{{< youtube "BReLxE8wLDU" >}}
 - more food, eating...
 - find the book, take off at 70. We were checking every 10 minutes or so. Turns out this is a terrible way to navigate with dead reckoning.
 - the horrible stabbing trees... pushing down, sticking to ridges, scrambling...
@@ -108,19 +112,25 @@ We get to a 5th class wall. Fuck, that is definitely not safe to ascend, and the
 Okay, we'll swim. Oh shit, it's a half mile.
 
 We scramble up and out and scramble-skirt the contour to the right inlet. Takes forever.
-{{< figure src="IMG_5216.jpg" >}}<figure class="kg-card kg-embed-card">{{< youtube "Xn25F83fZbA" >}}</figure>
+{{< figure src="IMG_5216.jpg" >}}
+
+{{< youtube "Xn25F83fZbA" >}}
 - idea about how the worst finisher's course should be the next year's course
 - "you know, if we were moose this would just be it, forever."
 
 We get the next book, evaluate our time and we're totally hosed by now. It's going to get dark, I have no headlamps, remember.
-{{< figure src="IMG_5220.jpg" >}}<figure class="kg-card kg-embed-card">{{< youtube "x3vDOJpwe0A" >}}</figure>
+{{< figure src="IMG_5220.jpg" >}}
+
+{{< youtube "x3vDOJpwe0A" >}}
 - leave, climb the wrong mountain to the right
 - Then schwacking totally horrible:
 
-<figure class="kg-card kg-embed-card">{{< youtube "_iUEms8SCBs" >}}</figure><figure class="kg-card kg-embed-card">{{< youtube "Y5lAoXf_QX8" >}}</figure>
+{{< youtube "_iUEms8SCBs" >}}
+
+{{< youtube "Y5lAoXf_QX8" >}}
 - struggle up the RIGHT way, but it just sucks... scramble to the top
 
-<figure class="kg-card kg-embed-card">{{< youtube "8pNPXRh6IBI" >}}</figure>
+{{< youtube "8pNPXRh6IBI" >}}
 - observation about cane - all this shit is pointing AT us... maybe it'll be easier on the way down? you just get STUCK inside this stuff.
 
 {{< figure src="IMG_5226.jpg" >}}
@@ -128,7 +138,7 @@ We get the next book, evaluate our time and we're totally hosed by now. It's goi
 - J had his glasses strap get stuck and pulled back like a bowstring, clearly a plan between carnivorous trees to launch his face forward into a spike.
 
 We reverse. Things are going better. We get water.
-<figure class="kg-card kg-embed-card">{{< youtube "MVLHnCYeHS0" >}}</figure>
+{{< youtube "MVLHnCYeHS0" >}}
 - it gets dark which FORCES us to stick to a heading. we actually make the turn, get the new heading... follow it.
 
 {{< figure src="IMG_5235.jpg" caption="Actually reading the map, trying to make sure we don't fuck up." >}}
@@ -151,6 +161,6 @@ Some of the drop reasons:
 
 Oh well. We'll have to go back next year and try this thing out, get it done for real.
 
-(UPDATE - we did, and we finished! Read the [2019 Race Report here](__GHOST_URL__/niwots-challenge-2019-race-report/).)
+(UPDATE - we did, and we finished! Read the [2019 Race Report here](/niwots-challenge-2019-race-report/).)
 
 Jason's Story: [https://www.instagram.com/stories/highlights/17929181812103193/](https://www.instagram.com/stories/highlights/17929181812103193/)

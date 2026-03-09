@@ -14,7 +14,7 @@ A little side note before I get started - pivoting from my last post on [ski mou
 
 While Cascalog's primitives and operations can get you pretty far down the Big Data yellow brick road, advanced users will need to go beyond the basics and generate queries and predicates dynamically. Because Cascalog queries are just Clojure data structures, you can abstract out patterns by writing functions that return custom Cascalog queries. Here's a contrived example:
 
-```
+```clojure
 (defn perform-on-all [src f]
   (<- [?result]
       (src ?x)
@@ -29,7 +29,7 @@ The [cascalog.logic.ops](https://github.com/nathanmarz/cascalog/blob/103d2067281
 
 In vanilla Clojure, you use `juxt` to apply multiple operations to the same input variables:
 
-```
+```clojure
 (let [compound-fn (juxt inc square dec)]
   (compound-fn 10))
 ;;=> [11 100 9]
@@ -39,7 +39,7 @@ In vanilla Clojure, you use `juxt` to apply multiple operations to the same inpu
 
 What's the Cascalog equivalent of `juxt`? This pattern, applying a bunch of operations to the same input, shows up all over. Here's a contrived example - for each of a collection of numbers, calculate the increment, the decrement and the square.
 
-```
+```clojure
 (defn square [x] (* x x))
 
 (let [src [[1] [2] [3]]]
@@ -53,7 +53,7 @@ What's the Cascalog equivalent of `juxt`? This pattern, applying a bunch of oper
 
 The query is similar to this Clojure code block:
 
-```
+```clojure
 (let [src    [1 2 3]
       step-1 (map inc src)
       step-2 (map square src)
@@ -64,14 +64,14 @@ The query is similar to this Clojure code block:
 
 Here's the same block, using `juxt` and killing the `let` binding:
 
-```
+```clojure
 (map (juxt dec square inc) [1 2 3])
 ;;=> ([2 1 0] [3 4 1] [4 9 2])
 ```
 
 Clojure's `juxt` allowed us to clean up the boilerplate of passing `src` into each of those functions. What we want in Cascalog is a function, call it `juxt*`, that'll let us avoid the repetition that showed up in the example query above. Here's a new query written in [wishful thinking](http://c2.com/cgi/wiki?WishfulThinking) style:
 
-```
+```clojure
 (let [src [[1] [2] [3]]]
   (??<- [?incs ?squares ?decs]
         (src ?x)
@@ -80,7 +80,7 @@ Clojure's `juxt` allowed us to clean up the boilerplate of passing `src` into ea
 
 How can we implement `juxt*`? One option would be to write a function that takes functions returns a [predicate macro](http://cascalog.org/articles/predicate_macros.html). (See the end of the post for a short refresher on predicate macros.) It's easy for a few of the arities, but things quickly devolve.
 
-```
+```clojure
 (defn juxt*
   ([f]
      (<- [!x :> !a]
@@ -98,11 +98,11 @@ How can we implement `juxt*`? One option would be to write a function that takes
   )
 ```
 
-The problem here is that you need one predicate for each of the input functions. To match Clojure's `juxt`, `juxt*` needs to be able to handle as many functions as you throw at it. If `&lt;-` were a function instead of a macro, we could just `apply` it to the predicates. &quot;Oh my god,&quot; I hear you sigh. &quot;Could a function version of `&lt;-` exist?&quot; Boom, from stage left, enter `cascalog.api/construct`.
+The problem here is that you need one predicate for each of the input functions. To match Clojure's `juxt`, `juxt*` needs to be able to handle as many functions as you throw at it. If `<-` were a function instead of a macro, we could just `apply` it to the predicates. "Oh my god," I hear you sigh. "Could a function version of `<-` exist?" Boom, from stage left, enter `cascalog.api/construct`.
 
 # construct
 
-The `&lt;-` macro is a thin wrapper around the `cascalog.api/construct` function. All `&lt;-` does is
+The `<-` macro is a thin wrapper around the `cascalog.api/construct` function. All `<-` does is
 
 - convert symbols beginning with `?` or `!` into strings (since Cascalog variables are represented by strings, not symbols),
 - allow you to use lists instead of vectors for the predicates in your queries,
@@ -110,7 +110,7 @@ The `&lt;-` macro is a thin wrapper around the `cascalog.api/construct` function
 
 The following queries are all identical. Here's a Cascalog query written in the style I use in my examples:
 
-```
+```clojure
 (def src [[1] [2] [3]])
 
 (<- [?x ?square]
@@ -119,18 +119,18 @@ The following queries are all identical. Here's a Cascalog query written in the 
     (* ?x ?x :> ?square))
 ```
 
-Because `&lt;-` converts logic variables to strings, doing that conversion ourselves is a no-op:
+Because `<-` converts logic variables to strings, doing that conversion ourselves is a no-op:
 
-```
+```clojure
 (<- ["?x" "?square"]
     (src "?x")
     (odd? "?x")
     (* "?x" "?x" :> "?square"))
 ```
 
-Using vectors instead of lists is fine too. I think lists look prettier, but if `&lt;-` were a function, Clojure would treat those lists as function applications. In fact, the lists are little special collections of operations and variables.
+Using vectors instead of lists is fine too. I think lists look prettier, but if `<-` were a function, Clojure would treat those lists as function applications. In fact, the lists are little special collections of operations and variables.
 
-```
+```clojure
 (<- ["?x" "?square"]
     [src "?x"]
     [odd? "?x"]
@@ -139,7 +139,7 @@ Using vectors instead of lists is fine too. I think lists look prettier, but if 
 
 And finally, the same query using `construct`, with all macro sugar removed.
 
-```
+```clojure
 (let [outputs    ["?x" "?square"]
       predicates [[src "?x"]
                   [odd? "?x"]
@@ -153,7 +153,7 @@ And finally, the same query using `construct`, with all macro sugar removed.
 
 First, I'll show the final definition of `juxt*`, then I'll go through it line by line. Here she blows:
 
-```
+```clojure
 (require '[cascalog.logic.vars :as v])
 
 (defn juxt*
@@ -170,7 +170,7 @@ First, I'll show the final definition of `juxt*`, then I'll go through it line b
 
 The first thing this `juxt*` implementation does is generate a randomly-named logic variable for each supplied operation using `v/gen-nullable-vars`. This list is bound to `outvars`.If you look at the first query example:
 
-```
+```clojure
 (let [src [[1] [2] [3]]]
   (<- [?incs ?squares ?decs]
       (src ?x)
@@ -183,21 +183,21 @@ Every operation that acts on `?x` has a distinct output. Calling `(juxt* inc squ
 
 Next, `construct`'s two arguments are declared inline. This version of `juxt*` only allows a single input variable to each function, so we can just make up a variable name. Let's call it `!input`. (I'll go over how to extend `juxt` to multiple inputs in a future post.)
 
-The outputs are the `outvars` generated before. As discussed in the [Predicate Operators](http://cascalog.org/articles/predicate_operators.html) section of the docs, `:&gt;&gt;` allows a predicate to use a vector of logic variables as its output. The same rule applies to predicate macro signatures.
+The outputs are the `outvars` generated before. As discussed in the [Predicate Operators](http://cascalog.org/articles/predicate_operators.html) section of the docs, `:>>` allows a predicate to use a vector of logic variables as its output. The same rule applies to predicate macro signatures.
 
-All that's left to create are the predicates. Predicates are vectors of the form `[&lt;operation&gt; !input :&gt; &lt;output-variable&gt;]`. (The grammar's more complicated, but this will do for now.) Because predicates are **just** vectors, and `construct` needs a sequence of predicates, we can generate that sequence by mapping across the supplied ops:
+All that's left to create are the predicates. Predicates are vectors of the form `[<operation> !input :> <output-variable>]`. (The grammar's more complicated, but this will do for now.) Because predicates are **just** vectors, and `construct` needs a sequence of predicates, we can generate that sequence by mapping across the supplied ops:
 
-```
+```clojure
 (map (fn [o v] [o "!input" :> v])
      ops
      outvars)
 ```
 
-Mapping across `op` and `outvars` at the same time pairs each operation up with one of the fresh logic variables. And, just as we wanted, for each pair the anonymous function we're mapping outputs `[o &quot;!input&quot; :&gt; v]`.
+Mapping across `op` and `outvars` at the same time pairs each operation up with one of the fresh logic variables. And, just as we wanted, for each pair the anonymous function we're mapping outputs `[o "!input" :> v]`.
 
 With this new definition, the wishful thinking example from above compiles and runs!
 
-```
+```clojure
 (let [src [[1] [2] [3]]]
     (??<- [?incs ?squares ?decs]
           (src ?x)
@@ -215,11 +215,11 @@ To wrap things up, here's the promised primer on predicate macros.
 
 # Predicate Macros :)
 
-Even though &quot;[predicate macro](http://cascalog.org/articles/predicate_macros.html)&quot; has the word &quot;macro&quot; in it, you shouldn't be scared. (The smiley in the heading is a friendly smile, not a creepy one.) A predicate macro is just Cascalog's way of grouping together a bunch of operations into one new black-box operation. Predicate macros are how you declare &quot;functions&quot; in Cascalog's logic land.
+Even though "[predicate macro](http://cascalog.org/articles/predicate_macros.html)" has the word "macro" in it, you shouldn't be scared. (The smiley in the heading is a friendly smile, not a creepy one.) A predicate macro is just Cascalog's way of grouping together a bunch of operations into one new black-box operation. Predicate macros are how you declare "functions" in Cascalog's logic land.
 
 For example, if you wanted to write a function that calculated the average value of some input variable, you'd probably want to reuse the efficient `sum` and `div` operations Cascalog provides in `cascalog.logic.ops`. Because `sum` is an aggregator, you can't compose these with `comp` like you would normal Clojure functions. Predicate macros make this composition easy:
 
-```
+```clojure
 (def avg
   "Predicate operation that produces the average value of the
   supplied input variable.
@@ -231,9 +231,9 @@ For example, if you wanted to write a function that calculated the average value
       (div !s !c :> !avg)))
 ```
 
-A predicate macro looks exactly like a normal query, except predicate macros allow input variables. You can tell that a query is a predicate macro because it'll have a `:&gt;` or `:&gt;&gt;` in the argument vector separating input variables from output variables. Predicate macros like `avg` can be used in other queries like any operation:
+A predicate macro looks exactly like a normal query, except predicate macros allow input variables. You can tell that a query is a predicate macro because it'll have a `:>` or `:>>` in the argument vector separating input variables from output variables. Predicate macros like `avg` can be used in other queries like any operation:
 
-```
+```clojure
 (let [src [[1] [2]]]
   (<- [?avg]
       (src ?x)

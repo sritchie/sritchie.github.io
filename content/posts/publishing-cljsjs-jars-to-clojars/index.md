@@ -23,13 +23,13 @@ For now, I want to describe the steps I had to take to publish a namespaces vers
 
 The goal here is to publish a CLJSJS library that you'll eventually depend on like this:
 
-```
+```clojure
 [cljsjs/complex "2.0.11-0"]
 ```
 
 With a prefix, so that you can use it *today*, like this:
 
-```
+```clojure
 [org.clojars.sritchie09/complex "2.0.11-0"]
 ```
 
@@ -43,7 +43,7 @@ Click on ["Deploy Tokens"](https://clojars.org/tokens) page at the top right:
 {{< figure src="image.png" >}}
 Follow the instructions and make a token (the name doesn't matter). It will appear on the screen looking something like `CLOJARS_1313123123` . Save it (and your Clojars username) by adding two entries like this to your `~/.bashrc` or `~/.bash_profile`:
 
-```
+```bash
 export CLOJARS_USER=sritchie09
 export CLOJARS_PASS=CLOJARS_1313123123
 ```
@@ -54,19 +54,19 @@ export CLOJARS_PASS=CLOJARS_1313123123
 
 The CLJSJS packages live in [this repository](https://github.com/cljsjs/packages). Get it onto your machine by running this command in some directory:
 
-```
+```bash
 git clone git@github.com:cljsjs/packages.git && cd packages
 ```
 
 Now find the dependency you want to release. If you're doing this, you're probably living on a git branch, like I was for the [Complex.js pull request](https://github.com/cljsjs/packages/pull/2120). Check out the branch:
 
-```
+```bash
 git checkout sritchie/complex_dep2
 ```
 
 Each JS library has its own folder with a `build.boot` file in it. Open up, for example, `complex/build.boot` and locate the entry that looks like this:
 
-```
+```clojure
 (task-options!
  push {:ensure-clean false}
  pom  {:project     'cljsjs/complex
@@ -91,7 +91,7 @@ BOOT_VERSION=2.8.2
 
 Finally, run this command in the subfolder containing the dependency you want to release. `complex`, in this case:
 
-```
+```bash
 boot package push --ensure-release --repo clojars \
 --repo-map "{:url \"https://clojars.org/repo/\" :username \"$CLOJARS_USER\" :password \"$CLOJARS_PASS\"}"
 ```
@@ -110,7 +110,7 @@ Sending maven-metadata.xml to https://clojars.org/repo/ (1k)
 
 That's it! Your dependency will now be live at a URL like [https://clojars.org/org.clojars.sritchie09/complex](https://clojars.org/org.clojars.sritchie09/complex), and you'll be able to include it as a dependency using any of the forms that Clojars displays on that page. For example:
 
-```
+```clojure
 [org.clojars.sritchie09/complex "2.0.11-0"]
 ```
 

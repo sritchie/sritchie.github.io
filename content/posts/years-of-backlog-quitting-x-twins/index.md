@@ -67,16 +67,12 @@ I’ll be speaking at the [Clojure Conj](https://2023.clojure-conj.org/) on Frid
 
 My most extreme personal update is that I’m now a father of 10 month old twins! Here’s a photo of 4-year-old Juno feeding Tilda and Remi Ritchie:
 
-[
-
-![](https://substack-post-media.s3.amazonaws.com/public/images/120655da-7928-4e73-81e5-3ed4c3eabd8a_4032x3024.jpeg)](https://substackcdn.com/image/fetch/$s_!JtS5!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F120655da-7928-4e73-81e5-3ed4c3eabd8a_4032x3024.jpeg)Before the twins were born I managed to get the airplane project to the hangar and push it to probably 98% completion. I’ve stalled out again, but plan on switching the majority of my time to airplane building after my April talk and getting N720AK into the air.
+![](image-2.jpeg)Before the twins were born I managed to get the airplane project to the hangar and push it to probably 98% completion. I’ve stalled out again, but plan on switching the majority of my time to airplane building after my April talk and getting N720AK into the air.
 
 
 I raced the High Lonesome 100 in July of 2021 and pulled off fourth place overall. Here’s a shot of one of the Porcini mushrooms I foraged during the race:
 
-[
-
-![](https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/d8a0c71b-0e2e-42ee-80fd-4120ed383380_3000x2000.jpeg)](https://substackcdn.com/image/fetch/$s_!RPKM!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fbucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com%2Fpublic%2Fimages%2Fd8a0c71b-0e2e-42ee-80fd-4120ed383380_3000x2000.jpeg)I spent the fall training like a maniac for the [HURT 100](https://hurt100.com) under the guidance of [Jason Koop](https://www.jasonkoop.com), and then bailed a month before the January 2022 race to spend more time on other elements of my life before the twins arrived in May. This past week I’ve revived that training plan, as I’ve finally made it into the [Hardrock 100](https://hardrock100.com/). I’ve been applying for the Hardrock Lottery since 2014, and my ticket count finally grew prosperous enough to force the issue.
+![](image-1.jpeg)I spent the fall training like a maniac for the [HURT 100](https://hurt100.com) under the guidance of [Jason Koop](https://www.jasonkoop.com), and then bailed a month before the January 2022 race to spend more time on other elements of my life before the twins arrived in May. This past week I’ve revived that training plan, as I’ve finally made it into the [Hardrock 100](https://hardrock100.com/). I’ve been applying for the Hardrock Lottery since 2014, and my ticket count finally grew prosperous enough to force the issue.
 
 
 I’m going to attempt to pad out Hardrock into a version of the “Colorado Triple”. The plan is:

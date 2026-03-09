@@ -28,9 +28,8 @@ Sometimes we beat time, sometimes we fail. What exactly is it that’s running s
 
 The assumption baked in to this style of investigation is that the universe is computing itself, somehow, using a small set of rules that don’t change. We’ve decided that there’s no room for magic, or, say, *system upgrades* that we could notice, upgrades that change the behavior of the system from one year to the next. The speed of light doesn’t get modified when the burnt-out team maintaining our reality ships version 2.2 of the [Multiverse](https://en.wikipedia.org/wiki/Multiverse).
 
-[
-
-![](https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/da27c513-eb7a-4951-96b8-607c83cf7233_3200x1800.jpeg)](https://substackcdn.com/image/fetch/$s_!3Y4u!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fbucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com%2Fpublic%2Fimages%2Fda27c513-eb7a-4951-96b8-607c83cf7233_3200x1800.jpeg)*(Black holes merging, [from SXS, the Simulating eXtreme Spacetimes project](http://www.black-holes.org))*
+![Black holes merging](image-1.jpeg)
+*Black holes merging, [from SXS, the Simulating eXtreme Spacetimes project](http://www.black-holes.org)*
 
 
 And, somehow, magically, some of the matter that’s computing itself seems to have woken up. Humans, and almost certainly many more creatures, have developed goals and drives, and little internal models humming along, simulating the universe.

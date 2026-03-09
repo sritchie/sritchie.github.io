@@ -52,6 +52,4 @@ I spend a lot of time in the graveyard near our house in Boulder with my daughte
 
 Corporeal for at least a few more moments, I can still bend the arc of that very short story.
 
-[
-
-![](https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/43414db6-bded-4654-b820-8d8b52f8c33d_2560x1926.jpeg)](https://en.wikipedia.org/wiki/Memento_mori#/media/File:Edinburgh._St._Cuthbert's_Churchyard._Grave_of_James_Bailie._Detail.jpg)*(From [Wikipedia](https://en.wikipedia.org/wiki/Memento_mori#/media/File:Edinburgh._St._Cuthbert's_Churchyard._Grave_of_James_Bailie._Detail.jpg)’s page on [Memento Mori](https://en.wikipedia.org/wiki/Memento_mori))*
+[![](image-1.jpeg)](https://en.wikipedia.org/wiki/Memento_mori#/media/File:Edinburgh._St._Cuthbert’s_Churchyard._Grave_of_James_Bailie._Detail.jpg)*(From [Wikipedia](https://en.wikipedia.org/wiki/Memento_mori#/media/File:Edinburgh._St._Cuthbert’s_Churchyard._Grave_of_James_Bailie._Detail.jpg)’s page on [Memento Mori](https://en.wikipedia.org/wiki/Memento_mori))*

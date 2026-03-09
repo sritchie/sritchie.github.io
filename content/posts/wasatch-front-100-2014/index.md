@@ -81,7 +81,7 @@ I met Chris as we were nearing mile 38. He was doing his first hundred and feeli
 You bastard. let's see how you feel down the road. He pushed me on, not passing for miles, and finally we could see the aid station and started to move hard down the hill. ALL I wanted was to see Jenna. I knew she was waiting for me and would have supplies. Descending endlessly, switchbacking away from and toward the aid station with the roar of the crowd down there pulling me on... and finally, there they were near the road!
 
 <center>
-<iframe class="vine-embed" src="https://vine.co/v/Ouj2VKtB9gu/embed/simple" width="480" height="480" frameborder="0"></iframe><script async src="//platform.vine.co/static/scripts/embed.js" charset="utf-8"></script>
+*[Vine video](https://vine.co/v/Ouj2VKtB9gu) (Vine has been discontinued)*
 </center>
 
 I was so, so happy to see Jenna, Adam and Ed, just fighting back tears as I descended the hill. I had to weigh in before I could see them, which gave me a chance to compose myself. The scale said I was 6 pounds heavy, up to 162, which both didn't make sense and troubled me. Was I retaining water? Don't worry about it, I thought. Just push on.
@@ -130,7 +130,7 @@ Disclosure - I wrote this race report a week after the race, then shuttered it f
 The Lamb's Canyon aid station at 52 miles comes before a long, gentle climb into the woods. The heat's over at this point, and it's a good place to collect yourself mentally. One team brought a little piggy for moral support:
 
 <center>
-<iframe class="vine-embed" src="https://vine.co/v/OuTuP60lV3i/embed/simple" width="480" height="480" frameborder="0"></iframe><script async src="//platform.vine.co/static/scripts/embed.js" charset="utf-8"></script>
+*[Vine video](https://vine.co/v/OuTuP60lV3i) (Vine has been discontinued)*
 </center>
 
 Jenna led me up the road and into the woods for a huge climb. We caught up to Chris again, still feeling good but starting to fade. Jenna was gushing over the course's beauty and running back and forth taking pictures.

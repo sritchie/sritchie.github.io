@@ -11,35 +11,28 @@ SICMUtils is the engine behind the wonderful "Structure and Interpretation of Cl
 
 Can I admit that I've gone deeper than necessary? After I'd gotten to know the library, I noted that the power series implementation could use some work. Jack Rusher pointed me at a  gorgeous power series implementation by Doug McIlroy (my Uncle's boss at Bell Labs!). See [his website](https://www.cs.dartmouth.edu/~doug/powser.html) for 10-lines version of beautiful Haskell.
 
- Doug's paper, ["Power Series, Power Serious"](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.333.3156&amp;rep=rep1&amp;type=pdf), goes into more detail on the implementation, which leans hard on Haskell's lazy evaluation. Clojure has lazy sequences too! I implemented [the paper here](https://github.com/littleredcomputer/sicmutils/blob/master/src/sicmutils/series/impl.cljc), then went further and made power series executable, and extended them to play with the whole generic arithmetic system in [this namespace](https://github.com/littleredcomputer/sicmutils/blob/master/src/sicmutils/series.cljc).
+ Doug's paper, ["Power Series, Power Serious"](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.333.3156&rep=rep1&type=pdf), goes into more detail on the implementation, which leans hard on Haskell's lazy evaluation. Clojure has lazy sequences too! I implemented [the paper here](https://github.com/littleredcomputer/sicmutils/blob/master/src/sicmutils/series/impl.cljc), then went further and made power series executable, and extended them to play with the whole generic arithmetic system in [this namespace](https://github.com/littleredcomputer/sicmutils/blob/master/src/sicmutils/series.cljc).
 
 This post is a rendered, literate programming version of `impl.cljc`, the core power series implementation based on Doug's work. It's exactly the same code we use in the library.
 
 Enjoy!
 
 - [Sequence Operations](#sec-1)
-<ul>
-<li>[Negation](#sec-1-1)
-- [Addition](#sec-1-2)
-- [Subtraction](#sec-1-3)
-- [Multiplication](#sec-1-4)
-- [Division](#sec-1-5)
-- [Reciprocal](#sec-1-6)
-- [Functional Composition](#sec-1-7)
-- [Reversion](#sec-1-8)
-- [Series Calculus](#sec-1-9)
-- [Exponentiation](#sec-1-10)
-- [Square Root of a Series](#sec-1-11)
-
-</li>
-<li>[Examples](#sec-2)</li>
-<li>[Various Power Series](#sec-3)</li>
-<li>[Generating Functions](#sec-4)
-
-- [Catalan numbers](#sec-4-1)
-
-</li>
-</ul>
+  - [Negation](#sec-1-1)
+  - [Addition](#sec-1-2)
+  - [Subtraction](#sec-1-3)
+  - [Multiplication](#sec-1-4)
+  - [Division](#sec-1-5)
+  - [Reciprocal](#sec-1-6)
+  - [Functional Composition](#sec-1-7)
+  - [Reversion](#sec-1-8)
+  - [Series Calculus](#sec-1-9)
+  - [Exponentiation](#sec-1-10)
+  - [Square Root of a Series](#sec-1-11)
+- [Examples](#sec-2)
+- [Various Power Series](#sec-3)
+- [Generating Functions](#sec-4)
+  - [Catalan numbers](#sec-4-1)
 
 The following code builds up a power series implementation that backs two `sicmutils` types:
 
@@ -56,13 +49,13 @@ The following code builds up a power series implementation that backs two `sicmu
 
 We'll proceed by building up implementations of the arithmetic operations `+`, `-`, `*`, `/` and a few others using bare Clojure lazy sequences.
 
-The implementation follows Doug McIlroy's beautiful paper, [&quot;Power Series, Power Serious&quot;](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.333.3156&amp;rep=rep1&amp;type=pdf). Doug also has a 10-line version in Haskell on [his website](https://www.cs.dartmouth.edu/~doug/powser.html).
+The implementation follows Doug McIlroy's beautiful paper, ["Power Series, Power Serious"](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.333.3156&rep=rep1&type=pdf). Doug also has a 10-line version in Haskell on [his website](https://www.cs.dartmouth.edu/~doug/powser.html).
 
 Let's go!
 
 # Sequence Operations<a id="sec-1"></a>
 
-A 'series' is an infinite sequence of numbers, represented by Clojure's lazy sequence. First, a function `-&gt;series` that takes some existing sequence, finite or infinite, and coerces it to an infinite seq by concatenating it with an infinite sequence of zeros. (We use `v/zero-like` so that everything plays nicely with generic arithmetic.)
+A 'series' is an infinite sequence of numbers, represented by Clojure's lazy sequence. First, a function `->series` that takes some existing sequence, finite or infinite, and coerces it to an infinite seq by concatenating it with an infinite sequence of zeros. (We use `v/zero-like` so that everything plays nicely with generic arithmetic.)
 
 ```clojure
 (defn ->series
@@ -77,7 +70,7 @@ A 'series' is an infinite sequence of numbers, represented by Clojure's lazy seq
 (take 10 (->series [1 2 3 4]))
 ```
 
-```
+```clojure
 (1 2 3 4 0 0 0 0 0 0)
 ```
 
@@ -116,7 +109,7 @@ Example:
 (take 7 (negate (->series [1 2 3 4])))
 ```
 
-```
+```clojure
 (-1 -2 -3 -4 0 0 0)
 ```
 
@@ -143,7 +136,7 @@ This is particularly straightforward in Clojure, where `map` already merges sequ
 (take 5 (seq:+ (range) (range)))
 ```
 
-```
+```clojure
 (0 2 4 6 8)
 ```
 
@@ -165,7 +158,7 @@ A constant is a series with its first element populated, all zeros otherwise. To
    (take 6 (c+seq 10 series))])
 ```
 
-```
+```clojure
 [(11 2 3 4 0 0) (11 2 3 4 0 0)]
 ```
 
@@ -182,7 +175,7 @@ Subtraction comes for free from the two definitions above:
 (take 5 (seq:- (range) (range)))
 ```
 
-```
+```clojure
 (0 0 0 0 0)
 ```
 
@@ -200,7 +193,7 @@ Subtract a constant from a sequence by subtracting it from the first element:
 (take 5 (seq-c (range) 10))
 ```
 
-```
+```clojure
 (-10 1 2 3 4)
 ```
 
@@ -216,7 +209,7 @@ To subtract a sequence from a constant, subtract the first element as before, bu
 (take 5 (c-seq 10 (range)))
 ```
 
-```
+```clojure
 (10 -1 -2 -3 -4)
 ```
 
@@ -262,11 +255,11 @@ This works just fine on two infinite sequences:
 (take 10 (seq:* (range) (->series [4 3 2 1])))
 ```
 
-```
+```clojure
 (0 4 11 20 30 40 50 60 70 80)
 ```
 
-NOTE This is also called the &quot;[Cauchy Product](https://en.wikipedia.org/wiki/Cauchy_product)&quot; of the two sequences. The description on the Wikipedia page has complicated index tracking that simply doesn't come in to play with the stream-based approach. Amazing!
+NOTE This is also called the "[Cauchy Product](https://en.wikipedia.org/wiki/Cauchy_product)" of the two sequences. The description on the Wikipedia page has complicated index tracking that simply doesn't come in to play with the stream-based approach. Amazing!
 
 ## Division<a id="sec-1-5"></a>
 
@@ -286,11 +279,11 @@ From McIlroy, first expand out $F$, $Q$ and one instance of $G$:
 
 \begin{aligned}
 
-f+x F_{1} &amp;=\left(q+x Q_{1}\right) \times G \cr
+f+x F_{1} &=\left(q+x Q_{1}\right) \times G \cr
 
-&amp;=q G+x Q_{1} \times G=q\left(g+x G_{1}\right)+x Q_{1} \times G \cr
+&=q G+x Q_{1} \times G=q\left(g+x G_{1}\right)+x Q_{1} \times G \cr
 
-&amp;=q g+x\left(q G_{1}+Q_{1} \times G\right)
+&=q g+x\left(q G_{1}+Q_{1} \times G\right)
 
 \end{aligned}
 
@@ -341,7 +334,7 @@ A simple example shows success:
   (take 5 (div series series)))
 ```
 
-```
+```clojure
 (1 0 0 0 0)
 ```
 
@@ -388,7 +381,7 @@ This definition of `invert` matches the more straightforward division implementa
      (take 5 (div (->series [1]) series))))
 ```
 
-```
+```clojure
 true
 ```
 
@@ -400,7 +393,7 @@ An example:
    (take 5 (div series series))])
 ```
 
-```
+```clojure
 [(1N 0N 0N 0N 0N) (1 0 0 0 0)]
 ```
 
@@ -418,7 +411,7 @@ It's not obvious that this works:
   (take 6 (c-div-seq 4 nats)))
 ```
 
-```
+```clojure
 (4 -8 4 0 0 0)
 ```
 
@@ -432,7 +425,7 @@ But we can recover the initial series:
   (take 5 original))
 ```
 
-```
+```clojure
 (1N 2N 3N 4N 5N)
 ```
 
@@ -450,7 +443,7 @@ Division by a constant undoes multiplication by a constant:
   (take 5 (seq-div-c (seq*c nats 2) 2)))
 ```
 
-```
+```clojure
 (1 2 3 4 5)
 ```
 
@@ -462,11 +455,11 @@ To compose two series $F(x)$ and $G(x)$ means to create a new series $F(G(x))$. 
 
 \begin{aligned}
 
-F(G)&amp;=f+G \times F_{1}(G) \cr
+F(G)&=f+G \times F_{1}(G) \cr
 
-&amp;=f+\left(g+x G_{1}\right) \times F_{1}(G) \cr
+&=f+\left(g+x G_{1}\right) \times F_{1}(G) \cr
 
-&amp;=\left(f+g F_{1}(G)\right)+x G_{1} \times F_{1}(G)
+&=\left(f+g F_{1}(G)\right)+x G_{1} \times F_{1}(G)
 
 \end{aligned}
 
@@ -507,7 +500,7 @@ Composing $x^2 = (0, 0, 1, 0, 0, ...)$ should square all $x$s, and give us a seq
                   (->series [0 0 1])))
 ```
 
-```
+```clojure
 (1 0 1 0 1 0 1 0 1 0)
 ```
 
@@ -566,7 +559,7 @@ An example, inverting a series starting with 0:
   (take 5 (compose f (revert f))))
 ```
 
-```
+```clojure
 (0 1 0 0 0)
 ```
 
@@ -593,7 +586,7 @@ Implies that all entries shift left by 1, and each new entry gets multiplied by 
 (take 6 (deriv (repeat 1)))
 ```
 
-```
+```clojure
 (1 2 3 4 5 6)
 ```
 
@@ -623,7 +616,7 @@ With a custom constant term:
 (take 6 (integral (iterate inc 1) 5))
 ```
 
-```
+```clojure
 (5 1 1 1 1 1)
 ```
 
@@ -633,7 +626,7 @@ By default, the constant term is 0:
 (take 6 (integral (iterate inc 1)))
 ```
 
-```
+```clojure
 (0 1 1 1 1 1)
 ```
 
@@ -664,7 +657,7 @@ We can use `expt` to verify that $(1+x)^3$ expands to $1 + 3x + 3x^2 + x^3$:
 (take 5 (expt (->series [1 1]) 3))
 ```
 
-```
+```clojure
 (1 3 3 1 0)
 ```
 
@@ -728,7 +721,7 @@ And a test that we can recover the naturals:
                  (sqrt xs))))
 ```
 
-```
+```clojure
 (1 2 3 4 5 6)
 ```
 
@@ -740,7 +733,7 @@ We can maintain precision of the first element is the square of a rational numbe
                  (sqrt xs))))
 ```
 
-```
+```clojure
 (9 10N 11N 12N 13N 14N)
 ```
 
@@ -752,7 +745,7 @@ We get a correct result if the sequence starts with $0, 0$:
                  (sqrt xs))))
 ```
 
-```
+```clojure
 (0 0 9 10N 11N 12N)
 ```
 
@@ -764,18 +757,18 @@ Power series computations can encode polynomial computations. Encoding $(1-2x^2)
 (take 10 (expt (->series [1 0 -2]) 3))
 ```
 
-```
+```clojure
 (1 0 -6 0 12 0 -8 0 0 0)
 ```
 
-Encoding $\frac{1}{(1-x)}$ returns the power series $1 + x + x<sup>2</sup> + …$ which sums to that value in its region of convergence:
+Encoding $\frac{1}{(1-x)}$ returns the power series $1 + x + x^2 + \ldots$ which sums to that value in its region of convergence:
 
 ```clojure
 (take 10 (div (->series [1])
               (->series [1 -1])))
 ```
 
-```
+```clojure
 (1 1 1 1 1 1 1 1 1 1)
 ```
 
@@ -787,7 +780,7 @@ $\frac{1}{(1-x)^2}$ is the derivative of the above series:
                   (expt 2))))
 ```
 
-```
+```clojure
 (1 2 3 4 5 6 7 8 9 10)
 ```
 
@@ -809,7 +802,7 @@ This bare definition is enough to generate the power series for $e^x$:
 (take 10 expx)
 ```
 
-```
+```clojure
 (1 1 1/2 1/6 1/24 1/120 1/720 1/5040 1/40320 1/362880)
 ```
 
@@ -825,7 +818,7 @@ $sin$ and $cos$ afford recursive definitions. $D(sin) = cos$ and $D(cos) = -sin$
 (take 10 sinx)
 ```
 
-```
+```clojure
 (0 1 0 -1/6 0 1/120 0 -1/5040 0 1/362880)
 ```
 
@@ -833,7 +826,7 @@ $sin$ and $cos$ afford recursive definitions. $D(sin) = cos$ and $D(cos) = -sin$
 (take 10 cosx)
 ```
 
-```
+```clojure
 (1 0 -1/2 0 1/24 0 -1/720 0 1/40320 0)
 ```
 
@@ -880,7 +873,7 @@ The hyperbolic trig functions are defined in a similar way:
 
 ## Catalan numbers<a id="sec-4-1"></a>
 
-These are a few more examples from McIlroy's &quot;Power Serious&quot; paper, presented here without context.
+These are a few more examples from McIlroy's "Power Serious" paper, presented here without context.
 
 ```clojure
 (def catalan
@@ -891,7 +884,7 @@ These are a few more examples from McIlroy's &quot;Power Serious&quot; paper, pr
 (take 10 catalan)
 ```
 
-```
+```clojure
 (1 1 2 5 14 42 132 429 1430 4862)
 ```
 
@@ -908,7 +901,7 @@ ordered trees…
 (take 10 tree')
 ```
 
-```
+```clojure
 (0 1 1 2 5 14 42 132 429 1430)
 ```
 

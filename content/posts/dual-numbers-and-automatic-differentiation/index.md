@@ -129,13 +129,12 @@ Interesting! This justifies our claim above: applying a function to some dual nu
 
 If we do this twice, the second component of the returned dual number beautifully recreates the [Chain Rule](https://en.wikipedia.org/wiki/Chain_rule):
 
+$$
 \begin{aligned}
-
-g(f(a+\varepsilon)) &amp; = g(f(a) + Df(a)\varepsilon) \
-
-&amp; = g(f(a)) + (Dg(f(a)))(Df(a))\varepsilon
-
+g(f(a+\varepsilon)) & = g(f(a) + Df(a)\varepsilon) \\
+& = g(f(a)) + (Dg(f(a)))(Df(a))\varepsilon
 \end{aligned}
+$$
 
 ## Terminology Change!<a id="sec-1-3"></a>
 
@@ -183,13 +182,12 @@ $$
 
 Multiplying out the components of two dual numbers again gives us a new dual number, whose tangent component agrees with the [product rule](https://en.wikipedia.org/wiki/Product_rule):
 
+$$
 \begin{aligned}
-
-(x+ x'\varepsilon)*(y+y'\epsilon) &amp;= xy+(xy')\varepsilon+(x'y)\varepsilon+(x'y')\epsilon^2 \
-
-&amp;= xy+(xy'+y'x)\varepsilon
-
+(x+ x'\varepsilon)*(y+y'\epsilon) &= xy+(xy')\varepsilon+(x'y)\varepsilon+(x'y')\epsilon^2 \\
+&= xy+(xy'+y'x)\varepsilon
 \end{aligned}
+$$
 
 Stare at these smaller derivations and convince yourself that they agree with the Taylor series expansion method for binary functions.
 
@@ -397,27 +395,23 @@ $$
 
 Because we can split a [Differential](https://github.com/sicmutils/sicmutils/blob/c89b45d453b08a1e1259ff5de9d9841874807fda/src/sicmutils/differential.cljc#L568) into a primal and tangent component with respect to some tag, we can reuse this result. We'll default to splitting [Differential](https://github.com/sicmutils/sicmutils/blob/c89b45d453b08a1e1259ff5de9d9841874807fda/src/sicmutils/differential.cljc#L568) instances by the highest-index tag:
 
+$$
 \begin{aligned}
-
-f(a &amp;+ b\varepsilon_1 + c\varepsilon_2 + d\varepsilon_1 \varepsilon_2) \
-
-&amp;= f((a + b\varepsilon_1)+(c + d\varepsilon_1)\varepsilon_2) \
-
-&amp;= f(a + b\varepsilon_1)+Df(a + b\varepsilon_1)(c + d\varepsilon_1)\varepsilon_2 \
-
+f(a &+ b\varepsilon_1 + c\varepsilon_2 + d\varepsilon_1 \varepsilon_2) \\
+&= f((a + b\varepsilon_1)+(c + d\varepsilon_1)\varepsilon_2) \\
+&= f(a + b\varepsilon_1)+Df(a + b\varepsilon_1)(c + d\varepsilon_1)\varepsilon_2 \\
 \end{aligned}
+$$
 
 Note that $f$ and $Df$ both received a dual number! One more expansion, this time in $\varepsilon_1$, completes the evaluation (and makes abundantly clear why we want the computer doing this, not pencil-and-paper):
 
+$$
 \begin{aligned}
-
-f(a &amp;+ b\varepsilon_1)+Df(a+b\varepsilon_1)(c+d\varepsilon_1)\varepsilon_2 \
-
-&amp;= (f(a)+Df(a)b\varepsilon_1)+(Df(a)+D^2f(a)b\varepsilon_1)(c + d\varepsilon_1)\varepsilon_2 \
-
-&amp;= f(a)+(Df(a)b+D^2f(a)bc)\varepsilon_1+Df(a)c\varepsilon_2+Df(a)d\varepsilon_1\varepsilon_2
-
+f(a &+ b\varepsilon_1)+Df(a+b\varepsilon_1)(c+d\varepsilon_1)\varepsilon_2 \\
+&= (f(a)+Df(a)b\varepsilon_1)+(Df(a)+D^2f(a)b\varepsilon_1)(c + d\varepsilon_1)\varepsilon_2 \\
+&= f(a)+(Df(a)b+D^2f(a)bc)\varepsilon_1+Df(a)c\varepsilon_2+Df(a)d\varepsilon_1\varepsilon_2
 \end{aligned}
+$$
 
 The only operations we need to implement between lists of terms are addition and multiplication.
 

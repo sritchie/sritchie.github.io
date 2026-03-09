@@ -19,9 +19,7 @@ So when my friend Mike Chambers asked me if I wanted to join him for a run up Lo
 
 We left Pearl Street at 8pm and [carved this 53 mile track](https://www.strava.com/activities/3709549479) up to the 14,259’ summit of Long’s Peak ([strava](https://www.strava.com/activities/3709549479)):
 
-[
-
-![](https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/a1e2429a-4c7f-4520-a8dd-b1f15f9d28e1_357x331.png)](https://substackcdn.com/image/fetch/$s_!GouN!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fbucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com%2Fpublic%2Fimages%2Fa1e2429a-4c7f-4520-a8dd-b1f15f9d28e1_357x331.png)My trip reports tend to become [overwhelmingly long](https://samritchie.io/tahoe-200-2018-race-report/), so I’ll keep this to the highlights. We ran through the night along a course that Mike had scouted over the previous weeks. The goal was to hit the Long’s trailhead as close to sunrise as possible. You want to be on the mountain early to avoid thunderstorms, but sufficiently deep into the morning that the ice melts off of the rocks you’ll be climbing.
+![](image-1.png)My trip reports tend to become [overwhelmingly long](https://samritchie.io/tahoe-200-2018-race-report/), so I’ll keep this to the highlights. We ran through the night along a course that Mike had scouted over the previous weeks. The goal was to hit the Long’s trailhead as close to sunrise as possible. You want to be on the mountain early to avoid thunderstorms, but sufficiently deep into the morning that the ice melts off of the rocks you’ll be climbing.
 
 
 We planned to ascend the [Cables Route](https://www.mountainproject.com/route/105754720/cable-route) to save time. This is a 5.4 technical rock climb with a steep snow field leading up to its base. From the [route description](https://www.mountainproject.com/route/105754720/cable-route):
@@ -41,13 +39,9 @@ The technical section of Cables was maybe 60’ long and not very difficult. But
 
 Here’s me working my way up the route. You can see the snow field below. Off the right, in the fall line, is a 1000’ drop down the side of the Diamond.
 
-[
+![](image-2.jpeg)The terrain above is more gentle, maybe third class, nice and relaxing after everything we’d covered to get there. Another 20 minutes of climbing brought us to the summit:
 
-![](https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/e65e4f17-d417-4129-b523-3bfd3b487b9b_3024x4032.jpeg)](https://substackcdn.com/image/fetch/$s_!A1vU!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fbucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com%2Fpublic%2Fimages%2Fe65e4f17-d417-4129-b523-3bfd3b487b9b_3024x4032.jpeg)The terrain above is more gentle, maybe third class, nice and relaxing after everything we’d covered to get there. Another 20 minutes of climbing brought us to the summit:
-
-[
-
-![](https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/1c8b94d3-5bbd-4ebc-bc01-f0d4dd4095de_2320x3088.jpeg)](https://substackcdn.com/image/fetch/$s_!oSjl!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fbucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com%2Fpublic%2Fimages%2F1c8b94d3-5bbd-4ebc-bc01-f0d4dd4095de_2320x3088.jpeg)Adventure achieved! Sort of. We had a massive descent remaining. We took the Keyhole route down and then cut switchbacks through the woods along the climber’s route. This was much quicker, but hellish on my not-so-trained knees.
+![](image-3.jpeg)Adventure achieved! Sort of. We had a massive descent remaining. We took the Keyhole route down and then cut switchbacks through the woods along the climber’s route. This was much quicker, but hellish on my not-so-trained knees.
 
 
 Jenna and Leila Chambers were waiting for us at the parking lot with Santo Burritos, capping an excellent adventure.
@@ -55,6 +49,4 @@ Jenna and Leila Chambers were waiting for us at the parking lot with Santo Burri
 
 I recovered the next day by feeding goats, sheep and Obama the Llama at [Sunflower Farm](https://www.sunflowerfarminfo.com/) with Juno:
 
-[
-
-![](https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/b01fdc80-c0d6-42a8-b4b4-20d06c2ba763_4032x3024.jpeg)](https://substackcdn.com/image/fetch/$s_!pGda!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fbucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com%2Fpublic%2Fimages%2Fb01fdc80-c0d6-42a8-b4b4-20d06c2ba763_4032x3024.jpeg)I’ve been spending a lot of time in my brain lately. Am I still an athlete? Don’t ask yourself this sort of question if you want to off-the-couch Boulder to Long’s. Just say yes, start jogging, and don’t think too hard.
+![](image-4.jpeg)I’ve been spending a lot of time in my brain lately. Am I still an athlete? Don’t ask yourself this sort of question if you want to off-the-couch Boulder to Long’s. Just say yes, start jogging, and don’t think too hard.

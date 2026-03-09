@@ -19,7 +19,7 @@ I'm currently running haskell-mode for emacs, with the `hs-lint` plugin, Haskell
 
 ## Installing Haskell<a id="sec-1-1" name="sec-1-1"></a>
 
-Before any of this Emacs jazz, we have to get Haskell, of course. The easiest way to do is to download the [Haskell Platform](http://hackage.haskell.org/platform/), a &quot;Batteries Included&quot; package of the Glasgow Haskell Compiler.
+Before any of this Emacs jazz, we have to get Haskell, of course. The easiest way to do is to download the [Haskell Platform](http://hackage.haskell.org/platform/), a "Batteries Included" package of the Glasgow Haskell Compiler.
 
 ## Emacs Haskell Mode<a id="sec-1-2" name="sec-1-2"></a>
 
@@ -35,7 +35,7 @@ Once elpa's all set, install `haskell-mode` with the following:
 
 Before we get into linting or any other customizations, Add the following to your emacs config (`~/.emacs`, or `~/.emacs.d/init.el`, if you're using the Starter kit):
 
-```
+```elisp
 (add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
 
 ;; hslint on the command line only likes this indentation mode;
@@ -55,7 +55,7 @@ At this point, you should be able to start using Haskell in emacs. Let's write o
 
 Now, add the following to `test.hs`:
 
-```
+```haskell
 module Examples where
 
 square :: Integral a => a -> a
@@ -64,7 +64,7 @@ square x = x * x
 
 Then type `C-c C-l` in that buffer to load the file's contents into the REPL. `C-c C-z` over to the repl again and try it out:
 
-```
+```haskell
 *Main> square 10
 100
 *Main> square 34
@@ -99,7 +99,7 @@ Flymake depends on an external perl script, `hslint`, to pass the contents of th
 
 Add the following to `.emacs`:
 
-```
+```elisp
 (defun flymake-haskell-init ()
   "When flymake triggers, generates a tempfile containing the
   contents of the current buffer, runs `hslint` on it, and
@@ -137,7 +137,7 @@ Now, let's add autocompletion. Autocomplete mode is awesome; it provides IDE-lik
 
 1. Download and unpack Autocomplete mode
 2. Open emacs, and run `M-x load-file`
-3. Point the minibuffer to `&lt;autocomplete-root&gt;/etc/install.el`
+3. Point the minibuffer to `<autocomplete-root>/etc/install.el`
 4. Follow the remaining [AC install instructions](http://cx4a.org/software/auto-complete/manual.html#Installation).
 
 That should get you all set for the next step.
@@ -148,7 +148,7 @@ That should get you all set for the next step.
 
 Add the following to your `.emacs` file:
 
-```
+```elisp
 (require 'hs-lint)    ;; https://gist.github.com/1241059
 (require 'haskell-ac) ;; https://gist.github.com/1241063
 
@@ -179,7 +179,7 @@ The above code binds `C-c l` to `hs-lint` inside of Haskell buffers, and configu
 
 Now go ahead and add the following line to `test.hs`:
 
-```
+```haskell
 face :: Int -> Bool
 ```
 
@@ -191,7 +191,7 @@ Upon save, or within seconds, you should see an angry red underline. Move the cu
 
 Adding this will clear things up:
 
-```
+```haskell
 face x = 5 < x
 ```
 

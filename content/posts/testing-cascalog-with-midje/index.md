@@ -20,13 +20,13 @@ I'll start by introducing midje-cascalog's testing operators, then move on to a 
 
 ## Testing Operators<a id="sec-1-1" name="sec-1-1"></a>
 
-In this section, I'll discuss midje-cascalog's testing operators: `fact?-` and `fact?&lt;-`. (The syntax mirrors `?-` and `?&lt;-`, Cascalog's [query execution operators](http://www.assembla.com/spaces/cascalog/wiki/Defining_and_executing_queries).) These operators provide the abstractions necessary for testing complex Cascalog workflows. Add them to your namespace by including `(:use midje.cascalog)` in the namespace header.
+In this section, I'll discuss midje-cascalog's testing operators: `fact?-` and `fact?<-`. (The syntax mirrors `?-` and `?<-`, Cascalog's [query execution operators](http://www.assembla.com/spaces/cascalog/wiki/Defining_and_executing_queries).) These operators provide the abstractions necessary for testing complex Cascalog workflows. Add them to your namespace by including `(:use midje.cascalog)` in the namespace header.
 
 ### fact?-<a id="sec-1-1-1" name="sec-1-1-1"></a>
 
 Let's begin by defining a function to test:
 
-```
+```clojure
 (defn mk-inc-query [src]
   (<- [?a ?b]
       (src ?a)
@@ -38,11 +38,11 @@ Let's begin by defining a function to test:
 - supply `mk-inc-query` with tuples and
 - check that it produces an expected set of result tuples.
 
-Each of the following forms uses the `fact?-` operator to state a distinct &quot;fact&quot; about our query. `fact?-` expects a sequence of result tuples followed by the query tasked with producing them.
+Each of the following forms uses the `fact?-` operator to state a distinct "fact" about our query. `fact?-` expects a sequence of result tuples followed by the query tasked with producing them.
 
 These two facts about `mk-inc-query` are true, and pass:
 
-```
+```clojure
 ;; The query returned by (mk-inc-query [[1]]),
 ;; when executed,
 ;; returns a single tuple: [1 2]
@@ -59,7 +59,7 @@ These two facts about `mk-inc-query` are true, and pass:
 
 This fact is false, and fails:
 
-```
+```clojure
 ;; The query returned by (mk-inc-query [[1]]),
 ;; when executed,
 ;; returns a single tuple: ["fail!" 10].
@@ -69,7 +69,7 @@ This fact is false, and fails:
 
 `fact?-` can take multiples pairs of result-tuples and queries:
 
-```
+```clojure
 ;; Same as two true facts above.
 (fact?- [[1 2]]
         (mk-inc-query [[1]])
@@ -80,7 +80,7 @@ This fact is false, and fails:
 
 Strings are ignored wherever they appear, so feel free to pepper your facts with comments.
 
-```
+```clojure
 (fact?- "These results:"
         [[1 2]]
 
@@ -90,7 +90,7 @@ Strings are ignored wherever they appear, so feel free to pepper your facts with
 
 Note that facts don't have to be top level forms. It's perfectly acceptable to wrap facts in `let`, if it makes the test clearer:
 
-```
+```clojure
 (let [src     [[1]]
       results [[1 2]]]
   (fact?- results (mk-inc-query src))) ;; true
@@ -100,14 +100,14 @@ Note that facts don't have to be top level forms. It's perfectly acceptable to w
  Cascalog pipes quite a bit of logging to `stdout`. Facts suppress this logging by default, only showing entries with a FATAL log level. 
  If you want to see more information on fact execution, you customize the log level by placing a keyword at the beginning of your fact: 
 
-```
+```clojure
 (fact?- :info
         [[1 2]] (mk-inc-query [[1]])) ;; true
 ```
 
  As of version 0.2.1, `midje-cascalog` supports the following log-level keywords, and defaults to `:fatal`: 
 
-```
+```clojure
 :off
 :fatal
 :warn
@@ -115,11 +115,11 @@ Note that facts don't have to be top level forms. It's perfectly acceptable to w
 :debug
 ```
 
-### fact?&lt;-<a id="sec-1-1-2" name="sec-1-1-2"></a>
+### fact?<-<a id="sec-1-1-2" name="sec-1-1-2"></a>
 
-The `fact?&lt;-` operator allows you to define a test a query within the same form. The following two facts are equivalent:
+The `fact?<-` operator allows you to define a test a query within the same form. The following two facts are equivalent:
 
-```
+```clojure
 (let [src [[1]]]
   (fact?- [[1 2]]
           (<- [?a ?b]
@@ -133,13 +133,13 @@ The `fact?&lt;-` operator allows you to define a test a query within the same fo
            (inc ?a :> ?b))) ;; true
 ```
 
-Where `fact?-` is useful for testing full queries and workflows, I find `fact?&lt;-` useful mostly for testing how `def*op` functions behave inside of queries.
+Where `fact?-` is useful for testing full queries and workflows, I find `fact?<-` useful mostly for testing how `def*op` functions behave inside of queries.
 
-### future-fact?- and future-fact?&lt;-<a id="sec-1-1-3" name="sec-1-1-3"></a>
+### future-fact?- and future-fact?<-<a id="sec-1-1-3" name="sec-1-1-3"></a>
 
 If you want to stub out an unfinished test and prevent it from throwing errors, you can use `future-fact?-`, like so:
 
-```
+```clojure
 (future-fact?- "unwritten-query will convert input integer tuples to
                strings."
                [["one"] ["two"]]
@@ -153,16 +153,16 @@ If you want to stub out an unfinished test and prevent it from throwing errors, 
                   (num->string ?string)))
 ```
 
-`future-fact?-` and `future-fact?&lt;-` prevent their forms from being evaluated.
+`future-fact?-` and `future-fact?<-` prevent their forms from being evaluated.
 
 If you include a string at the beginning of a stubbed fact, it shows up in Midje's test report looking like this:
 
-```
+```clojure
 WORK TO DO: unwritten-query will convert input integer tuples to strings.
 WORK TO DO: num->string is unwritten.
 ```
 
-The `fact?-` and `fact?&lt;-` operators provide the tools necessary to test complex MapReduce workflows as pure functions. Let's expand on these concepts by creating a small project with Cascalog code we'd like to test.
+The `fact?-` and `fact?<-` operators provide the tools necessary to test complex MapReduce workflows as pure functions. Let's expand on these concepts by creating a small project with Cascalog code we'd like to test.
 
 ## Example Project<a id="sec-1-2" name="sec-1-2"></a>
 
@@ -170,7 +170,7 @@ The `fact?-` and `fact?&lt;-` operators provide the tools necessary to test comp
 
 To add `midje-cascalog` support to your own project, add these entries to to the `:dev-dependencies` vector within `project.clj`:
 
-```
+```clojure
 [lein-midje "1.0.3"]
 [midje-cascalog "0.2.1"]
 ```
@@ -179,11 +179,11 @@ And add `(:use [midje sweet cascalog])` to the namespace declaration of each of 
 
 ### Implementing Word Count<a id="sec-1-2-2" name="sec-1-2-2"></a>
 
-Let's begin with an implementation of word count, the typical &quot;Hello World!&quot; of MapReduce. A word counting application must be able to read in any number of textfiles and generate tuples of the form `[word, count]` for each distinct word across all files.
+Let's begin with an implementation of word count, the typical "Hello World!" of MapReduce. A word counting application must be able to read in any number of textfiles and generate tuples of the form `[word, count]` for each distinct word across all files.
 
 The following code accomplishes this nicely. (Bear with me! a detailed discussion follows the code block.)
 
-```
+```clojure
 (ns cascalog.testing-demo.core
   (:use cascalog.api)
   (:require [cascalog.ops :as c])
@@ -225,14 +225,18 @@ All of our program's application logic occurs in the query returned by `wc-query
 
 - `wc-query` is a function that returns a subquery.
 - The function calls `hfs-textline` internally to generate a source of `?sentence` tuples.
-- These sentences are passed into `split`, a Cascalog function that creates words from sentences, like this: 
- (let [sentence [[&quot;two words&quot;]] 
-words    [[&quot;two&quot;] [&quot;words&quot;]]] 
-(fact?&lt;- &quot;split converts a sentence into words.&quot; 
-words 
-[?word] 
-(sentence ?sentence) 
-(split ?sentence :&gt; ?word)))
+- These sentences are passed into `split`, a Cascalog function that creates words from sentences, like this:
+
+```clojure
+(let [sentence [["two words"]]
+      words    [["two"] ["words"]]]
+  (fact?<- "split converts a sentence into words."
+           words
+           [?word]
+           (sentence ?sentence)
+           (split ?sentence :> ?word)))
+```
+
 - Each word gets a count via the `cascalog.ops/count` function
 - The subquery returns each `[?word ?count]` pair.
 
@@ -242,7 +246,7 @@ This logic looks right, but the only way to tell is to write a series of facts a
 
 Let's put our tests in `./test/cascalog/testing_demo/core_test.clj` (mirroring the `core.clj`, with `_test` tacked on):
 
-```
+```clojure
 (ns cascalog.testing-demo.core-test
   (:use cascalog.testing-demo.core
         cascalog.api
@@ -252,7 +256,7 @@ Let's put our tests in `./test/cascalog/testing_demo/core_test.clj` (mirroring t
 
 Here's an initial try at a test of `wc-query` using `fact?-`:
 
-```
+```clojure
 ;; /path/to/textfile points to a textfile with a single line:
 ;; "another another word"
 (fact?- "wc-query should count words from all lines of text at
@@ -276,7 +280,7 @@ The solution lies in Midje's ability to mock out a function's return values. Mid
 
 Using Midje's `provided` form, the above fact passes:
 
-```
+```clojure
 (fact?- "wc-query should count words from all input sentences."
         [["word" 1] ["another" 2]]
         (wc-query :path)
@@ -287,12 +291,12 @@ Using Midje's `provided` form, the above fact passes:
 This fact states
 
 - when `wc-query` is called with `:path`,
-- it will produce two tuples: `[&quot;word&quot; 1]` and `[&quot;another&quot; 2]`,
-- provided `(hfs-textline :path)` produces a single tuple: `[&quot;another another word&quot;]`.
+- it will produce two tuples: `["word" 1]` and `["another" 2]`,
+- provided `(hfs-textline :path)` produces a single tuple: `["another another word"]`.
 
 Here's another true fact about `wc-query` that uses multiple input sentences:
 
-```
+```clojure
 (def short-sentences
   [["this is a sentence sentence"]
    ["sentence with this is repeated"]])
@@ -315,7 +319,7 @@ Here's another true fact about `wc-query` that uses multiple input sentences:
 
 A `provided` form only applies to the result-query pair directly above. The first fact is false, while the second fact is true:
 
-```
+```clojure
 (let [sentence [["two words"]]
       results  [["two" 1] ["words" 1]]]
   (fact?- "provided form won't apply here!"
@@ -333,7 +337,7 @@ In the above facts, I used keywords (`:path`) as mocking arguments. Any form tha
 
 These facts about `wc-query` from above are all true, and identical:
 
-```
+```clojure
 (fact?- "Mocking with keywords,"
         [["one" 1]] (wc-query :path)
         (provided (hfs-textline :path) => [["one"]])
@@ -355,7 +359,7 @@ These facts about `wc-query` from above are all true, and identical:
 
 As discussed, the `provided` form only applies to the result-query pair directly above. This limitation can make for repetitive facts, when each fact depends on a mocked result:
 
-```
+```clojure
 (defn text->words [path]
   (let [src (hfs-textline path)]
     (<- [?word]
@@ -377,7 +381,7 @@ As discussed, the `provided` form only applies to the result-query pair directly
 
 Midje allows facts to share mocked functions with `against-background`. An `against-background` form placed anywhere inside the body of `fact?-` will apply to all facts inside the form:
 
-```
+```clojure
 (let [sentence [["two two"]]]
   (fact?- "text->words cuts text into words."
           [["two"] ["two"]] (text->words :path)
@@ -402,7 +406,7 @@ Note that the third of the three above facts used its own `provided` form. When 
 
 For the next set of facts, let's introduce a larger set of input sentences:
 
-```
+```clojure
 (def longer-sentences
   [["Call me Ishmael. Some years ago -- never mind how long"]
    ["precisely -- having little or no money in my purse, and"]
@@ -410,9 +414,9 @@ For the next set of facts, let's introduce a larger set of input sentences:
    ["would sail about a little and see the watery part of the world."]])
 ```
 
-One issue with the above facts is that they use very small input sentences. `wc-query` will produce a rather large sequence of `&lt;word, count&gt;` pairs for a moderate number of input sentences. Facts like this are overwhelming:
+One issue with the above facts is that they use very small input sentences. `wc-query` will produce a rather large sequence of `<word, count>` pairs for a moderate number of input sentences. Facts like this are overwhelming:
 
-```
+```clojure
 (fact?- [["Ishmael." 1]
          ["Some" 1]
          ["a" 1]
@@ -428,9 +432,9 @@ To solve this, Midje provides a number of collection checkers that provide you w
 
 ### just<a id="sec-1-4-1" name="sec-1-4-1"></a>
 
-`just` is the default checker for `fact?-` and `fact?&lt;-`; bare vectors of tuples resolve to `(just result-vec :in-any-order)`. The following three facts are equivalent:
+`just` is the default checker for `fact?-` and `fact?<-`; bare vectors of tuples resolve to `(just result-vec :in-any-order)`. The following three facts are equivalent:
 
-```
+```clojure
 (let [src   [[1] [2]]
       query (<- [?a ?b]
                 (src ?a)
@@ -456,7 +460,7 @@ The `contains` form allows facts to check against a subset of query tuples. By d
 
 These restrictions are quite limiting for most Cascalog queries. The following two facts avoid both restrictions:
 
-```
+```clojure
 (fact?- (contains #{["sail" 1] ["Ishmael." 1]} :gaps-ok)
         (wc-query :path) ;; true
 
@@ -467,7 +471,7 @@ These restrictions are quite limiting for most Cascalog queries. The following t
           (hfs-textline :path) => longer-sentences))
 ```
 
-The above facts test that both `[&quot;sail&quot; 1]` and `[&quot;Ishmael.&quot; 1]` appear somewhere in the results, in any order.
+The above facts test that both `["sail" 1]` and `["Ishmael." 1]` appear somewhere in the results, in any order.
 
 - Wrapping the result tuples in a set (vs. a vector), or adding the `:in-any-order` keyword, relaxes the ordering restriction.
 - The `:gaps-ok` keyword relaxes the restriction that tuples must contiguous.
@@ -476,9 +480,9 @@ The above facts test that both `[&quot;sail&quot; 1]` and `[&quot;Ishmael.&quot;
 
 `has-prefix` checks that the supplied tuple sequence appears at the beginning of the query's results. `has-prefix` only makes sense with queries that return sorted tuples.
 
-The following fact states that `[&quot;--&quot; 2]`, `[&quot;I&quot; 2]` and `[&quot;and&quot; 2]`, in order, are the three most common words across all words in `longer-sentences`:
+The following fact states that `["--" 2]`, `["I" 2]` and `["and" 2]`, in order, are the three most common words across all words in `longer-sentences`:
 
-```
+```clojure
 (fact?- (has-prefix [["--" 2] ["I" 2] ["and" 2]])
         (-> (wc-query :path)
             (c/first-n 10 :sort ["?count"] :reverse true))
@@ -490,9 +494,9 @@ The following fact states that `[&quot;--&quot; 2]`, `[&quot;I&quot; 2]` and `[&
 
 `has-suffix` checks that the supplied tuple sequence appears at the end of the query's results.
 
-The following fact states that `[&quot;world.&quot; 1]`, `[&quot;would&quot; 1]` and `[&quot;years&quot; 2]`, in order, are the last three words (by alphabetical order) across all words in `longer-sentences`:
+The following fact states that `["world." 1]`, `["would" 1]` and `["years" 2]`, in order, are the last three words (by alphabetical order) across all words in `longer-sentences`:
 
-```
+```clojure
 (fact?- (has-suffix [["world." 1] ["would" 1] ["years" 1]])
         (-> (wc-query :text-path)
             (c/first-n 100 :sort ["?word"]))
@@ -506,7 +510,7 @@ As with `has-prefix`, facts making use of `has-suffix` only make sense when spec
 
 In certain cases, you might like to test a single query against a wide range of inputs and outputs. This quickly grows repetitive:
 
-```
+```clojure
 (fact?- [["mock" 1] ["it" 1] ["out!" 1]]
         (wc-query :path)
         (provided
@@ -527,7 +531,7 @@ Gah! `against-background` doesn't work here, since these facts mock against diff
 
 Midje's `tabular` form provides an elegant way to collapse this repetition:
 
-```
+```clojure
 (tabular
  (fact?- "Tabular generates lots of facts, one for each set of
          substitutions in the table below."
@@ -545,15 +549,15 @@ Midje's `tabular` form provides an elegant way to collapse this repetition:
 
 `tabular` accepts three types of arguments:
 
-- a single `fact?-` or `fact?&lt;-` templating form
-- a number of &quot;templating variables&quot; that start with `?` (`?sentence` and `?results`, in the above fact)
+- a single `fact?-` or `fact?<-` templating form
+- a number of "templating variables" that start with `?` (`?sentence` and `?results`, in the above fact)
 - any number of rows of substitutions (the above fact has three)
 
 and generates a separate fact for every substitution row. It does this by substituting each value into the templating form in place of the header variable at the top of column.
 
 The first fact generated by the above tabular fact looks like this:
 
-```
+```clojure
 (tabular
  ;; Tabular takes this templating form:
  (fact?- "Tabular generates lots of facts, one for each set of
@@ -582,7 +586,7 @@ Any variable prefixed by `?` that appears inside both the fact template AND the 
 
 Once you write facts within a project, you can use [lein-midje](https://github.com/marick/Midje/wiki/Lein-midje) to run them all and generate a summary like this:
 
-```
+```clojure
 Checking function: (midje.sweet/just [["Ishmael." 1] ["Some" 1] ["a" 1] ["about" 1] ["ago" 1]] :in-any-order)
 The checker said this about the reason:
     Expected five elements. There were thirty-nine.
@@ -591,7 +595,7 @@ FAILURE: 6 facts were not confirmed. (But 37 were.)
 
 If you're using the leiningen build manager, follow these steps:
 
-- Add  `[lein-midje &quot;1.0.7&quot;]` to the `:dev-dependencies` entry in your `project.clj`
+- Add  `[lein-midje "1.0.7"]` to the `:dev-dependencies` entry in your `project.clj`
 - Run `lein midje` at the command line in your project's root directory.
 
 This command runs all facts and tests in the project and prints a summary of all results to stdout.

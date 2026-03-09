@@ -30,7 +30,7 @@ As if that weren't enough, 2.0 adds a standalone Cascading DSL with an API simil
 
 I'll go over the Cascading DSL and the support for non-Cascading execution environments in a later post. For now, let's get into it.
 
-If you want to follow along, go ahead and clone [the Cascalog repo](https://github.com/nathanmarz/cascalog), cd into the &quot;cascalog-core&quot; subdirectory and run &quot;lein repl&quot;. To try this code out in other projects, run &quot;lein sub install&quot; in the root directory. This will install `[cascalog/cascalog-core &quot;3.0.0-SNAPSHOT&quot;]` locally, so you can add it to your `project.clj` and give the code a whirl.
+If you want to follow along, go ahead and clone [the Cascalog repo](https://github.com/nathanmarz/cascalog), cd into the "cascalog-core" subdirectory and run "lein repl". To try this code out in other projects, run "lein sub install" in the root directory. This will install `[cascalog/cascalog-core "3.0.0-SNAPSHOT"]` locally, so you can add it to your `project.clj` and give the code a whirl.
 
 # def*fn macros<a id="sec-1-1" name="sec-1-1"></a>
 
@@ -38,7 +38,7 @@ Testing Cascalog operations has always been a pain. Before Cascalog 2.0, when yo
 
 As of 2.0, functions defined with any of the `def*op` macros are now just normal functions, making it **much** easier to write tests, or to use them outside of Cascalog.
 
-```
+```clojure
 (defmapop square [x] (* x x))
 (square 10)
 ;;=> 100
@@ -58,7 +58,7 @@ Anonymous functions are tricky beasts. They haven't been supported as operations
 
 Here's an example of a pre-2.0 query for squaring numbers:
 
-```
+```clojure
 (defn square [x]
     (* x x))
 
@@ -70,7 +70,7 @@ Here's an example of a pre-2.0 query for squaring numbers:
 
 It's now possible to define `square` inline using `cascalog.api/mapfn`:
 
-```
+```clojure
 (??<- [!x !squared]
       (src !x)
       ((mapfn [x] (* x x)) !x :> !squared))
@@ -83,7 +83,7 @@ Boom. `mapfn`, `filterfn` and `mapcatfn` are the anonymous alternatives to, resp
 
 You can also define aggregators inline:
 
-```
+```clojure
 (def pairs
   [[1 1] [1 2] [1 3] [2 4] [2 5]])
 
@@ -101,7 +101,7 @@ You can also define aggregators inline:
 
 You can also turn any two-argument Clojure function into a parallel aggregator with `parallelagg`. The definition of a map-side optimized `sum` operation is now as easy as:
 
-```
+```clojure
 (??<- [?x ?sum]
       ((parallelagg +) ?y :> ?sum)
       (pairs ?x ?y))
@@ -112,7 +112,7 @@ You can also turn any two-argument Clojure function into a parallel aggregator w
 
 One result of the new anonymous function syntax is that higher-order function definitions become easy. To parametrize operations, the old syntax required you to use an extra vector around the operation's name, like this:
 
-```
+```clojure
 (defmapop [times [x]]
   [y]
   (* x y))
@@ -120,7 +120,7 @@ One result of the new anonymous function syntax is that higher-order function de
 
 Higher order parameters were supplied with a vector after the operation name:
 
-```
+```clojure
 (??<- [!x !y]
       (src !x)
       (times [4] !x :> !y))
@@ -131,7 +131,7 @@ What a pain in the ass, right?
 
 In this new, beautiful world, you can accomplish the same goal by writing a vanilla Clojure function that returns an anonymous Cascalog function:
 
-```
+```clojure
 (defn times [x]
   (mapfn [y] (* x y)))
 
@@ -148,7 +148,7 @@ So GOOD! Now you can pass Cascalog operations around as first class objects, jus
 
 Before Cascalog 2.0, if you wanted to write functions that returned queries, any operation passed as a function argument needed to be passed in as a var:
 
-```
+```clojure
 (def src [1 2 3 4 5])
 
 (defn square [x] (* x x))
@@ -164,13 +164,13 @@ Before Cascalog 2.0, if you wanted to write functions that returned queries, any
 
 In Cascalog 2.0, bare functions work great as arguments:
 
-```
+```clojure
 (my-query square)
 ```
 
 This means that you can pass functions (or anonymous functions defined using the new macros) directly to `defparallelagg`:
 
-```
+```clojure
 (defparallelagg sum
   :init-var identity
   :combine-var +)
@@ -182,7 +182,7 @@ Cascalog 2.0 includes a suite of functions that let you turn Clojure operations 
 
 This first block shows `str` wrapped in `mapop`:
 
-```
+```clojure
 (def src [["four"] ["score"]])
 
 (let [map-str (mapop str)]
@@ -197,7 +197,7 @@ Calling `str` on each of the strings in `src` just kicks the input string back o
 
 Wrapping `str` in `mapcatop` produces a different result:
 
-```
+```clojure
 (let [mapcat-str (mapcatop str)]
   (??<- [?string ?letter]
         (src ?string)
@@ -215,7 +215,7 @@ The new functions in `cascalog.api` are `mapop`, `filterop`, `mapcatop`, `buffer
 
 To belabor the point, you can think of these `*op` wrappers as a way to apply the `def*fn` macros to a function defined with `defn`. For example, in this block:
 
-```
+```clojure
 (defn some-function*
   ([x] ,,,,))
 
@@ -224,7 +224,7 @@ To belabor the point, you can think of these `*op` wrappers as a way to apply th
 
 The `some-function` operation will work exactly the same as the one defined here:
 
-```
+```clojure
 (defaggregatefn some-function
     ([x] ,,,,))
 ```
@@ -233,16 +233,16 @@ The `some-function` operation will work exactly the same as the one defined here
 
 `expand-query` is extremely helpful for understanding how predicate macros and other syntax shortcuts affect your Cascalog queries.
 
-The syntax is the same as `??&lt;-` or `&lt;-`. Just replace either of those macros with `expand-query`.
+The syntax is the same as `??<-` or `<-`. Just replace either of those macros with `expand-query`.
 
 The following query has a couple of implicit filters:
 
 - The count of each `?string` must be even
-- calling `(str ?string &quot;fun&quot;)` on each `?string` must produce &quot;fourfun&quot;
+- calling `(str ?string "fun")` on each `?string` must produce "fourfun"
 
 Let's look at the expansion.
 
-```
+```clojure
 (let [src [["four"] ["score"]]]
   (expand-query [?string ?string-copy]
                 (src ?string)
@@ -261,13 +261,13 @@ The three defined predicates expand out to five predicates.
 
 The `count` operation actually outputs to a randomly named variable, which is tested against `clojure.core/even?` in a separate predicate.
 
-The call to `(str ?string &quot;fun&quot;)` generates a temporary variable, `!G__8495`, which gets compared to &quot;fourfun&quot; in a separate, expanded filter. Pretty cool!
+The call to `(str ?string "fun")` generates a temporary variable, `!G__8495`, which gets compared to "fourfun" in a separate, expanded filter. Pretty cool!
 
 # Functions as guards<a id="sec-1-7" name="sec-1-7"></a>
 
-Cascalog has always let you filter logic variables against constants by writing predicates like `(src ?a &quot;handle&quot;)`. To filter using a function, you used to have to expand out that filter yourself, like this:
+Cascalog has always let you filter logic variables against constants by writing predicates like `(src ?a "handle")`. To filter using a function, you used to have to expand out that filter yourself, like this:
 
-```
+```clojure
 (def pairs [[1 2] [2 4] [3 3]])
 
 (??<- [?b]
@@ -279,16 +279,16 @@ Cascalog has always let you filter logic variables against constants by writing 
 
 In Cascalog 2.0 you can place a function in an output variable position. Cascalog will automatically generate that filter for you.
 
-```
+```clojure
 (??<- [?b]
       (* ?b 3 :> even?)
       (pairs odd? ?b))
 ;;=> ((2))
 ```
 
-Swapping `expand-query` in for `??&lt;-` shows the filters generated in the source and multiplication:
+Swapping `expand-query` in for `??<-` shows the filters generated in the source and multiplication:
 
-```
+```clojure
 (expand-query [?b]
                 (* ?b 3 :> even?)
                 (pairs odd? ?b))
@@ -306,7 +306,7 @@ The first variable produced by `pairs`, `!G__8295`, is filtered by `odd?`. The r
 
 Cascalog 2.0's `prepfn` and `defprepfn` makes it easy to get access to the [FlowProcess](http://docs.cascading.org/cascading/2.0/javadoc/cascading/flow/FlowProcess.html) and [ConcreteCall](http://docs.cascading.org/cascading/2.0/javadoc/cascading/operation/ConcreteCall.html) instances provided by Cascading. This lets you increment counters and get access to the `JobConf` within your operations. Here's an example of how to use `prepfn`:
 
-```
+```clojure
 (import 'cascading.flow.hadoop.HadoopFlowProcess)
 (import 'cascading.operation.ConcreteCall)
 
@@ -322,7 +322,7 @@ This operation outputs the double of the input, along with the temporary file th
 
 `defprepfn` creates a higher-order function of two parameters that Cascading calls after the Hadoop job begins. Cascading passes in the `HadoopFlowProcess` and `ConcreteCall` instances, and use the returned function as the operation:
 
-```
+```clojure
 (??<- [!x !y !conf]
       (src !x)
       (times-with-path !x :> !y !conf))
@@ -335,7 +335,7 @@ This operation outputs the double of the input, along with the temporary file th
 
 `prepfn` is the anonymous version of `defprepfn`. You can use `prepfn` along with the higher-order function trick described above to parametrize prepared functions created with `prepfn`:
 
-```
+```clojure
 (defn times-with-path [x]
   (prepfn [^HadoopFlowProcess a ^ConcreteCall b]
           (mapfn [y] [(* x y) (-> (.getConfigCopy a)
@@ -350,7 +350,7 @@ If you need to perform some sort of cleanup - say, closing a connection to an ex
 
 This example uses `mapfn` for operation and cleanup because these functions have to be serializable:
 
-```
+```clojure
 (defn times-with-path [x]
   (prepfn [^HadoopFlowProcess a ^ConcreteCall b]
           {:operate (mapfn [y] [(* x y) (-> (.getConfigCopy a)

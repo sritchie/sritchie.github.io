@@ -93,9 +93,9 @@ I left the aid station ahead of Jason. Mike was a bit ahead of me, moving well, 
 We popped out onto a community road behind old cabins and I stopped to wait for J. A while later - a long while - he appeared, walking. We walked together for the next stretch. What was happening?
 
 It all made sense when we reached the road and Jason told me to "get my camera out" . I did, turned it on, and captured this gem:
-<figure class="kg-card kg-embed-card">{{< youtube "i5J7or0KBfY" >}}</figure>
+{{< youtube "i5J7or0KBfY" >}}
 The virus he'd been battling was far from gone, and he'd started the race far from healthy. First puke led to second puke:
-<figure class="kg-card kg-embed-card">{{< youtube "s6IZvizdB2M" >}}</figure>
+{{< youtube "s6IZvizdB2M" >}}
 The situation was not good. We slogged down the road by the lake to the bathroom and I refilled my water while J lost control of his body in the privacy of his stall. Mike was gone, far ahead.
 
 J recovered and we continued walking, 13 miles in. An old man caught us and told us that he's so far completed *every single 200*. J asked what had changed about his strategy over the years.
@@ -109,7 +109,7 @@ A man ran past us blasting music from his phone; he slowed to tell us that this 
 Endless moondust. Soon we were out of water. Miles later, so thirsty, we hit our first off-trail water stop and dropped down to the river to filter bottles of water. Other runners were frolicking around like gazelles on the boulders upstream from us.
 
 Here's Jason trying not to puke:
-<figure class="kg-card kg-embed-card">{{< youtube "gI11uImBl80" >}}</figure>
+{{< youtube "gI11uImBl80" >}}
 Out and up, moving through the heat of the day. At the top of the next hill we stopped to pee. Jason can't do it. We sat on a log and calculated how much water he'd drunk so far.
 
 Turns out J subscribes to the "Human as Camel" theory of hydration, and secretly chugged multiple bottles at the refill stop in addition to everything we're carrying. He drank 12 liters without peeing. We were both very nervous about his risk of hyponatremia... Jason had me check his pupils, and quizzed me on my medical background, "just in case".
@@ -119,17 +119,17 @@ The tension mounted at the start of the next climb, when J told me again, as he'
 What was he thinking? I couldn't leave him, as we were sharing a crew; he was in serious physical distress; did he *want* me to leave, or was he trying to accomodate? He wouldn't say. I stopped the discussion by telling him I was staying with him until mile 100, no questions asked, and we'd figure out next steps then.
 
 This was Jason's physical state during the discussion, before our final climb:
-<figure class="kg-card kg-embed-card">{{< youtube "ZDul64my4mY" >}}</figure>
+{{< youtube "ZDul64my4mY" >}}
 We passed another runner who'd finished his water hours ago and I gave him one of my bottles. The race had become a Hospice Hike, not 30 miles in. I was doing the lord's work, clearly.
 
 Here's Jason trying to get some food down at the top of the hill in that section:
-<figure class="kg-card kg-embed-card">{{< youtube "8RHr25rDdZI" >}}</figure>
+{{< youtube "8RHr25rDdZI" >}}
 Finally, the last descent to the aid station. We ran this stretch with a guy who hasn't run for the past six weeks because he destroyed a ligament in his leg. The Tahoe 200 was his "Comeback Tour". Ligament Boy. There is no way he's not in a cast right now, let me tell you.
 
 Ligament Boy was a new father and was eager to share his parental wisdom with us. His biggest tip? "Use cloth diapers!" He'd spent 80 bucks total in the past two years. A thrifty genius.
 
 We were a mile out when Jason's pole snapped.
-<figure class="kg-card kg-embed-card">{{< youtube "3us5JLuqSZM" >}}</figure>
+{{< youtube "3us5JLuqSZM" >}}
 I was looking for signs of the aid station when off in the distance I saw someone running toward us that I swear looked just like Ryan Atkins... but fat. Fat Atkins! Real Atkins has the abs of a roman statue. Could it have been a vision of his post-athletic future?
 
 Just after this we saw Joey. Joey took our burrito order and ran us in to Tahoe City. The whole crew was waiting and anxious - Anna, Jenny, Avery, Ryan.
@@ -147,7 +147,7 @@ After almost two hours it was time to go. We'd gathered our night gear and headl
 Anna hugged Jason goodbye, then leaned in to hug me. The hug triggered my soft flask and sprayed Anna down with pressurized water. I made a joke about how this had been happening since the third trimester. Jason and I fled, soon alone again in the mounting dark.
 
 J's first pee attempt failed. We entered a stretch of singletrack, warming up, and soon J tried again, successful this time. I'd never seen a man happier to watch his body produce fluid. He made me film the experience, carefully positioning me to keep the video safe for work:
-<figure class="kg-card kg-embed-card">{{< youtube "0AHxJxxfxTE" >}}</figure>
+{{< youtube "0AHxJxxfxTE" >}}
 We were careful to conserve water. I was worried about the many hours we'd have to cover before a chance to fill again. Especially worried now that I knew that if I let my attention lapse Jason might exercise his Camel theory again and hork down a gallon.
 
 Time dilation began to set in on the first night. We had 20 miles to go until we saw crew. We rolled up and down endless strange ridges, staring at the thick moondust caught in our headlamps. The grade was endless 1%, Tahoe's speciality.
@@ -171,7 +171,7 @@ Bert, Ernie and Coach were swapping strategy ideas, and stories from their exper
 Soon we reached the next water source on the course map, a still, gross lake. The algae was a challenge for our BeFree filter bottles.
 
 After refilling we laid down for a 2 minute power nap. Jason woke up to a strong urge to puke. Here's Jason interpreting the results:
-<figure class="kg-card kg-embed-card">{{< youtube "GRCHrBV6Ruo" >}}</figure>
+{{< youtube "GRCHrBV6Ruo" >}}
 It was very, very cold. The minute it took to pull out a puffy and jacket up dropped my core temperature enough that I started shivering. We decided to leave without the group and soon hit the road that marked one mile to Aid. After a gentle downhill trail we saw it - Brockway, mile 50, our next aid station.
 
 ## Brockway (50) to Tunnel Creek (65)
@@ -195,7 +195,7 @@ The trail joined a road, and ahead we saw a racer walking along under a 45 liter
 The man was from Seattle, and before we knew it we were telling him about the Infinity Loop. "That was YOU BOYS? I heard about that... that is CRAZY!" Cackling laughter bounced off the trees. Or was he humoring us? We decided later that there was a good chance we *was* Rainier, the soul of the mountain watching over us. We named him "The Spirit of Tahoma" and moved on.
 
 Please don't get the idea that we were healthy, here. Jason continued puking at regular intervals:
-<figure class="kg-card kg-embed-card">{{< youtube "gNQj_RxzTfI" >}}</figure>
+{{< youtube "gNQj_RxzTfI" >}}
 Gotta pass the time somehow.
 
 Finally, sunrise on day two. We could see the beautiful lake below, and the warmth in the air was nice after the cold night.
@@ -203,17 +203,17 @@ Finally, sunrise on day two. We could see the beautiful lake below, and the warm
 The light also resolved the mystery of the Pylons. Far ahead we could see a string of powerlines descending down to a neighborhood below. 
 
 Here's a video of us sighting the lake before the powerline descent:
-<figure class="kg-card kg-embed-card">{{< youtube "mrcHj1q7kOo" >}}</figure>
+{{< youtube "mrcHj1q7kOo" >}}
 After interminable 1% grade climbs and descents I was so happy to apply some technical ability to a hard downhill.
 
 Here's the beginning of that powerline descent:
-<figure class="kg-card kg-embed-card">{{< youtube "R_g-Hr0SCkg" >}}</figure>
+{{< youtube "R_g-Hr0SCkg" >}}
 And another shot of the middle of the descent. We were moving slow, but this might indicate how steep things were.
-<figure class="kg-card kg-embed-card">{{< youtube "wZH8b1oe02s" >}}</figure>
+{{< youtube "wZH8b1oe02s" >}}
 After the last pylon we reached a nice, dust-free path, saw some deer, enjoyed the sunrise. J passed a few hours without puking. Life was good in the Tahoe 200.
 {{< figure src="IMG_9025.jpg" >}}
 And a video report, 6:30am somewhere around Lake Tahoe. Do you know where *your* children are?
-<figure class="kg-card kg-embed-card">{{< youtube "9ppjABbS7p4" >}}</figure>
+{{< youtube "9ppjABbS7p4" >}}
 Soon we emerged from the woods into a dead-quiet neighborhood of expensive houses built into the steep slope above Lake Tahoe. No one was up at sunrise except us and our fellow runners.
 
 Jason's intestines started to speak up, but there was nowhere to stop. Eventually the rumbling became too intense to resist and J ran off the road into a family's backyard and took the fastest dump of his life, probably sub 1 minute.
@@ -229,7 +229,7 @@ Lake Tahoe is so strange. Little communities on our right were guarded by 6'x6' 
 ## Tunnel Creek (65) to Spooner (82)
 
 We met Jenny and Avery on the final climb to the Tunnel Creek aid. Avery wouldn't hug Jason, as she had "just tooted a little", very considerate:
-<figure class="kg-card kg-embed-card">{{< youtube "ESr8LTbztnQ" >}}</figure>
+{{< youtube "ESr8LTbztnQ" >}}
 We plunked down into chairs for another far-too-long break. Anna was here again - the consummate crew chief, taking our breakfast burrito orders and helping us dump our night gear and load up for the next stretch.
 
 "Guys, can I get you any lollies?", she asked. Jason was so confused by these new Kiwi words, by this unexpected cultural. Again he agreed, pretending to understand. Later in the race he would crack at this same question and respond, "Anna, when you say 'lollies'... what exactly are you talking about? Are you *specifically asking about lollipops, *or is Lollies a generic word for candy?" Jason Antin, Trail Anthropologist.
@@ -307,7 +307,7 @@ The trees opened up and we entered a zone of scraggly shrubs. Cables was ahead o
 "Well... except us," I replied. Jason agreed.
 
 Another slow, dusty Vertical K. The forest closed in again and we ticked off the miles, silent. Soon we emerged into cold wind on a long ridge, a welcome break from the intense heat of the second day.
-<figure class="kg-card kg-embed-card">{{< youtube "sxbzA7X7x9w" >}}</figure>
+{{< youtube "sxbzA7X7x9w" >}}
 Up ahead we saw Howie Stern, the Tahoe 200 official race photographer, perched behind a set of boulders. I dropped back behind J to make sure I wasn't blocked in my photo. It's not terribly epic:
 {{< figure src="image-8.png" caption="PC Howie Stern" >}}
 We heard another runner behind us on the flat ridge and turned to see an older man with a huge beard running like a marionette, limbs flailing as he pushed by us. He looked like a zombie warrior, hunting something ahead. All higher brain function was gone. He was just a body and a brainstem, sensing the next aid station.
@@ -323,7 +323,7 @@ Right as I finished my pep talk, TWANG, a fiery nerve twinge rocked the inside o
 "Holy shit, did you guys see your photo from up top? I made Howie show me a preview and I looked fucking GOOD!" Cables was so jazzed at how strong he thought he looked that he'd made his vision a reality and had started hammering. Why go slow and steady when you can chase emotional peaks and valleys?
 
 Here's a video update from up on the ridge:
-<figure class="kg-card kg-embed-card">{{< youtube "rPGJW3QzSCM" >}}</figure>
+{{< youtube "rPGJW3QzSCM" >}}
 The mood was not good. We each ate a dose of Excedrin and another piece of caffeine gum.
 
 I texted Anna an update: "Just knocked back some more performance enhancing substances, we'll keep hobbling."
@@ -343,7 +343,7 @@ Finally the bleeding stopped. I blew my nose again gently so I could breathe aga
 "Jason, we have to stop!" blood was splattering all over the trail every time I breathed. I was able to fix the problem by stuffing my dusty Buff into my nose. It quickly saturated, but, after a few endless minutes sitting, the bleeding stopped and we started to jog again. The metallic smell of my gory Buff kept me up and alert.
 
 The section was a lot longer than we had thought. Here's Jason catching a bit of rest during a bathroom break:
-<figure class="kg-card kg-embed-card">{{< youtube "5NnpvIyyenk" >}}</figure>
+{{< youtube "5NnpvIyyenk" >}}
 Next came a long descent down large granite boulders, massive dinosaur eggs. We passed a pierced woman in a pink skirt. Jason recognized her and noted in hushed tones - "Dude, that's the Dirty Diva! Or is it the Dirt Diva?" Catra Corbett, the [Dirt Diva](http://trailgirl.blogspot.com/), was an early ultrarunning legend, a former punk girl who now battles her demons out on long trails.
 
 A small sign that Jason was losing it - to "drink faster", he decided to remove the filter from his BeFree bottle and chugged unfiltered water directly from the reservoir. Whoops! This wouldn't be the last time.
@@ -361,7 +361,7 @@ Or the "Most Dangerous Game" experience, where your name is entered into a Hunge
 Chilled by our realizations, we continued to slog.
 
 More trail updates from around this time:
-<figure class="kg-card kg-embed-card">{{< youtube "27lIy8-GoZU" >}}</figure>
+{{< youtube "27lIy8-GoZU" >}}
 We had to be close. We tested our Kiwi fluency with another text to Anna:
 
 > Couple of Hunguses inbound.

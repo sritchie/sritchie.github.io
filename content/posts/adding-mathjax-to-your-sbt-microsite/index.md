@@ -22,7 +22,7 @@ As an example of what you can make with this plugin, check out the [Algebird mic
 {{< figure src="image.png" >}}
 That snippet was generated from [this page in the Algebird repository](https://github.com/twitter/algebird/blob/develop/docs/src/main/tut/index.md), specifically from this snippet:
 
-```markdown
+````markdown
 ### What can you do with this code?
 
 ```tut:book
@@ -30,7 +30,7 @@ import com.twitter.algebird._
 import com.twitter.algebird.Operators._
 Map(1 -> Max(2)) + Map(1 -> Max(3)) + Map(2 -> Max(4))
 ```
-```
+````
 
 Sbt-microsites uses the [Tut documentation tool](https://github.com/tpolecat/tut) (which has [its own microsite](http://tpolecat.github.io/tut/), of course) to compile and execute any code block marked as `tut:book`, just like you see above.
 
@@ -40,12 +40,12 @@ Here's a page from the Algebird microsite for the `Min` and `Max` data structure
 
 This example contains in-line assertions that act as tests that will fail in the documentation if the code compiles, but has some behavior change that brings your example out of date.
 
-```markdown
+````markdown
 ```tut:book
 val loser: Min[TwitterUser] = Min(barackobama) + Min(katyperry) + Min(ladygaga) + Min(miguno) + Min(taylorswift)
 assert(miguno == loser.get) // The build will fail if the assertion fails.
 ```
-```
+````
 
 This covers almost none of how to actually set up sbt-microsites, of course. For that, check out these resources:
 
@@ -56,9 +56,9 @@ This covers almost none of how to actually set up sbt-microsites, of course. For
 
 ## Adding Mathjax Support
 
-[Mathjax](https://www.mathjax.org) is a Javascript library that scans a page for blocks of [LaTeX](https://www.latex-project.org/) demarcated by dollar signs, like this: `$&lt;equation here&gt;$` and renders them into beautiful math equations on the page. (Single dollar signs for inline math, double dollars for standalone blocks.) If you wanted to embed the quadratic equation, you could write:
+[Mathjax](https://www.mathjax.org) is a Javascript library that scans a page for blocks of [LaTeX](https://www.latex-project.org/) demarcated by dollar signs, like this: `$<equation here>$` and renders them into beautiful math equations on the page. (Single dollar signs for inline math, double dollars for standalone blocks.) If you wanted to embed the quadratic equation, you could write:
 
-```
+```latex
 $$x = {-b \pm \sqrt{b^2-4ac} \over 2a}$$
 ```
 
@@ -115,10 +115,10 @@ I created a file at `/docs/src/main/resources/microsite/js/mathjax.js`  ([githu
 
 This block:
 
-- Configures Mathjax to use either `$&lt;equation&gt;$` or `$&lt;equation&gt;$` syntax to block off inline equations, and
+- Configures Mathjax to use either `$<equation>$` or `$<equation>$` syntax to block off inline equations, and
 - adds support for automatic equation numbering, if you add your block equations like this:
 
-```
+```latex
 \begin{equation}
    E = mc^2
 \end{equation}

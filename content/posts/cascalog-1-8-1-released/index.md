@@ -16,9 +16,9 @@ categories:
 
 `cascalog.api` now includes support for [cross-joins](http://en.wikipedia.org/wiki/Join_(SQL)#Cross_join); just add `(cross-join)` to your query as its own predicate.
 
-Think of a cross-join as a &quot;tuple comprehension&quot;, or cartesian product, with similar results to `clojure.core/for`; it's not very efficient, as it forces all tuples through a single reducer (and causes a massive blowup in the number of tuples!). Here's an example:
+Think of a cross-join as a "tuple comprehension", or cartesian product, with similar results to `clojure.core/for`; it's not very efficient, as it forces all tuples through a single reducer (and causes a massive blowup in the number of tuples!). Here's an example:
 
-```
+```clojure
 (let [a-src [[1] [2]]
       b-src [[3] [4]]]
   (?<- (stdout)
@@ -42,7 +42,7 @@ RESULTS
 
 If you're interested, here's the implementation:
 
-```
+```clojure
 (def cross-join
   (<- [:>] (identity 1 :> _)))
 ```
@@ -55,7 +55,7 @@ When running a cascalog query on a cluster, usual practice is to include `(:gen-
 
 `defmain` lets you skip the `:gen-class` form and write something like:
 
-```
+```clojure
 ;; inside myproject.jobs...  
 (defmain FirstQuery [in-path out-path]
   (?- (hfs-textline out-path)
@@ -72,9 +72,9 @@ Each `defmain` will compile to a class with the supplied name, prefixed by the n
 
 ## with-serializations<a id="sec-1-3" name="sec-1-3"></a>
 
-Damn you, serializations. This one JobConf entry, &quot;io.serializations&quot;, has caused me much pain. We've added `with-serializations`, which makes the supplied Hadoop serializations available to all queries enclosed within the form. These forms nest, and play well with the existing `with-job-conf`. For example:
+Damn you, serializations. This one JobConf entry, "io.serializations", has caused me much pain. We've added `with-serializations`, which makes the supplied Hadoop serializations available to all queries enclosed within the form. These forms nest, and play well with the existing `with-job-conf`. For example:
 
-```
+```clojure
 ;; You can specify serializations in string form...
 (with-serializations ["org.apache.hadoop.io.serializer.JavaSerialization"]
   (<- [?a] ...))
@@ -98,7 +98,7 @@ Damn you, serializations. This one JobConf entry, &quot;io.serializations&quot;,
 
 Say we've previously run a wordcount job that output `[?word ?count]` 2-tuples to a sequencefile, and we want to pull the top 100 words by count. Here's how we do that with first-n:
 
-```
+```clojure
 (use 'cascalog.api)
 (require '[cascalog.ops :as c])
 

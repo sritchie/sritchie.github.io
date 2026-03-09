@@ -34,7 +34,7 @@ My resting heart rate on the way over there was 80 bpm, about 30 beats high. At 
 We pulled into town in the dark and found a spot right near the finish line. I got out, lubed my feet up with BodyGlide, put on my Minimus shoes and ambled over to the coffee shop across the street from the starting line. Some folks were doing warmups back and forth along the road, as if the race wasn't long and brutal enough to provide that service. So many faces looked haunted in the coffeeshop. I imagine that the excited faces were first timers like me, looking forward to the adventure. Those who had been through the ordeal were wiser and terrified, perhaps remembering some of the pain from past years and questioning their decision to come back to this damned town. Healthy living at 10,200 feet!
 
 <center>
-<iframe class="vine-embed" src="https://vine.co/v/hOW65ZIq70d/embed/simple" width="320" height="320" frameborder="0"></iframe><script async src="//platform.vine.co/static/scripts/embed.js" charset="utf-8"></script>
+*[Vine video](https://vine.co/v/hOW65ZIq70d) (Vine has been discontinued)*
 </center>
 
 I was trained and ready to go. Oscar, Jenna and the parents would drive the course and meet up with me to provide food and water at various points along the first 50 miles. At mile 50, Andrew Stephens, my partner in the Texas Water Safari and good friend, was to show up and run with me over the mountain. Jenna wanted to be waiting at the top with the Llamas at Hopeless aid station and would take over from Stephens. From there, we'd figure it out on the go.
@@ -44,7 +44,7 @@ I was trained and ready to go. Oscar, Jenna and the parents would drive the cour
 I left my folks and Jenna with a kiss and moved out to the start line. The temp was about 40 degrees. I felt calm, but the heart rate was up at 105. The gun went off and I started my watch, shuffling out of the gate at 10:00/mile pace right in the middle of the pack. We all moved down the hill in the cold. Some folks started walking on the first uphill, pacing just right for the distance ahead.
 
 <center>
-<iframe class="vine-embed" src="https://vine.co/v/hO7h1PvbJlw/embed/simple" width="320" height="320" frameborder="0"></iframe><script async src="//platform.vine.co/static/scripts/embed.js" charset="utf-8"></script>
+*[Vine video](https://vine.co/v/hO7h1PvbJlw) (Vine has been discontinued)*
 </center>
 
 The first few miles were surreal. I remembered to look back and take in the sea of headlamps moving down the hill, looked up at the stars and thought about [The Long Walk](http://www.amazon.com/The-Long-Walk-Stephen-King/dp/0451196716) by Stephen King. So many hopes and dreams out on the road. It was nice making conversation with people from different towns, starting to make friends then suddenly having folks veer into the woods to pee.
@@ -86,7 +86,7 @@ The sun up was beautiful, and I looked around quite a bit, taking it all in. Her
 I saw Jenna and Oscar again when I hit the road. Perhaps embarrassed about the last pacing situation, they presented me with a pack that was just CRAMMED with food. I had only two hours until I would see them again, but they'd given me dozens of items, along with fresh drink mix. I applied sunblock, gave a few handfuls of food pouches back, tried to be nice and moved on out. The clouds were out, which gave the racers a break from the heat. I was 21 miles in and feeling really good, like not much time had passed, but just a bit rough and queasy. I walked the uphills, favoring the achilles a bit, but noticing that I hadn't really felt any pain at all for quite some time. Other problems had overtaken my achilles issue.
 
 <center>
-<iframe class="vine-embed" src="https://vine.co/v/hOZgFDpJXAx/embed/simple" width="320" height="320" frameborder="0"></iframe><script async src="//platform.vine.co/static/scripts/embed.js" charset="utf-8"></script>
+*[Vine video](https://vine.co/v/hOZgFDpJXAx) (Vine has been discontinued)*
 </center>
 
 A few miles down the road was the Fish Hatchery aid station. I ate a couple of pretzels and choked down a PB&amp;J half, then back out to the road for a long stretch up to treeline. I was dead on the expected pace for the 24 hour finish, maybe pushing a little fast, keeping things in control. Treeline aid was great; I met up with Oscar and the folks, sat down and shook a rock out of my shoe that had been bothering me. Better to take care of these things now than suffer later. They swapped in another pack and some more food and I moved on out into unknown territory.
@@ -114,7 +114,7 @@ My coach and two-time Leadville champion Duncan Callahan was waiting at Twin Lak
 Mental check-in: at this point I'm feeling epic. It's mile 40, I'm injury-free and slowly eating away at my already optimistic pace goal. My planned pace up Hope Pass was 22 min/mile; I knew that I could hike the steep at around that pace, and the mile to the base of the climb is perfectly flat. It should be no problem to make up ten more minutes right there.
 
 <center>
-<iframe class="vine-embed" src="https://vine.co/v/hOKKa7jrKwr/embed/simple" width="320" height="320" frameborder="0"></iframe><script async src="//platform.vine.co/static/scripts/embed.js" charset="utf-8"></script>
+*[Vine video](https://vine.co/v/hOKKa7jrKwr) (Vine has been discontinued)*
 </center>
 
 Oscar walked me out of the aid station. Just outside on the trail as I pushed the PB&amp;J down I started feeling queasy. I told Oscar that I might have to puke, matter-of-factly, trying to stay casual. I kept my gut down, but just after he left I went to my knees on the side of the trail and surprised myself with an incredibly forceful vomiting session. I opened my mouth and out poured a stomachful of caffe latte perpetuem, almost no solids in the food, just a liter or so of liquid. Racers along the trail asked me if I was okay. One guy yelled, &quot;Hey, at least you know you'll feel great when it's over!&quot; One more time, emptying out the rest of my stomach, and then I was back up, feeling good. I ate another pepto tablet, put my headphones in and kept going. I wanted to start running hard and thank the racer who made the comment. I knew this wasn't smart and kept the pace back, but knocked out the flat mile to the base of hope in 11 minutes. I thought to myself, &quot;this race isn't so hard,&quot; and started walking up the hill.
@@ -158,7 +158,7 @@ This is where the race really surprised me. I had done everything right, I thoug
 At this point, I must have looked seriously fucked up because Oscar wouldn't even take a video of me. Here's a Vine he took after forty minutes:
 
 <center>
-<iframe class="vine-embed" src="https://vine.co/v/hObBXHgQXAQ/embed/simple" width="320" height="320" frameborder="0"></iframe><script async src="//platform.vine.co/static/scripts/embed.js" charset="utf-8"></script>
+*[Vine video](https://vine.co/v/hObBXHgQXAQ) (Vine has been discontinued)*
 </center>
 
 As I was suffering, like a dream, Andrew Stephens showed up, ready to RACE. He had his pack on and immediately took command of the situation. He made me change into a warm, dry shirt, put a hat on me and gave me two salt pills. He looked mildly annoyed when I jumped out my chair, ran behind the tent and puked up everything in my stomach. I sat back down inside and he started feeding me water and more salt pills, then asked the doctor if they had any Zofran. They did, and I took one. Zofran is an anti-nausea medication for chemo patients. I knew that if this didn't settle my stomach, I was hosed.
@@ -172,7 +172,7 @@ And then, an hour and a half into the rest, I had to pee! I went out to the port
 So there it was, out of the aid station 12:45 into the race, 1:15 ahead of the cut-off time. I wanted to run, but Stephens warned me that this was a bad idea. We were already passing dozens of runners on the trail. His new rule was that every time I wanted to start running, I needed to drink. He started feeding me pieces of bagel and cream cheese, which I washed down with the water. &quot;If you go slow, you're going to finish this thing. If you start puking, it's all over.&quot; I knew he was right and made me choice. We went slow.
 
 <center>
-<iframe class="vine-embed" src="https://vine.co/v/hObB12Hv72n/embed/simple" width="320" height="320" frameborder="0"></iframe><script async src="//platform.vine.co/static/scripts/embed.js" charset="utf-8"></script>
+*[Vine video](https://vine.co/v/hObB12Hv72n) (Vine has been discontinued)*
 </center>
 
 At the turn to the Hope Pass climb Andrew said, &quot;this is the most badass race of all TIME. I'm definitely coming back to do this next year.&quot; He was obsessed already, like me during my first Texas Water Safari. I was mildly pleased to hear him gasping as we pushed it up toward 11,000 feet. I tried to keep my breathing under control to seem like a badass, then gave in and huffed and puffed.
@@ -234,5 +234,5 @@ Up the hill with Jenna, arms pumping, down the red carpet and across the line, f
 I walked over to my parents, Jenna and Oscar, feeling fantastic and joking about taking another lap around the building. I felt so good! It was eerie, walking around not even tired. I sat down for a minute to take my shoes off, and when I tried to get up…. boom, it hit me. I suddenly could barely stand. My body locked up and I started shivering again. But it was all over. We'd done it, and I was happy.
 
 <center>
-<iframe class="vine-embed" src="https://vine.co/v/hOVPKmE7rV7/embed/simple" width="320" height="320" frameborder="0"></iframe><script async src="//platform.vine.co/static/scripts/embed.js" charset="utf-8"></script>
+*[Vine video](https://vine.co/v/hOVPKmE7rV7) (Vine has been discontinued)*
 </center>

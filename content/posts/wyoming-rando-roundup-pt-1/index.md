@@ -12,7 +12,7 @@ categories:
 
 Wow, I haven't gotten crushed that hard in a race in a long time. Just fully WHIPPED!
 
-Jenna and I drove out to Jackson yesterday for the &quot;Wyoming Rando Roundup&quot;, my first real weekend of racing since I signed up for [all of these races](__GHOST_URL__/racing) a few weeks ago. I don't have my own race setup yet, so Wade lent me his crazy [carbon Alien 1.0](http://tetonsandwasatch.com/2013/scarpa-alien-1-review/) boots and SkiTrab skis, and some extremely short kicker skins (for flat stretches) that had showed up in the mail the day before I grabbed them.
+Jenna and I drove out to Jackson yesterday for the &quot;Wyoming Rando Roundup&quot;, my first real weekend of racing since I signed up for [all of these races](/racing) a few weeks ago. I don't have my own race setup yet, so Wade lent me his crazy [carbon Alien 1.0](http://tetonsandwasatch.com/2013/scarpa-alien-1-review/) boots and SkiTrab skis, and some extremely short kicker skins (for flat stretches) that had showed up in the mail the day before I grabbed them.
 
 &quot;Yeah man,&quot; he said, &quot;I'm a little surprised at how short they are! But I think they'll be fine.&quot; Oh, Wade.
 

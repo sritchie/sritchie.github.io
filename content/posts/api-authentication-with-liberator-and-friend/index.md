@@ -29,7 +29,7 @@ From the [project site](http://clojure-liberator.github.io/liberator/):
 
 Here's a simple resource that handles only HTML responses, and returns `406 Not Acceptable` if the user requests some other content type:
 
-```
+```clojure
 (defresource hello-resource
   :available-media-types ["text/html"]
   :handle-ok "<html>Hello, Internet.</html>")
@@ -37,7 +37,7 @@ Here's a simple resource that handles only HTML responses, and returns `406 Not 
 
 Because a resource is a function of a request, you can use resources with Compojure like this:
 
-```
+```clojure
 (ANY "/foo" [] hello-resource)
 ```
 
@@ -45,11 +45,11 @@ Check out the [project page](http://clojure-liberator.github.io/liberator/) for 
 
 ## Friend<a id="sec-1-2" name="sec-1-2"></a>
 
-Friend provides Ring middleware that handles authentication and authorization for your app. (&quot;Authentication&quot; is whether or not the system knows who you are; authorization is whether or not you're allowed in to a particular resource, one the system identifies you.)
+Friend provides Ring middleware that handles authentication and authorization for your app. ("Authentication" is whether or not the system knows who you are; authorization is whether or not you're allowed in to a particular resource, one the system identifies you.)
 
 The middleware looks like this:
 
-```
+```clojure
 (ns liberator-friend.middleware.auth
   (:require [cemerick.friend :as friend]
             (cemerick.friend [workflows :as workflows]
@@ -72,11 +72,11 @@ This middleware sits over top of all of your resources and routing layer (typica
 
 ### Authentication<a id="sec-1-2-1" name="sec-1-2-1"></a>
 
-Friend's &quot;workflows&quot; provide pluggable authentication for your app.
+Friend's "workflows" provide pluggable authentication for your app.
 
 Friend considers a request to be authenticated if the incoming request's session has a certain special key:
 
-```
+```clojure
 {:session {::cemerick.friend/identity <user's identity!>}}
 ```
 
@@ -89,12 +89,12 @@ If `::cemerick.friend/identity` is missing from the session, Friend's middleware
 Let's talk about the supported return values. Workflows can return one of three things:
 
 - **nil**: `nil` means that the workflow has no nothing to say about the supplied request. Friend will send the request to the next workflow in the list, if one exists. If no workflows are left, Friend calls your handler.
-- **Friend Auth**: This is ANY Clojure map with a type of `::cemerick.friend/auth`. The default workflows try to authenticate a user using the `:credential-fn` you supplied to the middleware (see my above example). If `:credential-fn` returns a map, the default workflows interpret it as a user record, associate the `::cemerick.friend/auth` type metadata, merge the identity into the request under `{:session {::cemerick.friend/identity &lt;returned auth map&gt;}}` and call your hander with the updated, authenticated request.
+- **Friend Auth**: This is ANY Clojure map with a type of `::cemerick.friend/auth`. The default workflows try to authenticate a user using the `:credential-fn` you supplied to the middleware (see my above example). If `:credential-fn` returns a map, the default workflows interpret it as a user record, associate the `::cemerick.friend/auth` type metadata, merge the identity into the request under `{:session {::cemerick.friend/identity <returned auth map>}}` and call your hander with the updated, authenticated request.
 - **Anything else**: Any other response is treated as a ring response, and passed back immediately. Your handler is never called.
 
 Let's look at an example workflow to see how it handles these three cases. In my snippet above I included Friend's `http-basic` workflow:
 
-```
+```clojure
 (require 'cemerick.friend.workflows)
 (workflows/http-basic :realm "/")
 ```
@@ -107,14 +107,14 @@ If the `authorization` header IS present, the workflow extracts the supplied use
 
 If this check succeeds (ie, returns something non-nil), the workflow returns the required `::cemerick.friend/identity` key described above. If it fails, the workflow returns [a failing ring response](https://github.com/cemerick/friend/blob/master/src/cemerick/friend/workflows.clj#L58):
 
-```
+```clojure
 {:status 400
  :body "Malformed Authorization header for HTTP Basic authentication."}
 ```
 
 You can use these three response types to implement some pretty interesting authentication workflows.
 
-You can do a lot in this framework. [Ddellacosta](https://github.com/ddellacosta)'s [Friend OAuth2 workflow](https://github.com/ddellacosta/friend-oauth2) intercepts the initial OAuth request and uses the &quot;failure&quot; return to send out an OAuth2 redirect to the configured provider. When the provider redirects back to the app, the OAuth2 workflow again intercepts the command, does token negotation, then either succeeds or fails the response. Two intercepts! There's a lot going on there.
+You can do a lot in this framework. [Ddellacosta](https://github.com/ddellacosta)'s [Friend OAuth2 workflow](https://github.com/ddellacosta/friend-oauth2) intercepts the initial OAuth request and uses the "failure" return to send out an OAuth2 redirect to the configured provider. When the provider redirects back to the app, the OAuth2 workflow again intercepts the command, does token negotation, then either succeeds or fails the response. Two intercepts! There's a lot going on there.
 
 ### Authorization<a id="sec-1-2-2" name="sec-1-2-2"></a>
 
@@ -124,10 +124,10 @@ Resources typically handle authorization with some function of the `::friend/ide
 
 Friend's middleware is wrapping the entire app, and catches exceptions with this special metadata as they bubble up. Once this happens, Friend takes responsibility for the response with one of two actions:
 
-- If Friend sees that the user is authenticated, it calls `:unauthorized-handler`. (You supply this option when you create the middleware. This is where you'd return some sexy, custom page, or redirect to the home page with a flash yelling &quot;You're not authorized!&quot;). You can include custom info in the thrown exception to make that flash all custom and sexy.
+- If Friend sees that the user is authenticated, it calls `:unauthorized-handler`. (You supply this option when you create the middleware. This is where you'd return some sexy, custom page, or redirect to the home page with a flash yelling "You're not authorized!"). You can include custom info in the thrown exception to make that flash all custom and sexy.
 - If the request is NOT authenticated (no `::friend/identity` in the session), Friend calls the `:unauthenticated-handler`. By default, this stores the URI the request was originally trying to access in the session map and redirects the user to your login page.
 
-Now, in the latter, unauthenticated case, Friend typically redirects to a route that's being watched by one of the workflows. Friend's supplied `interactive-form` workflow does this; it redirects to a URI like &quot;/login&quot;, then intercepts POST requests to &quot;/login&quot; and tries to pull out credentials and authenticate.
+Now, in the latter, unauthenticated case, Friend typically redirects to a route that's being watched by one of the workflows. Friend's supplied `interactive-form` workflow does this; it redirects to a URI like "/login", then intercepts POST requests to "/login" and tries to pull out credentials and authenticate.
 
 Once you're authenticated (and this is a new thing I didn't mention above), if the session has any record of the URI you were trying to access when the app threw the `unauthorized!` exception, Friend will BREAK from the pattern I mentioned above and instead redirect to that stored URI. This gives the resource another chance to check your (now populated) credentials.
 
@@ -147,7 +147,7 @@ So I wrote [a pull request](https://github.com/clojure-liberator/liberator) that
 
 This pull req allows you to define a base resource like this:
 
-```
+```clojure
 (def base-resource
   "Base for all resources.
 
@@ -175,7 +175,7 @@ This pull req allows you to define a base resource like this:
 
 And then write other resources that extend the base like so:
 
-```
+```clojure
 (defresource hello-resource
   :base base-resource
   :allowed-methods [:get]
@@ -183,7 +183,7 @@ And then write other resources that extend the base like so:
   :handle-ok "Welcome to the resource!")
 ```
 
-This tiny resource now shares the `:handle-not-acceptable` and `:handle-not-found` behavior from the base. If I hit the resource and ask for JSON, for example, I'll get a &quot;No acceptable resource available.&quot; message in plain-text. (There's more work here to make this perfect, but hey, it's a start.)
+This tiny resource now shares the `:handle-not-acceptable` and `:handle-not-found` behavior from the base. If I hit the resource and ask for JSON, for example, I'll get a "No acceptable resource available." message in plain-text. (There's more work here to make this perfect, but hey, it's a start.)
 
 Check out my customer version of `defresource` in the post's [example project](https://github.com/paddleguru/liberator-friend/blob/master/src/liberator_friend/resources.clj#L67). That namespace also contains `base-resource` and all the helper functions.
 
@@ -193,7 +193,7 @@ Check out my customer version of `defresource` in the post's [example project](h
 
 The example project defines a [Friend base resource](https://github.com/paddleguru/liberator-friend/blob/master/src/liberator_friend/resources.clj#L218) that provides a handler that Liberator calls when `:authorized?` returns false:
 
-```
+```clojure
 (def friend-resource
   "Base resource that will handle authentication via friend's
   mechanisms. Provide an authorization function and you'll be good to
@@ -220,7 +220,7 @@ Now all we need to do is override `:authorized?` on each resource to return true
 
 I wrote a helper function that defines nice authorization predicates based on Friend's concept of a `role`:
 
-```
+```clojure
 (defn roles
   "Returns an authorization predicate that checks if the authenticated
   user has the specified roles. (This is the usual friend behavior.)"
@@ -231,7 +231,7 @@ I wrote a helper function that defines nice authorization predicates based on Fr
 
 This function creates a new base resource that extends `friend-resource` above, adding in the supplied authorization function:
 
-```
+```clojure
 (defn friend-auth
   "Returns a base resource that authenticates using the supplied
   auth-fn. Authorization failure will trigger Friend's default
@@ -242,7 +242,7 @@ This function creates a new base resource that extends `friend-resource` above, 
 
 Those two helpers work together to create Friend-aware (Friend-ly?) base resource generators. All resources that use these bases will be protected by the Friend middleware. In the example project, this means that they'll be protected with HTTP basic authentication, but you can add more workflows to perform different auth in a way that doesn't require you to rewrite your resources.
 
-```
+```clojure
 (defn role-auth
   "Returns a base resource that authenticates users against the
   supplied set of roles."
@@ -259,9 +259,9 @@ The first, `role-auth`, takes a set of roles and allows access to the resource i
 
 `authenticated-base` just checks that the user is authenticated (that the `::friend/identity` key is present); no additional authorization comes into play.
 
-The example project performs authentication using an in-memory &quot;database&quot;:
+The example project performs authentication using an in-memory "database":
 
-```
+```clojure
 (def users
   "dummy in-memory user database."
   {"root" {:username "root"
@@ -274,7 +274,7 @@ The example project performs authentication using an in-memory &quot;database&qu
 
 Now, let's define some resources that use these helpers. These resources all use Friend for authorization. They allow, respectively, admins, users and any authenticated user.
 
-```
+```clojure
 (require '[liberator-friend.resources :as r :refer [defresource]])
 
 (defresource admin-resource
@@ -298,7 +298,7 @@ Now, let's define some resources that use these helpers. These resources all use
 
 Now we can serve these out using Compojure:
 
-```
+```clojure
 (defroutes site-routes
   (GET "/" [] "Welcome to the liberator-friend demo site!")
   (GET "/admin" [] admin-resource)
@@ -312,23 +312,23 @@ Now let's hit the shell to test out the custom auth.
 
 You can follow along by cloning [the example code](https://github.com/paddleguru/liberator-friend) and running `lein run` in the project's root. The default route has no authentication requirement, and returns the string defined in the compojure routes above:
 
-```
+```clojure
 [sritchie@RitchieMacBook ~]$ curl localhost:8090
 Welcome to the liberator-friend demo site!
 ```
 
 Now let's hit the admin resource without basic authentication.
 
-```
+```clojure
 [sritchie@RitchieMacBook ~]$ curl localhost:8090/admin
 Not authorized.
 ```
 
-Because we didn't include a basic auth header, Friend's `basic-auth` middleware returned let the request through without adding `::friend/identity`. The request hit the Liberator resource, the `:authorized?` check failed, and Liberator delegated to the `:handle-unauthorized` decision point defined in [friend-resource](https://github.com/paddleguru/liberator-friend/blob/master/src/liberator_friend/resources.clj#L218). This decision point ONLY throws the Friend exception for &quot;text/html&quot; requests, since I only wanted to redirect for Browser requests. Instead we get the default &quot;Not authorized.&quot; response defined [here](https://github.com/paddleguru/liberator-friend/blob/master/src/liberator_friend/resources.clj#L231), decked out with the proper `401 Unauthorized` response code. Thanks, Liberator.
+Because we didn't include a basic auth header, Friend's `basic-auth` middleware returned let the request through without adding `::friend/identity`. The request hit the Liberator resource, the `:authorized?` check failed, and Liberator delegated to the `:handle-unauthorized` decision point defined in [friend-resource](https://github.com/paddleguru/liberator-friend/blob/master/src/liberator_friend/resources.clj#L218). This decision point ONLY throws the Friend exception for "text/html" requests, since I only wanted to redirect for Browser requests. Instead we get the default "Not authorized." response defined [here](https://github.com/paddleguru/liberator-friend/blob/master/src/liberator_friend/resources.clj#L231), decked out with the proper `401 Unauthorized` response code. Thanks, Liberator.
 
 Let's try it with bad credentials.
 
-```
+```clojure
 [sritchie@RitchieMacBook ~]$ curl -u root:wrongpass localhost:8090/admin
 ```
 
@@ -338,16 +338,16 @@ I think that this is the most confusing aspect of integrating Liberator and Frie
 
 Finally, with proper credentials:
 
-```
+```clojure
 [sritchie@RitchieMacBook ~]$ curl -u root:admin_password localhost:8090/admin
 Welcome, admin!
 ```
 
-The `basic-auth` workflow adds `::friend/identity` into the session, `:authorized?` checks for the `:admin` role and returns true, and `:handle-ok` returns &quot;Welcome, admin!&quot;.
+The `basic-auth` workflow adds `::friend/identity` into the session, `:authorized?` checks for the `:admin` role and returns true, and `:handle-ok` returns "Welcome, admin!".
 
 What if we supply valid credentials, authenticate properly with Friend, but try to access a route that we're not authorized to see?
 
-```
+```clojure
 [sritchie@RitchieMacBook ~]$ curl -u jane:user_password localhost:8090/user
 Welcome, user!
 
@@ -359,7 +359,7 @@ Friend's `basic-auth` workflow lets both requests through, but `:authorized?` re
 
 For completeness, here are the same routes with valid admin credentials:
 
-```
+```clojure
 [sritchie@RitchieMacBook ~]$ curl -u root:admin_password localhost:8090/admin
 Welcome, admin!
 
@@ -369,7 +369,7 @@ Not authorized.
 
 And proof that the `/authenticated` route allows any valid credentials:
 
-```
+```clojure
 [sritchie@RitchieMacBook ~]$ curl -u root:admin_password localhost:8090/authenticated
 Come on in. You're authenticated.
 
@@ -381,6 +381,6 @@ Come on in. You're authenticated.
 
 So, there you have it. Friend and Liberator, working in glorious harmony.
 
-As confusing as I find Friend, I think it's the best solution out there for authentication and authorization for Ring applications. Communication through exception football can be pretty confusing, but it seems like the best way to handle the redirect coordination you need if you want users to be able to &quot;pause&quot; a route, authorize at a different route, then come back to the original URI for another try.
+As confusing as I find Friend, I think it's the best solution out there for authentication and authorization for Ring applications. Communication through exception football can be pretty confusing, but it seems like the best way to handle the redirect coordination you need if you want users to be able to "pause" a route, authorize at a different route, then come back to the original URI for another try.
 
 Both of these libraries are worth exploring, and together they sing. After the initial learning curve, the combination has made it easy to iterate on RESTful APIs in Clojure here at [PaddleGuru](https://paddleguru.com).

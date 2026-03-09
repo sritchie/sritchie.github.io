@@ -215,9 +215,9 @@ Time is distance over speed, so the total time that the beam spends between the 
 
 \begin{split}
 
-t(y_p) &amp; = {c \sqrt{a^2 + y_p^2}\over v_1} + {c \sqrt{(x_2 - x_p)^2 + y_2^2} \over v_2} \
+t(y_p) & = {c \sqrt{a^2 + y_p^2}\over v_1} + {c \sqrt{(x_2 - x_p)^2 + y_2^2} \over v_2} \\
 
-&amp; = {n_1 \over c} \sqrt{a^2 + y_p^2} + {n_2 \over c} \sqrt{(x_2 - x_p)^2 + y_2^2}
+& = {n_1 \over c} \sqrt{a^2 + y_p^2} + {n_2 \over c} \sqrt{(x_2 - x_p)^2 + y_2^2}
 
 \end{split}
 

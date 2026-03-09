@@ -26,11 +26,11 @@ After surveying existing tools, I decided to write my own layer over [Pallet](ht
 
 ## Setting Up<a id="sec-1-2" name="sec-1-2"></a>
 
-Before you get your first cluster running, you'll need to [create an AWS account](https://aws-portal.amazon.com/gp/aws/developer/registration/index.html). Once you've done this, navigate to [your account page](http://aws.amazon.com/account/) and follow the &quot;Security Credentials&quot; link. Under &quot;Access Credentials&quot;, you should see a tab called &quot;Access Keys&quot;. Note down your Access Key ID and Secret Access Key for future reference.
+Before you get your first cluster running, you'll need to [create an AWS account](https://aws-portal.amazon.com/gp/aws/developer/registration/index.html). Once you've done this, navigate to [your account page](http://aws.amazon.com/account/) and follow the "Security Credentials" link. Under "Access Credentials", you should see a tab called "Access Keys". Note down your Access Key ID and Secret Access Key for future reference.
 
 I'm going to assume that you have some basic knowledge of clojure, and know how to get a project running using [leiningen](https://github.com/technomancy/leiningen) or [cake](https://github.com/ninjudd/cake). Go ahead and clone [the example project](https://github.com/pallet/pallet-hadoop-example) to follow along:
 
-```
+```bash
 $ git clone git://github.com/pallet/pallet-hadoop-example.git
 $ cd pallet-hadoop-example
 ```
@@ -49,9 +49,9 @@ $ lein repl
 
 ## Compute Service<a id="sec-1-3" name="sec-1-3"></a>
 
-Pallet abstracts away details about specific cloud providers through the idea of a &quot;compute service&quot;. The combination of our cluster definition and our compute service will be enough to get our cluster running. We define a compute service at our REPL like so:
+Pallet abstracts away details about specific cloud providers through the idea of a "compute service". The combination of our cluster definition and our compute service will be enough to get our cluster running. We define a compute service at our REPL like so:
 
-```
+```clojure
 user=> (def ec2-service
          (compute-service "aws-ec2"
                           :identity "ec2-access-key-id" ;; Swap in your access key ID
@@ -61,7 +61,7 @@ user=> (def ec2-service
 
 Alternatively, if you want to keep these out of your code base, save the following to `~/.pallet/config.clj`:
 
-```
+```clojure
 (defpallet
   :services {:aws {:provider "aws-ec2"
                    :identity "your-ec2-access-key-id"
@@ -70,7 +70,7 @@ Alternatively, if you want to keep these out of your code base, save the followi
 
 and define `ec2-service` with:
 
-```
+```clojure
 user=> (def ec2-service (compute-service-from-config-file :aws))
 #'user/ec2-service
 ```
@@ -79,7 +79,7 @@ user=> (def ec2-service (compute-service-from-config-file :aws))
 
 Now that we have our compute service and our cluster defined, booting the cluster is as simple as the following:
 
-```
+```clojure
 user=> (create-cluster example-cluster ec2-service)
 ```
 
@@ -91,15 +91,15 @@ Once `create-cluster` returns, we're done! We now have a fully configured, multi
 
 To test our new cluster, we're going log in and run a word counting MapReduce job on a number of books from [Project Gutenberg](http://www.gutenberg.org/wiki/Main_Page).
 
-Point your browser to the [EC2 Console](https://console.aws.amazon.com/ec2/), log in, and click &quot;Instances&quot; on the left.
+Point your browser to the [EC2 Console](https://console.aws.amazon.com/ec2/), log in, and click "Instances" on the left.
 
-You should see three nodes running; click on the node whose security group contains &quot;jobtracker&quot;, and scroll the lower pane down to retrieve the public DNS address for the node. It'll look something like `ec2-50-17-103-174.compute-1.amazonaws.com`. I'll refer to this address as `jobtracker.com`.
+You should see three nodes running; click on the node whose security group contains "jobtracker", and scroll the lower pane down to retrieve the public DNS address for the node. It'll look something like `ec2-50-17-103-174.compute-1.amazonaws.com`. I'll refer to this address as `jobtracker.com`.
 
 Point your browser to `jobtracker.com:50030`, and you'll see the JobTracker web console. (Keep this open, as it will allow us to watch our MapReduce job in action.).=jobtracker.com:50070= points to the NameNode console, with information about HDFS.
 
 Next, we'll SSH into the jobtracker, and operate as the `hadoop` user. Head to your terminal and run the following commands:
 
-```
+```bash
 $ ssh jobtracker.com # insert actual address, enter yes to continue connecting
 $ sudo su - hadoop
 ```
@@ -120,7 +120,7 @@ Our first step will be to collect a bunch of text to process. We start by downlo
 
 Running the following commands at the remote shell should do the trick.
 
-```
+```bash
 $ mkdir /tmp/books
 $ cd /tmp/books
 $ curl -O http://www.gutenberg.org/cache/epub/20417/pg20417.txt
@@ -134,13 +134,13 @@ $ curl -O http://www.gutenberg.org/cache/epub/19699/pg19699.txt
 
 Next, navigate to the Hadoop directory:
 
-```
+```bash
 $ cd /usr/local/hadoop-0.20.2/
 ```
 
 And copy the books over to the distributed filesystem:
 
-```
+```bash
 /usr/local/hadoop-0.20.2$ hadoop dfs -copyFromLocal /tmp/books books
 /usr/local/hadoop-0.20.2$ hadoop dfs -ls
 Found 1 items
@@ -152,7 +152,7 @@ drwxr-xr-x   - hadoop supergroup          0 2011-06-01 06:12:21 /user/hadoop/boo
 
 We're ready to run the MapReduce job. `wordcount` takes an input path within HDFS, processes all items within, and saves the output to HDFS – to `books-output`, in this case. Run this command:
 
-```
+```bash
 /usr/local/hadoop-0.20.2$ hadoop jar hadoop-examples-0.20.2-cdh3u0.jar wordcount books/ books-output/
 ```
 
@@ -203,7 +203,7 @@ And you should see something very similar to this:
 
 Now that the MapReduce job has completed successfully, all that remains is to extract the results from HDFS and take a look.
 
-```
+```bash
 $ mkdir /tmp/books-output
 $ hadoop dfs -getmerge books-output /tmp/books-output
 $ head /tmp/books-output/books-output
@@ -230,7 +230,7 @@ Success!
 
 When we're finished, we can kill our cluster with this command, back at the REPL:
 
-```
+```clojure
 user=> (destroy-cluster example-cluster ec2-service)
 ```
 

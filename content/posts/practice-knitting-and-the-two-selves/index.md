@@ -39,9 +39,7 @@ You know when he *never *shows up? When I sit down to knit.
 
 Every couple of years I take up knitting for a furious month or two and produce a zoo of stuffed animals. Here’s [Sheldon the Turtle](https://knitty.com/ISSUEwinter06/PATTsheldon.html) from my last bender:
 
-[
-
-![](https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/9cb34511-1966-4a76-87fe-9b5db05e7fb0_4032x3024.jpeg)](https://substackcdn.com/image/fetch/$s_!unp8!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fbucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com%2Fpublic%2Fimages%2F9cb34511-1966-4a76-87fe-9b5db05e7fb0_4032x3024.jpeg)Knitting gives you instant feedback. A knit or purl takes under a second, and fabric just spools out from your clicking needles. It’s completely obvious from the first stitch that if you put in the time, you’re going to end up with Sheldon the Turtle. And it’s psychologically so easy! There is simply nothing to be anxious about; the process is so simple and boring that Self One never even shows up.
+![](image-1.jpeg)Knitting gives you instant feedback. A knit or purl takes under a second, and fabric just spools out from your clicking needles. It’s completely obvious from the first stitch that if you put in the time, you’re going to end up with Sheldon the Turtle. And it’s psychologically so easy! There is simply nothing to be anxious about; the process is so simple and boring that Self One never even shows up.
 
 
 We treat hard creative work like archaeology. There’s some nugget of insight buried the ground, and if we don’t *reach the nugget*, all the sweat and effort we put in is wasted.

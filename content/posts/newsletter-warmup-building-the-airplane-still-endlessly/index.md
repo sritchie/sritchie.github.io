@@ -48,13 +48,9 @@ I used my shears to cut a long strip of .050" aluminum off the edge of a large s
 
 Here's one of the final clips:
 
-[
+![](image-1.png)And here they are in action, holding on the window:
 
-![](https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/af588fa8-8ad5-4972-9099-5ef100fbfeed_2000x1500.png)](https://substackcdn.com/image/fetch/$s_!2RsZ!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fbucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com%2Fpublic%2Fimages%2Faf588fa8-8ad5-4972-9099-5ef100fbfeed_2000x1500.png)And here they are in action, holding on the window:
-
-[
-
-![](https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/7a8ea5ce-fac3-4112-b1eb-4e7ff0e8b47b_2000x1500.png)](https://substackcdn.com/image/fetch/$s_!iunf!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fbucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com%2Fpublic%2Fimages%2F7a8ea5ce-fac3-4112-b1eb-4e7ff0e8b47b_2000x1500.png)As I was standing at the grinding wheel knocking the burrs of of these little tabs, I had the strangest feeling; I had the sense that I was in the middle of a performance, in the middle of some episode of a show I've been studying and watching for some time now. I was on a stage, performing my way through the spring clips.
+![](image-2.png)As I was standing at the grinding wheel knocking the burrs of of these little tabs, I had the strangest feeling; I had the sense that I was in the middle of a performance, in the middle of some episode of a show I've been studying and watching for some time now. I was on a stage, performing my way through the spring clips.
 
 
 I've spent hundreds of hours researching this build, and have read so many build logs... I've seen dozens of examples of each step of the project. Attaching the windows has been an impossibly-far-off-task for so long, and I've had a good deal of anxiety thinking about how far off it is.
@@ -71,6 +67,4 @@ If you're curious about the specifics more than Life Lessons at the Grinder, [Ju
 
 Finally, a side shot of the current state of affairs:
 
-[
-
-![](https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/215b362e-a841-4353-b488-08588309d96f_2000x1500.jpeg)](https://substackcdn.com/image/fetch/$s_!Tydk!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fbucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com%2Fpublic%2Fimages%2F215b362e-a841-4353-b488-08588309d96f_2000x1500.jpeg)Just a couple of months to go.
+![](image-3.jpeg)Just a couple of months to go.

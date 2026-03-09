@@ -110,7 +110,7 @@ I rolled downhill behind a strong looking runner in a blue tanktop. His goal had
 &quot;It's actually really great for ultras,&quot; he said. &quot;The diarrhea forces you to walk up hills and save up energy for that second half. Total blessing.&quot; Whatever you say, buddy. The state of his asshole bedamned, no way was I passing a guy whose time goal was five hours faster than mine. I stayed behind him into Twin Lakes. We hit the town stretch, and the watch confirmed what I'd suspected - I was back on track with last year's schedule, only about five minutes behind!
 
 <center>
-<iframe class="vine-embed" src="https://vine.co/v/M3bD6wZvaXa/embed/simple" width="480" height="480" frameborder="0"></iframe><script async src="//platform.vine.co/static/scripts/embed.js" charset="utf-8"></script>
+*[Vine video](https://vine.co/v/M3bD6wZvaXa) (Vine has been discontinued)*
 </center>
 
 ## Twin Lakes (39.5) to Winfield (50.0)<a id="sec-1-7" name="sec-1-7"></a>
@@ -120,7 +120,7 @@ Last year I left Twin Lakes and immediately puked up the contents of my stomach.
 I brought my iPhone up Hope and listened to a [Radio Lab about this tiny population of whooping cranes](http://www.radiolab.org/story/birds/) and an old man with Alzheimer's. So sad. I was close to crying when I caught diarrhea boy and tried to tell him about the podcast. He didn't have much to say about the cranes, and didn't seem affected emotionally. What a brute.
 
 <center>
-<iframe class="vine-embed" src="https://vine.co/v/M3giIbDgzEI/embed/simple" width="480" height="480" frameborder="0"></iframe><script async src="//platform.vine.co/static/scripts/embed.js" charset="utf-8"></script>
+*[Vine video](https://vine.co/v/M3giIbDgzEI) (Vine has been discontinued)*
 </center>
 
 It was so hot. I dumped water on my head on the way up to keep the heart rate low and made it to the Llama field before the summit with my heart rate below 150, still calm. I pressed on through the aid station and past the bonfire. Near the top, one of the timers called out, &quot;Great to see a smile up here on the pass!&quot;. You got it, brother.
@@ -128,7 +128,7 @@ It was so hot. I dumped water on my head on the way up to keep the heart rate lo
 When I topped out, I felt the urge to cry. I was so happy that I'd made it up without feeling like death or puking. Reverse self pity!
 
 <center>
-<iframe class="vine-embed" <iframe class="vine-embed" src="https://vine.co/v/M3gi70YWngz/embed/simple" width="480" height="480" frameborder="0"></iframe><script async src="//platform.vine.co/static/scripts/embed.js" charset="utf-8"></script>
+*[Vine video](https://vine.co/v/M3gi70YWngz) (Vine has been discontinued)*
 </center>
 
 Heart jackhammering, trying to settle the rate, I moved downhill fast, busting up my quads on the incredibly steep terrain, then turned up the horrible, deceptively uphill two miles of Colorado Trail that leads into Winfield. Stay cool, get to the halfway point.
@@ -164,7 +164,7 @@ And then, finally, we were at the top among waving Tibetan prayer flags.
 At the aid station, Jenna took selfies with the Llamas while I tried to eat noodles and drink water. I felt like puking every time we started running. God, is there no way to avoid this after 55 miles? Maybe my body could only function with a two hour break halfway. Maybe I couldn't get through a hundred miles without getting so fucked up I had to stop… the only question was where.
 
 <center>
-<iframe class="vine-embed" src="https://vine.co/v/M3bDTPiV1h9/embed/simple" width="480" height="480" frameborder="0"></iframe><script async src="//platform.vine.co/static/scripts/embed.js" charset="utf-8"></script>
+*[Vine video](https://vine.co/v/M3bDTPiV1h9) (Vine has been discontinued)*
 </center>
 
 Cranking down the shaded trail on the north side of Hope, I focused on moving over the slippery roots and making good time as Jenna pushed behind me. Finally we were at the bottom, still in full daylight. My stomach allowed me to eat more pretzels near the bottom. I got another mental boost when I realized that we might beat last year's Hope crossing by 15 minutes.
@@ -232,7 +232,7 @@ It was Jason! He saw me passing on the left and yelled, &quot;Is that Sam? Is th
 Later, I found out that I'd gotten third in my age group. This is completely surreal to me. I used to be a kayaker, then a crossfitter. The running realm is intimidating. But whatever happens now, Leadville 2014 was an amazing time out in the mountains. Here's a shot Jenna took at the awards ceremony:
 
 <center>
-<iframe class="vine-embed" src="https://vine.co/v/M312uejhl3T/embed/simple" width="480" height="480" frameborder="0"></iframe><script async src="//platform.vine.co/static/scripts/embed.js" charset="utf-8"></script>
+*[Vine video](https://vine.co/v/M312uejhl3T) (Vine has been discontinued)*
 </center>
 
 And, of course, the bounty:

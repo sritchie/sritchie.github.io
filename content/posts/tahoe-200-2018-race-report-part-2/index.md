@@ -35,22 +35,15 @@ We took so long to get moving. My wife Jenna later noted that, looking at the tr
 Mary hadn't been provided with any "sharps" by the race organizers, one of many major Black Widow oversights that began to manifest at these later aid stations. Mary was a pro and had brought her own stash of safety pins to sterilize and use for popping blisters, and got to it with Jason, helping him drain his wounds and patch himself up. She lent us her paramedic shears to cut holes for Jason's pinkies in the side of the straitjacketed Merrell shoes.
 
 Mary couldn't resist staring at Anna, and finally, after some teasing from J - "Focus on US, Mary! Anna, what, are you some sort of big deal?" - she asked for a picture. Jason told her it was fine, she didn't have to pretend that she wanted a picture with EVERYONE, but Mary insisted and snapped this beauty:
-<figure class="kg-card kg-embed-card">
-> <div style="padding:16px;"> [ <div style=" display: flex; flex-direction: row; align-items: center;"> <div style="background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 40px; margin-right: 14px; width: 40px;"></div> <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center;"> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 100px;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 60px;"></div></div></div><div style="padding: 19% 0;"></div> <div style="display:block; height:50px; margin:0 auto 12px; width:50px;"><svg width="50px" height="50px" viewBox="0 0 60 60" version="1.1" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g transform="translate(-511.000000, -20.000000)" fill="#000000"><g>
-> </g></g></g></svg></div><div style="padding-top: 8px;"> <div style=" color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:550; line-height:18px;"> View this post on Instagram</div></div><div style="padding: 12.5% 0;"></div> <div style="display: flex; flex-direction: row; margin-bottom: 14px; align-items: center;"><div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(0px) translateY(7px);"></div> <div style="background-color: #F4F4F4; height: 12.5px; transform: rotate(-45deg) translateX(3px) translateY(1px); width: 12.5px; flex-grow: 0; margin-right: 14px; margin-left: 2px;"></div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(9px) translateY(-18px);"></div></div><div style="margin-left: 8px;"> <div style=" background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 20px; width: 20px;"></div> <div style=" width: 0; height: 0; border-top: 2px solid transparent; border-left: 6px solid #f4f4f4; border-bottom: 2px solid transparent; transform: translateX(16px) translateY(-4px) rotate(30deg)"></div></div><div style="margin-left: auto;"> <div style=" width: 0px; border-top: 8px solid #F4F4F4; border-right: 8px solid transparent; transform: translateY(16px);"></div> <div style=" background-color: #F4F4F4; flex-grow: 0; height: 12px; width: 16px; transform: translateY(-4px);"></div> <div style=" width: 0; height: 0; border-top: 8px solid #F4F4F4; border-left: 8px solid transparent; transform: translateY(-4px) translateX(8px);"></div></div></div>](https://www.instagram.com/p/BngvtJoHOSv/) 
->  [What the Frosty!? @annafrosty is crewing her Merrell team at #tahoe200. They were quite entertaining to say the least. How awesome to be in a position to help these amazing athletes reach their goals and get them to the finish line by fixing their feet! #tahoe200 #200isthenew100 #trailandultrarunning #taur #itr #flatlander #ultra #give #volunteer #lifeisanultra #runmás #runforlife #runhappy #motherrunner #mommyrunsultras](https://www.instagram.com/p/BngvtJoHOSv/)
-> A post shared by [ Mary](https://www.instagram.com/maryellenaaa/) (@maryellenaaa) on <time style=" font-family:Arial,sans-serif; font-size:14px; line-height:17px;" datetime="2018-09-09T16:13:10+00:00">Sep 9, 2018 at 9:13am PDT</time>
-> </div>
-
-<script async src="//www.instagram.com/embed.js"></script></figure>
+[Anna Frost crewing at Tahoe 200 -- View on Instagram](https://www.instagram.com/p/BngvtJoHOSv/)
 As we worked on our feet I overheard a conversation to my left, a runner hyping himself up to his crew - "I mean, look at these. I'm going to keep going, but I SHOULDN'T. NORMAL people wouldn't continue on feet like these!" Yeah, buddy, we get it, you're a badass.
 
 New socks, more food. It felt like we were hustling, finally, but when I checked the watch we'd been at the aid station for over four hours. This was a long cry from the sub-1-minute aid station stops you strive for in a 100 miler. Jason's knees were bothering him; Anna revealed that she's trained in KT tape application, and built a tape-splint for his knees that held off the pain long enough to start the next push.
 
 My good friend Aaron Steele would be pacing us for the next segment. He'd been ready to go for hours. A short update before we left:
-<figure class="kg-card kg-embed-card">{{< youtube "8IA9SB6yZxE" >}}</figure>
+{{< youtube "8IA9SB6yZxE" >}}
 And another video of us prepping our bags before we left, looking for any excuse not to run on our wrecked feet:
-<figure class="kg-card kg-embed-card">{{< youtube "wvp2uYHNUd4" >}}</figure>
+{{< youtube "wvp2uYHNUd4" >}}
 We couldn't hold off the inevitable any longer. We headed out into the freezing air.
 
 ## Heavenly (102) to Armstrong (117)
@@ -68,7 +61,7 @@ We also told Aaron about the "Penalty Box" concept we'd developed on the Infinit
 The next stretch was a long, slow climb up to the race's high point. The trail was riddled with false summits, cautioned Aaron. Well, no problem there. One mental change I've noticed in ultrarunning is that I no longer care *where* I am on the course, or what the upcoming terrain looks like.
 
 Not caring doesn't pass the time, though, so Jason and I spent the next hour pretending to be *very* worked up about the falsies, as you can see:
-<figure class="kg-card kg-embed-card">{{< youtube "rPiInyepWvU" >}}</figure>
+{{< youtube "rPiInyepWvU" >}}
 The trail narrowed and took us out past scrubby trees. We passed a man with, of all things, a baby chariot, taking his kid for a walk in the deep backcountry. He'd pushed the chariot out over the edge of the trail, teetering, to give us space to pass.
 
 We reached a huge peak, the high point, maybe 1,500' up. I was honestly excited to climb to give my legs a break from the hours of Tahoe Downhill... but the trail skirted around the mountain! A Reverse False Summit, the climb plucked away at the last minute. 
@@ -76,9 +69,9 @@ We reached a huge peak, the high point, maybe 1,500' up. I was honestly excited 
 We each popped a couple of pieces of caffeine gum at the saddle before the downhill and started running again, really running, to Aaron's shock.
 
 A video log of our downhill push, led by Father Merrell of the Butchered Shoes:
-<figure class="kg-card kg-embed-card">{{< youtube "FgdbE88VChI" >}}</figure>
+{{< youtube "FgdbE88VChI" >}}
 And again, more sending, 115 miles in and counting:
-<figure class="kg-card kg-embed-card">{{< youtube "N3Yq9CUbqfU" >}}</figure>
+{{< youtube "N3Yq9CUbqfU" >}}
 Aaron let us know how slow we were actually going by calling his family and conducting a FaceTime conversation for this whole descent. At the time it was up in the air whether or not he'd be pacing for more than a single day. Noah and Amelie yelling "DADDY, WHY AREN'T YOU HOME WITH US!" surely didn't influence his choice.
 
 We turned left to Armstrong aid station at the bottom of the hill, just as the heat was really starting to cook through the air. Jason began to hallucinate for real. He saw huge lakes in the woods, wagons, massive structures that he was convinced were real. He ate some salt and we stayed quiet about it, hoping sodium would clear his mind as we shuffled down a long, hot alley before a left turn and short uphill to the Armstrong Aid Station, mile 117.
@@ -88,7 +81,7 @@ We turned left to Armstrong aid station at the bottom of the hill, just as the h
 Aaron placed an order for three breakfast burritos. We assumed these were already cooked and we'd be on our way; in fact these were artisanal burritos that took 15 minutes to prepare. We should have just left but I couldn't make decisions and just vibrated with impatience. Jason sunk deeper into his reverie. We needed to leave. We were wasting *so much time*! Aaron stayed quiet, waiting for the burritos, not sure how appropriate it was to make decisions for the group.
 
 Jason was strangely peaceful in the grip of his madness, mellowed by the Revelations of the Halloose:
-<figure class="kg-card kg-embed-card">{{< youtube "4DhfykWLTzE" >}}</figure>
+{{< youtube "4DhfykWLTzE" >}}
 We needed the break, impatience aside, and we were out seen enough. As we backtracked to the main trail I began to point out shapes that I was seeing to Jason, to encourage and guide his own hallucinations. He was silent for the first couple of suggestions, but spoke up at last when he saw that I wasn't slowing down.
 
  "I don't really *want* to be in this headspace right now," he said, "so if you wouldn't mind..."
@@ -102,7 +95,7 @@ Everything is temporary. We got up and continued the hike.
 The terrain past Armstrong was viciously hot and not terribly interesting, just a long, slow slog through California desolation. We wouldn't find water for a long time, so we tried to conserve and stay cool by covering ourselves up.
 {{< figure src="IMG_9076.jpg" >}}
 Here's an interview from the Spirit World on that hot stretch, where I note that we've all forgotten to apply sunscreen at the aid station:
-<figure class="kg-card kg-embed-card">{{< youtube "bXBeA0ziADM" >}}</figure>
+{{< youtube "bXBeA0ziADM" >}}
 We topped out the climb, which in Tahoe 200-speak means that the slow climb turned into a slow, rolling hot slog along the top of a ridge. We came across a runner and his pacer nesting in the shadow under a tree, runner asleep, pacer standing guard. They nodded that they were okay and we kept moving.
 
 Around here is where Aaron attempted his "cold visualization" on me. He started informing me in slow, yoga-instructor tones that I wasn't actually out in the California heat. I was in fact sinking below the cold surface of an alpine lake, letting the heat leach out of me, feeling the chill, the shiver spread through my skin...
@@ -110,7 +103,7 @@ Around here is where Aaron attempted his "cold visualization" on me. He started 
 "Dude, you need to stop that right now," I said, bristling, too harsh. Did that trick really work for Aaron? The contrast of thinking about the cold seemed to make the heat much worse. My preferred strategy was to recalibrate my expectations of cold or hot and to try and give less of a fuck about how I felt. I was just a husk, moving through the landscape. 
 
 Another update from a rest we took in a patch of shade, desperate for water. Aaron is completely silent, uncharacteristically so:
-<figure class="kg-card kg-embed-card">{{< youtube "q99KcTScr1M" >}}</figure>
+{{< youtube "q99KcTScr1M" >}}
 We saw more runners playing dead, vulture meat tucked into every patch of shade. It was carnage on the ridge. I was exhausted, sick of the heat but relatively healthy through large boulders and open fields. Then we hit the descent. I moved into the lead and started opening up my stride to try and get some good flow, and, boom, another twang hit my right knee. I told the guys that, actually, I needed to keep hobbling, and popped two Advil. I was able to control the pain by focusing on keeping my hips pushed forward; soon the Advil took effect and we settled into a jog.
 
 After a long descent we reached the water stop we'd each been privately fantasizing about. I dunked my hat and pulled out my BeFree filter bottle to show off to Aaron, filling it in a small pool of the stream.
@@ -168,7 +161,7 @@ I ate a piece of caffeinated gum and took the lead from Aaron, and we ran hard d
 Soup, treats, fill water, load up on lollies. Only seven miles until the big sleep station at Sierra at Tahoe.
 
 Jason's knee was throbbing again. He checked in at the medical tent and asked if any of the volunteers had experience with KT tape. Only one man was up to the challenge - Volunteer Mike, with no experience but the desire to learn. Mike became obsessed, like Ahab, with his quest to recreate a knee-support pattern he'd seen once on Youtube. I filled Jason's bottles while Mike tried again and again to master the tape algorithm and heal Jason. You can see the results in the video below:
-<figure class="kg-card kg-embed-card kg-card-hascaption">{{< youtube "I0hEwinOnOg" >}}<figcaption>Leaving Housewife Hill, out of our minds.</figcaption></figure>
+{{< youtube "I0hEwinOnOg" >}}
 Soon enough we were out and moving through the fading afternoon light, up a long Wonderland-style rocky climb carved into the side of the hill. I felt good, happy to trudge, certainly more sane than this photo reveals:
 {{< figure src="55823378222__F510E852-B4E5-49CE-B6EA-7DB6B06D04C2-2.jpg" caption="Somewhere along the climb." >}}
 The trail reached the highway, paralleled it for a stretch then turned left on a service road tucked between large trees. As we hobbled down the road I heard an engine behind us, just above idle, and looked back to see a white truck with its doors removed, gaining. The driver stared straight ahead as he passed. Sitting on the passenger seat was a compound bow. A quiver of arrows jutted from the well.
@@ -184,7 +177,7 @@ The trees were covered in electric green moss, gorgeous and strange. Jason spott
 Soon we were back on singletrack, hustling in the last light of day. The flat evening light started to bring our hallucinations back. We saw whales; the prow of a large ship; massive birds bobbing in the trees. Jason came up with a brilliant app idea. Imagine a guided audio tour. You submit a photo and text description of your most vivid hallucinations. The app geotags the photo; other runners in a similar state can check in for a shared taste of Spirit World that, it turns out, lies just below the surface of our reality, visible only to those who've gone without sleep for 60 hours. Brilliant!
 {{< figure src="IMG_9085.jpg" >}}
 Here's a video update from Hallucination Alley, 58 hours in:
-<figure class="kg-card kg-embed-card">{{< youtube "_1wx8Ab8Dw0" >}}</figure>
+{{< youtube "_1wx8Ab8Dw0" >}}
 We spread out on the next climb, each taking some time with our thoughts. It had been a long day. The trail turned right down a long, padded descent; it was full dark now and we donned headlamps, then ran in as a group down to the road and the long, gentle paved climb to Sierra-at-Tahoe.
 
 ## Sierra at Tahoe (142) to Wright's Lake (161)
@@ -212,19 +205,19 @@ I didn't share any of these details, however; J only saw anxiety. He slowed down
 We walked out down the road in full jackets, so cold. This next stretch would be 40 miles without crew. On the walk I talked J through my mental math. He caught my spook and we agreed to try running a bit and bank some sub-30 minute miles. The hunt was on! We picked up the pace as the course moved to singletrack again, dirt rollers through the dark, then on to long climbs past granite blobs. We passed a couple of runners limping through a swampy bog, clinging to the bushes along the side of the trail, trying to keep their feet dry. Give it up, boys.
 
 At the top of the next climb, a sign - "Welcome to Lover's Leap". We'd reached a famous climbing area that I remembered from a visit with Jenna years ago. Here's a classic video of Dan Osman free soloing the cliff just below where Jason and I ran that day:
-<figure class="kg-card kg-embed-card">{{< youtube "NCByLWtM7y4" >}}</figure>
+{{< youtube "NCByLWtM7y4" >}}
 The descent was awful, a broken mess of stones held together by moondust that erupted into the air at every step. I took the lead here, selfishly, preserving my lungs at the expense of Jason's. We passed two more zombie runners on the downhill, muttering out the mandatory "Nice work, get some" as we passed.
 
 Next, a long road descent. The third member of our party, Jason's Bowels, spoke up and J pulled over for a private discussion on the side of the road. I walked ahead and thought about my time here with Jenna, so many athletic lives ago.
 
 Trail update:
-<figure class="kg-card kg-embed-card">{{< youtube "YTHI0-ZLBHU" >}}</figure>
+{{< youtube "YTHI0-ZLBHU" >}}
 Jason caught me as we crossed the highway - we were far from the lake, now, and the next stretch looked like miles of pine-needled rollers at a fairly steady elevation. It was time to bank some more miles. We popped another piece of caffeinated gum each, clacked poles and started striding with purpose up the trail.
 
 I was leading and, just ahead, my headlamp glinted off an ocean of white spandex studded with reflective strips. Could it be? It was Kilian, from the fields of dinosaur eggs on day 2! Kilian's real name was Serge Chapuis. We would later learn that Serge is an absolute legend. Serge was the head of Salomon's R&amp;D lab and responsible for the gear that the actual Kilian had worn for years. He'd designed the pack I was wearing. Serge's entire kit was custom, designed by him, for him, for the Tahoe 200.
 
 Serge is also the sweetest man alive. 60 years old, Serge was attempting the Triple Crown of 200s (Moab, Bigfoot and Tahoe) with his wife. Later in this race, his wife would run into trouble and Serge would spend 20 miles running with her, literally hand in hand, a Frenchman in love, showing us all how to do it right. Here's a movie about Serge that Jason and I found in the days after the race:
-<figure class="kg-card kg-embed-card">{{< youtube "Hd-qjcMfhu8" >}}</figure>
+{{< youtube "Hd-qjcMfhu8" >}}
 We passed Serge at a run and, incredibly, he sped up and joined the pack. "You boys are running! How are you doing this?" he asked. We introduced ourselves and learned his name.
 
 Serge was generous. "Boys, tonight, before I saw you... I did not try. But when I see you running, I decided - *now I will try.*" I was fired up, leading the trio, yelling back at Serge - "You are FUCKING SENDING, Serge!" Jason attempted a few sentences of broken French.
@@ -260,7 +253,7 @@ We continued to a sharp left, trudging, all the fire gone. Thoughts of the cutof
 I ran ahead to "investigate the trail", clicked off my light and hid behind a log, giggling, sweating as J approached. He looked my way, saw nothing, limped on. I crept out and snuck toward him, breaking into a run 30 feet away, yelling and pretending to spray him down with machine gun fire from my trekking pole as he turned. Slayed! Jason wasn't amused.
 
 I realized I could see more of the woods, now. The light of the third day had appeared in the sky. Jason's carefully curated playlist progressed to "Fuck the Pain Away" by Peaches:
-<figure class="kg-card kg-embed-card">{{< youtube "fgSF5vPmLVs" >}}</figure>
+{{< youtube "fgSF5vPmLVs" >}}
 The trail ended at a horse campground. The horses were awake, and stared at us as we walked past. I ran over to the campground bathroom and devastated the facilities. On the concrete floor was an issue Elle magazine from 1972. It was profoundly cold that early morning - my circulatory system was not well. I cleaned up, left, ran up the trail and caught Jason just before the Wright's Lake aid station.
 
 ## Wright's Lake (161) to Tell Creek (175)
@@ -288,7 +281,7 @@ Jason was not amused. "We've got a little over 40 miles to go. I *need to know* 
 Oh, *I *was the reason we weren't going hard? This was an audacious attempt to turn the tables and establish Jason's Guide status. I remained calm. If you want to push, just say the word, my friend. Just say the word.
 
 Here's another update that reveals our mental state on that third morning all too clearly:
-<figure class="kg-card kg-embed-card">{{< youtube "W2gdtx90YhQ" >}}</figure>
+{{< youtube "W2gdtx90YhQ" >}}
 And a shot of me on that cold, cold trail. I was clean-shaven at the start:
 {{< figure src="IMG_9091.jpg" >}}
 The trail turned into a Jeep road and we clambered ahead over large granite slabs buried in the dirt, dropping and climbing as the heat soaked into the day. I looked back and saw... Serge! Jason wouldn't believe it was him. Who else was out here fully kitted out in white tights? He caught us before long and pulled me aside for a word.
@@ -296,9 +289,9 @@ The trail turned into a Jeep road and we clambered ahead over large granite slab
 "What you boys did for me last night..." he said, searching for the words. "Last night was a gift, my friend." He smiled and moved on, disappearing off the front. What an animal!
 
 We were moving slow and I suggested another 10 minute sleep on a rocky flat just before the next stand of trees. Here's a shot of the terrain during my search:
-<figure class="kg-card kg-embed-card">{{< youtube "JU9s1eLlUVY" >}}</figure>
+{{< youtube "JU9s1eLlUVY" >}}
 Jason fell asleep and began to snore after, no joke, 20 seconds. Here's the evidence:
-<figure class="kg-card kg-embed-card">{{< youtube "GiTQHEtAMA8" >}}</figure>
+{{< youtube "GiTQHEtAMA8" >}}
 I withdrew my phone from my pocket defused the alarm clock bomb and reset the timer to 20 minutes. We'd earned it. J took the full stretch and claimed he felt fantastic after waking up. We broke out the cough drops from our med kit to build up some saliva and fight the dust, and headed on down the trail.
 
 The next stretch of trail wound over and around many small hills, then led us over big granite slabs already hot in the sun. The final slab before the trees resumed cradled a large pool of clear, cold water. I was overheating and dunked my head over and over again, feeling the effort. Back into the trees and onto the dusty trail.
@@ -306,7 +299,7 @@ The next stretch of trail wound over and around many small hills, then led us ov
 We'd been dreading the next stretch for hours - the [Barrett Lake jeep trail](http://hi-landers.com/BLT/BLT.html). The Jeep trails of Tahoe are contrived nightmares, alleys filled with enormous boulders and talc-fine dust that puffed into the air on every step. This was the worst moondust in the race so far, and the competition was heavy.
 
 Here's a glimpse of what we were dealing with on Barrett:
-<figure class="kg-card kg-embed-card">{{< youtube "9cyQ4pT0iLM" >}}</figure>
+{{< youtube "9cyQ4pT0iLM" >}}
 Behind us, runners - Catra and her pacer. They'd escaped the heating tent and were making good time. I tried to make small talk with Catra by complaining about the heat. "I'd rather be hot than cold," she mumbled back at me, pressing on, not interested in making friends.
 
 I haven't mentioned Jason's asthma yet. Jason develops vicious asthma on efforts of more than 30 hours of continuous aerobic effort. Most humans with this condition would never discover it, but Jason routinely blows through the 30 hour mark. We were more than 70 hours deep now, and the horrible dust was hurting him badly. J dealt with the situation by running alongside the trail back in the woods, darting across only when necessary, hiding from the main fairway like a wounded gazelle.
@@ -398,7 +391,7 @@ J and I stopped in the grass and stretched our calves. The light caught us - its
 The trail grew more hellish, now - the dust gave way to 4th class slabs, slippery slabs, endless slabs. Tomo said goodbye when the trail grew steep and we continued on alone.
 
 I noticed a shredded bag of trash on the left side of the trail. It was Tom Hanks's drop bag, no question, worthy of Castaway. An update:
-<figure class="kg-card kg-embed-card">{{< youtube "qZTZD19d2kw" >}}</figure>
+{{< youtube "qZTZD19d2kw" >}}
 Soon we saw silent flashes ahead. Was it heat lightning? No, it was Scott Rokis, the race photographer. He had hauled up maybe a dozen flash bulbs, synchronized to pop together when he clicked the shutter, and nested them in the trees around his chosen Photo Lagoon. I dropped back behind J once again so his massive bod wouldn't block this photo evidence of my nighttime journey:
 {{< figure src="scottrokis_18t200_b95i0488--zf-10345-92768-1-004-.jpg" caption="Pushing up the later Rubicon trail, tapping my blind man's cane." >}}
 The slabs petered out on a cold, windy ridge. What the hell are we doing out here? We staggered on, found our turn, continued through close forest and long rollers.

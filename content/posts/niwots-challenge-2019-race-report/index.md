@@ -12,7 +12,7 @@ categories:
 
 Well, I can honestly say, now, close to a year after the event, that I don't remember this event in the furious detail that characterizes my usual race reports. How lucky! We're not supposed to talk about the [Niwot's Challenge](https://humanpotentialrunning.com/niwots-challenge/) at all.
 
-I ran this race in 2019 for the second time, finishing in 27 hours and 17 minutes with [Matt Fackrell](https://www.strava.com/athletes/3998795) and [Jason Antin](http://jasonantin.com/), my long-time collaborator on such beauties as "[The Rainier Infinity Loop](__GHOST_URL__/rainier-infinity-loop-2018-attempt/)!" and the quite absurd "[Tahoe 200, 2018 edition](__GHOST_URL__/tahoe-200-2018-race-report/)". We ran a good portion of the race with Todd Salzer; Todd guided us through the first two loops, but unfortunately didn't finish the 2019 edition. I know he'll be back in 2020, this year.
+I ran this race in 2019 for the second time, finishing in 27 hours and 17 minutes with [Matt Fackrell](https://www.strava.com/athletes/3998795) and [Jason Antin](http://jasonantin.com/), my long-time collaborator on such beauties as "[The Rainier Infinity Loop](/rainier-infinity-loop-2018-attempt/)!" and the quite absurd "[Tahoe 200, 2018 edition](/tahoe-200-2018-race-report/)". We ran a good portion of the race with Todd Salzer; Todd guided us through the first two loops, but unfortunately didn't finish the 2019 edition. I know he'll be back in 2020, this year.
 
 In lieu of a race report, please accept this photo and video tour of our glory.
 
@@ -41,11 +41,11 @@ Up a steep hill, dominating, sending the gnar. Why am I making this face?
 We met up with Matt on the climb up to the Chief's loop. Here we are, trying to find the first book, which eluded us for over an hour. We almost left before doubling back and finally finding the thing.
 {{< figure src="IMG_2177-1.jpg" >}}
 We snagged that book, the next, then bombed down a hill with a good bit of snow to a great refill at a stream in the cold. It took forever; I had forgotten my BeFree bottle, and Jason's was completely clogged from months of silt-sifting.
-<figure class="kg-card kg-embed-card">{{< youtube "eM2Fsnef1ao" >}}</figure>
+{{< youtube "eM2Fsnef1ao" >}}
 One mile down the road, hit the bridge crossing the stream and start climbing up. If we'd had a green laser pointer we would have been able to see the powerlines above.
 
 Here's the tower, with no book!
-<figure class="kg-card kg-embed-card kg-card-hascaption">{{< youtube "H01_MfDwLEw" >}}<figcaption>A</figcaption></figure>
+{{< youtube "H01_MfDwLEw" >}}
 A huddle, trying to find out what the hell happened:
 {{< figure src="IMG_2187-1.jpg" >}}
 I don't want to remember the madness of Book 14, where we wandered for hours. Or the Wall, climbing carefully up a 2k+ foot extremely steep hill full of dinner plate rocks. Thank god no one kicked anything down.
