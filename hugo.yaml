@@ -56,6 +56,9 @@ params:
       url: "https://instagram.com/sritchie09"
     - name: email
       url: "mailto:sritchie09@gmail.com"
+    - name: substack
+      title: "Road to Reality newsletter"
+      url: "https://roadtoreality.substack.com/"
     - name: rss
       url: "/index.xml"
   homeInfoParams:
@@ -66,8 +69,7 @@ params:
       building an [RV-10 airplane](/projects/rv10/).
 
 
-      Read my newsletter [Road to Reality](https://roadtoreality.substack.com/)
-      on the mathematics of physics.
+      [Subscribe](https://buttondown.com/samritchie) to get new posts by email.
       [Sponsor my work on GitHub.](https://github.com/sponsors/sritchie)
   cover:
     responsiveImages: true

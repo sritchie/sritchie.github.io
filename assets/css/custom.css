@@ -260,6 +260,69 @@ pre {
   color: var(--primary);
 }
 
+/* ── Buttondown subscribe form ── */
+.subscribe-box {
+  margin: 2rem 0;
+  padding: 1.5rem;
+  border: 1px solid var(--tertiary);
+  border-radius: var(--radius);
+  background: var(--code-bg);
+  text-align: center;
+}
+
+.subscribe-heading {
+  margin: 0 0 0.8rem;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.subscribe-form {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  max-width: 420px;
+  margin: 0 auto;
+}
+
+.subscribe-form input[type="email"] {
+  flex: 1;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--tertiary);
+  border-radius: var(--radius);
+  background: var(--theme);
+  color: var(--primary);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+}
+
+.subscribe-form button {
+  padding: 0.5rem 1.2rem;
+  border: none;
+  border-radius: var(--radius);
+  background: var(--primary);
+  color: var(--theme);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.subscribe-form button:hover {
+  opacity: 0.85;
+}
+
+.subscribe-note {
+  margin: 0.5rem 0 0;
+  font-size: 0.75rem;
+  color: var(--secondary);
+}
+
+@media (max-width: 480px) {
+  .subscribe-form {
+    flex-direction: column;
+  }
+}
+
 /* ── Newthought (small caps lead-in) ── */
 .newthought {
   font-variant: small-caps;
