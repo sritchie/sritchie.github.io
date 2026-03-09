@@ -18,7 +18,7 @@ I never suspected that 100 mile races would be a gateway drug for... 200 mile ra
 
 First, the glorious Strava art I spent over 90 hours painting across the California landscape:
 
-{{< strava id="1834125647" >}}
+{{< strava id="1834125647" hash="236eeed151e514ac637a8fee863024fb5aeaf368" >}}
 
 And then my detailed account.
 

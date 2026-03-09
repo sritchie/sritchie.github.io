@@ -243,7 +243,7 @@ Town, the final turns, and, there it was, the road to Absolute Bikes, just a blo
 I'd done it. Another strange ultramarathon, this time on a mountain bike, with a solid middle-of-the-pack finish.
 
 Here's the Strava file, for those interested:
-{{< strava id="1178374789" >}}
+{{< strava id="1178374789" hash="d9352125f5a2f54df50eb2ffaba78e6f0c4958ca" >}}
 ## Conclusion
 
 First, I want to highlight the incredible work that Logan Watts has done to turn the Vapor Trail into a bikepacking route, complete with incredible photos and route information over at bikepacking.com: [https://bikepacking.com/routes/vapor-trail/](https://bikepacking.com/routes/vapor-trail/)

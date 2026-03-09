@@ -20,7 +20,7 @@ It was a glorious junkshow, vivid in all the ways a Safari can be; a wonderful r
 
 First, the Strava data:
 
-{{< strava id="2440120796" >}}
+{{< strava id="2440120796" hash="30c8132f91c7dd2e58c30c40b93cbe87f9b530a1" >}}
 
 And then the report, in obscene detail and glorious full color.
 
